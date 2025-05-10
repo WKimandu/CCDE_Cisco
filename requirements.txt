@@ -1,5 +1,38 @@
-pdfplumber>=0.7.0
-pandas>=1.3.0
-tqdm>=4.62.0
-pathlib>=1.0.1
-openai-whisper>=20231117 
+# LlamaIndex and core dependencies
+llama-index>=0.9.0
+langchain>=0.0.267
+numpy>=1.24.3
+pandas>=2.0.3
+
+# Document processing
+pymupdf>=1.22.5  # PDF processing
+pdfplumber>=0.9.0  # PDF table extraction
+python-pptx>=0.6.21  # PowerPoint processing
+python-docx>=0.8.11  # Word document processing
+markdown-it-py>=3.0.0  # Markdown processing
+openpyxl>=3.1.2  # Excel processing
+tabula-py>=2.7.0  # PDF table extraction
+camelot-py>=0.11.0  # Advanced PDF table extraction
+pikepdf>=8.0.0  # PDF manipulation
+pdfminer.six>=20221105  # PDF text and image extraction
+
+# OCR and image processing
+pytesseract>=0.3.10  # OCR
+easyocr>=1.7.0  # Multi-language OCR
+pdf2image>=1.16.3  # Convert PDF to images
+Pillow>=10.0.0  # Image processing
+
+# NLP and text processing
+spacy>=3.6.0  # NER and text processing
+sentence-transformers>=2.2.2  # Text embeddings
+
+# Vector database
+chromadb>=0.4.13  # Vector database
+
+# Multimodal
+unstructured>=0.10.12  # Universal content extraction
+unstructured-inference>=0.6.3  # For inference tasks
+
+# Utilities
+tqdm>=4.65.0  # Progress bars
+pytest>=7.4.0  # Testing 
