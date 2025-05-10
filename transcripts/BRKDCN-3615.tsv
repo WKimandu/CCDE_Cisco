@@ -1,0 +1,1049 @@
+start	end	text
+11260	17120	Good afternoon everyone. Thanks for being here. I have the immense pleasure to be the last one
+17120	22080	standing between you and the party. Not sure if it's a pleasure or a curse, you'll tell me in an
+22080	27760	hour. So my name is Roland, I'm principal engineer working in the TAC in Brussels for many many
+27760	34720	years and I've been focusing in SEI for 10 years and we're here today to talk about PBR. PBR stands
+34720	39700	for policy-based redirect, not routing. It's really about redirecting the traffic based on
+39700	45540	contract and not too much about routing. This is a very wide topic, we could probably cover,
+45660	50460	if we want to cover all zillion features of policy-based redirect, we could probably spend
+50460	56840	four or five hours. So I've been deciding to focus on an introduction and focusing on a
+56840	57740	generalization of the policy-based redirect. So I'm going to start with the policy-based redirect
+57740	63440	generic packet load which is the simplest possible PBR scenario and then we'll take some use case
+63440	71020	which we see more and more. East-west PBR in a multi-pod, east-west PBR in a multi-site and
+71020	76960	finally we'll end up with multi-site any-to-any PBR which is a brand new functionality that was
+76960	86080	added officially in 6.04, so something like last month. So first, why do we need to talk about PBR
+86080	87060	and why is it important?
+87740	92820	Well, it's all about service insertion and mostly firewalls. So all my examples are related to
+92820	100400	firewall even if you can perfectly use it for load balancer. Without PBR, it's not easy to have a
+100400	105100	firewall in an ACI fabric, especially for east-west. Either you leave the default gateway on the
+105100	111820	firewall, which limits you greatly in your design, or you do VRF stitching with a VRF for the
+111820	117080	consumer, a VRF with the provider, but then you need two-arm firewall, which is an over-limiting
+117080	117440	factor.
+117740	124960	The routing is getting more complex, you need more VRF. It can work out, but that's not ideal. So PBR
+124960	131440	allows you to just insert it. So you still keep a contract. PBR is a contract. It's attached to a
+131440	137800	contract. You have a consumer and you have a provider, and you just drop your firewall in
+137800	145520	between and ACI will make sure that the necessary constructs are there to have every packet that
+145520	147420	goes between your consumer and your provider.
+147920	152180	So if you're matching your contract, just go to the firewall instead of going directly to the
+152180	158780	destination. So that's very convenient. In most scenarios, you can keep one arm. Even if you can do
+158780	164620	two arms, 99% of the deployment of policy-based redirect are done with one arm. So the routing on
+164620	173120	your firewall is extremely easy. You just need a default route. And your contract will be attached
+173120	177160	with what we call a service graph, which is how you can reach the firewall.
+179460	185920	So once you configure it, we're going to deploy a set of things. And it's all done for you. At the end,
+186000	190220	the firewall is still physically attached to your fabric, so it needs a VLAN to communicate to the
+190220	196160	fabric. Anything that is attached to the fabric needs to be part of an EPG. So that's going to be
+196160	202860	what we call a shadow EPG or a service EPG. Pick up whatever terminology you like. And that's the
+207740	212360	way we'll look at it. We will see what's the use of it. It's important for troubleshooting. You don't
+212360	220240	deploy it. It's automatically deployed while you run your service graph. We'll call connector the
+220240	225880	leg of your firewall or your service device. So you'll have a consumer connector, which connects
+225880	232280	between your consumer and your service device and a provider connector. If you run one arm, the
+232280	237680	consumer and the provider connector will end up to be the same VLAN, the same shadow EPG. If you run
+237740	244040	two arms, they're going to be separated. So the flow will be, even if you configure a single contract,
+244360	251740	will be like if it was a contract between your consumer to your firewall, and then a second one,
+251860	259940	which goes from your firewall to your provider. So we'll go twice through ACI fabric. Before digging
+259940	266100	into the example, let's quickly remind where the policy is applied in ACI. So even without PBR.
+267740	273580	The rule in ACI is that we will try to apply the policy in ingress if we can. And if we're not
+273580	279080	capable to do so, we're going to do in egress. So the ingress leaf will get a packet, and we'll need
+279080	286160	to determine the source EPG and the destination EPG PC tag, which is the identifier of the EPG.
+286280	293580	It's also called S-class and D-class. The source class, we can always derive. It's coming from
+293580	297500	where you receive the packet. You receive it on a specific VLAN and interface,
+297740	303800	that gives you the S-class. So that's enough. For the D-class, that's more complex. We might
+303800	309020	be able to find it if the endpoint destination is known in the endpoint table. In the show endpoint,
+309300	314120	it's going to contain the policy information as well. For layer three out, it's going to be part
+314120	320500	of a zoning prefix or a routing table. But in some scenario, we can't find it because we don't have
+320500	326800	that information. Then we're going to use some bit in the header, SPDP bit in the VXLAN header to
+327740	333440	make sure that the policy was not done yet. So when it's reaching the destination, the destination
+333440	340360	leaf will look, was the policy applied already? SPDP set to one means it was applied, and I can
+340360	346180	ignore the contract. I'm just going to forward the frame. Or it's not, and I need to do it,
+346260	352000	and then the contract will be done in egress. For regular contract, it's pretty invisible. For
+352000	356760	policy-based redirect, that plays a big role, and that adds some extra complexity in the possible
+356760	357720	flow we're going to add.
+360980	368160	So now let's dig into policy-based redirect. Very simple example. I have a consumer on the left,
+368280	372880	a provider on the right. I have a firewall in the middle. And obviously, I want to go through the
+372880	381540	firewall in between my EP1 and my EP2. So my EP1 sends a packet, a regular .1Q packet. It's going
+381540	386720	to reach the leaf. And you'll see here, I just put for your reference, we're not going to explain it
+387740	390940	to you. But if you're interested to make deep troubleshooting, if you know about ELAM, this is
+390940	396420	what you need to copy-paste, even without the ELAM assistant, to be able to capture the packet at
+396420	402680	that stage. You'll find that type of thing three or four times in the presentation for your
+402680	409860	reference. So leaf one will apply the contract. I'm assuming that my leaf one is capable to apply
+409860	415820	the contract as enough information. So what it's going to do is it's going to make a policy lookup,
+415860	417360	and instead of fitting,
+417740	425520	a rule that tells him permit or deny, the route will tell him redirect. So redirect means it needs
+425520	431580	to go to the firewall. So what we're going to do, the leaf will rewrite the destination MAC of the
+431580	438820	packet received. So the packet will now be sent to the firewall virtual MAC. This happens on the
+438820	445600	ingress leaf. It's going to then encapsulate it in the VXLAN header, and it will send it in a VNID,
+445740	447720	a VXLAN ID, which is the VNID of the VXLAN header. So it's going to send it in a VNID of the VXLAN ID,
+447720	447720	
+447740	454040	which corresponds to the VNID of the bridge domain where the firewall is. So at this stage, it's a
+454040	460240	layer two packet in the fabric. It's in a bridge domain VNID, and the destination MAC, it's already
+460240	465700	the firewall MAC. So the last thing we need to know is where is that MAC? Where is that firewall?
+465900	471080	Fabric might be larger. We will never make an assumption. We will not make learning on that MAC.
+471300	477280	We will always send it to the spine, to the anycast loopback of the spine, to let the spine
+477740	484140	look up in the Kube database. Kube database is the database on the spine which holds the knowledge
+484140	490280	of every endpoint in the fabric, and that includes the MAC on the firewall like it's including the IP
+490280	500840	of every endpoint. On the CLI point of view, what will it look like? So you need to find your source
+500840	507340	class and your D class. For an EPG to EPG, which is the flow I'm covering now, so east-west traffic,
+507740	511880	we're typically going to start by the endpoint table. For the source IP, we find the S class.
+512340	516840	We do the same for the destination IP. We find the D class. We have enough information
+516840	524860	to check the contract. We check the contract between our source and destination, and we see
+524860	529520	it's a redirect. We still don't know yet where we're going to redirect it, but that's a clue
+529520	537160	that we hit a PBR rule. Note the filter. Here I use filter ID. My filter ID one is just IP.
+537740	544720	It's very important when you do PBR to not use a command default filter. It will work in many
+544720	549720	scenarios, but if you ever make policy-based redirect within a layer two domain, a bridge
+549720	555040	domain, between EPG of the same bridge domain or within the same EPG, you have a good chance,
+555160	560120	if you use command default, to redirect the ARP traffic to the firewall, which will break your
+560120	567680	flow. So as a best practice, when you deploy a service graph with PBR, we usually recommend to
+567740	573100	avoid the default filter and to use something more specific. IPv4, everything is fine.
+578920	583240	Then we know we're a directory-specific group. It was grouped through in my case,
+583460	591160	so through service redirect info, tell me it goes to that VIP, 172.161.100. We can see what
+591160	597360	rewrite information we have. This last information highlighted in green and in red is exactly what we
+597740	603780	need to rewrite the packet. So that leaf has enough information to modify the packet to be a layer
+603780	609280	two packet in the bridge domain of the firewall to the destination virtual MAC of the firewall,
+609580	612960	and it will send it to the Anycast V4 of the SPINE.
+614920	620280	If you're a gig that wants to look at ELAM, if you succeed to get an ELAM via ELAM assistance
+620940	627340	or not, there will be a little flag in the very raw unreadable detail, which is called service redirect,
+627620	627720	which is called service redirect, which is called service redirect,
+627740	631040	that confirms that that specific packet you catch is actually
+631040	633820	also redirected, so which data path is confirmed.
+637120	640720	So I'm now at the SPINE, but I still don't know where is my firewall.
+641080	644380	So I'm going to ask the SPINE. The SPINE is supposed to know everything.
+644800	651260	So I'm going to ask the SPINE, can you check in the bridge domain of the service BD if you
+651260	655020	know where is the firewall? And it better knows, otherwise you're going to drop the packet.
+658680	662020	So again, if you ELAM, here it's an extract with ELAM assistance,
+662340	667940	you can confirm that we receive it to Anycast MAC SPINE proxy, you can confirm the PC tag,
+668100	674000	but what we care is the COOP information. So you can query the database based on a VNID
+674000	679820	and a MAC address, and it should have a tunnel interface. If the MAC address you saw in the
+679820	686420	redirect info is not there, either your firewall is dead and not sending anything, or you did a
+686420	687720	typo when you confirmed that the MAC address is not there, or you did a typo when you confirmed
+687720	687720	
+687720	689120	that the MAC address is not there, or you did a typo when you confirmed that the MAC address is
+689120	694840	inside your APIC. Majority of PBR deployment has a static configuration of the MAC address
+694840	701300	in the redirect policy. We'll see it in a moment. In recent code, you can discover it dynamically
+701300	706400	with IPSLA, but in case you don't do that, it's your responsibility to ensure the MAC address
+706400	710180	you configure on SEI match the virtual MAC address of your firewall.
+711620	716580	And if you change the firewall, unless it keeps virtual MAC, you'll need to change it.
+717720	723360	So if it's not there here, that's most likely either a firewall is down or a config issue on your
+723360	731700	APIC site. So we know it's behind LIFU. We go to LIF2. Here the job is easy. We're just going to
+731700	739520	layer 2 switch it. Again, ELAM if you're interested. So we're going to verify that the MAC
+739520	744040	address is known. Again, it's the MAC address of the firewall. I see it known with a PC tag.
+745020	747540	What could be that PC tag, by the way? Do you think it's a
+747720	753820	consumer? Who thinks it's a consumer EPG, the MAC address of the firewall? Who thinks it's a provider?
+755920	760480	Who thinks it's something else? What can it be?
+762000	767160	The shadow, exactly. That's the MAC address of the firewall, so we learn it in the shadow EPG.
+767380	773820	This internal VLAN refers to here VLAN 1417, which is the VLAN used to connect to the firewall.
+777720	783020	Goes to the firewall. It's coming back. Now it's like a new packet from ACI point of view.
+783600	790600	So source EPG, we have a guess. It's going to be the shadow. That's the same thing. Now the
+790600	794940	source MAC address is the firewall, so it's classified in the shadow EPG.
+795280	799240	The destination IP, it's still my destination server on the right,
+799360	807700	so it's going to be the EPG of the destination. So we'll find a second rule, which permits the traffic coming back.
+807720	809700	from the firewall to go to the destination.
+813240	818100	So we receive it in that MAC address, which is the MAC address of the firewall. This is the
+818100	824080	shadow EPG. The destination, we know it, and our zoning rule, now it's not a redirect,
+824400	828860	it's a permit. So the blue value represents the service EPG.
+829760	837100	So we can permit it to the destination, and it's finally reaching the final destination. This
+837720	844400	CLI contract parser, it's quite useful. Python script, you can filter it, you can use grep.
+844520	849580	Typically there are a lot of options per VRF, per destination EPG. You can use the name of the EPG
+849580	855960	instead of this bizarre number. It's going to tell you the rule of the contract, and at the end it
+855960	860760	gives you the hit count. So it should increase if you get constant traffic hitting that specific rule.
+865300	867700	The return flow is exactly the same. So I'm going to show you the return flow. So the return flow is exactly the same. So I'm going to show you the return flow. So I'm going to show you the return flow.
+867720	871720	not going to show you you're going to have similar rule in the return flow a redirect from
+871720	876860	the provider to the consumer and a permit from the service shadow epg to the destination
+879080	885040	so every pbr implementation no matter how complex it is will follow the same
+885560	889600	type of flow the leaves that make the redirect redirect the mac address
+890240	896700	makes a layer 2 packet to the bridge domain of the firewall and sending to the spine proxy to make
+897720	902880	one exception which i will not cover because not much people are using it it's in case your
+902880	908480	firewall destination is behind the layer 3 out so you don't redirect to an endpoint in the bridge
+908480	914640	domain you are direct to an ip address behind the router so this is the only exception in that flow
+916860	920560	now let's make it a bit more complex let's think about a multipod
+920560	925400	and we want to have multiple firewalls for some reason we want some redundancy in the firewall
+925400	927700	cluster so we want to have multiple firewalls for some reason we want some redundancy in the firewall cluster
+927720	933940	so i'll take an example where you have i'll call h a pair because i even if i only draw one firewall
+933940	938700	in pod one and input two it's typically a cluster in pod one and a cluster input two
+939320	942820	and i'm assuming the cluster don't talk together so these are independent
+942820	949260	cluster redundant by themselves but there is no communication for cluster one from cluster one to
+949260	956020	cluster b2 to succeed to implement that in multipod we need something called symmetric pbr
+956760	957320	symmetric
+957720	964040	because like any firewall it needs to get the traffic in both directions so if my endpoint on
+964040	972100	the left redirect to hfr1 to reach the destination the return flow should better go through hfr1
+972100	978500	and not hfr2 or state won't be created there and packet is dropped so we need to ensure
+978500	983660	it's symmetric so symmetric pbr achieved that through a hashing of the packet
+986600	987480	so through config
+987720	990760	gotcha about configuring the redirect policy
+992020	997860	further is this slag enable pod id aware redirection we have a multipod that's a very
+997860	1004140	appealing name i want to do it looks looks looks fancy looks nice you should never never do it
+1004140	1010380	if it's east-west traffic so if your provider and consumer or epg you should never use that option
+1011080	1017120	it's only for north-south traffic so only if your provider or your consumer is a layer free out you
+1017120	1017660	can use it
+1017720	1023020	If you do it and you apply it as consumer provider to EPG to EPG,
+1023140	1028320	you will get traffic asymmetry for some flow depending on the location of the endpoint.
+1028760	1030980	So it's a very small niche use case.
+1032600	1035980	The Enable Anycast, that's also a niche use case.
+1036080	1040840	It's only for firewalls which are active-active.
+1041080	1043660	So instead of having two separate HA pairs,
+1043660	1050520	it's one big firewall which has the same virtual IP in pod 1 and in pod 2.
+1051120	1055100	So we don't care about symmetry for the data path
+1055100	1060500	because the firewall synchronizes between them through a cluster link, the states.
+1060940	1064080	But it's a feature of the firewall, we will not cover it,
+1064140	1069120	but we absolutely support it in multipod today if you enable that flag.
+1069340	1071220	By the way, we don't support it in multisite.
+1073720	1076280	Next, the MAC address and the IP address.
+1076500	1078980	So this is the VIP we want to redirect to.
+1079100	1085160	Even if it's two separate firewall clusters, from ACI point of view,
+1085360	1087680	the redirect is a single function.
+1087900	1091520	I redirect to that firewall, the function firewall,
+1091960	1095140	no matter how many appliances are behind that.
+1095280	1099340	So if I have two VIPs, I specify two VIPs and the corresponding MAC address.
+1099600	1103640	So that's where I say if you make a wrong MAC address,
+1103640	1108460	the MAC address here, most likely it will never be learned in Kube,
+1108520	1109820	so all your traffic will be dropped.
+1110380	1113500	In 5.2, you have the option to leave that at zero,
+1113640	1117040	but you need to enable an SLA monitoring in ACI
+1117040	1120460	that will auto resolve the MAC address to the IP address.
+1120780	1125180	It's very handy, but a lot of people still do the manual way.
+1128060	1129280	Last, you have the hashing.
+1129460	1131960	So that's what the information we're going to take from the packet
+1131960	1133560	to decide where to send it.
+1134280	1137380	So by default, we hash source AWS IP and the protocol.
+1138280	1144320	So all packets from Server A to Server B using TCP will be hashinged the same way.
+1144420	1146000	UDP might be hashed differently.
+1146400	1150240	We don't want to hash further down than TCP
+1150240	1153280	because there are many applications that could have dynamic ports.
+1153520	1157160	So we want to ensure that if it's TCP between the twoção server,
+1157360	1159440	we hash the same way to avoid potentially
+1159440	1163540	a weird application be broken if we hash it directly.
+1163620	1163620	
+1163640	1165480	on the destination TCP port, for example.
+1167420	1168900	And why do we call it symmetric?
+1169240	1170640	Because, obviously, the hash is symmetric.
+1171020	1175160	So if A to B proto X give a certain hash value,
+1175460	1178740	B to A proto X will give the exact same hash value.
+1178920	1181120	So we ensure the traffic from A to B
+1181120	1183120	will take the same path in return.
+1188000	1191780	Of a gotcha on the config, when you configure your L4, L7
+1191780	1197040	device, again, it's two cluster in different pod.
+1197160	1199200	However, from ACI point of view, that's
+1199200	1201260	seen as a single redirect information.
+1202000	1205520	So you'll configure on the top your two device
+1206560	1207980	and how it's reached the fabric.
+1209080	1212820	And you specify on the bottom a single cluster interface.
+1213100	1215800	Cluster interface is similar to a logical interface.
+1216000	1219740	That's how which VLAN, which stretch VLAN
+1219740	1221760	we use for the ACI.
+1221780	1223020	That's how which VLAN we use for the ACI to speak to the firewall.
+1228920	1231120	If all is that, now let's look at the path.
+1231360	1233600	It's very similar to my first example.
+1234160	1237860	The ingress leaf will try to do the redirect if it can,
+1237940	1241940	if it can find the D-class, exactly like my first example.
+1242140	1244060	The only difference is that in step two,
+1244180	1247000	we first make an hashing of our packet.
+1247340	1249140	And based on the hash, we're going
+1249140	1251880	to select one of the two possible virtual IP.
+1252820	1254820	For the rest, it's exactly the same.
+1254920	1258800	Once we selected which virtual IP we're going to redirect to,
+1259020	1260660	we rewrite the MAC address.
+1261040	1263520	We send it to the service bridge domain we need.
+1263720	1266020	And we send it to the spine for the spine
+1266020	1269080	to be able to tell it's actually located on leaf two.
+1272720	1274400	And the rest of the flow is the same.
+1274660	1278420	Coop look up on the spine, going to the leaf layer two, back
+1278420	1279120	from the firewall.
+1279140	1282480	There should be a permit from the service shadow
+1282480	1284060	APG to the destination.
+1287660	1289100	What check can you do?
+1289340	1291100	I didn't mention it in the first example.
+1291300	1294020	I should probably have done, but I do it here.
+1294220	1296340	Any time you deploy a new service graph,
+1296620	1298620	check number one, is the graph deployed?
+1298860	1301680	You go on the UI, you see in your deploy graph
+1301680	1304280	install, is my new graph properly deployed?
+1304700	1307520	If not, most likely, that's a contract issue.
+1307680	1308440	You don't have consumer.
+1308440	1310400	You don't have provider, something like that.
+1311940	1313680	If it's deployed, check if there is no fault.
+1314000	1316820	If it's no fault and deployed, most likely,
+1316920	1319220	you can jump to the CLI.
+1319260	1321780	Your graph is correctly deployed and redirect should work.
+1322400	1324060	However, before going to the CLI,
+1324160	1326760	you probably want to make a note of the service EPG.
+1327060	1329680	You'll see in the default graph, you have function node.
+1330340	1332420	Function node is the firewall function.
+1332780	1336360	If you do a multi-node PBR, you will see multiple function node.
+1337020	1338320	And the function node,
+1338320	1340100	will be deployed with a class ID,
+1340280	1341980	which represents the service EPG.
+1342140	1344800	This is the service EPG on which we're going to learn
+1344800	1346080	the MAC address of the firewall.
+1349900	1352540	If we jump to any leaf where a firewall is connected,
+1352960	1358060	that VLAN should be deployed on the port where the firewall is.
+1358320	1360700	We should find back the service EPG,
+1360820	1363500	and it has a specific flag, ep-service-enabled.
+1363660	1365080	This is a very specific EPG.
+1365140	1366180	It's automatically deployed.
+1366340	1367700	We don't learn IP from it.
+1368320	1371640	This is an EPG deployed with a specific parameter.
+1374640	1376300	Now your zoning rule check,
+1376480	1378040	that's similar to what we already saw.
+1380320	1385280	Back for east-west traffic in both directions,
+1385460	1387120	you'll end up to have four rules.
+1387820	1392460	The first rule is the rule from your consumer web
+1392460	1394900	to your app provider,
+1395220	1396880	and the action is redirect.
+1398320	1400580	Your second rule is the permit,
+1400860	1403180	where the source is the service EPG,
+1403280	1404840	your destination is your destination,
+1405160	1406040	and it's a permit.
+1406700	1409620	And rule three and four are the opposite rule.
+1409800	1411680	So you typically should have four rules.
+1412660	1415520	Here I'm having the same redirect number.
+1416000	1418840	Any idea why it would be the same redirect number?
+1421320	1424920	Any scenario where we would see two different redirects
+1424920	1425880	in the same contract?
+1428320	1428520	Sorry?
+1428860	1429620	Service chaining.
+1429760	1431880	Service chaining will be more complex.
+1432000	1432720	You'll have more rules.
+1433080	1436540	But the redirects identify the firewall function
+1436540	1439260	to which you redirect, the logical interface.
+1439580	1442360	If you do two arms, you're going to have different redirects.
+1442840	1444920	If you do one arm, you'll have the same,
+1445040	1447760	because wherever you go left to right or right to left,
+1448200	1450220	you redirect to the same interface
+1450220	1451500	because it is one arm.
+1451580	1453580	If you have two arms, you'll have different information.
+1456940	1459380	If we look at our redirect info,
+1459560	1461900	now we see the only difference to our previous example
+1461900	1464140	is that we have two possible destinations.
+1465500	1467120	And for each destination,
+1467560	1471500	we'll have rewrite info corresponding to VLAN and MAC address.
+1472440	1474780	So that's cool, but we still don't know
+1475580	1478480	if it's going to go to firewall pair one or firewall pair two.
+1479160	1480860	Would be cool to find out.
+1481520	1482560	There's two news on that.
+1482740	1483520	The good news is
+1483580	1484580	that we can find out.
+1485040	1487600	The bad news is that it's strictly impossible
+1487600	1489920	to remember the CLI to find out.
+1490440	1492180	Even me, I can't remember it.
+1492520	1494080	Each time I need to check it,
+1494160	1495460	I need to open my own slider.
+1496280	1497340	But you can do it.
+1497600	1500120	So it's like a show ether channel hash.
+1500160	1500900	You can do the same.
+1501040	1502560	So you can specify your source IP,
+1502680	1505480	your destination IP in this five-line CLI,
+1505520	1506380	your protocol,
+1506640	1508140	and it's going to tell you which hash
+1508140	1509060	and where it's redirect.
+1510500	1513040	So that's a good troubleshooting slide to keep.
+1513140	1513560	Not too long.
+1513580	1514060	I learned by heart.
+1514200	1514620	I would not...
+1514620	1514980	Yes, sir.
+1515700	1516180	Question.
+1516480	1518180	You said that we are doing the hashing
+1518180	1519640	based on source and destination.
+1520000	1523280	Would it happen that it's sent to the wrong firewall?
+1523620	1526920	So the question is about what happens
+1526920	1529380	if we do S NAT, D NAT, somewhere like that.
+1530420	1533040	Typically, the example where we mostly see
+1533040	1536980	where we introduce NAT would be a load balancer.
+1537240	1539400	It could be firewall, but it's mostly load balancer.
+1539540	1541080	If you do NAT, that probably means
+1541080	1542760	that your destination at some point
+1542760	1545540	is not the target server or the source server,
+1545720	1546740	but something sitting...
+1546740	1550180	So what we do typically for that is unidirectional PBR.
+1550700	1553040	So you have the capability in a service graph
+1553040	1557100	to redirect in one direction and not in the other.
+1557360	1558640	So for a load balancer,
+1558640	1562860	if you go from a consumer to a VIP,
+1563840	1566720	you will not have PBR in that direction
+1566720	1568440	because you want to reach the VIP.
+1568700	1570540	The VIP will send it to the destination,
+1570620	1571900	but the return traffic,
+1571900	1573380	we might redirect, for example.
+1573580	1575160	So there are multiple options to do it.
+1575300	1576400	But if you have NAT,
+1576480	1578220	typically, depending where you do NAT,
+1578360	1580560	you will not have PBR on both legs.
+1586360	1587880	Another tool that can be useful,
+1588080	1589680	you might have seen it in other presentations,
+1589980	1590520	is F3R.
+1591020	1592180	I leave it for reference.
+1592380	1594620	That's another script running on the APIC
+1594620	1595680	which will trace the packet.
+1595980	1598600	However, it relies on a constant flow.
+1598720	1600600	So you must have a constant flow flowing,
+1600720	1601600	even if it fails.
+1602080	1605060	And then it's going to run ELAM wherever it can
+1605060	1606580	and will tell you what happens.
+1607400	1608680	Starting in 5.2.3,
+1608780	1611340	it even tells you what happened after the firewall.
+1611660	1613140	It's not a very fast tool,
+1613300	1615080	but that's nice to have
+1615080	1617100	because that does the job instead of you
+1617100	1617820	and will tell you,
+1617880	1619460	I saw the packet on that leaf
+1619460	1621440	when you see L3 packets in, redirect.
+1621900	1624080	All of that gives some nice utility.
+1628860	1630140	Now, we've seen...
+1630140	1630540	Yes, sir?
+1631600	1632560	If we have one,
+1632600	1636480	would the return traffic go back to the original packet?
+1638200	1640280	Trying to find the drawing is going to be easier.
+1640580	1641500	So let's say here,
+1641680	1645200	the question is that what if we have an endpoint on the left
+1645200	1646920	talking to an endpoint on the right, right?
+1648600	1649960	It's an hashing.
+1650040	1652540	So it could be that your endpoint on the left
+1652540	1654560	will go to the firewall on the right.
+1654660	1655460	It's purely hashing.
+1655760	1657080	But the hashing is symmetric.
+1657940	1660240	So you might go from endpoint 1
+1660240	1662060	to firewall 2,
+1662200	1663400	then to destination.
+1664220	1665620	Back from destination,
+1665900	1667580	it will go to firewall 2 as well
+1667580	1668920	because we hash the same thing.
+1672140	1673580	Yeah, but that's the reason
+1673580	1675140	we need the hash to be symmetric.
+1675480	1676780	So to be sure that
+1676780	1681740	whether we go from endpoint 1 to endpoint 2
+1681740	1683740	and endpoint 2 to endpoint 1,
+1683800	1685060	we give the same hashing
+1685060	1687340	and the hashing is used to determine the firewall.
+1687620	1688760	So we ensure it.
+1688820	1690220	So that's why we call it symmetric.
+1690980	1691500	Yes.
+1691940	1693200	Could you go back one thing?
+1693760	1694280	Yes.
+1694500	1695240	In this case,
+1695360	1697560	if the ecosystem has to enforce,
+1698460	1699940	then it can happen that
+1699940	1702780	the backend is crossing the IPN three times.
+1702980	1703680	Even three?
+1703960	1704200	Yeah.
+1704480	1706520	So if you take the worst-case scenario
+1706520	1708240	with two endpoints on the left
+1709040	1710820	hashed to a firewall on the right,
+1710940	1714680	I think you can build a four-time IPN.
+1714840	1717440	So typically for multipod,
+1717500	1718740	it's not great.
+1719840	1721880	It's usually not much an issue
+1721880	1723540	because if you have east-west anyway,
+1723840	1725580	well, you'll know you call the IPN.
+1727040	1728440	But that's the price to pay.
+1728540	1730480	There is no way to fix it.
+1731120	1731880	But you're right.
+1731980	1733960	It can go multiple times through the IPN
+1733960	1735440	if you are a bit unlucky.
+1740100	1740500	Sorry?
+1746420	1747540	Oh yeah, you can.
+1747540	1748700	When I say pair,
+1748800	1750700	it can be three, four, five, ten appliance.
+1750940	1751860	I just simplify.
+1752280	1753760	Having the same pair across one.
+1754680	1755340	You can.
+1755480	1757100	So you can have the active on the left,
+1757120	1758040	the standby on the right.
+1758480	1759560	That's absolutely possible.
+1759780	1760960	That's also a popular deployment,
+1761140	1763260	but then only the active is visible.
+1763480	1766360	So you still will go to the IPN in some scenario.
+1768820	1770120	Let me carry on.
+1770240	1771880	So if we have other questions in that topic,
+1771980	1773820	I'm really happy to answer them after,
+1773900	1776080	but still need to cover the overuse case.
+1776140	1776380	So...
+1780900	1782620	So we've talked about multi-site.
+1782760	1784360	We'll first cover multi-site PBR,
+1786080	1789340	which was the only thing you could do up to last month.
+1791540	1793060	So multi-site, you would think,
+1793160	1793980	okay, it's the same drawing.
+1794260	1795740	I have a fabric on the left,
+1795760	1796440	fabric on the right.
+1796580	1797460	A lot of difference.
+1798140	1799800	Because it's a different EPIC cluster,
+1800420	1802260	and you have NDOs that manage it.
+1803320	1804700	So we have a couple of challenges.
+1805300	1806640	First is that typically,
+1806640	1808920	the EPIC in site one has no visibility
+1808920	1810400	to the firewall in site two.
+1810740	1812280	So there is no possibility
+1812280	1814280	to redirect to a remote firewall.
+1816920	1817780	Which is annoying.
+1818440	1819800	Because what's going to happen?
+1820220	1821300	I'm on the left,
+1821480	1823820	I'm redirecting in site one,
+1823940	1826160	so I'm going to redirect to the only thing I see,
+1826240	1827380	which is my local firewall.
+1828200	1830480	My local firewall will permit it,
+1830540	1831600	will send it to the destination.
+1832300	1835240	But the return traffic will do what it does the best,
+1835280	1836560	redirect to its local firewall.
+1836640	1838100	So symmetry is broken.
+1839400	1841940	So if we don't make some specific implementation
+1842640	1843360	in this scenario,
+1844460	1846640	we would have a fair amount,
+1846800	1849840	pretty much any flow which cross-site
+1849840	1851140	and needs to go to PBR,
+1851260	1853440	that would be asymmetric.
+1854040	1856220	So we took some implementation decisions.
+1856500	1859520	We can debate whether it was good idea or bad idea,
+1859660	1861280	but that's the way we implemented it.
+1862220	1863720	So to ensure symmetry,
+1864360	1866160	there is two things.
+1866980	1871040	We've decided that the consumer leaf,
+1871160	1873220	so the leaf where the consumer endpoint is,
+1873300	1874560	will never apply the redirect,
+1874880	1876720	even if it's capable to do so.
+1877260	1879980	So the redirect will always be applied
+1879980	1882740	on the leaf where the provider endpoint is located.
+1883280	1884800	Not necessarily the destination,
+1885160	1886720	the provider endpoint.
+1886960	1889520	So if your contract is provided by EPG2,
+1889740	1892640	that's where the endpoint in EPG2 sits
+1893400	1894740	that we will apply the redirect.
+1895000	1896320	Never on the other one.
+1897320	1899340	So that's ensuring symmetry.
+1899780	1901380	Because just based on that drawing,
+1901600	1904480	I can tell you that all my traffic
+1904480	1906720	will always be redirected on site 2,
+1906780	1908220	never on site 1 for that flow.
+1908660	1909880	No need for hashing.
+1910220	1912240	Because that's the way we implemented it.
+1915140	1918920	So even if Leaf101 is capable to do the job,
+1919020	1919780	it's not going to do it.
+1919860	1922680	So it's going to make a specific permit
+1922680	1923720	that will say,
+1923720	1926100	OK, I can apply a contract.
+1926260	1927020	I'm not going to do it.
+1927380	1928420	I'm going to be gentle.
+1928600	1930100	I'm going to leave the remote site to do it.
+1932660	1934460	We have an issue in the opposite direction.
+1934960	1936900	So we're coming back from the provider.
+1938500	1939660	We are in site 2.
+1940100	1941440	So if I'm the provider,
+1941620	1942860	I need to redirect there.
+1943100	1945860	I cannot send it to the ISN before redirect.
+1947420	1948280	So for that,
+1948460	1951820	we need to know for sure
+1951820	1953180	what is the PC tag
+1953180	1954840	of your source on the left.
+1955800	1958280	So even if the endpoint is unknown,
+1958560	1959880	we must have that information.
+1961260	1963520	The only way, at least up to come,
+1963560	1964800	we come up with a better idea
+1964800	1967720	was to configure the subnet of the consumer
+1967720	1969040	under the EPG
+1969040	1970560	and not under the bridge domain.
+1971440	1974040	By attaching a subnet to an EPG
+1974040	1976080	instead of attaching it to a bridge domain,
+1976360	1981420	we can uniquely map a subnet to a PC tag
+1981420	1983160	so we can always derivate
+1983180	1983720	the PC tag.
+1984600	1986840	So that's the config requirement
+1987980	1989440	with multisite PBR.
+1991200	1993340	Is that in NDO,
+1993560	1997540	when you configure your consumer EPG
+1997540	1998320	on the left,
+1998460	2000280	it must have the gateway IP there.
+2000800	2001960	For the provider,
+2002080	2003580	you can leave it on the bridge domain.
+2004120	2005520	If you fail to do so,
+2005580	2007620	I think in recent NDO,
+2007740	2008640	it will not be allowed
+2008640	2009900	if you don't do it properly.
+2010200	2011180	In older one,
+2011240	2012180	you could do it,
+2012840	2015000	but you're going to get some asymmetric flow.
+2015120	2016640	Not all, it's going to be a matter of luck,
+2016720	2018560	but you're going to get some asymmetric flow.
+2020200	2021800	So that's really the key point to remember.
+2021960	2022280	Yes, sir.
+2022480	2023880	Do I have to remove it from the BD
+2023880	2025020	or can it stay on the BD?
+2025040	2026220	You can leave it on the BD.
+2026560	2027920	You can leave it on the BD
+2027920	2029760	and you do it on the EPG as well.
+2029840	2030820	And typically in the EPG,
+2030980	2033300	you mark it with no default SVI gateway
+2033300	2035520	so that you leave the unique BD.
+2037960	2039540	That's what most people do nowadays.
+2039780	2040480	A few years ago,
+2040480	2042380	we were making only on one place,
+2042460	2043880	but now you typically do it like that.
+2046120	2047440	Zoning rule was different.
+2047700	2048640	On the ingress leaf,
+2048740	2050080	so the leaf which should not redirect,
+2050420	2051540	you'll see this specific rule.
+2051680	2052440	This is very bizarre.
+2052620	2053240	It's two action.
+2053440	2054460	So you have a redirect
+2054460	2056480	and you see the redirect points
+2056480	2057500	to a single firewall.
+2057760	2059560	We don't see anymore a choice.
+2059720	2060840	It's the local one only.
+2061380	2063640	But we have comma redirect override.
+2064120	2066820	The comma redirect override is used
+2066820	2069840	anytime the destination IP is not local.
+2070000	2070460	So that means
+2070480	2072260	I'm not the provider leaf
+2072260	2073340	to just say
+2073340	2074500	I'm not going to redirect.
+2074980	2076100	I'm just going to permit
+2076100	2077400	like if it was a permit
+2077400	2080240	but without marking the policy set.
+2080940	2082160	So it's not a permit.
+2082340	2083000	It's just say
+2083000	2085020	it's like I don't know what to do.
+2085160	2086480	So I'm going to send it to the fabric.
+2086660	2087520	No policy set.
+2088020	2090640	And I'm going to let the destination leaf do the job.
+2091780	2093740	So as soon as you see redirect override,
+2094080	2097860	most likely that's a multi-site PBR implementation.
+2107460	2109600	So that's still pretty simple.
+2109980	2110860	So that's very nice.
+2111000	2112160	We can make multi-site PBR.
+2113120	2115120	But we have put some serious restriction.
+2115720	2118280	The serious restriction is that
+2120480	2122260	the provider of the contract
+2122260	2125360	identify where you apply the redirect.
+2127040	2129840	A lot of people like any to any PBR.
+2130480	2131540	Good reason for that.
+2131600	2133580	That's extremely simple to implement.
+2133860	2136160	That ensures everything goes to the firewall.
+2136500	2138820	It doesn't blow up your TCAM rule
+2138820	2140320	because it's only a couple of lines.
+2140760	2143860	So that's a very nice and good approach
+2144480	2146560	to make security in your SCI fabric.
+2147380	2149140	But if you make any to any,
+2149200	2149860	who's the provider?
+2150660	2152300	There's no identified provider.
+2152620	2154200	Everyone is provider and consumer.
+2154520	2158120	So you can't implement any to any PBR multi-site
+2158120	2158900	with that approach.
+2160520	2162660	That's the problem number one that we want to fix.
+2163140	2166260	The problem number two is this famous EPG subnet.
+2166820	2168860	This is cool if you do network centric.
+2169140	2171120	But if you do application centric,
+2171180	2173820	if you have multiple EPG under your bridge domain,
+2174640	2175600	that's really annoying.
+2176760	2178600	You can't do that because then
+2178600	2180100	all you need to split the subnet.
+2180180	2181220	There is a lot of complexity.
+2181600	2184840	So for anyone that deploys some application centric approach
+2184840	2187420	or multiple EPG under the same bridge domain,
+2188460	2193480	it's a serious issue to have EPG subnet
+2193480	2194840	instead of bridge domain subnet.
+2195040	2196780	So these are the two issues we want to fix.
+2201220	2204100	And that's what we introduced in 6.0.4.
+2204260	2205860	And you also need the latest NDO.
+2206040	2208700	So you need both an upgrade of the fabric and NDO.
+2209100	2212600	That was better in 6.0.3.
+2212640	2213760	It works in 6.0.3.
+2213780	2215940	I tested in August and 6.0.3 was working.
+2215940	2219680	But it's officially available in 6.0.4.
+2223700	2226360	So we need to fix those two challenges.
+2226500	2227840	So the first challenge we want to fix
+2227840	2229100	is the directionless contract.
+2229480	2233180	So any to any means there is no provider, no consumer.
+2233360	2234640	So are we going to fix it?
+2235560	2237660	In a typical engineering way,
+2239740	2242000	instead of deciding, we're not going to decide.
+2242240	2244500	We're going to decide, I don't know,
+2244600	2245620	I want to be symmetric,
+2245940	2247800	I don't want to choose one side,
+2248080	2249480	I'm going to send it to both.
+2251800	2254020	So in any to any PBR,
+2254320	2256800	the implementation must ensure
+2256800	2261260	that every traffic from an endpoint consumer
+2261260	2262340	to an endpoint provider
+2262340	2264280	cross both firewalls.
+2265480	2267320	So your flow will look like that.
+2267460	2269400	On the left, you're redirecting site 1.
+2269880	2272900	You go to the ASN to the destination leave,
+2273040	2274660	in my case, leave 301.
+2274820	2275920	It's redirected.
+2275940	2276580	It's redirected to site 2.
+2276700	2277900	And from site 2,
+2277940	2279640	it goes to the destination and vice versa.
+2281420	2283120	It's probably not a big issue.
+2283300	2286000	So the state will be created on both firewalls.
+2287340	2289800	But it's very important to be aware of that.
+2289960	2291040	So you eventually,
+2291180	2293460	for the dimensioning of your firewall,
+2293660	2295160	so in any to any PBR,
+2296900	2300260	every firewall should receive the traffic.
+2300380	2301700	It's not a duplicate of the traffic.
+2302240	2303360	It's the same packet
+2303360	2305340	that goes in sequence to one and the other.
+2308180	2309600	So that's how we fix it.
+2311860	2313780	Now let's look how it works.
+2314500	2315260	I'll assume,
+2315500	2317260	and I know it's not always true,
+2317360	2318980	but I'll come back to it in a moment,
+2319600	2323280	that my leave 101 is capable to apply the policy.
+2325220	2327700	So my leave 101 knows the destination endpoint.
+2328140	2329880	So it can apply the redirect.
+2330080	2332320	So it's going to redirect it to its local firewall.
+2335000	2337580	Local firewall will permit it,
+2337640	2338320	create the state,
+2338520	2339760	and we'll send it back to the fabric.
+2341140	2343140	Now we need to do something a bit specific.
+2343460	2346260	We can't just route it to the destination
+2346260	2348880	telling I already applied the policy.
+2349160	2350280	We can't just make a permit
+2350280	2352120	because then it would go to the destination
+2352120	2354020	and it will bypass firewall 2.
+2354320	2356180	And it also needs to firewall 2.
+2356300	2359020	So we use a specific marking in the VXLAN header
+2359700	2362360	to signal the destination site
+2362420	2366760	if you receive a packet coming from site 1
+2366760	2369200	with this specific marking in the flag.
+2370440	2372320	I already redirected,
+2372380	2373380	but you still need to do it.
+2374620	2377160	So it's a way to signal through the data packet,
+2377320	2378200	through the VXLAN header,
+2378360	2380820	that you still need to make the redirect
+2380820	2382400	on the target site as well.
+2383980	2387720	So another thing I didn't mention in multi-site
+2387720	2388940	for people that have deployed,
+2389140	2390320	they probably know it.
+2390400	2392020	We always make a translation
+2392420	2393560	of VNIT and PCTAC.
+2393680	2395540	So it's not the subject for today,
+2396080	2397720	but it could be confusing
+2397720	2399620	if you look at the material on the slide
+2399620	2400640	because the number,
+2400800	2402700	the VNIT number and the PCTAC number
+2402700	2403660	are always different
+2403660	2405300	in site 1 and site 2
+2405300	2406820	because this is APIC allocated,
+2407080	2407980	not NDO allocated.
+2408500	2410760	So there is a complex translation mechanism,
+2411080	2413680	but it is done for every multi-site packet.
+2415840	2417380	So we reach 301.
+2417480	2420080	So 301 will see the VXLAN packet
+2420080	2421220	come from site 1
+2421220	2423400	and it has this weird marking.
+2423880	2426260	So I'm going to need to redirect again.
+2426560	2428380	So it goes to firewall site 2.
+2429100	2430760	After firewall site 2,
+2430880	2432380	it finally goes to the destination
+2432380	2434520	and there is now a permit rule
+2435220	2436580	which we permit directly
+2436580	2437540	to reach to the destination.
+2437860	2439440	So we get that flow exactly
+2439440	2441500	as depicted with my red arrow.
+2443420	2444220	So remember,
+2444480	2446460	need to go to both firewalls always
+2447220	2448700	and that's the expected flow.
+2454980	2456120	Yes, any questions?
+2456340	2456620	No, okay.
+2457820	2458900	On the zoning rule,
+2459120	2460440	not a lot different.
+2460680	2463400	So you'll have your redirect on step 1,
+2463560	2465500	which redirect to the local firewall.
+2465700	2466760	Again, we don't have visibility
+2466760	2467920	to the remote firewall.
+2468780	2470680	In step 2, you have a new rule,
+2470840	2471480	a new keyword,
+2471740	2472540	permit and dof.
+2472920	2475180	Permit and dof is this specific marking.
+2475420	2478780	It means it's...
+2479420	2481200	I already redirected,
+2481220	2483340	but I need to signal to the other side,
+2483480	2484440	it still needs to redirect.
+2484740	2486960	So it's a specific marking inside the packet
+2486960	2488940	with the flags in the VXLAN header.
+2491000	2493580	In step 3, you have two possible rules.
+2494120	2496140	You have the rule ID on the top,
+2496280	2498800	which comes from shadow.epg to any,
+2498940	2500140	which is just a permit,
+2500280	2501080	permit and dof.
+2502040	2503480	We will not use it.
+2504540	2506880	We will have a specific access list,
+2507040	2508700	which is outside of the zoning rule,
+2508880	2510940	which is used specifically
+2511220	2514160	if we got the packet with this specific marking
+2514160	2516960	to redirect to the firewall on site 2,
+2517000	2518620	172.16.1.2.
+2521960	2523300	And note the translation.
+2523600	2525820	The scope, which represents the VNID,
+2525960	2528140	is different between site 1 and site 2
+2528140	2529440	because I got it translated
+2530220	2531840	in the spine for my multi-site flow.
+2534600	2535580	And finally,
+2535720	2537680	when we come back from firewall site 2,
+2537740	2539620	then we hit the permit rule.
+2543500	2545980	So we fix partially the challenge.
+2546240	2547860	We fix partially the challenge
+2547860	2552240	because by not deciding to send it to a specific site,
+2552380	2554300	but by deciding to send it to both,
+2554420	2555440	we don't really care about
+2555440	2556860	who's provider consumer anymore.
+2557200	2557720	This is good.
+2558980	2560580	What about the app centric?
+2560640	2561860	What about the EPG subnet?
+2563700	2565120	In my previous slide,
+2565460	2568140	I assumed that my Leaf 101
+2568140	2570120	is capable to do the redirect
+2570120	2573300	because it has the endpoint information.
+2573540	2575220	It has all information to do so.
+2576920	2579780	If you don't have this EPG subnet,
+2579980	2581480	it's not necessarily going to be true.
+2581640	2585220	The endpoint learning of information in SEI
+2585220	2586360	is data path driven.
+2586620	2587900	It's conversional learning.
+2588240	2590440	So if my endpoint 1
+2590440	2592140	never talked to endpoint 2,
+2592340	2594000	most likely Leaf 101
+2594000	2595940	will have no idea of where it is
+2595940	2597920	and will not be able to apply the policy.
+2599160	2601260	So we need to still fix that.
+2602280	2603200	So for that,
+2603280	2604260	we need free functionality.
+2606200	2607020	As usual,
+2607140	2607900	when I say something,
+2608080	2609420	never trust me completely
+2609420	2611100	because there is always an exception.
+2612040	2613200	So one of the things
+2613200	2614960	is that we're now going to ensure
+2614960	2619020	that we have cross-site PBR node visibility.
+2620660	2622120	So we will allow
+2622120	2623520	and introduce the capability
+2624840	2626760	for a leaf in SEI 2
+2626760	2629280	to redirect to a firewall in site 1.
+2632120	2633880	So what I was telling earlier
+2633880	2636040	is actually not true anymore
+2636040	2637360	for that specific use case.
+2639220	2641800	We'll have a pretty complex tromboning path
+2641800	2643680	because if we don't know,
+2643780	2646720	we're going to go left, right, left, right.
+2648060	2650140	So which is similar to what we say,
+2650240	2652280	which in multipod is usually acceptable
+2652280	2654300	because it's geographically closed.
+2654580	2656260	In multisite, that might be more an issue.
+2656260	2658140	It might be in two different countries
+2658140	2659640	or 100 kilometers apart.
+2660900	2663560	So this tromboning flow will work,
+2663580	2664940	but the latency might be high.
+2665080	2666920	So we want to avoid it at all costs
+2666920	2667880	as much as possible.
+2668080	2670260	So we'll introduce the third thing,
+2670480	2674080	which is a forced learning of the endpoint
+2674080	2677800	to avoid this complex back-end forced traffic.
+2678880	2680720	So with those three things together,
+2680880	2686240	we achieve a decent any-to-any PBR.
+2686240	2690020	We vote the need of an EPG subnet,
+2690080	2692480	so with a full application centric capability.
+2693200	2695080	Let's have a quick look at how it's implemented.
+2697160	2700520	You'll need first to have the multisite PBR tracking.
+2700760	2701820	Multisite PBR tracking,
+2702000	2706140	so you need to make sure that your firewall in site 1
+2706140	2708180	is visible in site 2 and vice versa,
+2708420	2709740	and only if it's alive.
+2710060	2712800	So it cannot be a config pushed across firewall.
+2713020	2715800	We need to advertise it if we can reach it.
+2715860	2716220	So,
+2716240	2717400	we use SLA monitoring.
+2717840	2720040	So you need to set up an SLA monitoring
+2720040	2721480	on your monitoring policy.
+2721860	2723820	So leaf 102 will track,
+2724020	2725380	can I reach the firewall?
+2726220	2729400	And then it will give that status to the spine.
+2730160	2733120	And the spine will send it through a control packet,
+2733420	2734820	like an SLA as well,
+2734900	2736420	distributed across site.
+2737000	2738820	So site 2 will have,
+2738940	2740180	and that's what I'm showing here,
+2740360	2743520	will have a visibility of the received track service
+2743520	2744400	on the other side.
+2744400	2746760	So here I'm on a site 2 spine,
+2746900	2749020	and I see track service multisite received,
+2749600	2752900	so the VIP of the firewall on site 1,
+2753060	2754020	and we see it's up.
+2754680	2757720	Because the SLAmon verifies that the status is up.
+2758060	2759100	Once it's there,
+2759680	2762980	and we're going to propagate it to the leaf in site 2,
+2763080	2766760	and every leaf in site 2 will have now a zoning rule
+2766760	2767740	which is site aware.
+2769260	2772020	So you'll have the possibility in your zoning rule,
+2772180	2773960	so in your contract check,
+2773960	2776400	to specify a site ID
+2776400	2779100	to eventually redirect to another site.
+2784940	2787240	So let's look at the flow for the first packet.
+2787480	2789420	I don't know what it is.
+2789540	2790280	So step 1,
+2790460	2791800	leaf 101 has no clue.
+2792120	2793980	It's never heard about endpoint 2,
+2794040	2795540	it doesn't know if it's local or remote,
+2795660	2796820	it doesn't have the PC tag.
+2797240	2799180	So it does the only thing it can do
+2799180	2800640	to send to the destination leaf,
+2800760	2801520	regular routing,
+2801720	2802460	no PBR there.
+2803960	2808000	Leaf 301 knows that there is a firewall active in site 1,
+2808120	2810960	because it got it through the SLAmon probes
+2811680	2812800	that travel across the fabric.
+2813400	2815360	It knows it's coming from site 1,
+2816380	2819600	and it sees it was not redirected here yet,
+2821800	2823660	because the flag has not been set.
+2823980	2825160	So it's going to check,
+2825300	2828360	do I have a redirect rule pertaining to site 1,
+2828480	2833760	and it's going to send it back to site 1 PBR device.
+2833960	2834360	So firewall.
+2836840	2838260	And that's what we see here.
+2838420	2841860	You can now specify a sozoning rule in site 2 leaf,
+2842480	2843700	specifying site ID 1,
+2844200	2847440	and you'll see an action which redirects to an IP
+2847440	2849480	which doesn't even exist on that site,
+2849620	2851860	but which represents the VIP of the first site.
+2855840	2857800	The redirect points to the VIP,
+2857960	2859060	the pun to learn,
+2859220	2860620	I'm coming to it in a minute.
+2860820	2861900	So keep that in mind,
+2861980	2863040	there is an extra action,
+2863040	2863840	pun to learn.
+2866220	2868020	After the firewall in site 1,
+2868180	2869840	that's exactly what I explained before.
+2870580	2872600	We got it through firewall in site 1,
+2872700	2875600	so we're going to signal site 1 did the job,
+2875720	2876560	redirected done.
+2877860	2879680	Going back to leaf 301,
+2880500	2881440	which will see,
+2881520	2883380	okay, site 1 did the job,
+2883400	2884580	but I didn't do it yet,
+2884680	2886300	so it's going to go to firewall in site 2,
+2886400	2888580	and back from firewall in site 2 to the destination.
+2890900	2892480	So first it's extremely nice
+2892480	2893300	for a network engineer.
+2894160	2895380	Extremely annoying for me
+2895380	2896600	because it took me two hours
+2896600	2898140	to get all those arrows right.
+2899480	2903020	And for anyone that cares a bit about latency,
+2903180	2904200	if the site or distance,
+2904360	2906080	you don't really like my three arrows
+2906080	2907800	that goes from site 1 to site 2.
+2908480	2909760	So it works, no doubt,
+2910000	2911180	but it's not optimal.
+2911360	2913380	So we want to avoid it as much as possible.
+2913580	2915580	So we're going to do it for the first one or two packets,
+2916960	2919040	and then we'll use a forced learning,
+2919140	2920120	a control plane learning.
+2921300	2922060	So remember,
+2922060	2923780	I told you this point to learn.
+2924420	2926500	So that's in step two
+2926500	2927820	when it's getting the packet
+2927820	2929000	before the first redirect.
+2931620	2934120	So again, my leaf 1 doesn't know what to do.
+2934200	2935900	So he routed to the destination leaf,
+2936040	2936780	leaf 301.
+2938180	2939100	That one sees,
+2939140	2941280	okay, I can redirect to site 1 firewall,
+2941420	2941940	let me do it.
+2942060	2942840	But in addition,
+2943200	2944280	I have this point to learn.
+2944420	2946180	So I'm going to send it to the CPU.
+2946380	2948000	Let him do something clever for once.
+2949940	2952040	So a copy of the packet,
+2952060	2953700	will go to the CPU of that leaf,
+2953900	2956480	and that leaf will, by software,
+2956800	2958480	send the control plane packet
+2959840	2961960	back to the original leaf
+2962680	2964580	to force him to learn
+2965180	2967420	the destination IP of the server.
+2968060	2969660	So that the tromboning,
+2969800	2970820	which is not nice,
+2970980	2973460	happens during the initial learning.
+2973640	2975960	But as soon as one packet reaches site 2,
+2976080	2978220	we force the learning to site 1.
+2978300	2981460	So the next packet has the PC tag information
+2981460	2982440	for the destination,
+2982860	2986680	and don't need to go site 1 to back 1.
+2988800	2990220	You'll see that we do that.
+2990380	2993940	If you see an endpoint learn on the leaf 101,
+2994180	2994900	on the first leaf,
+2995120	2998540	and you'll see it's marked with control endpoint.
+2998900	3001260	So that's a control plane learn packet,
+3001480	3002500	not by data plane.
+3003420	3006220	And if you have a bit of experience in ACI,
+3006300	3009580	can someone knows what's the timeout of an endpoint
+3009580	3011700	in minutes or in seconds?
+3011860	3012280	Any idea?
+3014340	3015240	Five minutes.
+3015420	3018160	Five minutes is the timeout for a remote endpoint.
+3018620	3021060	Here I have 86,000 seconds.
+3021620	3024480	So those control endpoints are on purpose
+3024480	3026760	learned with a 24-hour timeout.
+3028240	3029900	So we don't like tromboning,
+3030020	3031460	so we avoid it for a long time.
+3031580	3033000	So every 24 hours,
+3033100	3034500	you potentially will have
+3034500	3036620	one or more of those packets going back.
+3042160	3045440	And that's kind of the conclusion
+3045440	3047360	of how the flow works.
+3048360	3050960	So, so far we've seen a simple PBR.
+3051160	3052260	And remember with PBR,
+3052520	3055080	you always rewrite the MAC address
+3055080	3056520	and make a layer 2 packet,
+3056740	3061620	and the spine must know the destination MAC address.
+3062020	3064100	It's your responsibility to be sure
+3064100	3065060	the MAC address is fine.
+3065560	3067480	For multipod east-west,
+3067640	3068260	you can have,
+3068260	3069940	as one gentleman suggested,
+3070280	3071740	use an active in pod 1,
+3071840	3073040	a standby in pod 2.
+3073120	3074800	But you can very well have
+3074800	3076200	active standby in both pod,
+3076300	3077880	and we have a symmetric PBR
+3077880	3079480	that ensures the symmetricity.
+3079960	3081900	For multi-site, it's more complex.
+3082680	3085400	So we've seen any-to-any is now possible
+3085400	3086680	only in 6.0.4.
+3086820	3087560	And before that,
+3087640	3088620	you have a strong restriction
+3088620	3092160	on the location of the consumer subnet.
+3093820	3095880	This summarizes the possible flag
+3095880	3096860	you'll see in zoning rule.
+3097160	3098240	So you probably feel
+3098260	3098860	like you forgot about it,
+3098920	3101160	but if you see any of those keywords,
+3101480	3102080	redirect override,
+3102480	3103240	permit end of,
+3103340	3103580	redirect,
+3104040	3104740	pun to learn,
+3104980	3107120	this is some of the specific use cases
+3107120	3108500	used by policy-based redirect.
+3111460	3113100	There are two great white papers.
+3113240	3115480	Maybe some of you already went to Minako's session,
+3115660	3116800	which probably talked partially
+3116800	3117920	about the same thing
+3117920	3118840	and even more features.
+3119840	3121620	So she wrote this white paper,
+3121680	3122760	which covers a lot of things.
+3122860	3124460	I don't think the any-to-any PBR
+3124460	3125240	is already there
+3125240	3126500	unless she added it lately.
+3126500	3127980	But the second document
+3127980	3129420	is on cisco.com as well
+3129420	3130880	and gives a pretty good detail
+3130880	3132480	about this trombone flow
+3132480	3133820	for any-to-any PBR,
+3134660	3136600	which can be a good reference as well.
+3139240	3140700	So I'll have the WebEx app.
+3140820	3141640	You can all join
+3141640	3142740	through the Cisco application.
+3143020	3143840	I'll be monitoring
+3144680	3145820	for the next couple,
+3146560	3147620	one, two weeks
+3147620	3148380	or something like that.
+3148460	3150020	So feel free to fire any question.
+3151980	3153300	And for the rest,
+3153340	3155180	I wish you a wonderful evening.
+3155180	3157620	And thank you very much
+3157620	3159740	to absorb such a complex topic
+3159740	3160800	at 6 p.m.,
+3160800	3162040	the fourth day of Cisco Life.

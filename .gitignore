@@ -1,0 +1,42 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.class
+
+# C extensions
+*.so
+
+# Large media files
+*.mp4
+*.MP4
+*.mp3
+*.MP3
+*.pdf
+*.PDF
+*.ppt
+*.pptx
+*.PPT
+*.PPTX
+*.doc
+*.docx
+
+# Archive files
+*.zip
+*.ZIP
+*.rar
+*.RAR
+*.7z
+
+# Assets and large directories
+ACI_Cisco/
+Cisco_ACI/
+Cisco_Sales_ACI_AI/
+archives/
+# ccde_study_materials/
+
+# Temporary/system files
+whisper_temp_output.txt
+transcription_log.txt
+desktop.ini
+.DS_Store
+Thumbs.db

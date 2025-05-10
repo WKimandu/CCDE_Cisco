@@ -1,0 +1,664 @@
+start	end	text
+0.0	20.48	 Welcome to Cisco Live. I hope you have a good time. Now let's make sure we're not interrupting
+20.48	26.0	 that flow. And having said that, I also realize I'm probably the only thing standing between
+26.0	31.52	 you and a decent dinner with either customers, partners, or friends. So let's try to make this
+31.52	36.480000000000004	 quick. Let's try to keep this interactive. Even though we have a bigger audience, if you have
+36.480000000000004	41.04	 questions, please feel free to raise them. Nevertheless, there is also time after the
+41.04	46.32	 session, so I'll stay here. So if you have certain questions and you want to discuss them one to one,
+46.32	55.92	 I'm happy to do that as well. Having said that, as you've probably heard a million times
+56.4	60.160000000000004	 for each of those sessions, there is a dedicated Webex space that you can join.
+60.72	65.28	 And if there is a question that arises sometime later, could be a week, could be a month,
+65.28	70.72	 but could even be a year, feel free to use that Webex space and raise that question. I'll continue
+70.72	77.6	 monitoring that space. So be aware. It says this room or this space is only being monitored until
+77.6	84.56	 the 23rd of February. Let me correct that. That's certainly not true. I'll keep monitoring that
+84.56	91.84	 space if you have questions. Now, first of all, let me introduce myself. So I'm Daniel Schmidt.
+91.84	97.60000000000001	 I'm a principal architect within the CX or Customer Experience Organization, or more
+97.60000000000001	103.92	 specifically, professional services. Now, what this means is that I work with customers and partners
+103.92	109.92	 like you on a daily basis, trying to support them with implementing DC network solutions,
+109.92	116.96000000000001	 like ACI, for example. Now, having said that, I'm likely facing similar issues as you are.
+118.0	124.4	 So to some extent, we are in the same boat. We are fighting and we are trying to make our own
+124.4	130.4	 delivery, deploying ACI and other solutions as efficient as possible. And that's also how it
+130.4	136.64	 came to this solution and why we developed this in the first place. So this session is about the
+136.64	143.11999999999998	 solution called Nexus S Code. As the name somehow implies, this is closely related to
+143.11999999999998	148.32	 infrastructure as code. And I'm pretty sure everyone has heard about infrastructure as code
+148.32	153.44	 already. But infrastructure as code can mean different things to different people, right?
+153.44	158.0	 So let's start and get us all on the same page in terms of what infrastructure as code is,
+158.56	164.48	 or what is relevant in the context of Nexus S Code. Now, we'll look at Nexus S Code, what it is,
+164.48	169.35999999999999	 how you can use it, how you can consume it, and what it hopefully brings to the table in terms of
+169.35999999999999	177.6	 benefits and advantages. But we'll look beyond just provisioning and managing configurations in ACI.
+178.56	183.92	 We're looking at what else is required to fully support a change process and what else can be
+183.92	190.56	 automated along that process. So we are looking at things like pre-change validation, things like
+190.56	193.92000000000002	 how can we possibly also automate the testing part?
+196.0	201.36	 And at the end, we look at how can we leverage CI-CD, which is like a common technology,
+201.36	207.2	 a common framework known from software development. How can we take that and use it for our own
+207.2	214.08	 purposes, right? And at the very end, we'll look at something what we call services as code, which
+214.08	220.72000000000003	 is really like a product or a service that we as Cisco as a vendor offer to you, which goes beyond
+220.72000000000003	227.04000000000002	 just the technical capabilities and tools that we provide. But this is more about what can we do to
+227.04000000000002	232.8	 support you in terms of enablement, in terms of offering support for the solution, which could be
+232.8	237.92000000000002	 technical support in terms of 24-7 support, et cetera, right? So we'll look at that as well.
+237.92	243.2	 Now, just to give you a brief heads up, and that's probably a good example, on a lot of those slides,
+243.2	247.44	 you will see a lot of text. Now, there is not necessarily a need for you to read through all
+247.44	252.79999999999998	 the text. The reason I'm including the text is because if you go back to the slides later on,
+252.79999999999998	259.76	 or maybe someone looks at the slides that was not part of the session, to make it or to provide a
+259.76	264.96	 bit more context and hopefully make it useful as well. So, let's look at the slides.
+264.96	271.76	 So, let's look at the slides. How many of you have heard infrastructure as code and have played
+271.76	280.0	 with it in one way or another? So, I would say the majority probably at least at some point got in
+280.0	286.08	 touch with infrastructure as code. Now, as said, and that's also what is being depicted here,
+286.08	290.71999999999997	 there are different definitions of what infrastructure as code is. So, instead of reading
+290.72	295.92	 out loud those, let me try to provide my own description. And to be very honest, the name itself
+295.92	305.6	 as code can be intimidating, right? It can imply something like you must be a software developer
+305.6	310.88000000000005	 to fully embrace and understand infrastructure as code. And let me make this clear, that's certainly
+310.88000000000005	316.56	 not the case, right? So, even though it says infrastructure as code, what infrastructure as code
+316.56	323.68	 is really about is essentially leveraging tools and processes that are well established in the
+323.68	328.4	 software development world, right? But basically use them for our own purposes, which in our case
+328.4	335.2	 is maintaining networks or maintaining network infrastructure. And the way we approach this
+335.2	340.96	 is that we essentially maintain a description of how we want the infrastructure to look like,
+340.96	346.96	 and then we are leveraging automation that ensures that this description of how the
+346.96	351.35999999999996	 infrastructure should look like is eventually also reflected in the actual environment or
+351.35999999999996	354.32	 actual infrastructure, right? So, that's what infrastructure as code is about.
+357.76	363.52	 So, be aware infrastructure as code is not a single tool, it's not an application,
+363.52	370.32	 it's rather a methodology or a process on how we can use it. So, infrastructure as code is
+370.8	377.52	 on how we can manage infrastructure. Now, let's go one step further, or zoom out a bit, right?
+378.8	386.0	 We as Cisco, we as a vendor, how do we provide infrastructure as code tooling to you?
+387.44	391.28	 Now, as you're probably aware, there are different tools out there when it comes to infrastructure as
+391.28	396.64	 code. There are tools like Terraform, there are other tools like Ansible, you might even
+396.64	402.96	 heard of tools like Pulumi and others. Now, all of them kind of serve a similar purpose,
+405.03999999999996	412.15999999999997	 and we are not necessarily religious about tools. So, what I mean by that is if you prefer to use
+412.15999999999997	418.4	 Ansible, we're perfectly fine with that. If you, for whatever reason, are more familiar with Terraform,
+418.4	422.08	 or maybe you're using Terraform already to provision public cloud infrastructure,
+422.96	429.76	 then please use Terraform, right? So, we provide integrations for both and for all the different
+429.76	434.64	 products. I mean, I'm specifically talking about DC networking here, but we do provide
+434.64	444.15999999999997	 integrations for Terraform and Ansible accordingly. Now, on top of those, there's typically a concept
+444.15999999999997	449.59999999999997	 where you can abstract certain functionality into a single unit that makes it easier to consume.
+450.56	457.12	 So, in Terraform, we call this a Terraform module. The equivalent in Ansible would be an Ansible role.
+458.32000000000005	464.40000000000003	 So, for example, for Terraform, we provide modules that allow you to configure specific parts of the
+464.40000000000003	470.40000000000003	 ECI configuration. So, think of an L3 out in ECI as an example, right? So, instead of having to
+470.40000000000003	477.28000000000003	 configure all the individual objects and resources individually, you can use that single module that
+477.35999999999996	484.71999999999997	 hopefully simplifies the consumption of those. Now, once you have those modules and Ansible roles
+484.71999999999997	491.03999999999996	 in place, what you need to provide typically in case of Terraform is a Terraform configuration,
+492.79999999999995	497.91999999999996	 which is typically written in a language called HCL, or the equivalent on the Ansible side would
+497.91999999999996	502.96	 be an Ansible playbook, which is typically or is always being written in YAML, right?
+502.96	508.15999999999997	 And then, on top of that, you need to provide some data, right? You need to provide data in terms of
+508.15999999999997	512.56	 what do you actually want to be configured? How many tenants do you want to be configured? How
+512.56	518.24	 many EPG's? How many bridge domains? How do you want to name them, etc., etc.? Now, where does
+518.24	527.36	 Nexus S code fit in this diagram? It's actually everything that you see encircled by this green
+527.36	533.6	 line, right? So, what we are trying to do with Nexus S code is essentially make infrastructure
+533.6	540.48	 as code as simple and as easy to consume as possible, right? Because we realize, and as we've
+540.48	545.2	 seen here, there's a bunch of people that have heard and have maybe played with infrastructure as
+545.2	552.24	 code, but nevertheless, there is a considerable barrier of entry in terms of truly adopting this,
+553.2	558.4	 and not only in a lab or kind of development environment, but fully embracing this in a
+558.4	563.76	 production environment, right? So, what we want to achieve with Nexus S code is really make this
+563.76	570.08	 easier, lower the barrier of entry, and really make it as simple to use as possible, while still
+570.08	574.64	 providing all the benefits that infrastructure as code in general brings to the table, right?
+575.04	582.8	 Okay. Nexus S code itself relies on Terraform. So, we use Terraform to provision the infrastructure,
+582.8	591.04	 in our case, ACI. Now, be aware, this session is not about teaching you Terraform. We use Terraform
+591.04	596.48	 as a tool underneath, but we also realize that Terraform can be quite complex. So, for those of
+596.48	602.4	 you who have played with Terraform already, when it comes to complex configuration, it's important
+602.8	607.36	 when it comes to complex configuration, it's not a simple thing to use.
+609.6	616.0	 So, Nexus S code attempts to abstract this away from you, not, you don't necessarily need to
+616.0	620.9599999999999	 become a Terraform expert to use Nexus S code. We want to make this easier to use for you.
+622.0799999999999	625.84	 Now, at the same time, we need to understand what Terraform does and how it works, right?
+625.84	630.0	 So, what you see on the right-hand side is a typical Terraform configuration,
+630.0	635.92	 which shows you how you can configure a simple VLAN pool with a certain set of,
+635.92	642.16	 or a single VLAN range within that pool, right? And this very much looks like code, right? If you
+642.16	648.4	 look at this, this can be, looks a bit similar to code. There's certain logic in it, not maybe in
+648.4	653.68	 this example, but if it becomes more complex, then you would make, then you would need to make use of
+653.68	659.5999999999999	 loops and similar constructs, right? Now, going back to what Terraform does,
+661.1999999999999	667.04	 Terraform is really a tool to provision infrastructure, but not only as a one-off
+667.04	671.8399999999999	 thing to just push configuration, push and forget. It's more than that because it's a tool that
+671.8399999999999	678.56	 allows you to continuously maintain a configuration. Now, what this means is Terraform actually keeps
+678.56	683.92	 track of the state of the infrastructure, so it knows exactly how it left the infrastructure the
+683.92	690.8	 last time Terraform was executed and is able to detect configuration drift, meaning if there's
+690.8	695.92	 an out-of-band change that happens outside of Terraform, so someone maybe logs into the UI,
+695.92	700.56	 changes something that was initially configured through Terraform, Terraform is able to detect
+700.56	707.04	 that configuration drift and is able to eventually reconcile that configuration drift if necessary.
+708.56	714.64	 Now, another thing that is also important, there are two distinct operations in Terraform.
+714.64	720.16	 One is called the Terraform plan operation and think of a Terraform plan as a dry run,
+721.28	727.4399999999999	 so it doesn't yet apply any changes to your actual infrastructure, so what it does, it actually
+727.4399999999999	733.76	 simulates what changes would need to be applied, what is the list of operations that I would need
+733.76	739.2	 to go through in order to apply the desired configuration to the infrastructure.
+741.12	745.92	 And the second one is the Terraform apply operation, so this is where we now take that
+745.92	750.56	 previously calculated list of operations and actually apply to the infrastructure,
+750.56	754.8	 but these are two distinct operations, so that means you can do one without the other.
+754.8	759.76	 So, coming back to Nexus code, so as said, Nexus code is really about making infrastructure code
+759.76	764.4799999999999	 as simple to consume as possible, so there are certain things or certain data that obviously
+764.4799999999999	770.0	 you need to provide, right? We don't know how many tenants, how many bridge domains,
+770.0	773.12	 how many VRFs you want to configure, so that's data that you need to provide,
+773.8399999999999	778.64	 but you shouldn't be the one that should deal with writing and configuring,
+778.72	783.4399999999999	 so that's data that you need to provide, but you shouldn't be the one that should
+783.4399999999999	788.96	 deal with writing the actual code in order to implement that, so what we want to do is
+789.84	795.28	 you provide the data, we provide all the logic, all the implementation that is necessary to
+796.0	801.76	 eventually deploy the configuration according to your description, and it's something simple,
+801.76	807.28	 as you can see on the right-hand side, right? The important part is, and that's where we come back
+807.28	814.64	 to the as code aspect, as code essentially means we want to maintain this as something that is text
+814.64	822.24	 based, that is human readable, because in the end it's us, the human, that is actually maintaining
+822.24	827.8399999999999	 and modifying that configuration, but at the same time it should also be machine readable,
+827.8399999999999	832.8	 which essentially means it should follow a certain structure, it should be structured data, right?
+837.28	843.28	 Now, let's take a look at how this is different compared to using Terraform natively. Again,
+843.28	848.8	 on the left-hand side, this is how you would configure a tenant with two VRFs using native
+848.8	853.8399999999999	 Terraform, and this is a bit more complex than what we've seen before, because you can see
+853.8399999999999	858.4	 something like a foreach, which is essentially a looping construct within Terraform.
+860.24	865.6	 Now, think of a full-scale production configuration with potentially a different
+865.6	870.16	 production configuration, with potentially hundreds of VRFs, hundreds of bridge domains,
+870.16	876.24	 EPGs, contracts, filters, etc. You can imagine that configuration like this can become quite complex.
+879.36	885.52	 Now, compare this to what you need with Nexus as code. It's purely a description of how you want
+885.52	891.76	 ACI to be configured, a tenant with a specific name and a list of VRFs. That's it, right?
+891.92	896.56	 You don't need to think about in which order do I need to configure these objects, right?
+896.56	901.6	 Do I need to configure the tenant before the VRF, which is kind of obvious, right? But there are
+901.6	909.2	 other relations which are not that obvious. Now, a more concrete example.
+912.08	917.28	 Everyone familiar with ACI knows that when you add a new node to ACI, there are certain
+917.28	923.04	 configurations that you need to apply. I mean, first of all, you need to register the node itself,
+923.04	928.72	 right? You need to tell the EP controller which node, which serial number potentially do you want
+928.72	934.9599999999999	 to register, and what is the role of that particular node. But then there are a bunch of other
+934.9599999999999	939.92	 configurations in all kind of different places in the UI that you would typically need to apply,
+939.92	946.4	 right? Think of an out-of-band management IP address that's not configured where you actually
+946.4	952.24	 apply or register the node. That's configured in the management tenant. Or if you want to apply
+952.24	958.16	 something like a fabric policy group or fabric policy configuration, again, that's a completely
+958.16	963.68	 different place in the UI. Not only the UI, even the object tree and the object configuration.
+965.92	972.0799999999999	 So the way we approach this with Nexus S Code is that every configuration that is being applied at
+972.08	977.2	 the node level is being grouped into a single section, right? So what you can see on the right
+977.2	982.24	 hand side is a list of nodes and all the configuration that is typically being applied at the node level.
+985.36	990.64	 Now let me briefly explain why this makes a difference. Let's assume we want to add a new
+990.64	996.1600000000001	 node to our environment. We install a new leaf, right? And we want to apply the according
+996.16	1002.3199999999999	 configuration to that leaf. Now what this means with Nexus S Code is we simply take the existing
+1002.3199999999999	1008.48	 configuration, like the configuration we have for this node 101 as an example, and it becomes a
+1008.48	1014.8	 simple copy-paste exercise. And then we're just updating the relevant values like IP addresses,
+1014.8	1020.16	 serial number, node IDs, et cetera. That's it, right? We don't need to jump between different
+1020.16	1024.8	 places in the UI. We don't need to jump between different configuration sections, et cetera.
+1025.76	1031.52	 So that's one of the concepts we try to follow with Nexus S Code. We're always having, again,
+1031.52	1037.6	 I said I'm working in professional services. So I'm facing the exact same challenges with
+1037.6	1044.1599999999999	 ECI as you are, right? So this is being built with operations in mind. We want to make sure that
+1044.1599999999999	1049.52	 this is not a one-off thing to configure ECI, configure and forget. This is really meant to
+1049.52	1056.6399999999999	 operate a full ECI environment. Let me give you another example.
+1058.32	1062.24	 I guess you're familiar with access policy configuration when it comes to configuring
+1062.24	1070.32	 interfaces, server-facing interfaces. If you do this from scratch, it can be quite complicated
+1070.32	1075.84	 and tedious. And it's not only that. There are a bunch of different ways of how this can be done.
+1076.8	1082.3999999999999	 Think of all the profiles and selectors, how you set them up initially, how you connect them to each
+1082.3999999999999	1089.9199999999998	 other. Now, we want to abstract this away from you, right? There are certain best practices that we
+1089.9199999999998	1095.6799999999998	 learned as professional services when we've been deploying some of the largest ECI deployments.
+1097.28	1103.9199999999998	 We don't want everyone to deal with understanding what is the best practice to configure those
+1103.92	1111.04	 access policies, right? What is important for you is provide data in terms of which interface
+1111.04	1118.72	 do you want to configure how, which effectively means define the physical interface and apply
+1118.72	1124.3200000000002	 a corresponding interface policy group or configuration template, in other words, to it.
+1124.3200000000002	1129.52	 Everything else shouldn't be of concern to you, right? And that's how this is being dealt with
+1129.52	1133.36	 in Nexus code. You just provide a list, as you can see on the right-hand side,
+1134.0	1138.96	 which interface is supposed to be used for what, and all the underlying objects,
+1138.96	1143.6	 like the profiles, selectors, et cetera, are being managed by Nexus code.
+1148.32	1153.6	 All right. So these have been two examples of how a certain part of the configuration looks like,
+1153.6	1159.84	 right? Now, let's take a look at a simple example where we have a very simple tenant
+1159.84	1165.6	 configuration, and I will walk you through how this tenant configuration can be applied to an
+1165.6	1173.4399999999998	 ACI environment. I'm using Visual Studio Code in this demonstration, right? In this case,
+1173.4399999999998	1179.6799999999998	 I'm using a prerecorded video just in order to allow me to talk and explain things while this
+1179.68	1184.8	 video is playing, right? So what you see here, and I'll open this on the left-hand side,
+1184.8	1189.68	 is a single file that describes a very simple tenant configuration. So a tenant with a few
+1189.68	1195.1200000000001	 bridge domains, a few VLANs. That's it. Now, consider this a greenfield environment. So
+1195.1200000000001	1200.24	 there's nothing deployed in ACI yet. So what we will do next, we'll go to the command line and
+1200.24	1206.96	 just type terraform apply. Now, what this does, and let me just briefly pause here.
+1207.92	1214.0	 What this does is now create that terraform plan, which as we said before is a dry run. So it gives
+1214.0	1220.96	 you a list of operations that terraform would now apply to the, would is important, would apply to
+1220.96	1227.28	 the infrastructure in order to apply the desired state to the ACI environment, right? So what this
+1227.28	1232.88	 comes down to is a list of objects, because that's how the configuration ACI is built, a list of
+1232.96	1242.64	 objects that terraform would push to ACI. Now, we can review this. Someone who has a good knowledge
+1242.64	1250.4	 of ACI can verify that this is really in line with our intended change. And it then asks the
+1250.4	1254.0800000000002	 question of whether we want to apply that configuration, which is what we are doing here,
+1254.0800000000002	1259.2800000000002	 right? We are typing yes, which is nothing more than giving the green light to deploying the
+1259.28	1264.16	 actual configuration. And if we go to the APIC, we can see that all the objects that we have
+1264.16	1270.6399999999999	 previously defined in the YAML file are now deployed in the ACI or on the APIC controller, right?
+1273.68	1280.3999999999999	 Now, what we will do next is we'll go to one of those objects, more specifically an EPG that
+1280.3999999999999	1286.08	 has been configured by terraform. And what we'll do here is we'll change a specific setting, right?
+1286.08	1291.28	 So there is this preferred group membership attribute that can be configured. We're going
+1291.28	1296.8799999999999	 to change that from exclude to include. So we are basically applying an out of band change.
+1297.76	1303.4399999999998	 And we are running terraform apply again. And what terraform notices at this point is that
+1304.0	1309.1999999999998	 apparently there has been a change outside of terraform. So it understands that this specific
+1309.2	1316.72	 setting of an EPG that is managed by terraform has changed. And it would now reconciled, meaning go
+1316.72	1321.8400000000001	 back to the desired configuration for this specific attribute, right? So that's what we see in the
+1321.8400000000001	1327.68	 plan output here. So we would go from include back to exclude because that's what we have in our
+1328.96	1330.0	 terraform configuration.
+1330.0	1338.0	 Now, an important aspect, and that's again, that goes back to how we build or how we intended to build
+1338.0	1345.52	 Nexus code in the first place. We want to make sure that you only need to provide the data, which is what you see on the left hand side.
+1346.0	1351.36	 And the terraform configuration that you need, I mean, you need some terraform configuration, obviously,
+1351.36	1359.36	 to make use of terraform. So we want to make sure that you only need to provide the data, which is what you see on the left hand side.
+1359.9199999999998	1365.6799999999998	 But that configuration should really be minimal and completely static, which is what you see on the right hand side.
+1365.6799999999998	1371.28	 And this is not shortened in any way. This is really those, I don't know, 10 lines of terraform configuration.
+1371.28	1377.9199999999998	 This is everything that you need, right? And as I said, this is completely static. You don't need to touch that.
+1377.9199999999998	1382.7199999999998	 The only thing that you would modify is essentially the YAML files that you would see on the left hand side.
+1384.08	1386.0	 And this is an important aspect, right? Because
+1386.0	1394.0	 if you want to run this in a production environment, you want to make sure that the code and the actual data is being managed separately, right?
+1394.0	1398.0	 The data is something that the network operator is potentially updating on a daily basis.
+1398.0	1404.0	 The code shouldn't, right? The code should remain static, should be tested thoroughly.
+1404.0	1408.0	 There should be a release lifecycle, etc.
+1408.0	1412.0	 Now, let's maybe look a bit under the hood in terms of how Nexus S Code works.
+1412.0	1418.0	 So as we've seen before, we essentially expose Nexus S Code as a single terraform module.
+1418.0	1426.0	 So instead of you having to write all the terraform code, you just need to call that single module and provide those YAML files as input.
+1426.0	1434.0	 Now, under the hood, there are certain abstractions where we essentially need to translate the code into a single terraform module.
+1434.0	1446.0	 Under the hood, there are certain abstractions where we essentially need to translate the input from your YAML files into the respective ECI objects that we eventually need to push to the ECI infrastructure.
+1446.0	1450.0	 And that's where all the logic and all the complexity lies.
+1450.0	1462.0	 But the idea is that's something that we want to maintain in a single place and every one of you to be able to consume without worrying about testing this on a continuous basis.
+1464.0	1470.0	 So the blue boxes that you see here, these are what are typically objects in ECI, right?
+1470.0	1479.0	 So if we take an EPG as an example, there is obviously the EPG object itself, but then there are a bunch of child objects that you would typically manage as well.
+1479.0	1485.0	 Things like the domain association or things potentially subnets that are configured under the EPG.
+1486.0	1495.0	 Now, the way this is handled in Nexus S Code is that we essentially, first of all, build a bunch of modules to first of all abstract and simplify that configuration.
+1495.0	1505.0	 But it goes a step further, as we've seen before, because we don't want you to deal with multiple modules and potential dependencies between those.
+1505.0	1509.0	 We again take those modules, and these are like 100 plus modules.
+1509.0	1515.0	 We take those modules and again abstract them and combine them into a single module, as we've seen before.
+1516.0	1523.0	 Within Nexus S Code, we make use of something called configuration areas.
+1525.0	1528.0	 It's not necessarily an all or nothing approach.
+1528.0	1534.0	 It means it doesn't mean Nexus S Code needs to manage your full ECI configuration no matter what.
+1534.0	1542.0	 You can use Nexus S Code in a way that you can say, I just want to manage that single tenant initially with Nexus S Code.
+1542.0	1549.0	 But all the access policies and fabric policies configuration, that's maybe still maintained manually or through some other automation.
+1551.0	1559.0	 So we introduce those kind of configuration areas or six type of configuration areas, which are the ones that are listed on the top.
+1559.0	1566.0	 And you can individually enable and disable them, depending on how much of the ECI configuration you want to manage with Nexus S Code.
+1572.0	1577.0	 Now, assuming you want to use Nexus S Code with a full scale configuration, right?
+1577.0	1584.0	 Think of hundreds of tenants, potentially hundreds of leaves being deployed in a single fabric.
+1584.0	1590.0	 You don't necessarily want to put all that definition or YAML text into a single file, right?
+1590.0	1595.0	 Having a single file with 10,000s of lines of text is difficult to manage.
+1596.0	1600.0	 So you want to split that configuration into manageable pieces.
+1600.0	1606.0	 And the way we approach this, we want to provide you full freedom in terms of how you can do this.
+1608.0	1611.0	 And it very much depends on the actual deployment, right?
+1611.0	1619.0	 So in an SP environment where you potentially have hundreds of tenants, it might make sense to manage each tenant individually in a single YAML file, right?
+1621.0	1625.0	 There might also be cases where you have a lot of configuration in a single tenant.
+1625.0	1628.0	 So you might necessarily want to have that all in a single file.
+1628.0	1631.0	 So you can split this further into individual files.
+1632.0	1638.0	 The whole idea is we don't want to dictate how this structure or how you structure your YAML files.
+1638.0	1642.0	 Nexus Code actually doesn't care how many YAML files you provide, right?
+1643.0	1651.0	 What Nexus Code does internally is essentially takes all the YAML files that you provided, combines that into a single data structure,
+1651.0	1655.0	 and that's what Nexus Code then uses going forward, right?
+1655.0	1665.0	 So whether your configuration is split into 1,000 YAML files or everything is included into a free file, it doesn't really matter to Nexus Code.
+1665.0	1669.0	 Let me provide you an example how that merge works, right?
+1670.0	1676.0	 So as I said before, you might be in a situation where a lot of configuration is applied within a single tenant.
+1677.0	1682.0	 Now you might want to divide that configuration further into, as I said before, manageable pieces.
+1682.0	1684.0	 Now how can this be done?
+1685.0	1689.0	 You can, for example, divide the configuration into a single file, right?
+1689.0	1697.0	 So we can have a tenant, a single tenant called brought, and within that tenant we have a service deployed for management purposes, right?
+1697.0	1701.0	 Which consists of a VRF and a bunch of other objects associated to that VRF.
+1702.0	1705.0	 So you can divide that configuration into multiple pieces.
+1706.0	1709.0	 So you can divide that configuration into multiple pieces.
+1710.0	1713.0	 So you can divide that configuration into multiple pieces.
+1713.0	1715.0	 And as I said, you might want to manage for management purposes, right?
+1717.0	1720.0	 Which consists of a VRF and a bunch of other objects associated to that VRF.
+1720.0	1733.0	 So we can manage that single service in a single YAML file, but then within that very same tenant, we can have another service like an HR service as an example.
+1733.0	1736.0	 But you want to manage that in a completely different YAML file.
+1736.0	1740.0	 That might be due to different administrative domains, right?
+1740.0	1743.0	 Different people managing different parts of the configuration.
+1743.0	1747.0	 But that might also be simply due to the fact that we want to ease
+1747.0	1749.0	 maintenance of the actual configuration.
+1755.0	1759.0	 Now, in some cases, you have to deal with sensitive information.
+1761.0	1764.0	 If you think of a full ECI configuration,
+1764.0	1769.0	 you might want to configure something like BGP passwords, right?
+1769.0	1772.0	 And you might not want to include that sensitive information
+1772.0	1775.0	 in clear text in your YAML files,
+1775.0	1779.0	 because that effectively means everyone who has access to those YAML files
+1779.0	1782.0	 can immediately see those values.
+1783.0	1786.0	 So the way we can deal with this in Nexus S Code is
+1786.0	1790.0	 we can work with so-called placeholders.
+1790.0	1795.0	 And we essentially use placeholders for or make use of environment variables.
+1795.0	1799.0	 So instead of putting the actual value in the YAML file,
+1799.0	1803.0	 we can put a reference there to an environment variable.
+1804.0	1809.0	 And during runtime, we evaluate the value of this environment variable
+1809.0	1812.0	 and dynamically insert it into the configuration accordingly.
+1812.0	1816.0	 Now, this is typically how you deal with secrets in a CI-CD environment
+1816.0	1819.0	 or CI-CD platform, right?
+1819.0	1823.0	 So to give you an example, a CI-CD environment like GitHub
+1823.0	1825.0	 or GitLab would be another example.
+1825.0	1830.0	 Jenkins typically provides some way of storing secrets.
+1831.0	1836.0	 So it allows you to define those secrets,
+1837.0	1840.0	 store them, confidentialize them,
+1840.0	1843.0	 store them confidentially,
+1843.0	1848.0	 and dynamically insert or inject them during runtime.
+1848.0	1850.0	 So whenever you run the code,
+1850.0	1853.0	 essentially the Terraform apply operation,
+1854.0	1860.0	 the CI-CD platform will take the value configured for the specific secret
+1860.0	1864.0	 and essentially create an environment variable with that value.
+1864.0	1867.0	 And Nexus S Code will take the value and insert it dynamically
+1867.0	1870.0	 instead of that placeholder that we see, right?
+1870.0	1872.0	 So this is how it looks at runtime.
+1873.0	1877.0	 So in this way, we don't need to expose this sensitive information
+1877.0	1878.0	 directly in those YAML files,
+1878.0	1882.0	 but instead can dynamically inject that during runtime.
+1890.0	1893.0	 Now you've seen that simple configuration for a tenant,
+1893.0	1895.0	 a few bridge domains, EPGs.
+1897.0	1901.0	 Now imagine you want to configure something more complex in L3R.
+1901.0	1903.0	 There is so much you can configure on L3R,
+1903.0	1906.0	 whether it's different routing protocols, et cetera.
+1906.0	1908.0	 So where do you go if you want to understand
+1908.0	1914.0	 how does Nexus S Code expect that data or YAML files to look like?
+1915.0	1917.0	 This is the place to go, right?
+1917.0	1920.0	 So cisco.com slash go slash Nexus S Code.
+1920.0	1926.0	 This will essentially take you to a Cisco DefNet page hosted on cisco.com.
+1926.0	1930.0	 And it will have all the reference documentation of all the possible objects,
+1930.0	1935.0	 all the possible attributes that you can configure for or within Nexus S Code.
+1935.0	1939.0	 And it's not only that, it's a reference documentation,
+1939.0	1942.0	 but it also provides you readily usable examples
+1942.0	1946.0	 that you can simply take, copy, paste into your configuration, adapt, and use.
+1947.0	1950.0	 On top of that, it's not only a reference documentation,
+1950.0	1955.0	 but it also provides, as I said before, examples,
+1955.0	1960.0	 but also step-by-step tutorials on how to get started with Nexus S Code.
+1960.0	1963.0	 So if you want to learn more, go to that link.
+1963.0	1966.0	 It's also included at the very end of the presentation.
+1966.0	1970.0	 This has all the relevant documentation that exists for Nexus S Code.
+1972.0	1980.0	 Now, something we've been working on recently is also making the user
+1980.0	1984.0	 or improving the user experience around maintaining those YAML files.
+1984.0	1987.0	 So we've developed an integration with Visual Studio Code
+1987.0	1991.0	 that essentially allows you or provides you things like tooltips.
+1991.0	1994.0	 You begin start typing T-E-N,
+1994.0	1998.0	 and it suggests that there is a tenant's object that you can configure.
+1998.0	2002.0	 And not only that, it also lists all the possible values
+2002.0	2004.0	 that you can configure within a tenant.
+2004.0	2006.0	 I'm not sure why it's not...
+2010.0	2011.0	 Okay.
+2015.0	2018.0	 It also offers things like auto-completion, right?
+2018.0	2022.0	 For example, as we will see next, we're going to configure a bridge domain,
+2022.0	2024.0	 and as we auto-complete the bridge domain,
+2024.0	2028.0	 it immediately tells us that you need to configure a name and a VRF.
+2030.0	2032.0	 It also does validation as you type,
+2032.0	2036.0	 meaning if you provide a value that is out of range,
+2036.0	2040.0	 it will immediately tell you that there is an error in the configuration,
+2040.0	2043.0	 and you can fix the error right away, right?
+2045.0	2047.0	 Now, what do you need for this?
+2048.0	2051.0	 You need Visual Studio Code, obviously.
+2051.0	2055.0	 You need to install a single extension, which is the YAML extension,
+2055.0	2058.0	 and you need to name your files accordingly,
+2058.0	2063.0	 which is the .nac.yaml extension.
+2063.0	2065.0	 Once you have that extension,
+2065.0	2069.0	 Visual Studio Code understands that this is supposed to be configured
+2069.0	2072.0	 according to the Nexus Code data model
+2072.0	2077.0	 and immediately runs those validations against your data as you type, right?
+2086.0	2089.0	 Coming back to using this in production,
+2089.0	2095.0	 for obvious reasons, you want to keep your configuration as lean as possible,
+2096.0	2098.0	 because whenever you repeat something,
+2098.0	2104.0	 that's a possible place where you can introduce errors.
+2104.0	2106.0	 You want to avoid that.
+2107.0	2111.0	 So, within Nexus Code, there's a concept of default values.
+2112.0	2115.0	 We try to provide default values,
+2115.0	2118.0	 meaningful default values, as much as possible, right?
+2118.0	2123.0	 But in some cases, a default value that works for one deployment
+2123.0	2126.0	 isn't necessarily the best choice for another deployment.
+2127.0	2128.0	 And let me give you an example.
+2128.0	2131.0	 If you configure a bridge domain in ACI,
+2132.0	2135.0	 that bridge domain by default has Unicast routing enabled,
+2135.0	2140.0	 because likely the majority of customers use this ACI as a layer-free fabric,
+2140.0	2143.0	 which makes perfect sense, right?
+2143.0	2147.0	 But assume you're using ACI just as a layer-2 fabric,
+2147.0	2152.0	 you would need to disable Unicast routing on each and every bridge domain, right?
+2152.0	2156.0	 So, for obvious reasons, we don't want to do this for each and every bridge domain
+2156.0	2158.0	 that we configure in Nexus Code.
+2158.0	2162.0	 So, what we can do instead is we can actually modify that default value,
+2162.0	2164.0	 set Unicast routing to false,
+2164.0	2167.0	 which essentially means that we don't need to repeat that configuration
+2167.0	2171.0	 for each and every object that we have, bridge domain, as an example.
+2171.0	2177.0	 One last thing before we continue with other aspects than provisioning.
+2181.0	2186.0	 You might be thinking that all looks nice,
+2186.0	2191.0	 but do I really want to maintain all that information in a set of YAML files?
+2193.0	2195.0	 It might be easy to calculate,
+2195.0	2197.0	 but I don't think that's the case.
+2197.0	2201.0	 So, how do we incorporate data from other sources than YAML files?
+2203.0	2206.0	 So, we have a set of YAML files.
+2206.0	2208.0	 We have a set of YAML files,
+2208.0	2214.0	 and we have a set of YAML files that we want to incorporate into the YAML files.
+2214.0	2219.0	 So, how do we incorporate data from other sources than YAML files?
+2220.0	2225.0	 So, how can we incorporate data from other sources than YAML files?
+2227.0	2230.0	 And I'll use a simple example here.
+2230.0	2231.0	 I'm using an IPAM.
+2231.0	2234.0	 I'm using Netbox specifically as an IPAM.
+2237.0	2239.0	 But Netbox is more than an IPAM.
+2239.0	2242.0	 It can also be used to maintain a list of VLANs, for example,
+2242.0	2243.0	 that we want to maintain, right?
+2243.0	2246.0	 So, assume this is a network-centric deployment
+2246.0	2247.0	 where we have a bunch of VLANs,
+2247.0	2250.0	 which essentially map to a single EPG and BD,
+2250.0	2255.0	 and we want to maintain that list of VLANs in Netbox, right?
+2255.0	2259.0	 So, assume we have that kind of data already available in Netbox.
+2260.0	2261.0	 Now, what we can do,
+2261.0	2265.0	 and unfortunately we don't have the time to explain all the code,
+2265.0	2268.0	 but this should just give you an idea of how we can incorporate
+2268.0	2272.0	 such kind of data into Nexus S code.
+2273.0	2277.0	 And this is really where open-source tooling like Terraform
+2277.0	2279.0	 becomes very, very powerful, right?
+2279.0	2283.0	 Because it's not only us, Cisco, providing integrations for our products.
+2283.0	2287.0	 It's also other vendors providing integrations, right?
+2287.0	2289.0	 It's also the community to provide integrations,
+2289.0	2291.0	 because all of that is open-source.
+2292.0	2296.0	 So, assuming you have an IPAM like Netbox in place,
+2296.0	2300.0	 there is a good chance, and in this case the answer is yes,
+2300.0	2303.0	 that there is an integration that already exists
+2303.0	2306.0	 either within the Terraform or Ansible ecosystem.
+2307.0	2311.0	 So, the way we can use this is we can actually use that integration
+2311.0	2315.0	 that already exists to pull data from Netbox,
+2315.0	2317.0	 in this case just a list of VLANs,
+2318.0	2321.0	 and then we use that data that we pulled from Netbox.
+2322.0	2324.0	 We kind of transform the data a bit
+2324.0	2327.0	 to work with our Nexus S code data model or data structures.
+2327.0	2330.0	 So, we get the list of VLANs from Netbox.
+2331.0	2335.0	 Based on that list of VLANs, we're going to create a list of rich domains
+2335.0	2339.0	 where the name is being derived from the name that we have in Netbox.
+2340.0	2345.0	 And then we're able to merge that data with the data that we have in the YAML files, right?
+2345.0	2349.0	 So, we have parts of the configuration defined in the YAML file,
+2349.0	2351.0	 like the tenant, like the VRFs.
+2351.0	2354.0	 And then we're pulling in other data from Netbox,
+2354.0	2358.0	 which essentially then creates the list of rich domains and also EPGs.
+2361.0	2365.0	 Again, this should just serve as an example of how this can be done,
+2367.0	2370.0	 meaning it doesn't necessarily end with those YAML files.
+2370.0	2373.0	 That's just one way of providing data to Nexus S code.
+2376.0	2379.0	 All right, enough of configuration management.
+2379.0	2385.0	 Thinking of maintaining a huge set of YAML files, right?
+2385.0	2390.0	 Think of 100 YAML files potentially with hundreds of lines of text or code.
+2392.0	2395.0	 The bigger the configuration, the more complex the configuration,
+2396.0	2399.0	 the bigger the chance that humans introduce errors.
+2402.0	2406.0	 My point is to think about the data that we have in the YAML file.
+2407.0	2412.0	 My point is there is not necessarily something that we can do
+2412.0	2414.0	 to prevent human errors from happening, right?
+2414.0	2420.0	 Wherever humans are interfacing with a system like ACI,
+2420.0	2423.0	 there is a chance that the human introduces an error.
+2424.0	2427.0	 What we can influence in one way or another is
+2427.0	2432.0	 when do we potentially detect that mistake or error as it happened, right?
+2432.0	2437.0	 What we want to prevent from happening is that we only detect that error
+2437.0	2440.0	 once it has already been deployed in the production environment
+2440.0	2443.0	 and potentially has impacted an existing deployment.
+2443.0	2445.0	 That's what we want to prevent.
+2445.0	2448.0	 So this is what pre-change validation is about.
+2448.0	2453.0	 It's essentially a programmatic approach to validating configurations
+2453.0	2456.0	 before we are deploying them in a production environment.
+2456.0	2460.0	 We want to make sure that we find any kind of errors
+2461.0	2466.0	 find any kind of human errors or other errors that were introduced for whatever reason
+2466.0	2469.0	 before they are potentially impacting a production deployment.
+2470.0	2475.0	 Now, those kind of validations can happen on different levels.
+2477.0	2480.0	 And I'll explain this in a bit more detail with examples, right?
+2480.0	2483.0	 So there is validation that can happen on the format level.
+2483.0	2486.0	 We can validate the format of our input files like the YAML files.
+2486.0	2489.0	 We can validate the syntax of those files.
+2490.0	2493.0	 We can do semantic validations.
+2493.0	2496.0	 And last but not least, we can also do compliance validation.
+2496.0	2501.0	 Compliance is typically something rather customer-specific, right?
+2501.0	2505.0	 You might have specific naming conventions in place,
+2505.0	2508.0	 how you want the objects in ACI to be named.
+2508.0	2512.0	 So what you can do is you can essentially define a requirement that says,
+2512.0	2515.0	 this is how I want bridge domains to be named,
+2515.0	2519.0	 and I want to make sure that whenever someone adds a bridge domain to our configuration,
+2519.0	2523.0	 we make sure that it follows the naming convention that we set in place,
+2523.0	2528.0	 again, before it's potentially deployed in our production environment.
+2529.0	2532.0	 Now, let's take a closer look how that validation can work.
+2535.0	2540.0	 In order to facilitate that, we've open sourced a tool called IAC Validate.
+2540.0	2545.0	 It's essentially a Python-based CLI tool that supports different types of validations,
+2545.0	2547.0	 essentially the ones that I've been showing before.
+2547.0	2550.0	 And it's kind of purpose-built for infrastructure as code,
+2550.0	2553.0	 or more specifically for Nexus as code as well.
+2553.0	2560.0	 So it's essentially a tool that allows you to run validations against those YAML files on different levels, right?
+2560.0	2563.0	 Syntax, semantics, compliance.
+2566.0	2569.0	 Now, how does the syntax validation work as an example?
+2569.0	2574.0	 It works by you or us, depending on,
+2574.0	2577.0	 providing a schema that defines how the data should look like.
+2577.0	2580.0	 So schema is nothing more than a definition of how the data should look like.
+2583.0	2588.0	 So one example could be, you're all familiar with nodes in ACI, right?
+2588.0	2594.0	 Every node in ACI has to have an ID, and that ID has to be a number within a certain range, right?
+2594.0	2597.0	 It has to be between 100 and 4,000.
+2597.0	2600.0	 So what we can do with syntax validation,
+2600.0	2604.0	 we can define that each and every node ID must be a number within a certain range.
+2604.0	2608.0	 Now, once we define this in a schema,
+2608.0	2613.0	 we can continuously use that schema to validate all the YAML files on a continuous basis, right?
+2613.0	2617.0	 So we can make sure that every change that we make to our YAML files,
+2617.0	2621.0	 whenever someone touches a node ID, it's a number within that range.
+2621.0	2624.0	 Otherwise, we'll raise a violation,
+2624.0	2627.0	 and we're not allowing them to do that.
+2627.0	2631.0	 So that's how such a schema should look like, or could look like.
+2631.0	2635.0	 We're actually leveraging another open source tool called Yamal.
+2635.0	2639.0	 That's essentially just a way of defining the structure for our YAML files,
+2639.0	2642.0	 and defining some of those value constraints.
+2646.0	2648.0	 Now, the other thing is semantic validation.
+2648.0	2651.0	 Semantic validation is the same thing as a schema.
+2651.0	2654.0	 It's basically a schema that defines the structure of the data.
+2654.0	2656.0	 Now, the other thing is semantic validation.
+2656.0	2660.0	 Semantic validation is really about verifying, in this case,
+2660.0	2663.0	 ECI-specific constraints.
+2663.0	2666.0	 So going back to this example of node IDs,
+2666.0	2670.0	 the node ID not only has to be a number within a certain range,
+2670.0	2676.0	 we also need to make sure that each and every node ID within a certain ECI deployment is unique, right?
+2676.0	2679.0	 You cannot reuse the same node ID twice.
+2679.0	2682.0	 So a very simple semantic validation rule could be,
+2682.0	2686.0	 make sure that each and every node ID is unique, right?
+2686.0	2694.0	 Another example of a semantic validation is verifying something known as referential integrity.
+2695.0	2700.0	 So as you probably were, in ECI we're often dealing with relationships, right?
+2700.0	2703.0	 So there are these parent-child relationships.
+2703.0	2707.0	 BRF is part of a tenant, or is a child of a tenant.
+2707.0	2710.0	 But then there are also indirect relationships,
+2710.0	2715.0	 where one object in one part of the object tree is referring to another object somewhere else.
+2715.0	2719.0	 Think of an EPG consuming a contract as an example.
+2720.0	2726.0	 Now, what we can do with this is we can verify that each of those relationships are actually valid references, right?
+2726.0	2730.0	 So typically we refer to other objects by its name.
+2730.0	2737.0	 So we say EPG1 consumes the contract named HTTP as an example.
+2737.0	2741.0	 So what we can do is, because we do have full knowledge of the whole configuration,
+2741.0	2744.0	 we can easily verify those references are valid, right?
+2744.0	2749.0	 So if you make a typo, and for example refer to a contract that doesn't exist,
+2749.0	2752.0	 we can easily detect that using semantic validation.
+2754.0	2756.0	 But this goes further, right?
+2756.0	2761.0	 We can also verify certain best practices or how ECI needs to be configured.
+2761.0	2768.0	 Now, what you essentially get as an output for these semantic validations is a set of violations, right?
+2768.0	2771.0	 If you violate certain rules, then you get an error message,
+2771.0	2775.0	 and you can provide that as feedback to the user, and the user can actually correct the mistake.
+2780.0	2782.0	 Now there is also compliance validation.
+2782.0	2787.0	 You can't build certain compliance rules into the data that you have.
+2787.0	2792.0	 You can't build certain compliance rules into the tool that I've shown before,
+2792.0	2796.0	 like the IEC validate tool, and there is more information on the website of that tool.
+2797.0	2808.0	 But there is another kind of dedicated product that is purpose-built for running those kind of compliance checks against your infrastructure,
+2808.0	2810.0	 which is Nexus Dashboard Insights, right?
+2810.0	2819.0	 Now what Nexus Dashboard Insights does, think of it as a digital twin of your ECI deployment.
+2819.0	2825.0	 So it creates a digital representation of your, for example, production ECI environment,
+2825.0	2833.0	 and uses that digital representation to run changes against that model,
+2833.0	2844.0	 and do a kind of before-after comparison to see if the proposed change that you haven't yet deployed in your production environment causes any unknown side effects or issues.
+2847.0	2855.0	 So what we can do in the context of Nexus code is we can leverage that in the sense that we prepare a change in Nexus code,
+2856.0	2866.0	 we take that prepared change, using a tool, push it to NDI, let NDI replicate that change on that digital twin,
+2866.0	2872.0	 and do that before-after comparison to see if there are any unexpected side effects with our proposed change, right?
+2873.0	2879.0	 Another CLI tool that can easily be integrated. There is more information available on that website.
+2885.0	2894.0	 Last but not least, there are certain parts that we can only test or validate after deploying a certain configuration.
+2895.0	2898.0	 That's specifically when it comes to operational state.
+2898.0	2904.0	 So think of we are deploying an L3 out with a BGB peering to some external router, right?
+2906.0	2911.0	 If we deploy that configuration, we would expect that this BGB peering is in an upstate afterwards.
+2911.0	2915.0	 But obviously we can only verify that once we've deployed the actual configuration.
+2916.0	2925.0	 So the way we can approach this is by automating the testing and making sure that whenever we apply changes to our ECI environment,
+2926.0	2933.0	 we run certain tests in an automated way to make sure that the operational state afterwards is as we would expect it to be.
+2934.0	2940.0	 Now there are different kinds of things that we can verify. One of them is operational state as mentioned.
+2941.0	2946.0	 Another thing we can do with ECI is ECI already collects a lot of telemetry, right?
+2947.0	2957.0	 It correlates that, it aggregates that, it kind of provides something known as faults and health scores as an example.
+2958.0	2966.0	 So what we can do with ECI, we can pull those health scores, we can pull those faults and either compare them against a certain threshold.
+2966.0	2974.0	 So we can say, okay, if our health score for the tenant that we just configured dropped below 90, that's something we want to know about.
+2975.0	2979.0	 Or we can also do such as I said before, before after comparison, right?
+2980.0	2988.0	 We can pull the faults that we had before applying the change, do the same afterwards, and then see if there are any faults that got reintroduced or got introduced because of our change.
+2989.0	2992.0	 Because if that's the case, we probably want to know about this, right?
+2996.0	3006.0	 Another tool for this purpose, which is called IEC test, which is essentially, unfortunately we can't go into the details, but there are some more hidden slides included in this deck.
+3007.0	3015.0	 So if you download the slides, there's some additional information available there on how such tests can be incorporated and included, right?
+3016.0	3020.0	 And we'll also show you an example how that works in a second.
+3020.0	3027.0	 Now, last thing I want to touch on is CI-CD.
+3028.0	3033.0	 It's a difficult topic because it actually originates from software development.
+3034.0	3042.0	 But think of it essentially as a workflow engine, something that allows you to trigger certain workflows as you make changes to your YAML files.
+3043.0	3047.0	 And the way this works is that you put those YAML files into a Git repository.
+3048.0	3053.0	 So that Git repository effectively becomes your source of truth for configuration data.
+3054.0	3060.0	 And then you have a CI-CD platform that listens to changes in that repository and triggers certain workflows, right?
+3063.0	3067.0	 How could such a workflow look like or what workflows could that put in place?
+3067.0	3074.0	 One example is being shown here. So we've seen those validations, syntactic semantic compliance validations.
+3075.0	3081.0	 So one thing we can do is that we can set up a workflow that whenever we make changes in that repository,
+3082.0	3089.0	 we automatically run those validations and provide feedback via a Webex notification as an example to the user.
+3090.0	3094.0	 Another workflow could be if we open a pull request.
+3095.0	3098.0	 Now, this is something very specific to Git or GitHub.
+3099.0	3105.0	 It's essentially the intent to eventually merge that change into our main branch or production environment.
+3106.0	3109.0	 So this is right before we deploy the actual change.
+3110.0	3114.0	 Now, in this stage, we might do some more comprehensive validation and testing.
+3114.0	3117.0	 Things like this NDI pre-change validation.
+3118.0	3124.0	 The reason we want to do this here is because it can be quite intensive in terms of resources and time required, right?
+3125.0	3127.0	 So we don't necessarily want to do this for every change,
+3128.0	3132.0	 but rather when we come closer to merging that change into our production environment.
+3133.0	3138.0	 And the third one is the one that gets triggered once we merge into the main branch,
+3138.0	3141.0	 which effectively means that's when we want to deploy the configuration.
+3142.0	3145.0	 So this time it's about deploying the configuration,
+3146.0	3149.0	 running the post implementation testing that we briefly discussed before,
+3150.0	3155.0	 and again, provide feedback to the user whether the deployment has been successful, whether the testing has been successful.
+3157.0	3159.0	 Let me run you through a quick demo.
+3161.0	3163.0	 Similar setup as before, right?
+3164.0	3166.0	 So we have a set of user profiles.
+3166.0	3172.0	 So we have a set of YAML files describing a simple tenant configuration, much like as we've seen before.
+3173.0	3176.0	 Now the first thing that we're doing here is we're creating a new branch.
+3177.0	3179.0	 We want to prepare the change in a kind of isolated environment.
+3180.0	3183.0	 We don't necessarily want to apply changes directly to our production environment.
+3184.0	3189.0	 So what we're going to do here is, as you can see, there's a bunch of EPGs and BDs already configured.
+3190.0	3195.0	 So what we're going to do here is we simply add a new EPG and bridge them into the configuration.
+3196.0	3202.0	 So we take the configuration of an existing EPG and bridge domain, we simply copy-paste it and update the values accordingly.
+3207.0	3212.0	 What we will do next is we'll commit those changes to the central Git repository, right?
+3213.0	3215.0	 So everyone is working against the central repository.
+3216.0	3219.0	 We are doing the same. We're committing them against that or to that repository.
+3219.0	3231.0	 As we do that, what we will see next is that as we are committing to the central repository, essentially applying a change,
+3232.0	3236.0	 the first workflow that we've seen before gets triggered, which is about validation.
+3237.0	3241.0	 So we want to make sure that the changes that we triggered are being validated.
+3242.0	3246.0	 And that's what's happening here. And we're actually receiving a Webex notification that says the validation has failed.
+3246.0	3251.0	 And it also provides us a bit more context in terms of why it has failed.
+3252.0	3254.0	 It says there is a subnet overlap.
+3255.0	3260.0	 Now, if we go back to the configuration, we can actually see I intentionally did a mistake here, right?
+3261.0	3263.0	 I configured two bridge domains with overlapping subnets.
+3264.0	3270.0	 Now, this is likely something that you would easily see if you look at a small configuration like this.
+3270.0	3278.0	 But again, think of hundreds of bridge domains that's probably close to impossible to detect such mistakes up front, right?
+3279.0	3281.0	 So that's where validation comes into play.
+3282.0	3289.0	 Before we have deployed anything to our production environment, we're able to detect that mistake and correct it so that it doesn't impact our environment.
+3291.0	3293.0	 We fixed the mistake. We pushed it again.
+3294.0	3297.0	 We again triggered the exact same workflow running the validations,
+3297.0	3300.0	 except that this time we expect it to be successful.
+3301.0	3306.0	 And indeed, we receive the Webex notification which says validation has been successful.
+3307.0	3316.0	 So what we can do now, we can continue on to the next step, which is opening the pull request, which is our intent to merge that change and eventually deploy it.
+3317.0	3320.0	 So this is the point where others in my team can maybe review that change, right?
+3320.0	3328.0	 They can go through the changes that I did and they can review and verify that this is indeed in line with the intended change.
+3330.0	3340.0	 Now, as we do that, we can see there's another workflow that has been triggered, which is like the second workflow that we've seen before, right?
+3341.0	3352.0	 Now, this time what we will see is that we are not running the NDI validation because that would take a lot of time and we don't have the time today, right?
+3353.0	3362.0	 But what we will see is that we will essentially do a Terraform plan, a try run, and we'll paste the output from the Terraform plan directly here in the pull request in GitHub.
+3363.0	3370.0	 So we can see exactly these are the changes that Terraform intends to apply to the infrastructure.
+3374.0	3378.0	 And the very last step now is where we are going to apply those changes, right?
+3379.0	3387.0	 So we have someone that reviewed that change, that potentially approved that change, and we can now go ahead and apply that change, which is exactly what is happening now.
+3387.0	3394.0	 We are merging it, right? We are putting that change into place and we are eventually deploying that configuration.
+3405.0	3409.0	 This is the workflow that is now being triggered for the deployment.
+3409.0	3412.0	 So this is where the Terraform apply operation is being executed.
+3413.0	3419.0	 But it's not only that, it's also the testing, as we've seen before, that will be executed here.
+3420.0	3425.0	 Now, as a result, it just takes a second until we get the response for this.
+3427.0	3432.0	 We again receive a Webex notification that tells us whether the deployment was successful or not.
+3433.0	3438.0	 And in addition to that, we just have to wait a few seconds.
+3440.0	3444.0	 We also get the summary of the testing.
+3445.0	3450.0	 So how many tests did we execute? How many of those have passed? How many of those have been successful? Which is what we see here, right?
+3451.0	3459.0	 That's just a summary. If we want to know more, we can click on this testing link and it will take us directly to the test report.
+3459.0	3463.0	 This slide is just for reference because I've continuously heard the question of,
+3464.0	3470.0	 that looks nice for ACI, but what about the NDO? What about if you manage your configuration with NDO?
+3471.0	3475.0	 We do support NDO configurations with Nexus S Code as well.
+3476.0	3479.0	 Very similar or the exact same approach, right?
+3480.0	3485.0	 You provide the same configuration with NDO, but you have to have a different configuration.
+3485.0	3488.0	 Very similar or the exact same approach, right?
+3489.0	3493.0	 You provide a set of YAML files describing it and Nexus S Code manages the rest.
+3496.0	3500.0	 Last slide. I know this has been a lot of content.
+3501.0	3508.0	 And just to make sure that I'm not confusing anyone, everything that you've seen so far is open source and freely available to everyone, right?
+3508.0	3517.0	 So there's absolutely nothing wrong with taking what we've published, taking the open source tooling, using it yourself and doing this in a more or less do-it-yourself fashion.
+3518.0	3524.0	 But we've also seen that there are customers that are looking to get support from the vendor or us in that case, right?
+3525.0	3534.0	 And this is where we have this services as code offer in place, which is essentially a subscriptional offer where we support you in terms of enablement,
+3534.0	3540.0	 where we are also supporting you in terms of developing maybe specific features that you require in your environment,
+3541.0	3545.0	 but where we can also provide technical support on a 24-7 basis, right?
+3546.0	3551.0	 So if you run into issues with the solution, you can open a case with us like you would do with any TAC, right?
+3552.0	3557.0	 And you can get hold of an engineer and we'll work with you on fixing that issue, right?
+3558.0	3563.0	 Again, this is completely optional, but it's something just to be aware of.
+3564.0	3567.0	 All right, that's it, right?
+3568.0	3573.0	 There are a bunch of references here in terms of links, how you can get started with this and some additional information.
+3574.0	3575.0	 Feel free to check out those.
+3576.0	3581.0	 And as I said before, there are some additional slides being included, which I've not shown here.
+3582.0	3585.0	 So if you're interested to learn more, feel free to check out the slides.
+3586.0	3591.0	 And as I said before, if there are any questions, please feel free to raise them in the Webex space.
+3591.0	3592.0	 All right.

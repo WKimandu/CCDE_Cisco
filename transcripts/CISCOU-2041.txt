@@ -1,0 +1,539 @@
+Hello everybody. Thanks for stopping by and listening to me talking about network design.
+My name is Mark Holm. I am the exam program manager for the CCD certification here at
+Learning and Certifications. So I talk network design all the time. That's what I do and that's
+how I make a living in my professional career at the moment. I make sure that if you go take
+the CCD exam, it's my job to make sure we test you the right way. But I'm not going to talk so
+much about the DE today. I'm going to talk much more about some of the stuff you need to know to
+be able to be a network designer. Because at the end of the day, network design is not just making
+some drawings in Visio or other drawing programs. This is about knowing the requirements, knowing
+your customer, knowing your organization to make sure they have or get what they need.
+So it's not just about technical knowledge. You need other things as well. So that's what I'm going
+to cover today. I'm going to give you an example that's going to look very simple, but it's going
+to have two very different outcomes depending on the requirements. So quickly, there is a
+Webex space for this. So after the session, if you registered, you should have been added to Room.
+If not, let us know. Otherwise, feel free to ask me questions afterwards if you have
+any follow-up questions or anything I've been saying today.
+So let's have a look at some of the required skills that you need.
+Because network design is not an exact science. You need to have technical knowledge and you need
+to have experience, right? Because without the experience, it will be harder for you to design
+well-functioning networks that are built to the purpose they are supposed to do.
+And then you need to understand the goals of what you are trying to do.
+So if you're working on a project, you need to understand why this project, what are the goals,
+what do you want to achieve, your customer or your organization, what are you trying to get
+to? Don't just blindly assume, oh, this is just a network. It won't be. There's going to be some
+requirements. There's going to be some business behind it that needs this to make sure they are
+fully able to utilize this network afterwards.
+And we see this every day. Network designs that are bad, they cause problems every day.
+So essentially, you spend a lot of time and money fixing those problems. Those money would have been
+much better spent making a proper design at the beginning of the project. But the thing here,
+and this is bullet number four here, is very important. There is no one size fits all. That
+doesn't exist. There is no one size fits all. There is no one size fits all. There is no one size fits all.
+So when we talk about Cisco validated designs, they are very good. They are validated,
+of course, hence their name. But at the end of the day, they should be seen as a starting point.
+You need to trust and verify. Make sure it actually fits. Because there might be or likely
+will be a requirement somewhere in this information you get from your customer that says, we can't use
+the solution as it is. We need to make some adjustments. And there's always going to be
+some tradeoffs somewhere.
+You can't build the coolest network ever built because the customer probably can't afford it.
+You need to make sure that you find a balance between features and what's actually needed.
+Don't just throw in a lot of features because somebody has to pay for it at the end of the day.
+And money, it always wins. Every time. No matter what you do, if there's no money to buy what you're
+suggesting, you won't win. It's going to be shut down. It's not going to be valid design for this
+game. So this is why you need not a master's degree, but you need a business understanding
+to be able to do proper network design and be a true expert in that field.
+So you need to be able to analyze and understand what you're working with, what you're working in,
+and who you're working for. If you don't have that understanding,
+chances are you will be making wrong decisions somewhere along the path
+and will fail to meet the requirements that you've been asked or tasked to do.
+So you need to make sure that whatever you do, it supports whatever goals and strategy are set for
+that business. Again, if you fail, they won't call you next time they need a design project.
+You need to make sure that whatever you do,
+is aligned with the strategy. So you need to ask questions. You need to make sure you understand
+this. Don't assume it. Verify it by asking. And then you need to, of course, meet all the
+requirements, but there's also going to be some constraints. It might be, oh, we can't use new
+technologies. We can't use, hopefully nobody says that today, but we can't use VXLAN. We will only
+use traditional VLANs. Okay? It might happen. But there might be constraints that you need
+to add to that will completely take away everything that you have learned recently here at
+Cisco Live. So this is a new, cool technology. This is what you should all be doing. But if a
+customer says, we don't want that, then you have to meet that requirement by not doing it.
+So again, it ties into that you know who you're working for. So if you're working on a new project,
+spend a little time researching the company name, researching what they do,
+what kind of company are you working with? Because if you do that, you might have a better
+understanding and a good starting point in succeeding and understanding what they're doing.
+You need, and we talk about this, I say business requirements. You also need to have deep,
+solid technical understanding of the features, the protocols, all the technologies. You need to
+have good knowledge of them. Because you need to know what kind of problems they can solve
+and how they can solve them. And you only have that by having a deep technical knowledge. You can just
+think, I think VLAN will be good here. You need to know why VLAN would be good. Because you need to
+ask them why questions. So if you talk about the CCIE which is much more about implementation,
+so this is more how you do it. When you do design, you have to ask why.
+Because you don't implement, you typically anyway, you don't implement as a network designer. You
+design the network and you hand it off to somebody else to actually do the implementation. You don't
+Do everything yourself unless you're a very small organization
+where you might have both caps on.
+But most importantly, you have to size it right.
+Don't gold plate it.
+Again, it ties back to the requirements.
+If they don't have a requirement to do feature set,
+then don't put it there because it will be overplating
+and it will be a waste of time and resources to build in
+in the future they will never use or don't even want.
+And then lastly, this is where the business stuff come in.
+You need to be comfortable working with topics like CapEx, OpEx, TCO,
+Total Cost of Ownership, Return on Investment,
+because you need to understand, again, the money is king, not technology.
+So you need to be able to work with these numbers
+and figure out what's going to cost a long while,
+what's going to be OpEx, what's going to be a CapEx.
+And you need to understand this could be a cost of operating
+and owning.
+And you need to understand this could be a cost of owning this network.
+So not only acquiring the hardware, acquiring the hours to implement it,
+you also need to operate it until the day you have to refresh everything.
+So remember, everything is cyclical.
+It all goes back.
+You design, then you run it, and at some point you're going to go back
+and make a new design because things change.
+And this is also what a designer does.
+Understands there is always going to be changes.
+One of the most important things you need to do
+is listen.
+When you sit in meetings with your customer,
+you have to listen to what they are saying
+and also what they're not saying.
+Because it's hardly ever going to happen to you
+that a customer is going to say exactly,
+we want this and we want it like that.
+They don't know.
+It's your job.
+So what they are saying and then what they're not saying,
+listen to what's between the lines.
+Because they might not say directly,
+so you need to be able to catch,
+oh, this is what you want.
+This is what you really want.
+You're saying you're wanting this,
+but in reality you want something over here.
+But often these people that you're talking to,
+as is the network sign,
+there might be CTOs or CFOs.
+They might not know all the technical sides.
+So you need to be able to speak business language
+and understand that they are going to express something
+in what we need for our business.
+And then you have to listen to them and figure out
+and translate that into the design at the end of the day.
+So you're going to talk to a bunch of relevant people,
+not only CTOs and things like that,
+but you're also going to talk to network engineers.
+You're going to talk to them, okay, so what do you need?
+What are your pain problems today?
+What do you struggle with today?
+And how can you, what are your skill sets?
+Because another thing you have to consider,
+if you're bringing brand new technology,
+there's also going to be training.
+If you don't have the necessary skills in the organization
+to run the network, again, it's not relevant.
+It's going to be, you know, it's going to be, you know,
+it's going to be useless at the end of the day.
+So if you get to a customer that doesn't have budget
+for training or time for training, you'll lose.
+Because if you put in new technology
+that requires training, the staff is not skilled for it,
+you lost, you didn't do your job as a network designer.
+Keep everything you've gathered information, keep it there.
+Because it might be something that's not relevant now,
+it might become relevant down the road.
+Or again, make sure you have it available,
+don't throw it away and assume,
+oh, this is not, never going to use this piece of information.
+Make good, you need to have good notes.
+Taking skills probably will be a good thing to do.
+And first of all, no preconceived notions and ideas.
+Because if you do, you're going to have a bias towards
+a certain solution even before you know what the requirements are.
+You need to make sure that you leave your head open,
+a mind open to everything can happen.
+So if you avoid those preconceived notions,
+that means you're open to adjust so you might have an idea
+of what you want to do, but then you're much more willing
+and able to adjust and change course based on what you hear.
+If you're going to say it's going to be VXLan no matter what,
+and you end up saying this is not VXLan, it's not the right fit,
+then again, you lost, you didn't do your job.
+And you don't want to make assumptions,
+so you want to talk to the people, ask them questions.
+Never assume anything unless you've been told
+you can assume this.
+So never automatically assume anything.
+And finally, the 2 a.m. in the morning test,
+if somebody calls you, can you justify the decisions
+you have made?
+Right?
+Can you at any point say why did you choose VXLan?
+Oh, it was because you told me this, this, this,
+and you have this requirement, this requirement.
+And you have the skills to support it.
+Okay, then it's the right decision.
+But if you can't, you're probably wrong.
+Then if you can't justify decisions,
+again, you haven't done your job right.
+So network designer, you will work with high-level designs.
+So these are not going to be anything about protocol timers
+or how you implement OSPF in the areas
+or if it's going to be ISIs,
+what kind of routing protocols you can use.
+You're going to define it's going to be ISIs
+because of the skill set you have or you already use,
+you're already using it in the network.
+But you don't get to, typically don't do,
+deal with all the details behind the client.
+That will be part of the low-level design
+which an implementation engineer, such as in CCE or CZP,
+would actually do the actual implementation.
+And this high-level design, it's just a few of the common
+things you've put in there.
+So you will describe all the design that you're proposing.
+You will gather, all the gathered information,
+say this is what I've been told.
+So based on this, I've been told.
+I can meet these requirements by doing like this
+and this and this and then describe this entire solution
+from point A to point B.
+And again, explain why the decisions were made.
+Because it makes it easy for the customer to understand
+why you're doing the way you're doing.
+Because they told you this, you told me this,
+so I'm going to do this.
+Okay, so they can say, okay, we told you to do so,
+but actually we were in mistake.
+We should not have told you that,
+because we were going to do this.
+We should have told you this instead.
+Then it doesn't fall back on you.
+You can actually say, I made the decision
+based on what you told me, so let's re-work the case
+and make sure it actually goes well and we fix the problem.
+You might also have to do a little bit of migration planning.
+Figure out who's going to be involved and things like that.
+So it might be a high-level planning you need to do as well.
+But typically, again, this is more for the implementation
+side, but it's going to be, depending on your organization,
+it might be a little trade-off or it might be a little bit
+more differently cut between implementation and design.
+You want to set up a listing like bill of materials,
+statement of works, and other documents that you do.
+This is, of course, important to say, okay,
+this is going to be what you have to order.
+This is the amount of hours you need to invest
+to actually get this done.
+But that's going to be part of the high-level design as well.
+And at the end of the day, this is going to be the document
+you present to your customer, and they sign off on that until,
+yes, now you've done your job, and now we can proceed
+with the actual implementation.
+So typically, from high-level design to implementation
+is done, it can be several months, maybe even years,
+depending on the size of the project.
+But the high-level design is going to be the basis
+of everything that's going to happen all the way down
+along that line to make sure that at the end of the day,
+you have this implemented in a way that is meaningful
+to the business that you're working with.
+So I have a little example here.
+It's going to be very, very simple.
+We have a very small data center here for lab core distribution,
+very small customer.
+So this is what they have today.
+You get a call from the customer, and they're going
+to talk a little about, well, we need additional capacity,
+and we want a second DC site.
+Okay, who doesn't want a second DC site?
+There's 15 kilometers.
+Sorry, I'm European, so I'm going to use kilometers.
+Fifteen kilometers between sites.
+They will need full layer two mobility.
+Okay? They need to VM or containers that can move
+across both data centers, and they have plenty of fiber options.
+Okay? Cool.
+But it doesn't help you much.
+You know there's a few very basic requirements.
+You need a second DC site, but at the end of the day,
+you can't really work with this.
+You need more information.
+But the only thing we can use is that we want a second DC site.
+All right.
+Okay, we're going to replicate and build a new site
+that's completely identical.
+Okay, next step, we have to figure
+out how we're going to do this.
+We're going to figure out how to connect these together.
+And again, with the information we have,
+it's not going to be a lot.
+So this is where technical knowledge comes in.
+So you might start looking a little bit about all the options
+that are available that can solve the problem you're trying
+to do, all right?
+What are you going to do?
+You're going to use BTP, EVPAN, VXLan, you're going to use some
+kind of WDM system to connect the sites.
+And this is just some of the examples,
+but this is where your technical knowledge comes in,
+and you figure out, you make a short list of things
+that might solve the problem you're trying to,
+your task to solve.
+At the end of the day, what is the answer?
+All right, all the information, it depends.
+Because the context you're putting it in is what really matters.
+So at this point, you would have to go to the customer and say,
+thank you for the assignment, but let's sit down and have a cup
+of coffee, and let's talk a little bit
+about what you actually need.
+So.
+We're going to take the first version here,
+is that you sit down, have a talk, and say, okay,
+we don't have a big team, it's a small company,
+and they're always busy, and they want to try
+out the training, and they want to do things simple.
+They don't have, because of the skills,
+they don't have everything ready,
+so they don't have any automation plans,
+and something that's standard.
+They don't have any more, so again,
+CapEx, capital expenditure, so that means if you buy a piece
+of equipment, that means it's a CapEx,
+and OpEx is operational cost.
+So they don't have any CapEx, so you can't buy additional
+hardware, except for the new site.
+But you can't buy anything for the existing site,
+you can only buy for the new site.
+Okay.
+So you chew a little bit on that, you come back,
+and then you're going to look and say, hey, simple.
+They want something simple.
+Do a simple layer two extension between the sites,
+make a port channel to avoid any spanning tree issues.
+Is it ideal by today's standards?
+No, probably not.
+But this is what the customer wants.
+They want something that's simple and one standard base.
+Okay, you're going to throw in a port channel with LACP
+to keep track of all the links,
+and you have the full layer two mobility.
+You're checking off all the boxes
+with a very simple solution, and they have the fibers available
+so you can connect them as you want.
+This meets the requirements of the customer,
+but it's not modern, it's not fancy,
+it's not cool by today's standards, but it works.
+It gets the job done, all right?
+So let's imagine another situation.
+You reset here, we go back and you go talk to the customer
+and they say, okay, we can add some complexity
+because we've got skills, we've got good people working for us.
+We want as much control of the end-to-end path as possible.
+We've got some cabbage, we can buy some new gear
+if we need to.
+We need automation, and we want centralized policy management
+if we can.
+So again, preferred versus need.
+Make sure you have the right tools.
+Make sure you have the right tools.
+Make sure you know those things.
+Say it's a strict requirement or a nice-to-have requirement, right?
+There are differences, so it's a preferred.
+If you can add it, perfect.
+If you can't, just say it's not possible.
+But if it's we must have this,
+then you can't really get away from not doing it.
+And they need, like, a three-fold increase
+in our needed number of links because they know
+they have done their forecast, so they think in the next 12 months
+we need even more capacity.
+Okay, cool.
+Then let's build a spine link.
+
+Connect the leaf architecture.
+Connect the leaf to each other.
+You have some WDM system in the middle to do all the links
+so you can add multiple channels as the capacity needs change.
+And you can add SDM controllers if you need to have,
+if you want that automation capability
+or you want centralized policy management,
+you can add SDM controllers.
+You can add Ansible.
+You can add all those things along the way,
+again, based on the requirements
+of the skill set of the customer.
+You can add this.
+And this is really two very different ways
+of solving the same problem here.
+Because this can offer layer two mobility as well.
+It offers the additional capacity just in a more modern way
+because these are the requirements that you can meet now
+and build something that's much more up to them,
+up to today's standards.
+There's only one more.
+You can always find one or more than one way to do it.
+The thing is, you have to figure out
+which one is the best one,
+and which one you recommend.
+Because, of course, if there are two solutions
+that will do the exact same thing in the exact same way,
+make the same requirements, and meet all the same things,
+then you essentially have to choose and say,
+Okay, I would recommend this,
+because then it's your personal,
+might be your personal experience,
+this works better in this environment than this.
+But then again, you would have to document it
+and say, because of personal experience,
+experience, we recommend this way because it works better traditionally in these kinds
+of environments.
+As I mentioned before, must, prefer, require, expect, not have, need to have.
+Make sure you do it because this is a change in the requirements that you have.
+And do you need to meet them or should you meet them or can you meet them?
+It all, make sure you do it.
+And then again, go back, ask.
+One single person probably won't have all your answers, so you'll have to talk to a
+bunch of people.
+Again, network engineers, CFOs, CTOs, even maybe even users because if they're complaining
+about issues when they connect to the application, there might be, you need to implement some
+kind of quality of service you need to add on top of it.
+So talk to all the stakeholders that's there.
+Make sure you get all the input because otherwise, you're only going to get one side of the affair.
+If you only talk to the CFO, you want to, you test to build something that's cheap.
+It doesn't cost a lot of money, but it doesn't meet what the technical requirements are.
+And if you only talk to the network engineers, they're going to say, we want the latest and
+greatest and coolest features, but the CVO is going to say, no, we're not going to pay
+for that.
+So as the network designer, you are the bridge between the business and the technology side.
+You can speak both languages or you should be able to speak both languages.
+That's what the network is, true network design, if you work with this in a professional way.
+You can speak to both sides.
+Make sure that...
+But you spend the time you need.
+Don't say, oh, I'm going to scroll, I don't have more time today, so I'm not going to
+ask more questions.
+I think the rest of your information I didn't get my answers to, I'm just going to assume
+things.
+No.
+Spend the time.
+Spend all the time you need to make sure you get all the information you need to build
+the design in the way you're expected to do.
+Again, I've said this many times, but don't forget, there's going to be expectations from
+the business side and there's going to be requirements from the business side, not only
+the technical side.
+So, again, money wins at the end of the day.
+It is king.
+Right?
+So, when you're talking about in context with CCDE, because I would be a fool not to talk
+about the CCDE when I'm here, this is exactly what we do with the CCDE.
+We test you on these skills.
+We test you on the ability to speak to both the technical side and the business side,
+gathering all information, analyzing what you're working with.
+That's what we test you on.
+That's going to be something that you have to do business by.
+Business drivers is, why are you doing this?
+Is it because you want to be more agile in your future changes, in your strategic direction
+in your company, whatever it might be?
+But this is what we test you on.
+This is all, we will test you and give you anything that you need and ultimately you
+will build a solution that matches this at the end of the day.
+And we do this.
+In an eight-hour marathon, as you take the exam.
+I hope to see you take the exam one day, of course, so feel free to ask and reach out
+if you do that.
+But it's going to be four of these scenarios and then every scenario is going to be like
+I just talked about.
+It's going to be, you have a bunch of requirements, you have an existing topology.
+What can we do to make XYZ happen?
+This is what we do and you do that for four different scenarios and these are not connected
+in any way.
+So.
+When you finish with a two-hour, you have to clear your mind, reset your mind, and go
+back and do, start the next scenario.
+It's going to be completely different.
+It's going to be different requirements.
+It's going to be a different company.
+It might even be a completely different vertical you're working with.
+But for the DE, this is going to be across more verticals.
+It can be enterprise, of course.
+This is what we focus on, but it can be wireless.
+It could be even collaboration.
+It could be routing switching.
+It could be WAN.
+It could be anything that you would find within an enterprise.
+Then we have this little thing here at the end called the area of expertise, which is
+a more specialized scenario.
+Again, the same concepts apply, but just focusing on something a little more, could be service
+provider oriented.
+So if you work as a service provider, it might be more relevant for you to take this scenario.
+We have something that deals with data centers and cloud.
+And we have one that works heavily on wireless.
+So radio planning.
+All that stuff that goes with site surveys.
+All that stuff that goes with a proper wireless assignment.
+But at the end of the day, it's an eight-hour scenario-based exam.
+And it is a marathon.
+But I tell you, I can guarantee you, this is worth it.
+Because I know from talking to those who pass the exam, whenever they take the CCD and they
+get the CCD badge, the door is open to talk to CXO-level people.
+You can now get talking time in front of CTOs, CFOs.
+Because of the infrastructure.
+The industry knows the CCD is able to speak business and technology.
+It's not focused on technology alone.
+We can speak both.
+We are the gap between business and technology.
+Whenever you do one of these exams, it's going to have a lot of introductions.
+So it's going to tell you what the company are, what they do, what are their strategies.
+All that stuff that you would need to be able to get a glimpse and get an idea of what you're
+working with.
+You've got a company background.
+Topology joins.
+And then you will get some ongoing correspondence.
+You will get emails.
+So, again, imagine you're sitting in a meeting with your customer and they tell you, this
+is what we want.
+Oh, by the way, and then you get another email saying, oh, we also want this.
+This is no longer relevant.
+This is what you get.
+So this is presented to you along the full two-hour scenario.
+And you have to figure out, it is your job to figure out what the relevant information
+is and make the decisions with the questions you get in your exam.
+And, first of all, do not fight the test.
+Because if you think, oh, I know better than this.
+This is much better.
+I know exactly how this should work.
+You're not listening to what we're saying in all the documentation.
+Because again, leave your outside knowledge and preconceived notions at the door.
+You're in a bubble for two hours or eight hours.
+You live in that.
+So don't fight the test by saying, I know better.
+This is a sure way to fail the exam.
+I can guarantee you that.
+And when you do this, you become a different network engineer than you are today.
+If you add this business skill set on top of your technical skill set, it's going to
+be a completely different game.
+Because you can get different kind of roles.
+You can get talk time in front of CFOs, CTOs.
+It's going to change your career.
+If, of course, if you're genuinely interested in working with networks.
+Right?
+100% network implementation, then this probably is not for you.
+But if you need that design and you love network design and you want to do more network design,
+have a look at the DE.
+Because you'll learn that there's more to it than just the business side or the technology
+side.
+There's a ton of business side you need to meet, too.
+So that's pretty much what I wanted to say here.
+I'll be around if you want to ask questions.
+Feel free to stop by.
+I'm typically around the certification lounge here.
+And we have tons of different training that you can do.
+So feel free to come by, ask us questions, ask some of my colleagues in the certification
+lounge about learning paths and Cisco U, how they can help you on your journey.
+So feel free to come by and say that.
+And with that said, thank you for stopping by.
+I appreciate your time.

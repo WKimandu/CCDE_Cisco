@@ -1,0 +1,574 @@
+start	end	text
+6360	11020	Hello everybody. Thanks for stopping by and listening to me talking about network design.
+11620	15860	My name is Mark Holm. I am the exam program manager for the CCD certification here at
+15860	22360	Learning and Certifications. So I talk network design all the time. That's what I do and that's
+22360	29580	how I make a living in my professional career at the moment. I make sure that if you go take
+29580	34140	the CCD exam, it's my job to make sure we test you the right way. But I'm not going to talk so
+34140	39880	much about the DE today. I'm going to talk much more about some of the stuff you need to know to
+39880	46480	be able to be a network designer. Because at the end of the day, network design is not just making
+46480	52280	some drawings in Visio or other drawing programs. This is about knowing the requirements, knowing
+52280	58500	your customer, knowing your organization to make sure they have or get what they need.
+59920	64200	So it's not just about technical knowledge. You need other things as well. So that's what I'm going
+64200	69160	to cover today. I'm going to give you an example that's going to look very simple, but it's going
+69160	76760	to have two very different outcomes depending on the requirements. So quickly, there is a
+76760	80820	Webex space for this. So after the session, if you registered, you should have been added to Room.
+81300	85780	If not, let us know. Otherwise, feel free to ask me questions afterwards if you have
+85780	88220	any follow-up questions or anything I've been saying today.
+91400	95620	So let's have a look at some of the required skills that you need.
+98220	105860	Because network design is not an exact science. You need to have technical knowledge and you need
+105860	112100	to have experience, right? Because without the experience, it will be harder for you to design
+113000	119140	well-functioning networks that are built to the purpose they are supposed to do.
+120380	123800	And then you need to understand the goals of what you are trying to do.
+124100	129640	So if you're working on a project, you need to understand why this project, what are the goals,
+130120	133820	what do you want to achieve, your customer or your organization, what are you trying to get
+133820	139460	to? Don't just blindly assume, oh, this is just a network. It won't be. There's going to be some
+139460	144120	requirements. There's going to be some business behind it that needs this to make sure they are
+144120	147300	fully able to utilize this network afterwards.
+149580	156980	And we see this every day. Network designs that are bad, they cause problems every day.
+158040	165200	So essentially, you spend a lot of time and money fixing those problems. Those money would have been
+165200	171760	much better spent making a proper design at the beginning of the project. But the thing here,
+172460	178560	and this is bullet number four here, is very important. There is no one size fits all. That
+178560	179560	doesn't exist. There is no one size fits all. There is no one size fits all. There is no one size fits all.
+179560	184820	So when we talk about Cisco validated designs, they are very good. They are validated,
+185000	190680	of course, hence their name. But at the end of the day, they should be seen as a starting point.
+190760	196900	You need to trust and verify. Make sure it actually fits. Because there might be or likely
+196900	204180	will be a requirement somewhere in this information you get from your customer that says, we can't use
+204180	208580	the solution as it is. We need to make some adjustments. And there's always going to be
+208580	209220	some tradeoffs somewhere.
+210220	217000	You can't build the coolest network ever built because the customer probably can't afford it.
+217740	225120	You need to make sure that you find a balance between features and what's actually needed.
+225280	230020	Don't just throw in a lot of features because somebody has to pay for it at the end of the day.
+230600	239300	And money, it always wins. Every time. No matter what you do, if there's no money to buy what you're
+239300	245460	suggesting, you won't win. It's going to be shut down. It's not going to be valid design for this
+245460	251300	game. So this is why you need not a master's degree, but you need a business understanding
+251860	257180	to be able to do proper network design and be a true expert in that field.
+261180	268100	So you need to be able to analyze and understand what you're working with, what you're working in,
+268100	272600	and who you're working for. If you don't have that understanding,
+272920	276340	chances are you will be making wrong decisions somewhere along the path
+276340	281900	and will fail to meet the requirements that you've been asked or tasked to do.
+283900	289820	So you need to make sure that whatever you do, it supports whatever goals and strategy are set for
+289820	294840	that business. Again, if you fail, they won't call you next time they need a design project.
+295060	297560	You need to make sure that whatever you do,
+298100	303020	is aligned with the strategy. So you need to ask questions. You need to make sure you understand
+303020	311120	this. Don't assume it. Verify it by asking. And then you need to, of course, meet all the
+311120	315540	requirements, but there's also going to be some constraints. It might be, oh, we can't use new
+315540	322040	technologies. We can't use, hopefully nobody says that today, but we can't use VXLAN. We will only
+322040	327980	use traditional VLANs. Okay? It might happen. But there might be constraints that you need
+327980	332360	to add to that will completely take away everything that you have learned recently here at
+332360	336680	Cisco Live. So this is a new, cool technology. This is what you should all be doing. But if a
+336680	342080	customer says, we don't want that, then you have to meet that requirement by not doing it.
+343720	347840	So again, it ties into that you know who you're working for. So if you're working on a new project,
+348500	353020	spend a little time researching the company name, researching what they do,
+353180	357620	what kind of company are you working with? Because if you do that, you might have a better
+357980	362380	understanding and a good starting point in succeeding and understanding what they're doing.
+365680	372420	You need, and we talk about this, I say business requirements. You also need to have deep,
+372560	378640	solid technical understanding of the features, the protocols, all the technologies. You need to
+378640	382960	have good knowledge of them. Because you need to know what kind of problems they can solve
+382960	387000	and how they can solve them. And you only have that by having a deep technical knowledge. You can
+387000	392120	just, oh, I think VLAN will be good here. You need to know why VLAN will be good. Because you need
+392120	398400	to ask them why questions. So if you talk about the CCIE, which is much more about implementation,
+398820	404460	so this is more how you do it. When you do a design, you have to ask why.
+406600	411080	Because you don't implement, you typically in a way, you don't implement as a network designer.
+411300	415120	You design the network and you hand it off to somebody else to actually do the implementation.
+415860	416660	You don't
+417000	422160	do everything yourself unless you're a very small organization where you might have both caps on.
+424340	429340	But most importantly, you have to size it right. Don't gold plate it. Again,
+429440	433620	it ties back to the requirements. If they don't have a requirement to do feature set,
+434680	439900	then don't put it there because it will be over plating and it will be a waste of time and
+439900	446700	resources to build in a feature they will never use or don't even want. And then lastly, this is
+447000	452080	where the business stuff come in. You need to be comfortable working with topics like CapEx, OpEx,
+452840	459200	TCO, total cost of ownership, return on investment. Because you need to understand, again, the money
+460260	466220	is king, not technology. So you need to be able to work with these numbers and figure out what's
+466220	470380	going to cost long, what's going to be OpEx, what's going to be CapEx. And you need to
+470380	475900	understand this could be cost of operating and owning this network. So not only the acquiring the
+475900	481200	hardware and requiring the, you know, the hours to implement it, you also need to operate it
+481200	485740	until the day you have to refresh everything. So remember, everything is cyclical. It all goes back.
+485900	490440	You design then you run it and at some point you're gonna go back and make a new design
+490440	496800	because things change and this is also what a designer does. Understand that there is always
+496800	504020	gonna be changes. One of the most important things you need to do is… Listen.
+505340	505880	Figuring out When you're doing something you'rewarting –and that's not a PRO – when you're
+505880	509060	set in meetings with your customer you have to listen to what they are saying
+509680	516200	and also what they're not saying because it's hardly ever going to happen to you
+516200	520000	that a customer is going to say exactly we want this and we want it like that
+520820	525580	they don't know it's your job so what they are saying and then what they're
+525580	529800	not saying listen to what's between blinds because they might not say
+529800	534200	directly so you need to be able to catch oh this is what you really want you're
+534200	539020	saying you wanting this but in reality you want something over here but often
+539020	544360	these people that you're talking to as a network signer might be CTOs or CFOs
+544360	549520	they might not know all the technical slides you need to be able to speak
+549520	553600	business language and understand that they are going to express something in
+553600	558600	what we need for our business and then you have to listen to them a figure out
+558600	562960	and translate that into the design at the end of the day so you're going to
+562960	563820	talk to a bunch of
+563820	563980	people
+563980	568040	relevant people, not only CTOs and things like that,
+568100	569300	but you're also going to talk to network engineers.
+569500	571080	You're going to talk to them, okay, so what do you need?
+571220	574420	What are your pain problems today?
+574520	576060	What do you struggle with today?
+576500	579220	And how can you, what are your skill sets?
+579480	580800	Because another thing you have to consider,
+580920	582400	if you're bringing brand new technology,
+582660	583600	there's also going to be training.
+584620	586260	If you don't have the necessary skills
+586820	588260	in the organization to run the network,
+588400	591220	again, it's not relevant, it's going to be useless
+591220	592260	at the end of the day.
+592260	594960	So if you get to a customer that doesn't have
+594960	598200	a budget for training or time for training, you lose.
+599600	602060	Because if you put in new technology that requires training,
+602300	605000	the staff is not skilled for it, you lost.
+605620	607260	You didn't do your job as a network designer.
+610860	613900	Keep everything you've gathered information, keep it there.
+614060	616240	Because it might be something that's not relevant now,
+616280	617600	it might become relevant down the road.
+618240	620500	Or again, make sure you have it available,
+620660	621760	don't throw it away and assume,
+621820	622240	oh, this is not relevant.
+622260	623740	I'm never going to use this piece of information.
+624400	626520	Make good, you need to have good notes.
+626660	630420	Taking skills probably will be a good thing to do.
+631900	636140	And first of all, no preconceived notions and ideas.
+636900	639020	Because if you do, you're going to have a bias towards
+639020	640680	a certain solution even before you know
+640680	641420	what the requirements are.
+641760	644760	You need to make sure that you leave your head open,
+644820	648040	a mind open to everything can happen.
+648320	651540	So if you avoid those preconceived notions, that means,
+652300	655660	you're open to adjust, so you might have an idea
+655660	658700	of what you want to do, but then you're much more willing
+658700	662100	and able to adjust and change course based on what you hear.
+662820	665180	If you're going to say, it's going to be VXLan no matter what.
+666440	668820	You end up saying, this is not VXLan, it's not the right fit.
+670800	672940	Then again, you lost, you didn't do your job.
+674580	676540	And you don't want to make assumptions,
+676720	679920	so you want to talk to the people, ask them questions.
+680800	681520	Never assume.
+681520	685120	Never assume anything unless you've been told
+685120	686260	you can assume this.
+686740	688700	So never automatically assume anything.
+690140	692960	And finally, the 2 a.m. in the morning test,
+693200	695680	if somebody calls you, can you justify the decisions
+695680	699080	you have made, right?
+699840	702860	Can you at any point say, why did you choose VXLan?
+702980	705340	Oh, it was because you told me this, this, this,
+705420	706840	and you have this requirement, this requirement,
+707420	709300	and you have the skills to support it.
+710160	710600	Okay.
+711520	712160	That's the right decision.
+712300	714040	But if you can't, you're probably wrong.
+715180	717580	Then, if you can't justify decisions, again,
+717700	719500	you haven't done your job right.
+722480	725020	So network designer, you will work with high-level designs.
+726120	728980	So these are not going to be anything about protocol timers
+728980	731960	or how you implement OSPF in the areas,
+732120	734600	or if it's going to be ISIs, what kind of routing
+734600	735180	protocols you use.
+735380	737520	You're going to define it's going
+737520	739600	to be ISIs because of the skill set you have,
+739660	741360	or you're already using it in the network.
+741900	744920	But you don't get to typically don't do deal
+744920	746780	with all the details behind client.
+746900	748500	That will be part of the low-level design
+749080	752260	with an implementation engineer, such as an CCAE or CCP,
+752440	754120	would actually do the actual implementation.
+756340	758540	And this high-level design, it's just
+758540	760540	a few of the common things you've put in there.
+760640	763320	So you will describe all the design that you're proposing.
+763920	766460	You will gather all the gathered information,
+766460	767820	say this is what I've been told.
+768300	769940	So based on this, I've been told.
+770600	771500	I can meet the requirements.
+771500	773940	I can meet these requirements by doing like this, and this,
+773940	776180	and this, and then describe this entire solution
+776180	779080	from point A to point B. And again,
+779940	781820	explain why the decisions were made.
+782600	784860	Because it makes it easy for the customer
+784860	788520	to understand why you're doing the way you're doing.
+788720	790200	Because they told you this.
+790400	792020	You told me this, so I'm going to do this.
+792660	793060	OK.
+793260	796540	So they can say, OK, we told you to do so,
+796620	797920	but actually, we were in mistake.
+798340	799520	We should not have told you that,
+799520	800640	because we were going to do this instead.
+800640	802340	Then it doesn't fall back on you.
+802440	804940	You can actually say, I made a decision
+804940	808240	based on what you told me, so let's re-work the case
+808240	811520	and make sure it actually goes well, and we fix the problem.
+814040	815680	You might also have to do a little bit of migration
+815680	819460	planning, figure out who's going to be involved,
+819740	820420	and things like that.
+820500	821740	So it might be high-level planning
+821740	822560	you need to do as well.
+823760	825980	But typically, again, this is more for the implementation
+825980	828680	side, but it's going to be, depending
+828680	830380	on your organization, it might be a little,
+830640	832420	trade-off, or it might be a little bit more differently
+832420	835120	cut between implementation and design.
+836040	838560	You want to start by listing bill of materials, statement
+838560	840400	of works, and other documents that you do.
+841600	843180	This is, of course, important to know.
+843300	845500	Let's say, OK, this is going to be what you have to order.
+845620	850160	This is the amount of hours you need to invest to actually get
+850160	850520	this done.
+850900	853040	But that's going to be part of the high-level design as well.
+853680	855240	And at the end of the day, this is
+855240	856860	going to be the document you present to your customer.
+857160	860440	And they sign off on that and tell, yes, now you've done.
+860440	861060	Good job.
+861220	863120	And now we can proceed with the actual implementation.
+863460	865920	So typically, from high-level design to implementation
+865920	868320	is done can be several months, maybe even years,
+868940	870360	depending on the size of the project.
+870680	872000	But the high-level design is going
+872000	873660	to be the basis of everything that's
+873660	876500	going to happen all the way down along that line
+876500	879880	to make sure that, at the end of the day,
+879940	881840	you have this implemented in a way that
+881840	884440	is meaningful to the business that you're working with.
+886140	887440	So I have a little example here.
+887600	889000	It's going to be very, very simple.
+890820	894560	We have a very small data center here for last core distribution,
+894980	896160	very small customer.
+897420	898860	So this is what they have today.
+899480	901480	You get a call from the customer.
+902260	903500	And they're going to talk a little about,
+903620	905220	well, we need additional capacity,
+905300	907020	and we want a second DC side.
+907240	908800	OK, who doesn't want a second DC side?
+908940	909960	There's 15 kilometers.
+910160	911620	Sorry, I'm European, so I'm going to use kilometers.
+912260	913780	15 kilometers between sites.
+913960	915700	They will need full layer 2 mobility.
+916340	918640	They need to VM or containers that
+918640	920420	can move across both data centers.
+920440	922380	And they have plenty of fiber options.
+922720	923540	OK, cool.
+925720	927440	But it doesn't help you much.
+927620	929940	You know there's a few very basic requirements.
+930260	931540	You need a second DC side.
+931700	934200	But at the end of the day, you can't really work with this.
+934380	935640	You need more information.
+936520	939800	But the only thing we can use is that we want a second DC side.
+940020	940560	All right.
+941760	943980	OK, we're going to replicate and build a new site.
+944100	944660	It's complete identical.
+946180	948120	OK, next step, we have to figure out
+948660	950340	how to connect these.
+950440	950560	How do we connect these together?
+952360	954140	And again, with the information we have,
+954240	955080	it's not going to be a lot.
+955240	957400	So this is where technical knowledge comes in.
+957500	959320	So you might start looking a little bit
+959320	962660	about all the options that are available that can solve
+962660	964400	the problem you're trying to do, right?
+965040	965900	What are you going to do?
+965980	967140	You're going to use SDN or traditional network.
+967340	969520	You're going to use BTP, EVPAN, BX LAN.
+969580	971060	You're going to use some kind of WDM system
+971060	972460	to connect the sites.
+973700	975660	And these are just some of the examples.
+975840	977920	But this is where your technical knowledge comes in.
+978020	978900	And you figure out.
+978900	982940	You make a short list of things that might solve the problem
+982940	984660	you're trying to, you're tasked to solve.
+985500	988460	At the end of the day, what is the answer?
+989360	992440	All right, all the information, it depends.
+993180	994800	Because the context you're putting it in
+994800	995920	is what really matters.
+996460	998440	So at this point, you would have to go to the customer
+998440	1000400	and say, thank you for the assignment.
+1002260	1004240	But let's sit down and have a cup of coffee.
+1004360	1006560	And let's talk a little bit about what you actually need.
+1007100	1008820	So we're going to take the first version.
+1008820	1012720	Here is that you sit down, have a talk, and say, OK,
+1012860	1013860	we don't have a big team.
+1013960	1014680	It's a small company.
+1014860	1016060	And they're always busy.
+1016260	1017240	And they want to try out training.
+1017720	1019360	And they want to do things simple.
+1019500	1021160	They don't have, because of the skills,
+1021380	1022700	they don't have everything ready.
+1022860	1024700	So they don't have any automation plans.
+1024880	1025980	And something that's standard.
+1027420	1028460	They don't have any more.
+1028600	1031440	So again, CapEx, capital expenditure.
+1031700	1033940	So that means if you buy a piece of equipment,
+1034060	1035040	that means it's a CapEx.
+1035420	1037220	And OpEx is operational cost.
+1037460	1037780	Right?
+1037780	1039980	So they don't have any CapEx, so you
+1039980	1042960	can't buy additional hardware, except for the new site.
+1043180	1045400	But you can't buy anything for the existing site.
+1045480	1047880	You can only buy for the new site.
+1049840	1051520	So you chew a little bit on that.
+1051660	1052140	You come back.
+1052220	1056260	And then you're going to look and say, hey, simple.
+1056460	1057140	They want something simple.
+1058240	1060420	Do a simple layer 2 extension between the sites.
+1060620	1063480	Make a port channel to avoid any spanning tree issues.
+1064040	1065640	Is it ideal by today's standards?
+1065920	1066960	No, probably not.
+1067780	1068700	But this is what the customer wants.
+1069340	1071360	They want something that's simple and one standard base.
+1071420	1073940	OK, you're going to throw in a port channel with LACP
+1073940	1075560	to keep track of all the links.
+1076100	1077620	And you have the full layer 2 mobility.
+1077840	1080840	You're checking off all the boxes with a very simple solution.
+1081100	1083400	And they have the fibers available so you
+1083400	1084380	can connect them as you want.
+1085640	1087920	This meets the requirements of the customer.
+1089700	1091620	But it's not modern.
+1091960	1092940	It's not fancy.
+1093080	1094660	It's not cool by today's standards.
+1095220	1096060	But it works.
+1096320	1097140	Gets the job done.
+1097780	1098380	All right?
+1099100	1100860	So let's imagine another situation.
+1101100	1102440	You reset here.
+1102560	1103100	We go back.
+1103200	1104200	And you go over to talk to the customer.
+1104320	1106960	And they say, OK, we can add some complexity
+1106960	1108080	because we've got skills.
+1108160	1109560	We've got good people working for us.
+1110660	1113540	We want as much control of the end-to-end path as possible.
+1113840	1114800	We've got some cabbage.
+1114880	1116240	We can buy some new gear if we need to.
+1117080	1118140	We need automation.
+1118880	1121820	And we want centralized policy management if we can.
+1122040	1127640	So again, preferred versus need, make sure you know those things
+1127780	1131040	and say it's a strict requirement or a nice-to-have requirement.
+1132240	1133120	There are differences.
+1133260	1134160	So it's a preferred.
+1134340	1135540	If you can add it, perfect.
+1135700	1137860	If you can't, just say it's not possible.
+1138680	1141620	But if it's we must have this, then you can't really
+1142160	1143060	get away from not doing it.
+1144080	1146480	And they need a threefold increase in our need
+1146480	1148880	number of links because they know they have done their forecast.
+1149060	1150220	So they think in the next 12 months,
+1150300	1151540	we need even more capacity.
+1152200	1153000	OK, cool.
+1154720	1156440	Then let's build a spine-and-leaf architecture.
+1157780	1159040	Connect the leaf to each other.
+1159140	1162820	You have some WDM system in the middle to do all the links
+1162820	1165800	so you can add multiple channels as the capacity needs change.
+1167160	1169260	And you can add SDM controllers if you
+1169260	1172340	want that automation capability or you
+1172340	1174340	want centralized policy management.
+1174680	1175780	You can add SDM controllers.
+1176220	1178220	You can add Ansible.
+1178520	1179980	You can add all those things along the way,
+1180080	1182180	again, based on the requirements of the skill set
+1182180	1182680	of the customer.
+1182940	1183860	You can add this.
+1184060	1187480	And this is really two very different
+1187480	1190020	ways of solving the same problem here.
+1190140	1192260	Because this can offer layer 2 mobility as well.
+1193320	1198260	It offers the additional capacity just in a more modern way
+1198780	1200120	because these are the requirements
+1200120	1202180	that you can meet now and build something that's
+1202180	1204540	much more up to them, up to today's standards.
+1208520	1209380	There's only one more.
+1209420	1213100	You can always find more than one way to do it.
+1213780	1217380	The thing is you have to figure out which one is the best one.
+1218420	1219920	And what would you recommend?
+1220120	1222060	Because, of course, if there are two solutions that
+1222060	1224640	would do the exact same thing in the exact same way,
+1224800	1227580	make the same requirements, and meet all the same things,
+1228700	1231760	then you essentially have to choose and say, OK,
+1231860	1232720	I would recommend this.
+1232860	1235500	Because then it's your personal, might be a personal experience,
+1235560	1237600	say, this works better in this environment than this.
+1238500	1242100	But then, again, you would have to document it and say,
+1242220	1245420	because of personal experience, we recommend this way.
+1245520	1247360	Because it works better for you.
+1247380	1248720	It works better traditionally in these kinds of environments.
+1250200	1252420	I mentioned before, must prefer, require,
+1252560	1253540	expect, not have, need to have.
+1254120	1257580	Make sure you do it because this is a change in the requirements
+1257580	1258080	that you have.
+1258980	1261660	And do you need to meet them, or should you need them,
+1261720	1262660	or can you meet them?
+1262860	1264980	It all makes sure you do it.
+1265620	1267480	Now, again, go back, ask.
+1268140	1270480	One single person probably won't have all your answers,
+1270680	1272400	so you'll have to talk to a bunch of people.
+1273080	1276560	Again, network engineers, CFOs, CTOs,
+1278000	1280180	maybe even users, because if they're complaining
+1280180	1283440	about issues when they connect to the application,
+1283780	1285120	there might be, you need to implement some kind
+1285120	1287020	of quality of service you need to add on top of it.
+1287720	1289900	So talk to all the stakeholders that's there.
+1290020	1291880	Make sure you get all the input, because otherwise,
+1292380	1293940	you're only going to get one side of the affair.
+1294080	1296740	If you only talk to the CFO, you're going to be tasked
+1296740	1299600	with something that's cheap, doesn't cost a lot of money,
+1299960	1302540	but it doesn't meet what the technical requirements are.
+1302840	1304280	And if you only talk to the network engineers,
+1304380	1305860	they're going to say, we want the latest and greatest
+1305860	1306540	and coolest features.
+1306540	1306540	
+1306540	1306540	
+1306560	1309880	But the CFO is going to say, no, we're not going to pay
+1309880	1310160	for that.
+1310620	1313020	So as the network designer, you are the bridge
+1313020	1317460	between the business and the technology side.
+1317740	1320040	You can speak both languages, or you should be able
+1320040	1320920	to speak both languages.
+1322220	1325160	That's what the true network design does if you work
+1325160	1326440	with this in a professional way.
+1326620	1327980	You can speak to both sides.
+1330880	1333460	Make sure that you spend the time you need.
+1334160	1335940	Don't say, oh, I'm going to scroll.
+1335940	1337560	I don't have more time today, so I'm not going
+1337560	1338300	to ask more questions.
+1338540	1340800	I think the rest of your information I didn't get
+1340800	1342520	my answers to, I'm just going to assume things.
+1342740	1344580	No. Spend the time.
+1345020	1347860	Spend all the time you need to make sure you get all
+1347860	1349780	the information you need to build the design
+1349780	1351440	in the way you're expected to.
+1352920	1354820	Again, I've said this many times, but don't forget,
+1355200	1357220	there's going to be expectations from the business side,
+1357300	1358180	and there's going to be requirements
+1358180	1361520	from the business side, not only the technical side.
+1361700	1364840	So again, money wins at the end of the day.
+1364880	1365640	It is king.
+1369820	1371860	So when you talk about it in context with CCDE,
+1372000	1374840	because I would be a fool not to talk about the CCDE
+1374840	1378200	when I'm here, this is exactly what we do with the CCDE.
+1378260	1379120	We test you on these skills.
+1380300	1384380	We test you on the ability to speak to both the technical
+1384380	1387940	side and the business side, gathering all information,
+1388300	1389700	analyzing what you're working with.
+1389840	1391120	That's what we test you on.
+1391880	1393420	That's going to be something that you have to do
+1393420	1393880	business-wise.
+1395800	1397280	Why are you doing this?
+1397420	1402000	It's because you want to be more agile in your future changes,
+1402120	1404540	in your strategic direction in your company,
+1404780	1405780	whatever it might be.
+1406120	1407500	But this is what we test you on.
+1407700	1411280	This is all, we will test you and give you anything
+1411280	1416620	that you need, and ultimately you will build a solution
+1417240	1419220	that matches this at the end of the day.
+1419900	1422840	And we do this in an eight-hour marathon
+1423620	1424200	as you take the exam.
+1424680	1426920	I hope to see you to take the exam one day, of course,
+1427040	1429440	so feel free to ask, and reach out if you do that.
+1430100	1433340	But it's going to be four of these scenarios.
+1433780	1436380	And then every scenario is going to be like I just talked about.
+1436480	1437920	It's going to be you have a bunch of requirements.
+1438200	1439540	You have an existing topology.
+1440180	1442900	What can we do to make XYZ happen?
+1443340	1444440	This is what we do.
+1444580	1446500	And you do that for four different scenarios.
+1447260	1449360	And these are not connected in any way.
+1450000	1453880	So when you finish with the two-hour, you have to clear your mind, reset
+1453880	1454180	your mind.
+1454180	1457440	And go back and start the next scenario.
+1457620	1458760	And it's going to be completely different.
+1458880	1459980	It's going to be different requirements.
+1460220	1461200	It's going to be a different company.
+1461480	1463460	It might even be a completely different vertical
+1463460	1464140	you're working with.
+1465000	1468800	But for the DE, this is going to be across more verticals.
+1468800	1470560	It can be enterprise, of course.
+1470680	1471760	This is what we focus on.
+1472440	1473860	But it can be wireless.
+1474140	1475800	It can be even collaboration.
+1476340	1477240	It can be routing switching.
+1477440	1477980	It can be WAN.
+1478300	1480760	It can be anything that you would find within an enterprise.
+1482660	1484000	Then we have this little thing here.
+1484000	1486680	At the end, we call the area of expertise, which
+1486680	1489100	is a more specialized scenario.
+1489340	1492380	Again, same concepts apply, but just focusing
+1492380	1496600	on something a little more could be service provider oriented.
+1496720	1498020	So if you work as a service provider,
+1498120	1500600	it might be more relevant for you to take this scenario.
+1500740	1503540	We have something that deals with data centers and cloud.
+1504020	1506220	And we have one that works heavily on wireless.
+1506420	1510200	So radio planning, all that stuff that goes with site
+1510200	1512900	surveys, all the stuff that goes with a problem wireless
+1512900	1513300	assignment.
+1513300	1513300	
+1514300	1517340	But at the end of the day, it's an eight-hour scenario-based
+1517340	1517800	exam.
+1519660	1521020	And it is a marathon.
+1521540	1523800	But I tell you, I can guarantee you, this is worth it.
+1526240	1529300	Because I know from talking to those who pass the exam,
+1529560	1532280	whenever they take the CCDE and they get the CCDE badge,
+1532900	1536400	the door is open to talk to CXO-level people.
+1536620	1540140	You can now get talking time in front of CTOs, CFOs.
+1540180	1543280	Because the industry knows the CCDE is able to sort out the data.
+1543280	1543280	
+1543280	1545060	We can speak business and technology.
+1545180	1546740	It's not focused on technology alone.
+1547580	1548480	We can speak both.
+1548840	1552260	We are the gap between business and technology.
+1554580	1555860	Whenever you do one of these exams,
+1557000	1559340	it's going to have a lot of introductions.
+1559680	1562280	So it's going to tell you what the company are, what they do,
+1562480	1564180	what are their strategies, all that stuff
+1564180	1567060	that you would need to be able to get a glimpse and get
+1567060	1568160	an idea of what you're working with,
+1568340	1570340	get a company background, topology joins.
+1570680	1572340	And then you will get some ongoing correspondence.
+1572340	1573340	You will get emails.
+1573780	1577780	So again, imagine you're sitting in a meeting with your customer
+1577780	1580180	and they tell you, this is what we want.
+1580600	1582800	Oh, by the way, and then you get another email saying,
+1582940	1583700	oh, we also want this.
+1584060	1585500	This is no longer relevant.
+1586700	1587500	This is what you get.
+1588240	1591660	This is presented to you along the full two-hour scenario.
+1592980	1594920	And you have to figure out, it is your job
+1594920	1596480	to figure out what the relevant information is
+1596480	1600120	and make the decisions with the questions you get in your exam.
+1601420	1602260	And first of all,
+1602340	1603760	do not fight the test.
+1604620	1607340	Because if you think, oh, I know better than this.
+1607460	1608700	This is much better.
+1608740	1610220	I know exactly how this should work.
+1610980	1612700	You're not listening to what we're
+1612700	1614120	saying in all the documentation.
+1615640	1618080	Because again, leave your outside knowledge
+1618080	1619700	and preconceived notions at the door.
+1620480	1622660	You're in a bubble for two hours or eight hours.
+1622920	1623740	You live in that.
+1624560	1626980	So don't fight the test by saying, I know better.
+1627460	1629120	This is a sure way to fail the exam.
+1629340	1630700	I can guarantee you that.
+1633480	1637320	And when you do this, you become a different network
+1637320	1638200	engineer than you are today.
+1638400	1641380	If you add this business skill set
+1641380	1642940	on top of your technical skill set,
+1643860	1645440	it's going to be a completely different game.
+1645740	1648240	Because you can get different kind of roles.
+1648620	1652460	You can get talk time in front of CFOs, CTOs.
+1653020	1654360	It's going to change your career.
+1654860	1657560	Of course, if you're genuinely interested in working
+1657560	1661820	with networks, if you're 100% network implementation, then this
+1661820	1662800	probably is not for you.
+1663560	1666620	But if you need that design, and you love network design,
+1666780	1669540	and you want to do more network design, have a look at the DE.
+1670500	1672260	Because you'll learn that there's more to it
+1672260	1674800	than just the business side or the technology side.
+1674880	1677520	There's a ton of business side you need to meet, too.
+1680260	1682360	So that's pretty much what I wanted to say here.
+1683840	1685760	I'll be around if you want to ask questions.
+1685920	1687260	Feel free to stop by.
+1687380	1689120	I'm typically around the certification lounge here.
+1690780	1691800	And we have tons of data.
+1691800	1693380	We have lots of different training that you can do.
+1694480	1696720	So feel free to come by, ask us questions.
+1696880	1699460	Ask some of my colleagues in the certification lounge
+1699460	1702980	about learning paths and Cisco U, how they
+1702980	1704760	can help you on your journey.
+1705100	1707180	So feel free to come by and say that.
+1707460	1710160	And with that said, thank you for stopping by.
+1710320	1711040	Appreciate your time.
+1721800	1722140	And I'll see you next time.

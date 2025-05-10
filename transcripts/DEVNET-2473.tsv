@@ -1,0 +1,741 @@
+start	end	text
+0.0	12.96	 And good morning, everybody.
+12.96	14.96	 I hope you can hear me fine.
+14.96	18.96	 Thank you for being into this session and welcome to Cisco Live.
+18.96	23.64	 I am Alessandro De Prato and I am a technical marketing engineer for the data center and
+23.64	26.240000000000002	 provider connectivity business unit.
+26.240000000000002	29.96	 As you can guess from the title of this presentation, I work for the data center side of the company
+29.96	34.64	 at the house and my group is the one responsible for the development of the Nexus, which is
+34.64	40.08	 the ACI ecosystem, the Nexus dashboard and all the applications running on top of Nexus
+40.08	41.24	 dashboard.
+41.24	44.480000000000004	 I have two announcements today before we start.
+44.480000000000004	47.040000000000006	 The first one is a service announcement.
+47.040000000000006	52.400000000000006	 I just like to let you know that all over the Netherlands, the public warning sirens
+52.400000000000006	59.2	 are being tested today at 12 a.m., which means I'm the lucky speaker who will have to stop
+59.24	62.080000000000005	 for about one minute, one minute and a half.
+62.080000000000005	65.32000000000001	 So when that happens, we're going to stop the session.
+65.32000000000001	70.24000000000001	 We will wait for the siren alarm to ring and then we will start again.
+70.24000000000001	74.68	 The second thing I'd like to tell you, today I will be the messenger of this session.
+74.68	80.56	 The entire content and the pipeline definition itself was prepared by my colleague, Alejandro
+80.56	86.04	 De Alda, who could not be with us for good reasons today, so I will be delivering it.
+86.04	92.60000000000001	 What I would like to show you is an easy, safe, powerful, automated, consistent way
+92.60000000000001	97.12	 that you could implement in order to apply changes to your network infrastructure with
+97.12	104.0	 the help of ACI as the data center fabric technology, Nexus dashboard insights as the
+104.0	110.96000000000001	 day two operations and obviously CI-CD pipelines for managing the workflow.
+110.96000000000001	113.94000000000001	 I have two questions for you now.
+113.94	121.74	 The first one is, have you gotten to the situation where the network was broken due to a change?
+121.74	124.74	 Could you just raise the hand if that happened?
+124.74	126.94	 Okay, that's fair.
+126.94	129.22	 That's pretty much what I was expecting.
+129.22	133.46	 And now all of you, how many of you think that the change, sorry, the outage, the fault
+133.46	137.98	 could be avoided with a better testing or with a proper testing?
+137.98	140.57999999999998	 Okay, good, good.
+140.58	144.94000000000003	 And this is going to be the focus for the next 44 minutes.
+144.94000000000003	145.94000000000003	 This is the agenda, right?
+145.94000000000003	149.9	 So we're going to start discussing what the CI-CD pipeline is, very high level.
+149.9	152.94	 We are not going to go too deep into this.
+152.94	157.94	 Then I will tell you why it is important to always perform pre-change validation and post-change
+157.94	162.42000000000002	 verification and we will see how Nexus dashboard insights can help us here.
+162.42000000000002	167.26000000000002	 And then I'm going to run this demo where I will show you the entire pipeline definition,
+167.34	172.14	 how to configure it, and we're also going to see that running.
+172.14	177.29999999999998	 Before I forgot, remember that there is the Webex Room dedicated to DevNet 2473.
+177.29999999999998	178.29999999999998	 You can join.
+178.29999999999998	179.29999999999998	 I'm going to share the slides.
+179.29999999999998	184.68	 I'm going to share additional links after the session is ended.
+184.68	188.26	 If you have any questions for me, please feel free to ask them there.
+188.26	191.82	 I will be more than happy to answer them over the next weeks as well.
+191.82	197.01999999999998	 I will be keeping monitoring the room for a couple of months at least.
+197.01999999999998	198.06	 Good.
+198.06	200.94	 So what is a CI-CD pipeline?
+200.94	202.66	 We can start from the acronym.
+202.66	207.12	 The acronym stands for Continuous Integration, Continuous Deployment.
+207.12	212.22	 You can consider it like an operational model that we imported from the software development
+212.22	213.42	 industry.
+213.42	221.18	 In a glance, you have to see a CI-CD pipeline like a list of tasks, heterogeneous tasks,
+221.26000000000002	225.5	 automated tasks that are there to accomplish a goal.
+225.5	226.5	 What is that goal?
+226.5	229.0	 Well, it depends from your needs.
+229.0	235.26000000000002	 You can achieve pretty much any kind of goal as long as you can automate those tasks.
+235.26000000000002	241.74	 Today our goal is going to be to deploy something similar to this pipeline that you see defined
+241.74	247.14000000000001	 here at very high level into the context of network infrastructure as code.
+247.14	251.54	 So what we will be doing basically, we are going to cover all these jobs here.
+251.54	253.33999999999997	 We are going to build the configuration.
+253.33999999999997	257.38	 We are going to test the configuration to ensure that the configuration is not actually
+257.38	261.5	 going to create any harm into our environment.
+261.5	267.26	 If the tests are going to be successful, we are going to push that configuration in production
+267.26	273.62	 and finally we are going to perform an end, a final verification.
+273.62	278.78000000000003	 Now you might be wondering, okay, I could do all that manually, right?
+278.78000000000003	279.78000000000003	 And that is true.
+279.78000000000003	284.9	 I mean, I'm pretty sure that many of you here created maintenance plans, maintenance changes,
+284.9	285.9	 documentations.
+285.9	289.38	 I did it too and Tom there can confirm this.
+289.38	290.7	 So that is true.
+290.7	297.06	 But what you have to understand is the fact that pipelines, in general, automated pipelines
+297.06	298.6	 are very consistent.
+298.6	301.3	 They will never miss a step.
+301.3	307.7	 And remember that two important pillars for infrastructure networks, and we can call them
+307.7	313.14	 safe infrastructure networks, scalable, flexible, robust infrastructure networks, two of the
+313.14	316.96000000000004	 main pillars are consistency and automation.
+316.96000000000004	322.90000000000003	 Without consistency, we will end up in a network fragmented, different configurations templates.
+322.90000000000003	326.78000000000003	 It's going to become harder and harder to maintain and troubleshoot different naming
+326.78000000000003	328.62	 conventions, you name it.
+328.62	333.14	 Without automation, despite possible, we know that managing the services, the platforms,
+333.14	340.22	 the applications is going to take much more time compared with doing it with automation.
+340.22	343.58	 And CI-CD pipelines bring a lot of benefits.
+343.58	347.98	 For sure, they increase the efficiency and they decrease the overall deployment time.
+347.98	349.94	 So they save many hours.
+349.94	351.24	 They are very flexible.
+351.24	354.28000000000003	 You cannot remove tasks depending on your needs.
+354.28000000000003	358.42	 And if you have the proper tools, the proper testing tools, and if you design this pipeline
+358.42	363.1	 correctly, you will also be able to ensure that your changes into the network infrastructure
+363.1	366.62	 are not going to cause any problems.
+366.62	373.70000000000005	 As an example, this is a very simple CI-CD pipeline that we can define at high level.
+373.70000000000005	376.14	 We start from the operator point of view.
+376.14	377.14	 Why is that?
+377.14	380.3	 Because we are talking about network infrastructure as code.
+380.3	383.54	 So it's something that is defined through code.
+383.54	388.38	 So the operator, which could be the network administrator, the network architect, whatever,
+388.38	391.62	 is going to apply the changes into the local repository.
+391.62	395.94	 He's going to commit those changes and push them to the remote shared repository.
+395.94	402.42	 At this point, here you see I'm using GitHub, but you could use other tools like GitLab
+402.42	403.54	 and so on.
+403.54	405.68	 The pipeline is going to be triggered.
+405.68	408.78	 So all the jobs are going to be executed.
+408.78	413.21999999999997	 The first thing we are going to do is take a snapshot of the infrastructure.
+413.21999999999997	414.98	 And we do that through Python.
+414.98	415.98	 Why?
+415.98	419.3	 Because if we need to roll back quickly, we have the snapshot ready.
+419.3	424.40000000000003	 The second thing, we are going to deploy the changes using Ansible.
+424.40000000000003	428.46000000000004	 And finally, we are going to send a notification with Webex.
+428.46000000000004	430.1	 You see we have different tools here.
+430.1	433.42	 This is why I was telling you that it's very heterogeneous when it comes to the different
+433.42	434.42	 tasks.
+434.42	437.5	 But is there anything missing here?
+437.5	442.18	 Something that we talked a little bit into the previous slides.
+442.18	443.78000000000003	 We are missing verification.
+443.78000000000003	444.78000000000003	 Exactly.
+444.85999999999996	451.02	 Verification is extremely important, especially nowadays where the enterprise's revenues are
+451.02	457.26	 really related also to the uptime of the network, to the uptime of the application and the services.
+457.26	462.79999999999995	 So performing pre-change and post-change verification or validation is extremely important.
+462.79999999999995	464.38	 And you see the number here.
+464.38	468.26	 65% of the incidents are caused by change activities.
+468.26	472.9	 And this is not something I'm telling you because I made up the number.
+472.9	475.02	 It's coming from an external research, right?
+475.02	479.5	 And pretty much is what I saw when I asked you that question at the beginning of the
+479.5	480.5	 session.
+480.5	486.53999999999996	 Luckily for us, we have Nexus Dashboard Insights here, which can help us when planning or preparing
+486.53999999999996	488.82	 changes into our network infrastructure.
+488.82	489.82	 Why?
+489.82	491.29999999999995	 I will tell you in a little bit.
+491.29999999999995	496.38	 I just simply want to remind you what Nexus Dashboard is and what Nexus Dashboard Insights
+496.38	498.26	 is.
+498.26	502.46	 So we have to see Nexus Dashboard as an underlay platform.
+502.46	507.38	 On top of it, once you have that cluster ready, on top of it you can install additional applications
+507.38	512.34	 that are going to help you into the data center lifecycle at various stages.
+512.34	516.78	 We have applications for day zero and day one, like Nexus Dashboard Orchestrator, Nexus
+516.78	519.64	 Dashboard Fabric Controller, and Sun Controller.
+519.64	523.62	 We have applications for day two stages for those phases.
+523.62	528.9	 These are Data Broker, Nexus Dashboard Data Broker, and Nexus Dashboard Insights, which
+529.9	533.06	 the focus for this presentation.
+533.06	537.1999999999999	 Nexus Dashboard Insights is what we like to call the Day Two Operations Tool.
+537.1999999999999	541.68	 It comes with many different functionalities, with many different features, and they all
+541.68	548.8199999999999	 help you maintaining your data center once it is running in production with all the services
+548.8199999999999	550.4599999999999	 already deployed.
+550.4599999999999	553.9	 We have so many capabilities, so many features.
+553.9	561.28	 We like to divide them into three main groups, visibility and monitoring, analytics and correlation,
+561.28	564.22	 and finally, advisories and tools.
+564.22	570.38	 We have capabilities for assurance, for compliance, for troubleshooting, proactive troubleshooting,
+570.38	572.4599999999999	 reactive troubleshooting, you name it.
+572.4599999999999	575.66	 Whatever you need for Day Two Operations is here.
+575.66	580.1	 Today we will be focusing on the assurance part, and we are going to see the data analysis
+580.1	585.2	 and the pre-change validation, which are going to be the key of this pipeline.
+585.2	589.1800000000001	 Before we move on, how are those two features going to work?
+589.1800000000001	592.98	 What you have to know is the fact that Nexus Dashboard Insights periodically takes the
+592.98	596.0600000000001	 snapshots of the fabrics.
+596.0600000000001	597.5	 Snapshots are data models.
+597.5	599.5400000000001	 They contain information about the fabrics.
+599.5400000000001	600.5400000000001	 What kind of information?
+600.5400000000001	606.5400000000001	 Well, they contain information about the running configuration, the operational status, statistics
+606.5799999999999	611.3399999999999	 about endpoints, about external routes, about deploying networks.
+611.3399999999999	616.5	 They also contain information about the anomalies that are active into the fabric at that specific
+616.5	617.5	 time.
+617.5	621.66	 Now, with that analysis, what we can do, we can take two snapshots and we can compare
+621.66	622.66	 them.
+622.66	629.2199999999999	 Nexus Dashboard Insights will be able to tell us with a diff functionality if into the latter
+629.2199999999999	635.9399999999999	 snapshot, for example, we had many more anomalies or additional anomalies compared to the earlier
+636.34	637.34	 snapshot.
+637.34	640.22	 That could be an indication that something is going wrong into our fabric.
+640.22	644.0200000000001	 Also if we can compare that with the number of endpoints, number of external routes, and
+644.0200000000001	646.0600000000001	 so on.
+646.0600000000001	648.6600000000001	 Pre-change analysis works similarly.
+648.6600000000001	654.74	 The difference is that here we are also considering additional changes that we would like to push
+654.74	656.7800000000001	 into our ACI fabric.
+656.7800000000001	662.74	 So we start from a base snapshot, we duplicate it, we make a deep copy of this data model,
+662.74	668.3	 and then we apply on top of it the configuration that we would like to apply into the fabric.
+668.3	672.74	 Through some machine learning algorithms, we are basically able to simulate what is
+672.74	678.1800000000001	 going to be the status of the fabric if those configurations were about to be pushed.
+678.1800000000001	683.78	 That will tell us if those configurations are going to raise additional anomalies, if
+683.78	687.0600000000001	 they are going to fix existing anomalies, and so on.
+687.0600000000001	692.74	 So we can have a nice view on how our fabric is going to look like even though those configurations
+692.74	695.34	 have not been pushed yet.
+695.34	700.94	 Now if we want to transform this into a pipeline, considering only the verification stages,
+700.94	703.42	 it will be pretty much similar to this.
+703.42	706.82	 The network operator will have to prepare the changes.
+706.82	711.78	 You know with ACI you can prepare the changes into an XML file or JSON file.
+711.78	716.1800000000001	 It will contain objects that are going to be removed, deleted, modified from the ACI
+716.1800000000001	717.94	 management information tree.
+717.94	719.66	 And we are going to do the same here.
+719.66	723.8199999999999	 Once we have the file, we are going to provide it to Nexus Dashboard Insights.
+723.8199999999999	728.8199999999999	 We are going to ask Nexus Dashboard Insights to perform a pre-change validation of it.
+728.8199999999999	734.02	 At this point, Nexus Dashboard Insights will tell us, hey, there are going to be new anomalies
+734.02	736.6999999999999	 triggered from this configuration.
+736.6999999999999	741.3	 So you better go back to square zero and ensure or review the changes to ensure that this
+741.3	743.1	 is not going to happen.
+743.1	744.9399999999999	 Or hey, all good.
+744.9399999999999	747.42	 The anomalies are not going to increase.
+747.42	752.68	 So at this point, we can apply the changes into our production APIC.
+752.68	754.04	 What is it left?
+754.04	755.9	 The final verification, right?
+755.9	761.66	 We also want to run the delta analysis between the earlier snapshot and the snapshot that
+761.66	765.14	 we're going to collect after we implement the changes.
+765.14	767.14	 You might be wondering, why do we need that?
+767.14	770.06	 We already have the pre-change validation.
+770.06	775.06	 In reality, the pre-change validation, you always have to remember that is a simulation.
+775.06	780.14	 As an example, we cannot take in account if there is a bug into that specific code
+780.14	784.66	 you're running that will prevent some configurations to be pushed on the devices.
+784.66	787.5	 That is something that we cannot see with the pre-change validation.
+787.5	791.4399999999999	 But with the post-change validation, you will be able to spot if something is not working
+791.4399999999999	794.9799999999999	 as expected because it will raise additional anomalies.
+794.9799999999999	797.28	 And you will be notified about that.
+797.28	803.02	 So at this point, once we have run the post-change validation, we will see if we have new anomalies
+803.02	807.5799999999999	 or if everything is green and we can call the maintenance done.
+807.5799999999999	814.26	 Now, how can we build such workflow, such pipeline?
+814.26	818.18	 These are the tools we are going to use today, but you are not limited to them.
+818.18	823.34	 For example, for the continuous integration engine, we are going to use GitHub Actions.
+823.34	826.5799999999999	 GitHub is not only a version control system.
+826.5799999999999	830.8199999999999	 There are many other functionalities that you can use from it.
+830.82	833.22	 Then we are also going to use Ansible.
+833.22	836.82	 Ansible, we will use it for different reasons.
+836.82	842.1	 First of all, we are going to maintain our infrastructure as code through Ansible playbooks
+842.1	844.46	 and Ansible variable files.
+844.46	850.22	 But we are also going to use Ansible to connect to Nexus Dashboard Insights and perform some
+850.22	855.3000000000001	 activities in Nexus Dashboard Insights because what we have released is a collection, an
+855.3000000000001	860.0200000000001	 Ansible collection, that has different modules to interact directly with Nexus Dashboard
+860.02	861.02	 Insights.
+861.02	866.1	 As an example, pre-change validation is going to be a matter of creating a playbook, same
+866.1	868.26	 for the Delta analysis.
+868.26	870.5	 Like I said, you can be very flexible.
+870.5	871.5	 You are not forced to use GitHub.
+871.5	873.66	 You are not forced to use Ansible.
+873.66	877.66	 Nexus Dashboard Insights instead, it's the tool you want to use for the pre-change validation
+877.66	881.46	 because we can offer that capability.
+881.46	883.8199999999999	 This is going to be our target pipeline.
+883.8199999999999	886.9399999999999	 So for the last time, you will see the file at high level.
+886.94	891.7	 Then we are going to see how to implement it in a matter of workflow configuration.
+891.7	893.1	 We always start from the operator.
+893.1	897.98	 Remember, the operator pushes the changes into the remote repository and at that time
+897.98	900.0200000000001	 the pipeline is going to be triggered.
+900.0200000000001	904.1400000000001	 The first thing we are going to do, we are going to validate and link the playbooks,
+904.1400000000001	907.94	 the variable files that we are pushing into the remote repository, just to ensure that
+907.94	913.1800000000001	 they don't contain any semantics error, any syntax error, and so on.
+913.18	917.02	 Then we are going to run our Ansible playbook.
+917.02	921.5799999999999	 But the cool thing is that we can run the Ansible playbook in dry run mode.
+921.5799999999999	925.38	 It means that we are not going to push those objects that we have defined into our playbook
+925.38	926.6999999999999	 into the APIC.
+926.6999999999999	931.9	 We are simply going to create a file, a file that will contain all those objects defined
+931.9	933.3399999999999	 locally.
+933.3399999999999	936.8599999999999	 Once we have the file, you can guess, we are going to pass it to the pre-change validation
+936.8599999999999	939.06	 functionality of Nexus Dashboard Insights.
+939.06	941.62	 And at this point, we are waiting for a result.
+941.62	947.14	 Nexus Dashboard Insights will either tell us, go, right, you don't have any new anomalies,
+947.14	948.3	 or no go.
+948.3	952.44	 You have new anomalies, so be careful because if you push those changes, you might break
+952.44	954.76	 your network.
+954.76	959.74	 If we are lucky and we don't have any new anomalies triggered by our changes, we will
+959.74	961.46	 continue with our pipeline.
+961.46	966.62	 We will take a snapshot using Python and then we are going to run exactly the same playbook
+967.62	971.7	 we did before with Ansible, but this time we are not going to use the dry run mode.
+971.7	975.18	 This time we are going to push those objects into the APIC.
+975.18	980.94	 And finally, once more, we are going to use Nexus Dashboard Insights to perform a post-change
+980.94	982.0600000000001	 verification.
+982.0600000000001	986.38	 So we are going to collect a final snapshot, and that snapshot is going to be compared
+986.38	990.98	 with the snapshot that we took before when we run the pre-change validation, which was
+990.98	993.42	 the initial status of our fabric.
+993.42	997.86	 So by doing all this, we will be able to understand if our fabric is stable or if we
+997.86	1000.06	 have new issues that need to be investigated.
+1000.06	1005.62	 Finally, we are going to send a web ex-notification, but as you will see from the pipeline definition,
+1005.62	1011.0999999999999	 we actually send a web ex-notification in every job, in every task, just to update the
+1011.0999999999999	1015.8199999999999	 network administrator, the network operator about the status of all of them.
+1015.8199999999999	1018.18	 Cool, demo time.
+1018.18	1022.5	 So I will start by showing you the actual pipeline definition now.
+1022.5	1023.78	 I hope you can see it.
+1023.78	1025.82	 Yes, it looks good.
+1025.82	1028.18	 We are talking about GitHub actions.
+1028.18	1032.98	 The good thing is that you can define your pipelines in a YAML file, and the YAML file
+1032.98	1035.82	 is going to be contained into the actual repository.
+1035.82	1040.14	 So here you see I have my Visual Studio Code just to review the files.
+1040.14	1043.84	 I have the .github.slash.worldflows directory.
+1043.84	1047.86	 Inside of it, I have the validate and deploy YAML file.
+1047.86	1051.12	 A few initial definitions that we have here.
+1051.12	1053.08	 The first one, the name.
+1053.08	1054.28	 Where are we going to see the name?
+1054.28	1056.6799999999998	 Well, we are going to see it into GitHub dashboard.
+1056.6799999999998	1062.12	 We are going to see it into the logs wherever we are mentioning this pipeline execution.
+1062.12	1065.8	 Then the interesting part on what does it mean?
+1065.8	1068.56	 When do we want to execute this pipeline?
+1068.56	1072.9199999999998	 Here we are telling GitHub that we want to execute it every time there is a push or a
+1072.9199999999998	1075.6999999999998	 merge into the main branch.
+1075.6999999999998	1079.6999999999998	 So every time we commit a new change into the remote repository, that workflow is going
+1079.7	1081.3400000000001	 to be activated.
+1081.3400000000001	1088.6200000000001	 We can set some environment variables like this one to avoid those warnings from Python.
+1088.6200000000001	1091.74	 And then we have the jobs section.
+1091.74	1094.82	 The jobs are all the tasks that we want to run.
+1094.82	1101.74	 Here we have, let me just shrink this one, we have six different jobs.
+1101.74	1106.02	 Now by default, they will all run in parallel.
+1106.02	1109.76	 But as you can imagine, this is not something we want to have into this case because we
+1109.76	1113.34	 have a specific timeline.
+1113.34	1116.34	 We want first to create the file, then we want to analyze the file.
+1116.34	1118.98	 If the testing is good, we want to push it.
+1118.98	1122.3799999999999	 So I will show you in a little bit how you can define the order between the different
+1122.3799999999999	1123.3799999999999	 jobs.
+1123.3799999999999	1128.02	 Let's open first the initial job, AnsibleLint.
+1128.02	1129.02	 Runs on.
+1129.02	1130.3799999999999	 This is an interesting one.
+1130.3799999999999	1133.24	 We want to run some sort of automation.
+1133.24	1134.36	 So we need CPU.
+1134.36	1135.36	 We need RAM.
+1135.36	1138.86	 We need somewhere where we want to run those applications.
+1138.86	1140.24	 We have two options.
+1140.24	1144.28	 We can run it on some VMs that are provided by GitHub itself.
+1144.28	1146.24	 You have a free tier available.
+1146.24	1150.12	 If you consume too much space, you will have to jump to another tier where you have to
+1150.12	1153.34	 pay something for utilizing them.
+1153.34	1159.02	 Or the second option is that you can run this sort of tasks on your VMs.
+1159.02	1163.3	 So you deploy a new VM into your on-premises data center, wherever you want.
+1163.3	1166.96	 You install the software provided by GitHub, right?
+1166.96	1173.1599999999999	 And then this VM will connect to the GitHub cloud and will stay there waiting for instructions.
+1173.1599999999999	1176.34	 You do not need to open any inbound connections.
+1176.34	1182.76	 Everything is going to be controlled by an outbound connection, direct or indirect via
+1182.76	1183.76	 proxy.
+1183.76	1184.84	 You can choose.
+1184.84	1190.1599999999999	 In this case, we are running this task on the GitHub provided VM.
+1190.16	1194.88	 The next thing we are saying are all the steps that we want this job to execute.
+1194.88	1198.42	 So as an example, we are setting up Python into the VM.
+1198.42	1201.38	 We are installing Python version 3.8.
+1201.38	1206.38	 Then we are going to install the Yamalint module into Python, and we are going to execute
+1206.38	1212.5	 that module into the Playbooks folder contained into our repository.
+1212.5	1217.8600000000001	 In this way, we are going to verify if all those files are correct.
+1217.86	1222.86	 The next thing we are going to do is to send a Webex notification just to report the status
+1222.86	1224.6799999999998	 of the job, the execution.
+1224.6799999999998	1225.6799999999998	 Take a look at this.
+1225.6799999999998	1226.6799999999998	 If always.
+1226.6799999999998	1233.24	 This condition is required because if any step will fail at some point, the job is going
+1233.24	1236.02	 to be interrupted and the pipeline will fail.
+1236.02	1237.02	 But we don't want that.
+1237.02	1241.6999999999998	 We want always a notification to be sent, even if one of the previous steps is going
+1241.6999999999998	1242.6999999999998	 to fail.
+1242.6999999999998	1246.58	 And that is why I have that condition there.
+1246.58	1252.34	 On top of this, you see we can also define some or we can also enrich, let's say, this
+1252.34	1257.62	 pipeline with some variables or secrets that are going to be defined into GitHub Vault.
+1257.62	1262.02	 And I will show you later on where you can find those settings.
+1262.02	1264.34	 Now let me collapse the AnsibleLint.
+1264.34	1267.62	 The next thing we are going to do is the dry run.
+1267.62	1271.06	 This is the keyword needs AnsibleLint.
+1271.06	1273.6999999999998	 You have to use to specify the order.
+1273.7	1278.5800000000002	 Because now we are telling the workflow that before it runs the Ansible dry run, it will
+1278.5800000000002	1282.7	 have to wait for the AnsibleLint job to be completed.
+1282.7	1285.06	 What else are we going to specify here?
+1285.06	1286.06	 Runs on self-hosted.
+1286.06	1290.42	 This time we are going to use the runner we have into our premises.
+1290.42	1294.4	 And we're also going to tell GitHub to install a container.
+1294.4	1299.02	 This time it's going to be a custom Ansible container that we want to run into that VM.
+1299.02	1303.44	 And then it's going to be a matter of performing the steps, right?
+1303.44	1308.3600000000001	 One thing that maybe I forgot to tell you before, you see this uses action checkout.
+1308.3600000000001	1312.6000000000001	 This is telling the job that it has to download the entire repository.
+1312.6000000000001	1314.52	 Because we want to work on those files.
+1314.52	1315.64	 We need to see those files.
+1315.64	1318.02	 We need to evaluate those files.
+1318.02	1319.92	 Then we are going to run the playbook.
+1319.92	1323.8	 And the playbook name is going to be deploy.yml.
+1323.8	1324.8	 Mind this.
+1324.8	1325.8	 Minus, minus, check.
+1325.8	1328.56	 This is the important thing I was telling you before.
+1328.56	1333.04	 If I'll open the deploy.yml playbook, you see that it's simply importing additional
+1333.04	1334.48	 playbooks here.
+1334.48	1338.12	 So if we want to see what they are about, we can open one of these.
+1338.12	1339.36	 And there we go.
+1339.36	1341.24	 We see that here we are defining tenants.
+1341.24	1344.46	 We are defining VRFs, bridge domains, and so on.
+1344.46	1347.54	 One important variable is this one.
+1347.54	1348.54	 Output path.
+1348.54	1353.24	 This is the file name we are going to generate by using the minus, minus, check option.
+1353.24	1356.68	 Remember, we are not going to push those configurations into the APIC.
+1356.68	1359.6399999999999	 We are simply going to create the file.
+1359.6399999999999	1362.48	 Let's go back now to our pipeline.
+1362.48	1369.24	 Once we have run the playbook, we will basically obtain the dry run data file and we will upload
+1369.24	1370.24	 it.
+1370.24	1373.64	 We are going to upload it as an artifact to the pipeline itself.
+1373.64	1374.64	 Why?
+1374.64	1379.32	 Because remember that as soon as this job is completed, the container is going to be
+1379.32	1380.44	 destroyed.
+1380.44	1383.76	 So if we don't save the file somewhere, we will lose it.
+1383.76	1389.76	 We are going to use the artifact action to upload it temporarily to the pipeline execution.
+1389.76	1391.82	 It can offer some sort of storage.
+1391.82	1395.8999999999999	 And then we are going simply to send a notification with WebEx once more.
+1395.8999999999999	1401.36	 The next thing we are going to do is going to be the pre-change validation.
+1401.36	1409.1799999999998	 So always we run this on the on-premises because it's very true that we don't want to expose
+1409.1799999999998	1411.78	 our Nexus dashboard insights from the cloud.
+1411.78	1417.26	 We want to have it protected so our on-premises runner will have connectivity to the Nexus
+1417.26	1418.8	 dashboard insights.
+1418.8	1419.9399999999998	 What else are we going to do?
+1419.9399999999998	1421.0	 The same things.
+1421.0	1424.76	 We are going to download the container, the Ansible container, we are going to download
+1424.76	1430.52	 the repository and we are going to download the artifact, the file that we uploaded into
+1430.52	1433.48	 the previous job into the GitHub pipeline.
+1433.48	1438.88	 Once we have that artifact, that file, we are going to run an additional Ansible playbook.
+1438.88	1442.12	 And this time the playbook is going to work with NDI.
+1442.12	1446.6	 It's going to take that file, the artifact, and it's going to pass it to Nexus dashboard
+1446.6	1449.8	 insights for running the pre-change validation.
+1449.8	1453.0	 We can take a look at the actual playbook.
+1453.0	1455.8	 It's in the Tools, Change, Validation.
+1455.8	1462.06	 And by the way, this entire code is available in GitHub if you want to review it later on.
+1462.06	1464.36	 So if you're missing something now, don't worry.
+1464.36	1465.36	 It's going to be there.
+1465.36	1469.62	 We also have an appendix to the slides where you can take a step-by-step look on how to
+1469.62	1470.86	 build it.
+1470.86	1474.8	 So the pre-change validation playbook is this one.
+1474.8	1478.84	 We are going to connect to Nexus dashboard and then we are going to pass, there we go,
+1478.8799999999999	1484.6799999999998	 the dry run data JSON file once more to the pre-change validation module.
+1484.6799999999998	1489.48	 This module will simply request a pre-change validation job and then the playbook will
+1489.48	1493.9199999999998	 wait for that job to be completed and it's going to evaluate it, meaning that it's going
+1493.9199999999998	1500.04	 to perform the diff between the previous snapshot and the latter snapshot.
+1500.04	1504.6399999999999	 Now let's go back to our validate and deploy definition.
+1504.64	1509.5600000000002	 I'm going to shrink this one and the next thing we are taking a snapshot.
+1509.5600000000002	1512.7	 Let's assume obviously that the validation was a success, right?
+1512.7	1514.3200000000002	 We're going to take a snapshot.
+1514.3200000000002	1520.6000000000001	 This time we're using always into our on-premises runner a different container.
+1520.6000000000001	1528.2	 This is a simple container that simply runs a Python script using the ACI Cobra SDK library.
+1528.2	1529.2	 Nothing more.
+1529.2	1530.2	 I could have done it with Ansible.
+1530.76	1535.04	 It was just a way to show you that you can use whatever you want as a tool when it comes
+1535.04	1537.0	 to automated tasks.
+1537.0	1543.0800000000002	 So it's going to be just an easy one and once we have took the snapshot, we are going to
+1543.0800000000002	1545.04	 deploy the changes.
+1545.04	1546.48	 Now take a look at this.
+1546.48	1551.1200000000001	 The name of the playbook is exactly the same as before.
+1551.1200000000001	1553.04	 We still have deploy.yml.
+1553.04	1557.6000000000001	 The only difference is that now we are not specifying minus minus check, which means
+1557.6	1561.6799999999998	 that we are actually going to push those configurations into the APIC.
+1561.6799999999998	1565.9599999999998	 We are not going to generate the file anymore.
+1565.9599999999998	1572.58	 If that goes well, it means that we are ready to run our final job, the post-change validation.
+1572.58	1577.36	 What we are going to do here through again a new playbook, which is called post-change
+1577.36	1581.0	 validation, is very simple.
+1581.0	1583.12	 We are going to connect to Nexus Dashboard.
+1583.12	1589.2399999999998	 We are going to gather some information about the pre-change validation we run before in
+1589.2399999999998	1592.36	 order to see what was the base snapshot.
+1592.36	1598.32	 We are going to trigger a new snapshot on our fabric to collect the latest information.
+1598.32	1601.6599999999999	 We want to see how the fabric is doing now.
+1601.6599999999999	1606.34	 And once we have that, we are going obviously to wait the snapshot to complete, but then
+1606.34	1611.76	 at the end we are going to create a delta analysis and we are going to evaluate that.
+1611.76	1616.18	 At this point, if we get a positive message, it means you don't have any new anomalies.
+1616.18	1622.28	 If you have a failure, it means that we have additional anomalies that we have to investigate.
+1622.28	1623.28	 And that's it.
+1623.28	1625.04	 This is the pipeline definition.
+1625.04	1630.0	 Now what I want to show you is the GitHub side of the things.
+1630.0	1634.4	 So this is the code section you can have in GitHub, and it's exactly the same what I was
+1634.4	1637.18	 showing you in Visual Studio Code.
+1637.18	1640.96	 Now the important things that I wanted to show you over GitHub are in the settings,
+1640.96	1641.96	 the first one.
+1641.96	1648.6000000000001	 So if I move to the settings section, you see that in Actions, Runners, here is where
+1648.6000000000001	1653.3600000000001	 I can install or I can link my runners running on the on-premises.
+1653.3600000000001	1658.3400000000001	 I have one, and you see the status is idle because the software is running.
+1658.3400000000001	1663.8400000000001	 It is connected to the GitHub cloud, but it has nothing to do because GitHub has not any
+1663.8400000000001	1668.76	 running pipelines executions, so it's just sitting there and waiting for instructions.
+1668.76	1671.12	 How can you install a new runner?
+1671.12	1673.24	 Well you go to this section, it's very easy.
+1673.24	1677.08	 You click on this green button, and they will provide you all the commands you have to do
+1677.08	1681.28	 to you have to apply to download the code, to download the software, install it, and
+1681.28	1683.0	 eventually configure it.
+1683.0	1684.84	 Then you can obviously customize this.
+1684.84	1689.2	 You can run it on demand, you know, just executing the binary.
+1689.2	1693.68	 You can create a service and run the service however you prefer.
+1693.68	1698.64	 The next thing that I already showed you a little bit before, it's the Vault.
+1698.64	1701.0	 You have two options when it comes to the Vault.
+1701.0	1704.8600000000001	 You can define secrets here or variables.
+1704.8600000000001	1707.0400000000002	 You can guess the difference, right?
+1707.0400000000002	1713.3200000000002	 Secrets are about sensitive data, something that we don't want to show once we have defined
+1713.3200000000002	1714.3200000000002	 it.
+1714.3200000000002	1716.2	 You don't see the values of the secrets here.
+1716.2	1720.0800000000002	 You won't see the values of the secrets into the logs as well.
+1720.0800000000002	1724.44	 When it comes to variables instead, it's the exact opposite.
+1724.44	1730.24	 We can see the values of the variables, and we are also going to see the values if the
+1730.24	1733.76	 variables are debugged into the logs.
+1733.76	1737.4	 And now you might be asking, where are these logs?
+1737.4	1742.72	 There is one more section that we have in GitHub, which is the action section.
+1742.72	1749.1000000000001	 And you see here that I have the logs for two pipeline executions that run into the
+1749.1000000000001	1750.1000000000001	 past day.
+1750.3	1754.3799999999999	 Obviously there were hundreds of them all failing, but I had to delete them just to
+1754.3799999999999	1756.78	 clean up the stuff, right?
+1756.78	1760.74	 So the first one, add new application, it failed.
+1760.74	1761.74	 Where did it fail?
+1761.74	1762.74	 Can you see it?
+1762.74	1763.74	 Good.
+1763.74	1764.74	 Let me zoom it a little bit.
+1764.74	1767.3999999999999	 Yes, it failed during the pre-change validation.
+1767.3999999999999	1772.2199999999998	 So we had a pass on Ansible Lynch, we had a pass on Ansible Dry Run, we failed the pre-change
+1772.2199999999998	1773.3799999999999	 validation.
+1773.3799999999999	1778.3799999999999	 If we click on pre-change validation, you see that we have the entire job history logged
+1778.3799999999999	1779.6999999999998	 here.
+1779.7	1783.82	 And GitHub is going to open the exact section where we can see the failure that happened
+1783.82	1785.42	 into that specific job.
+1785.42	1789.9	 Here it was a failure about the pre-change validation itself, meaning that we had or
+1789.9	1794.5	 we obtained additional anomalies running on the pre-change validation.
+1794.5	1799.54	 Now I will show you this over the demo a little bit better, because you can realize that from
+1799.54	1803.5800000000002	 the logs it might be harder to understand what actually is happening on the pre-change
+1803.5800000000002	1804.5800000000002	 validation.
+1804.5800000000002	1808.82	 Obviously you will have to use that in conjunction with Nexus Dashboard Insights, because Nexus
+1808.9399999999998	1814.3799999999999	 Dashboard Insights has the web UI that nicely displays all this information.
+1814.3799999999999	1821.62	 Going back to the summary, you see instead we go to this one, the fixed change, where
+1821.62	1825.3999999999999	 the entire pipeline was completed, and you see all green lights.
+1825.3999999999999	1831.3	 One more thing I want to show you before we start with the actual demo is down here.
+1831.3	1836.82	 If I scroll down to the bottom of this page, you see that we have the artifacts section.
+1836.82	1838.98	 The artifacts is what I was telling you before.
+1838.98	1843.62	 The place, the storage where we are going to take the files we are generating when we
+1843.62	1848.4199999999998	 run the Ansible dry run, we are going to upload it here, and then the next job, the pre-change
+1848.4199999999998	1854.08	 validation, will download the file and it will request a pre-change validation job to
+1854.08	1859.98	 Nexus Dashboard Insights.
+1859.98	1862.7	 What is going to be our scenario for the demo?
+1862.7	1864.02	 Just one thing.
+1864.22	1870.66	 The entire pipeline might take several minutes, depending on what is the size of the configuration,
+1870.66	1874.3	 what is the environment, meaning how many switches you have running into your ACI fabric
+1874.3	1875.3	 and so on.
+1875.3	1878.1399999999999	 I had to record the entire pipeline execution.
+1878.1399999999999	1883.42	 I had to shrink many sessions, because I think otherwise it would have taken 50 minutes to
+1883.42	1885.78	 show some failures and everything.
+1885.78	1887.34	 This is going to be our scenario.
+1887.34	1891.46	 We are going to start with this overlay configuration.
+1891.9	1896.58	 One Prod PCI tenant and one Prod non-PCI tenant.
+1896.58	1901.06	 They are both defined as overlay policies in ACI.
+1901.06	1905.5	 There is one interesting thing that you can see here, the fact that we are using a shared
+1905.5	1910.46	 layer tree out in order to provide external connectivity to both tenants.
+1910.46	1916.0	 That means that all the subnets for the PCI and the non-PCI will actually coexist into
+1916.0	1918.02	 the shared VRF.
+1918.02	1919.22	 What's our goal?
+1919.22	1921.38	 We want to deploy a new application profile.
+1921.38	1926.22	 The new application profile is going to contain new EPGs, it's going to contain new contracts,
+1926.22	1930.6200000000001	 it's going to contain new filters and so on.
+1930.6200000000001	1935.3	 And obviously we are going to run this against our pipeline.
+1935.3	1940.1000000000001	 Let me move now to the demo.
+1940.1000000000001	1941.8600000000001	 And let's start.
+1941.8600000000001	1944.34	 We are now into the ACI side.
+1944.34	1948.94	 You see that we don't have application profiles, we don't have contracts, we don't have filters.
+1949.66	1953.5	 Everything is pretty much empty as we are expecting because we want to push that new
+1953.5	1955.04	 application profile.
+1955.04	1959.1000000000001	 So we go into our code, remember we define everything through code.
+1959.1000000000001	1961.42	 We import the additional playbooks.
+1961.42	1963.8600000000001	 What are these playbooks going to contain?
+1963.8600000000001	1965.8600000000001	 Well we saw it before, right?
+1965.8600000000001	1968.8600000000001	 Variables and configurations for ACI.
+1968.8600000000001	1974.54	 We are adding the new playbooks into the deploy.yml which is the master one which imports the
+1974.54	1975.92	 additional.
+1975.92	1976.92	 And there we go.
+1976.92	1979.24	 It's pretty much the same thing I showed you before, right?
+1979.24	1981.24	 It's exactly the same playbook.
+1981.24	1985.1200000000001	 We are defining the new application profile, we are defining the contracts, the bridge
+1985.1200000000001	1988.26	 domains, the EPG static bindings.
+1988.26	1992.68	 You see that we are simply looping through some objects because the objects are actually
+1992.68	1994.28	 defined into the variable files.
+1994.28	1997.16	 We might have multiple EPGs, multiple filters.
+1997.16	2001.54	 So we read that variable and we loop through the different classes.
+2001.54	2005.24	 Now that we are happy with this, it's time to commit the changes.
+2005.26	2011.04	 So we are going to provide a meaningful message into the commit that we will deploy HRMS up
+2011.04	2015.14	 and once we have the commit, we are going to push it to GitHub.
+2015.14	2017.56	 Now we move to the GitHub side.
+2017.56	2022.24	 We go to the dashboard we were seeing before and if we refresh the page, we are going to
+2022.24	2026.6	 see the commit there and it's executing now.
+2026.6	2029.7	 The first thing is going to be the Ansible lint.
+2029.7	2034.88	 Remember this is going to run on the GitHub VMs but at the same time on the side of the
+2034.88	2039.4	 screen we are opening a connection to our on-premises runner just to see what is going
+2039.4	2040.4	 to happen.
+2040.4	2041.4	 There we go.
+2041.4	2047.5200000000002	 The Ansible lint process is completed and now we are running the dry run on the on-premises
+2047.5200000000002	2048.52	 side.
+2048.52	2053.88	 Remember the dry run is going to execute those playbooks, is going to look at those variables
+2053.88	2056.12	 and is going to generate a file.
+2056.12	2060.2000000000003	 We are not going to push those changes into the production APK yet.
+2060.2000000000003	2063.1400000000003	 These are the objects that we want to create.
+2063.14	2065.18	 You see them through the logs.
+2065.18	2071.2599999999998	 But if we move to the APK side, you see that we are not yet seeing anything here and this
+2071.2599999999998	2073.02	 is expected.
+2073.02	2078.3799999999997	 So now as you remember, we are going to wait that job to be completed.
+2078.3799999999997	2079.3799999999997	 We will take the file.
+2079.3799999999997	2080.3799999999997	 There we go.
+2080.3799999999997	2081.3799999999997	 It was a success.
+2081.3799999999997	2083.1	 We are going to take the file.
+2083.1	2088.7799999999997	 We are going to upload it as an artifact and then into the next job, the pre-change validation,
+2088.78	2092.94	 We are going to download the artifact and we are going to ask Nexus dashboard insights
+2092.94	2095.02	 to perform a pre-change validation.
+2095.02	2096.02	 And there we go.
+2096.02	2098.46	 You have the logs now.
+2098.46	2101.96	 We can go to Nexus dashboard insights and see what's happening there.
+2101.96	2104.42	 We have a new job running.
+2104.42	2105.46	 That's the status.
+2105.46	2109.2200000000003	 And if you take a look at the name, it could look like a random string.
+2109.2200000000003	2111.1400000000003	 It is not a random string.
+2111.1400000000003	2113.38	 That is the git commit ID.
+2113.5	2119.1400000000003	 It is just to have a reference so you know what actually triggered that pre-change validation.
+2119.1400000000003	2121.5	 Now I'm fast forwarding this session.
+2121.5	2123.5	 You see that the pre-change validation failed.
+2123.5	2125.32	 It took 12 minutes.
+2125.32	2129.78	 We get the message over Webex like we do for any other job.
+2129.78	2133.78	 And if we go there, we can inspect the logs of the job itself.
+2133.78	2138.56	 We see that we are going to trigger two new anomalies, one critical and one major.
+2138.56	2142.98	 We could take a look at here over the logs, but it's pretty difficult to understand.
+2142.98	2144.78	 I mean, you need experience.
+2144.78	2148.7400000000002	 So what we could do instead, we go to Nexus dashboard insights.
+2148.7400000000002	2151.98	 We open the Delta analysis section of the pre-change validation.
+2151.98	2152.98	 And there we go.
+2152.98	2158.38	 Through these Venn diagrams, we can understand, looking at the right circle, if we are going
+2158.38	2162.98	 to have any new anomalies for any kind of severity.
+2162.98	2164.66	 We have critical, major, and warning.
+2164.66	2168.96	 In this case, we are going to have one new anomaly for the critical severity and one
+2168.96	2171.68	 new anomaly for the major.
+2171.68	2176.12	 When we get additional details, of course, we click into one of them.
+2176.12	2181.96	 And as you can see, the first anomaly is going to be a traffic restriction compliance violated.
+2181.96	2183.44	 Let me stop one second.
+2183.44	2186.98	 What is a traffic restriction compliance violated?
+2186.98	2193.68	 With Nexus dashboard insights, you can define what we call it compliance rules, or even
+2193.68	2196.12	 better, communication compliance rules.
+2196.12	2198.6	 You are able basically to sell Nexus dashboard insights.
+2198.6	2199.6	 Hey, you know what?
+2199.72	2202.72	 These two EPGs should never talk between each other.
+2202.72	2208.16	 Or these two EPGs can talk between each other only using a specific port.
+2208.16	2211.72	 Now Nexus dashboard insights will always evaluate that.
+2211.72	2218.54	 And if the condition is not met, is not matched, it will raise an anomaly.
+2218.54	2224.04	 This is true for the live environment, but it is also true for the pre-change validation.
+2224.04	2228.7999999999997	 Because basically here, we can detect in advance this failure.
+2228.8	2232.2400000000002	 Even if those changes have not been pushed yet to the fabric.
+2232.2400000000002	2237.1600000000003	 So we can tell the user, hey, if you are going to push these changes, you are going to break
+2237.1600000000003	2239.96	 the validation, the compliance validation.
+2239.96	2247.6400000000003	 The second one, the major one, is an overlapping subnet across bridge domains into the same
+2247.6400000000003	2248.6400000000003	 VRF.
+2248.6400000000003	2253.48	 Remember that we're using a shared VRF, a shared layer 3 out.
+2253.48	2258.0800000000004	 And that means that we are going to merge different subnets into a shared bucket.
+2258.08	2263.08	 In this case, we probably used the wrong bridge domain association into our code.
+2263.08	2268.2799999999997	 So we are using the same subnet on the PCI tenant and on the non-PCI tenant.
+2268.2799999999997	2269.8199999999997	 And that is going to cause a problem.
+2269.8199999999997	2273.46	 We know if you use the same subnet, things are going to be broken.
+2273.46	2278.2	 And Nexus dashboard insights is able to tell all this and is also providing us details
+2278.2	2283.3199999999997	 about what is the bridge domain that is causing this, where the overlap is going to happen
+2283.3199999999997	2284.72	 and so on.
+2284.72	2286.68	 So what can we do at this point?
+2286.68	2288.08	 Well, pretty much nothing.
+2288.08	2291.64	 We have to go back into our code knowing what's going on.
+2291.64	2295.6	 And we have to fix the code in order to prevent those faults.
+2295.6	2297.8799999999997	 So we go to our variable section.
+2297.8799999999997	2303.64	 We are going to remove the contract association that was creating that unexpected communication.
+2303.64	2309.08	 We are also going to change the subnet of the bridge domain.
+2309.08	2313.52	 Or better, we are going to use a different bridge domain relation for all our EPGs.
+2313.52	2318.6	 So the 20 subnet is not going to be included.
+2318.6	2320.64	 Next we proceed as we did before.
+2320.64	2325.16	 We commit these changes, we provide a commit message, and we push the changes into the
+2325.16	2327.2	 remote repository.
+2327.2	2332.22	 So we can move back now to the pipeline, to the dashboard, and we see that we have the
+2332.22	2334.92	 new pipeline executing.
+2334.92	2337.72	 Things are going to be exactly the same as before.
+2337.72	2339.04	 And this is why it's good, right?
+2339.04	2340.04	 It's consistent.
+2340.04	2341.74	 The CI-CD pipeline are consistent.
+2341.74	2343.8199999999997	 They will never miss any point.
+2343.8199999999997	2347.9599999999996	 So fast forwarding, you see we are doing the Ansible lean, we are doing the Ansible dry
+2347.9599999999996	2348.9599999999996	 run.
+2348.9599999999996	2351.22	 Now we are running the pre-change validation.
+2351.22	2355.22	 And this time the pre-change validation was a success.
+2355.22	2356.7599999999998	 We can take a look at the logs.
+2356.7599999999998	2357.8399999999997	 We can scroll down.
+2357.8399999999997	2359.9799999999996	 And the logs are telling us, OK.
+2359.9799999999996	2365.1	 That is the message that we get from the Ansible module that is running the pre-change validation.
+2365.1	2370.02	 If we open the Delta analysis now on the pre-change validation side, there we go.
+2370.02	2371.1	 0, 0, 0.
+2371.1	2374.74	 No more anomalies or no new anomalies.
+2374.74	2376.94	 So we are OK to continue.
+2376.94	2381.66	 We are going to take the snapshot, obviously, and now it's time to push the changes.
+2381.66	2386.74	 We run exactly the same playbook, this time without the minus minus check.
+2386.74	2393.18	 So the objects you see now through the log, like these subnets, these bridge domains,
+2393.18	2396.5	 are actually getting created on our APIC.
+2396.5	2400.2	 We can quickly switch the view to the APIC.
+2400.2	2401.72	 We can take a look at the contract.
+2401.72	2405.3999999999996	 You see that we have values now before they were not these objects.
+2405.3999999999996	2408.2599999999998	 The filters are popping up as we speak.
+2408.2599999999998	2410.24	 We have ICMP, HTTPS.
+2410.24	2414.3799999999997	 And we can also take a look at the application profile, which got created now.
+2414.3799999999997	2417.0	 Into the topology, we hit refresh.
+2417.0	2421.4399999999996	 And we see that all the objects are defined with all the associations with the contracts,
+2421.4399999999996	2423.8199999999997	 the relations between the different EPGs.
+2423.8199999999997	2427.14	 This is pretty much what we are expecting.
+2427.14	2430.3799999999997	 And indeed, the deploy phase is completed.
+2430.3799999999997	2434.18	 It's time now for the final one, the post-change validation.
+2434.18	2436.06	 You remember what we do here?
+2436.06	2441.66	 We query information about the pre-change validation to have the earlier snapshot.
+2441.66	2447.3799999999997	 We trigger a new snapshot to get the information about the fabric at the current status.
+2447.3799999999997	2450.94	 And then we run the delta analysis between them.
+2450.94	2453.3399999999997	 This is something that we can follow also.
+2453.82	2457.82	 Actually, this is where you can see that the assurance analysis is running.
+2457.82	2462.94	 So this is the place where we can see that the snapshot is getting collected.
+2465.6600000000003	2467.0	 Yes, there we go.
+2467.0	2469.76	 So you see that the post-change validation is running.
+2469.76	2472.28	 So now we are analyzing the two snapshots.
+2472.28	2476.7000000000003	 We can take a look at this over the logs, like we did before.
+2476.7000000000003	2480.38	 We can also take a look at this over Nexus dashboard.
+2480.38	2481.38	 There we go.
+2481.38	2482.38	 We open the logs.
+2482.38	2487.38	 We are reporting everything that happened over the Ansible playbook.
+2487.38	2491.02	 And at the end, it was a matter of trigger the delta analysis and validate the delta
+2491.02	2496.2200000000003	 analysis, which we can basically also inspect from Nexus dashboard insights.
+2496.2200000000003	2498.02	 This is our delta analysis.
+2498.02	2503.9	 And it's basically telling us, hey, you don't have any new anomalies after you committed
+2503.9	2506.9	 those changes into the live fabric.
+2506.9	2510.34	 So our pipeline is basically deployed entirely.
+2510.34	2512.5	 We have all green lights.
+2512.5	2514.98	 And our network is safe.
+2516.98	2521.98	 Now, it's time for the conclusion part.
+2521.98	2528.58	 I think the key topics for this presentation are the fact that changes can be dangerous
+2528.58	2531.6600000000003	 if they are not performed into the correct way.
+2531.6600000000003	2533.26	 We saw the numbers, right?
+2533.26	2538.9	 65% of outages of problems happen actually during the changes.
+2538.94	2542.1800000000003	 Luckily for us, we have the tools that can help us here.
+2542.1800000000003	2545.06	 The first one is the CI-CD pipeline.
+2545.06	2549.62	 Because you saw CI-CD pipelines are consistent and are automated.
+2549.62	2554.36	 You can and you will be sure that all the tasks are always going to be run into the
+2554.36	2556.58	 most precise way.
+2556.58	2559.7400000000002	 And obviously the second tool is Nexus dashboard insights.
+2559.7400000000002	2565.06	 Because Nexus dashboard insights can provide to the pipeline those testing functions, those
+2565.1	2570.38	 validation verification functions that we need to add to our pipeline to ensure that
+2570.38	2574.58	 things are going to run smooth.
+2574.58	2577.34	 I just want to leave you with this slide here.
+2577.34	2579.5	 You can download the slide from the Cisco Live app.
+2579.5	2581.2599999999998	 You can download the slide from the Webex room.
+2581.2599999999998	2582.66	 I will post them there.
+2582.66	2585.18	 You will find the link to the code in GitHub.
+2585.18	2589.98	 You will find the link to the sandboxes that we have available into the DevNet portal.
+2589.98	2593.2599999999998	 If you want to play a little bit with something like this, something similar.
+2593.26	2597.38	 There are also a couple of more sessions happening into the next days that are covering
+2597.38	2599.5600000000004	 pretty much the same topics.
+2599.5600000000004	2602.0600000000004	 Maybe with Terraform, maybe different declinations.
+2602.0600000000004	2606.5	 But overall the technologies are going to be these.
+2606.5	2611.42	 Obviously I'd like to ask you if you have a minute just to fill the survey and let me
+2611.42	2614.5800000000004	 know how you felt about this session.
+2614.5800000000004	2615.5800000000004	 If you like it.
+2615.5800000000004	2621.26	 If there's anything that we should, let's say, improve in terms of presentation, in
+2621.3	2623.1000000000004	 terms of content on the slides.
+2623.1000000000004	2625.94	 It's going to take you just one minute.
+2625.94	2628.38	 And remember that Cisco Live just started today.
+2628.38	2630.9	 There are plenty of activities that you can do around there.
+2630.9	2632.2200000000003	 We have DevNet sessions.
+2632.2200000000003	2638.26	 We have breakouts, labs, D cloud sections where you can expand your skills.
+2638.26	2640.6600000000003	 It's a great opportunity for this.
+2640.6600000000003	2644.82	 So thank you very much for being into this session and I hope you will have a great Cisco
+2644.82	2646.1000000000004	 Live experience.
+2646.1000000000004	2648.98	 If there are any questions, feel free to raise them.
+2648.98	2654.82	 I think we have one minute more.
+2654.82	2655.34	 Thank you very much.

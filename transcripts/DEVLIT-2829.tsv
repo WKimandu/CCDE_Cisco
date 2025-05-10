@@ -1,0 +1,240 @@
+start	end	text
+0.0	12.16	 All right.
+12.16	14.32	 Good morning, everyone.
+14.32	17.240000000000002	 First question, can you see the screen?
+17.240000000000002	19.240000000000002	 Can you hear my voice okay?
+19.240000000000002	20.240000000000002	 Perfect.
+20.240000000000002	21.240000000000002	 Okay.
+21.240000000000002	29.28	 So, we only have 20 minutes, so let's dive right in.
+29.28	35.24	 Today I'm going to talk about an application that translates Ansible to Terraform using
+35.24	41.400000000000006	 an application called Translator for ACI.
+41.400000000000006	43.96	 This is food for thought.
+43.96	49.88	 Ansible and Terraform are two sides of the same coin for ACI.
+49.88	51.760000000000005	 Let's think of it this way.
+51.760000000000005	58.480000000000004	 If the coin represents the concept of managing or provisioning an infrastructure in ACI,
+58.48	65.72	 you have one side of the coin representing Ansible, which is more procedural or imperative
+65.72	72.24	 in its approach, where you mention tasks one after the other in the playbook, and you tell
+72.24	76.42	 the system how to reach the desired end state.
+76.42	83.08	 The other side of the coin, you have Terraform, which is declarative in its approach.
+83.08	88.19999999999999	 By declarative, I mean you just mentioned the desired end state, and Terraform by itself
+88.2	91.24000000000001	 decides how to get there.
+91.24000000000001	104.24000000000001	 While both of them achieve the same goal, sorry, you have a question?
+104.24000000000001	105.24000000000001	 No?
+105.24000000000001	106.24000000000001	 Okay.
+106.24000000000001	117.48	 You can either use Ansible or Terraform or a combination of both, depending on the context.
+117.48	120.52000000000001	 So what is this application?
+120.52000000000001	128.88	 The application converts an Ansible playbook into its respective resource file and state
+128.88	131.88	 file in Terraform.
+131.88	134.28	 As simple as that.
+134.28	136.56	 Okay.
+136.56	138.9	 Few things to remember.
+138.9	141.32	 This is only designed for ACI.
+141.32	142.4	 The application that is.
+142.4	145.64000000000001	 It's only designed for ACI.
+145.64	152.72	 It's not a direct language conversion where Ansible playbook is written in YAML format.
+152.72	158.04	 The YAML format is not converted into HCL, which is Hashi configuration language, which
+158.04	159.88	 is written in Terraform again.
+159.88	165.38	 So it's not a static translation.
+165.38	171.2	 You need Ansible in the backend, which runs the playbook you want to translate, pushes
+171.95999999999998	178.07999999999998	 the config to the APEC and Terraform imports that config.
+178.07999999999998	186.56	 So minimum requirement would be an APEC simulator or any APEC will do really.
+186.56	187.56	 Okay.
+187.56	190.44	 The million dollar question.
+190.44	195.76	 Why move from Ansible to Terraform?
+195.76	204.76	 If you're using Ansible to configure an ACI infrastructure and it becomes large and it's
+204.76	212.56	 growing, the real challenge is keeping track of the real world resources in ACI.
+212.56	216.95999999999998	 This can be overcome if you use Terraform.
+216.95999999999998	223.68	 So in a way you can translate the Ansible playbook to the Terraform config file and
+223.68	229.0	 the state file, which serves as the source of truth of your ACI environment.
+229.0	231.08	 What do I mean by a state file?
+231.08	238.32	 It's nothing but a snapshot of your infrastructure at a given time stored in a file.
+238.32	246.04000000000002	 This helps Terraform identify if there's any change in the desired config so that it can
+246.04000000000002	250.72	 match with the ACI infrastructure.
+250.76	258.92	 The second point I would like to talk about is if you're using Ansible to manage your
+258.92	265.9	 on-prem infrastructure, which is part of a hybrid cloud environment, Terraform being
+265.9	272.16	 cloud agnostic is the likely contender that's managing other cloud infrastructures.
+272.16	277.72	 It would be helpful if you converted your Ansible playbook into Terraform config so
+277.72	287.16	 that you're using one tool for the entire hybrid cloud environment.
+287.16	290.52000000000004	 And why use the translator?
+290.52000000000004	295.40000000000003	 A user simply wants to migrate from Ansible to Terraform and he doesn't know where to
+295.40000000000003	296.84000000000003	 begin.
+296.84000000000003	302.36	 This app is a good starting point.
+302.36	316.2	 Let me pull up my application.
+316.2	326.6	 Let me show you the playbook called My ACI Playbook, which is in the demo one folder.
+326.6	330.92	 Can you see it?
+330.92	345.16	 So, this playbook essentially sets up an L3 out.
+345.16	352.08000000000004	 It configures L3 out so that there are configures network routing so that there's outbound connectivity
+352.08000000000004	358.12	 from your ACI fabric to your external networks.
+358.12	366.44	 That's the gist of this playbook.
+366.44	377.4	 Choose file.
+377.4	389.28	 And let me enter the credentials.
+389.28	393.44	 And let me hit the translate button.
+393.44	399.71999999999997	 Now while it's translating, let me explain what the dry run option is.
+399.72	407.32000000000005	 Now if you want to translate a playbook that has already pushed its config onto ACI or
+407.32000000000005	415.24	 an APEC, and you don't want to push it again to the APEC, it may cause uninterrupted changes
+415.24	416.40000000000003	 so you never know.
+416.40000000000003	422.64000000000004	 So you select the dry run, the playbook runs in check mode in Ansible.
+422.64000000000004	424.20000000000005	 And it's still translating.
+424.2	439.56	 So let me explain the structure of the application.
+439.56	445.68	 So the application is running in a front-end Docker container in conjunction with a back-end
+445.68	448.28	 Docker container.
+448.79999999999995	454.55999999999995	 So right now what's happening is the playbook is being consumed by the app.
+454.55999999999995	458.47999999999996	 And then it's modified by the back-end.
+458.47999999999996	464.59999999999997	 And once the playbook is modified, it's run by Ansible first.
+464.59999999999997	471.32	 And then the Ansible to Terraform playbook is run next.
+471.36	479.56	 So now the translation process, it communicates with the APEC, the back-end that is.
+479.56	481.8	 I'll come back to this.
+481.8	486.76	 Okay, so it's complete.
+486.76	498.4	 Let me download the translated files here.
+498.47999999999996	502.32	 And let me go to the downloads folder.
+502.32	507.56	 Unzip the downloaded file.
+507.56	514.68	 And let me open the three files that are important to us right now.
+514.68	521.48	 I hope you can see this.
+521.48	527.96	 So the three files that we have that were translated from the playbook was the provider,
+527.96	533.6800000000001	 the resources, and the Terraform state file.
+533.6800000000001	540.2800000000001	 The provider, Terraform provider, it's analogous to your Ansible inventory, where you have
+540.2800000000001	546.12	 the credentials of the APEC and the provider plugin information, which is analogous to
+546.12	548.72	 your Ansible ACI collection.
+548.72	554.76	 So in a similar way, you have a provider ACI.
+555.56	564.2	 This is the Terraform config file that's been translated.
+564.2	573.68	 Let me just put this on the right.
+573.68	588.16	 So for each task in the playbook, you have a corresponding resource in the Terraform
+588.16	591.12	 config file.
+591.12	596.68	 Okay.
+596.68	604.92	 So this is analogous to your playbook in Ansible.
+604.92	613.3599999999999	 Next comes the all-important state file, which is unique to Terraform.
+613.3599999999999	620.92	 Now the state file, as I mentioned before, is a snapshot of your infrastructure.
+621.16	628.12	 This infrastructure currently exists on the APEC.
+628.12	635.76	 Now the state file consists of a resource ID, the resource attributes, the resource
+635.76	642.04	 name, the resource type, and dependencies.
+642.04	648.52	 All the attributes that I just mentioned now are important information for the Terraform
+648.6	657.4399999999999	 to map to the real-world objects in ACI.
+657.4399999999999	664.96	 Let me pull up my terminal.
+664.96	670.04	 And let me show you a few Terraform commands before I continue with the slides.
+670.04	671.04	 Okay.
+671.56	672.56	 Okay.
+672.56	673.56	 Serious place.
+679.56	680.56	 Oops.
+681.0799999999999	701.1199999999999	 Okay.
+701.1199999999999	706.16	 The first command is terraform init.
+706.16	712.7199999999999	 What this does is it initializes a working directory that contains your configuration
+712.7199999999999	716.24	 file.
+716.24	723.28	 It also downloads and installs the provider plugin, which in our case is ACI.
+723.28	731.56	 And let me show you the next command, which is terraform plan.
+731.9599999999999	740.64	 This command creates an execution plan in Terraform.
+740.64	742.16	 And it says no changes.
+742.16	745.76	 Your infrastructure matches the configuration.
+745.76	755.9599999999999	 This is because Terraform compared what's there in the resources config file with the
+755.96	758.1600000000001	 Terraform state.
+758.1600000000001	762.2800000000001	 And it figured out that there's nothing different.
+762.2800000000001	764.8000000000001	 So it's not going to push anything.
+764.8000000000001	767.6800000000001	 Now let me...
+767.6800000000001	778.26	 So I have this tenant called ansible2tf.
+778.26	780.96	 Let me make a small change.
+780.96	788.0	 I'll change the annotation to terraform.
+788.0	792.8000000000001	 So now I have changed my desired config.
+792.8000000000001	794.88	 One single attribute, not a big change.
+794.88	810.74	 So let me again do terraform plan.
+810.74	818.38	 So now terraform identified that there's a change in the configuration.
+818.38	821.66	 And it's showing us the change.
+821.66	826.34	 Let me apply that change.
+826.34	850.46	 And as you can see, you have the ansible annotation here.
+850.46	866.4200000000001	 The network is kind of slow.
+866.4200000000001	871.4200000000001	 Let me confirm.
+871.4200000000001	874.6600000000001	 And this changed to terraform.
+874.66	878.9	 And this is your current infrastructure in ACI.
+878.9	890.14	 And if you look at the state file, it has a record that it's terraform, not ansible
+890.14	891.14	 anymore.
+891.14	899.8199999999999	 So your desired config matches with the state, which in turn matches with your current existing
+899.8199999999999	902.8199999999999	 infrastructure.
+902.82	905.62	 Slides.
+905.62	929.34	 A little more detail about how the translation worked behind the scenes.
+929.94	939.4200000000001	 Terraform manages resources using unique IDs.
+939.4200000000001	946.94	 These unique IDs can also be used for existing, to import pre-existing resources that is in
+946.94	948.86	 your ACI infrastructure.
+948.86	955.1800000000001	 Now we all know that DNs, or distinguished names, are unique identifiers of objects in
+955.1800000000001	956.5400000000001	 ACI.
+956.54	965.0999999999999	 In terraform provider ACI, the object, the distinguished name, is nothing but the resource
+965.0999999999999	972.2199999999999	 ID in terraform.
+972.2199999999999	977.6999999999999	 Why does that matter?
+977.6999999999999	986.26	 Our ansible ACI is designed to display the DN of each object a particular task is manipulating.
+986.26	996.8199999999999	 Now, once you collect all the DNs from ansible output, you feed it into terraform import
+996.8199999999999	1004.74	 function, which recognizes those DNs as terraform IDs, resource IDs, and it outputs a config
+1004.74	1012.22	 file with the state file.
+1012.22	1019.1800000000001	 Let me, let us follow the same experiment without using the application, without using
+1019.1800000000001	1023.14	 the web application that I just showed you.
+1023.14	1037.66	 Now if you notice, I have my playbook, the ansible to terraform playbook and a custom
+1038.66	1059.66	 I have the same files that I showed in the slide with an inventory of course.
+1059.66	1063.7	 Let me open this playbook.
+1063.7	1068.1000000000001	 Can you see the playbook?
+1068.1000000000001	1071.94	 So now I made a few changes to the playbook.
+1071.94	1080.98	 What I've done is I've used the register keyword with the unique identifier for each task.
+1080.98	1086.38	 All of them have different unique identifiers.
+1086.38	1094.38	 And I've included the ansible to terraform playbook as the last task of the playbook
+1094.38	1100.98	 I want to convert.
+1100.98	1123.78	 Now let me pull up another terminal and run this.
+1123.78	1131.46	 So let me run my ansible playbook command.
+1131.46	1145.06	 And let's see what happens.
+1145.06	1150.02	 So create a tenant task.
+1150.02	1155.3	 You have a DN specified in the output of ansible.
+1155.3	1166.78	 This output is saved in the register keyword, the unique identifier of the register keyword.
+1166.78	1171.86	 Now this has a DN as well which is add unknown.
+1171.86	1178.86	 This has a DN, create static route.
+1178.86	1206.58	 Now the ansible to terraform playbook runs after the main playbook has been executed.
+1206.58	1212.86	 And the custom filter plug-in, what it does is it parses all the outputs of the ansible
+1212.86	1223.34	 task, collects each DN from each task, puts it together, and it feeds it into the terraform
+1223.34	1226.4199999999998	 import function.
+1226.4199999999998	1234.1999999999998	 And the import function gives you the config file and the state file.
+1234.2	1239.76	 So this is part of ansible to terraform playbook which is running.
+1264.2	1276.78	 Now you've seen a few files that have been populated in the demo2 directory.
+1276.78	1282.88	 Our main concern is this particular folder which is my ACI playbook which matches with
+1282.88	1284.96	 the name of the playbook.
+1284.96	1288.04	 Let me open that.
+1288.04	1298.0	 Now this has the same downloaded, same files which I downloaded from the application earlier.
+1298.0	1305.48	 So this is manual translation.
+1305.48	1321.6	 So in a gist, these two are the main elements that you require in the translation process.
+1321.6	1328.24	 This playbook, you register all the tasks, include this playbook to be run after all
+1328.24	1335.42	 the tasks have been run, and the custom filter plug-in gathers the DNs and gives you the
+1335.42	1343.5800000000002	 terraform files.
+1343.5800000000002	1355.42	 Let me show you something else.
+1355.42	1364.22	 Let me go to the directory which has those files.
+1365.02	1370.18	 Let me use our terraform init command to initialize the working directory.
+1370.18	1372.46	 It's already initialized.
+1372.46	1377.42	 Terraform plan.
+1377.42	1384.78	 Again it's going to show that the infrastructure matches the desired config.
+1384.78	1402.86	 I'll show a new command, terraform destroy.
+1402.86	1410.1399999999999	 And you have your plan that shows, okay, these are the resources, all the resources are going
+1410.1399999999999	1411.98	 to be destroyed.
+1412.22	1420.1	 It just tears down the entire infrastructure.
+1420.1	1426.5	 And resources seven destroyed.
+1426.5	1437.46	 It's gone.
+1437.46	1440.0	 Now this was a single playbook.
+1440.02	1444.08	 What if you have dependencies?
+1444.08	1462.44	 By dependencies I mean I have a playbook that is dependent on a CSV file.
+1462.6000000000001	1471.3600000000001	 It also uses a separate filter plug-in for manipulation of variables.
+1471.3600000000001	1486.0	 This can be translated using the manual translation just by adding these two files here in the
+1486.0	1492.04	 CSV folder.
+1492.04	1494.12	 But I'm not going to do that.
+1494.12	1499.76	 I want to use the application to translate the web application that is.
+1499.76	1511.36	 So let me go ahead and compress this into a zip file.
+1511.36	1513.32	 Let me refresh this.
+1513.32	1518.32	 Choose files.
+1522.04	1543.76	 And you can see the back end Docker container running here as well, which is the same translation
+1543.76	1551.2	 process that's taking place.
+1551.2	1558.8400000000001	 So the app is designed in a way where you can also translate an entire Ansible role.
+1558.8400000000001	1565.32	 If you know what an Ansible role is, then you just have to zip the Ansible role, upload
+1565.32	1572.0	 it or select the zip file from the application and it gives you the respective terraform
+1572.0	1575.0	 config file.
+1581.2	1610.68	 It also gives you a log file if you need to, if the application encounters certain errors.
+1610.68	1619.0	 It will display a message saying, okay, it came across a few exceptions.
+1619.0	1624.2	 So once you download the file, you will have a log file.
+1624.2	1639.44	 I can show it to you once this translation is done.
+1639.44	1642.24	 So execute it successfully with exceptions.
+1642.24	1645.3200000000002	 Close, download.
+1645.3200000000002	1651.0	 Let me open that.
+1651.0	1658.0800000000002	 And you have a log file where all the warning and the error messages are displayed at the
+1658.0800000000002	1662.5	 bottom.
+1662.5	1671.24	 So I would like to end the presentation with one takeaway sentence.
+1671.24	1678.94	 On a conceptual or a functional basis or view, what Ansible does to a single task in its
+1678.94	1683.94	 playbook, terraform does to its entire config file.
+1683.94	1684.1	 Thank you.
