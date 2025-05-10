@@ -1,0 +1,78 @@
+[
+  {
+    "id": "3.1",
+    "text": "Exam Description: The following topics are general guidelines for the content likely to be included on\nthe CCDE Written (400-007) and Practical exam v3.1. However, other related topics may also appear on\nany specific delivery of the exam. To better reflect the contents of the exam and for clarity purposes, the\nguidelines below may change at any time without notice.\n\u2022 The CCDE Written (400-077) exam v3.1 is a 2-hour, multiple-choice test with 90-110 questions\nthat focuses on core Enterprise network architectures and technologies.\n\u2022 The CCDE Practical exam v3.1 is an 8-hour scenario-based exam that focuses on the core\nEnterprise network architectures and technologies, as well as on your selected elective.\nBoth exams validate your knowledge, skills, and abilities throughout the entire network design lifecycle.\nBoth exams are closed book, and no outside reference materials are allowed.\nYour knowledge, skills, and abilities of recommending, building, validating, optimizing, and adapting\ntechnologies and solutions in the context of complex, high-level network designs will be tested\nthroughout the exam:\n\u2022 Recommend technologies or solutions that align with the stated requirements.\n\u2022 Justify why a given decision was made.\n\u2022 Make design choices and fully design solutions that comply with the stated requirements.\n\u2022 Validate existing designs to ensure they are compliant with all requirements and suggest design\nchanges to accommodate for changed specifications or requirements in the network.\n\u2022 Perform optimizations of existing network designs to fix issues or mitigate risks.\n\u2022 Build high-level implementation plans or steps.\n\u2022 Recommend, build, or justify strategies.\nThe Written and Practical exams are designed with dual-stack in mind, so IPv4 and IPv6 should be\nexpected across every exam topic and technology.\nFor more information about the exam format and the technologies covered within your exam, refer to:\n\u2022 CCDE v3.1 Core Technology List\n\u2022 CCDE v3.1 Practical - AI Infrastructure Technology List\n\u2022 CCDE v3.1 Practical - Large-Scale Networks Technology List\n\u2022 CCDE v3.1 Practical - On-Prem and Cloud Services Technology List\n\u2022 CCDE v3.1 Practical - Workforce Mobility Technology List\n\u2022 CCDE v3.1 Written and Practical Exam Format\n2024 Cisco Systems, Inc. This document is Cisco Public. 1224 Page 1\n-\n\n15% 1.0 Business Strategy Design"
+  },
+  {
+    "id": "1.1",
+    "text": "Impact on network design, implementation, and optimization using various customer\nproject management methodologies (for instance Waterfall and Agile)"
+  },
+  {
+    "id": "1.2",
+    "text": "Solutions based on business continuity and operational sustainability (for instance RPO,\nROI, CAPEX/OPEX cost analysis, and risk/reward)"
+  },
+  {
+    "id": "1.3",
+    "text": "Environmental sustainability"
+  },
+  {
+    "id": "1.4",
+    "text": "AI/Machine Learning"
+  },
+  {
+    "id": "2.0",
+    "text": "Control, Data, Management Plane, and Operational Design"
+  },
+  {
+    "id": "2.1",
+    "text": "End-to-end IP traffic flow in a feature-rich environment"
+  },
+  {
+    "id": "2.2",
+    "text": "Data, control, and management plane technologies"
+  },
+  {
+    "id": "2.3",
+    "text": "Centralized, decentralized, or hybrid control plane"
+  },
+  {
+    "id": "2.4",
+    "text": "Automation/orchestration design, integration, and on-going support for networks (such\nas interfacing with APIs, model-driven management, controller-based technologies, and\nevolution to CI/CD framework)"
+  },
+  {
+    "id": "2.5",
+    "text": "Software-defined architecture and controller-based solution design (SD-WAN, overlay,\nunderlay, and fabric)"
+  },
+  {
+    "id": "2.6",
+    "text": "Visibility, observability, and assurance"
+  },
+  {
+    "id": "2.7",
+    "text": "User and application experience\n30% 3.0 Network Design"
+  },
+  {
+    "id": "3.1",
+    "text": "Resilient, scalable, and secure modular networks, covering traditional and software-\ndefined architectures, considering:"
+  },
+  {
+    "id": "3.2",
+    "text": "AI network design use cases (such as machine learning, large language models, and\npattern recognition)\n2024 Cisco Systems, Inc. This document is Cisco Public. 1224 Page 2\n-\n\n15% 4.0 Service Design"
+  },
+  {
+    "id": "4.1",
+    "text": "Resilient, scalable, and secure modular network design based on constraints (such as\ntechnical, operational, application, and business constraints) to support applications on\nthe IP network (such as voice, video, backups, data center replication, IoT, and storage)"
+  },
+  {
+    "id": "4.2",
+    "text": "Cloud/hybrid solutions based on business-critical operations"
+  },
+  {
+    "id": "5.0",
+    "text": "Security Design"
+  },
+  {
+    "id": "5.1",
+    "text": "Network security design and integration"
+  }
+]

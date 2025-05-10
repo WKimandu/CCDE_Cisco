@@ -1,0 +1,664 @@
+{
+  "ai_infrastructure": {
+    "count": 50,
+    "terms": [
+      "AI",
+      "artificial intelligence",
+      "machine learning",
+      "ML",
+      "neural network",
+      "deep learning",
+      "inference",
+      "analytics",
+      "data science",
+      "GPU",
+      "TPU"
+    ],
+    "mentions": [
+      {
+        "term": "AI",
+        "context": "Man-in-the-middle 6.3.d.v Botnet 6.4 Zero trust 6.4.a ZTNA 6.4.b Build policies using tools such as AI/ML 6.4.c Use cases, principles, and architecture 6.4.d Migration from classic deployments 6.5 Netwo"
+      },
+      {
+        "term": "ML",
+        "context": "-in-the-middle 6.3.d.v Botnet 6.4 Zero trust 6.4.a ZTNA 6.4.b Build policies using tools such as AI/ML 6.4.c Use cases, principles, and architecture 6.4.d Migration from classic deployments 6.5 Network"
+      },
+      {
+        "term": "AI",
+        "context": "CCDE Practical Exam v3.1 AI Infrastructure Technology List Description: The following technologies are associated with the AI I"
+      },
+      {
+        "term": "AI",
+        "context": "1 AI Infrastructure Technology List Description: The following technologies are associated with the AI Infrastructure elective of the CCDE Practical Exam v3.1. Candidates are expected to have a deep und"
+      },
+      {
+        "term": "AI",
+        "context": "logies listed here are in addition to the technologies listed in the CCDE Core Technology list. 1.0 AI/Machine learning 1.1 Impacts on infrastructure resources and requirements for different AI/ML use-c"
+      },
+      {
+        "term": "AI",
+        "context": "ist. 1.0 AI/Machine learning 1.1 Impacts on infrastructure resources and requirements for different AI/ML use-cases 1.1.a Machine learning 1.1.b Deep learning 1.1.c LLM 1.1.d GenAI 1.2 Service placement"
+      },
+      {
+        "term": "AI",
+        "context": "buted 1.3 Data sovereignty 1.4 Regulations, policies, and governance 1.5 Sustainability 1.5.a Green AI 1.5.b Affordability (CPU/GPU tweaking) 1.5.c Effective use of AI accelerators 1.5.d Power and cooli"
+      },
+      {
+        "term": "AI",
+        "context": ".1.c Topologies 5.1.c.i Spine/leaf topologies 5.1.c.ii CLOS topologies 5.1.c.iii Hierarchical 5.1.d AI/ML-enabled data center 5.1.d.i Nonblocking fabric 5.1.d.ii Low latency 5.1.d.iii Lossless Ethernet"
+      },
+      {
+        "term": "ML",
+        "context": "c Topologies 5.1.c.i Spine/leaf topologies 5.1.c.ii CLOS topologies 5.1.c.iii Hierarchical 5.1.d AI/ML-enabled data center 5.1.d.i Nonblocking fabric 5.1.d.ii Low latency 5.1.d.iii Lossless Ethernet 5.1"
+      },
+      {
+        "term": "Analytics",
+        "context": "st over wireless 2.6 mDNS 2.7 Location services and solutions 2.7.a RTLS 2.7.b Cisco Spaces 2.7.b.i Analytics 2.8 Automation, Assurance, Insights, and Telemetry (Legacy and Catalyst Center) 2.8.a AVC/NetFlow 2"
+      },
+      {
+        "term": "AI",
+        "context": "e expectations of today\u2019s network designers and architects. The CCDE exam blueprint v3.1 introduces AI/ML from a networking perspective along with the challenges and changes it comes with. There is also"
+      },
+      {
+        "term": "AI",
+        "context": "exam topics list. V3.0 V3.1 1. Business Strategy Design (15%) 1. Business Strategy Design (15%) 1.3 AI/Machine Learning 1.3.a Business needs 1.3.b Data sovereignty (location and public/private/hybrid) 1"
+      },
+      {
+        "term": "AI",
+        "context": "ional and software- defined architectures, considering: 3.1.g Automation goals and requirements 3.2 AI network design use cases (such as machine learning, large language models, and pattern recognition)"
+      },
+      {
+        "term": "AI",
+        "context": "operations 4.2.a Regulatory compliance 4.2.a Regulatory compliance (regulations as provided) 4.2.g AI/ML 5. Security Design (15%) 5. Security Design (15%) 5.1 Network security design and integration 5."
+      },
+      {
+        "term": "AI",
+        "context": "observability, and assurance 5.1.f Regulatory compliance (regulations as provided) 5.1.g Impacts of AI on corporate security policy (such as IP, PII, proprietary information, quality, corporate credibil"
+      },
+      {
+        "term": "AI",
+        "context": "logies covered within your exam, refer to: \u2022 CCDE v3.1 Core Technology List \u2022 CCDE v3.1 Practical - AI Infrastructure Technology List \u2022 CCDE v3.1 Practical - Large-Scale Networks Technology List \u2022 CCDE"
+      },
+      {
+        "term": "AI",
+        "context": "instance RPO, ROI, CAPEX/OPEX cost analysis, and risk/reward) 1.3 Environmental sustainability 1.4 AI/Machine Learning 1.4.a Business needs 1.4.b Data sovereignty (location and public/private/hybrid) 1"
+      },
+      {
+        "term": "AI",
+        "context": "Implementation plans 3.1.f Migration and transformation 3.1.g Automation goals and requirements 3.2 AI network design use cases (such as machine learning, large language models, and pattern recognition)"
+      },
+      {
+        "term": "AI",
+        "context": "uch as direct connect, Cloud OnRamp, MPLS direct connect, and WAN integration) 4.2.f Security 4.2.g AI/ML 15% 5.0 Security Design 5.1 Network security design and integration 5.1.a Segmentation 5.1.b Net"
+      },
+      {
+        "term": "AI",
+        "context": "enforcement 5.1.e CIA triad 5.1.f Regulatory compliance (regulations as provided) 5.1.g Impacts of AI on corporate security policy (such as IP, PIL, proprietary information, quality, corporate credibil"
+      },
+      {
+        "term": "AI",
+        "context": "ices they depend on. This requires a well-planned and well-designed wireless network to achieve. 4. AI Infrastructure The AI Infrastructure elective works with the various aspects of designing infrastru"
+      },
+      {
+        "term": "AI",
+        "context": "his requires a well-planned and well-designed wireless network to achieve. 4. AI Infrastructure The AI Infrastructure elective works with the various aspects of designing infrastructure that enables use"
+      },
+      {
+        "term": "AI",
+        "context": "rastructure elective works with the various aspects of designing infrastructure that enables use of AI/ML applications while also ensuring the workloads are manageable and able to operate in a secure fa"
+      },
+      {
+        "term": "AI",
+        "context": "uring your practical exam. Available elective badges: i. Cisco Certified Design Expert Specialist - AI Infrastructure ii. Cisco Certified Design Expert Specialist - Large Scale Networks iii. Cisco Certi"
+      },
+      {
+        "term": "ML",
+        "context": "tructure elective works with the various aspects of designing infrastructure that enables use of AI/ML applications while also ensuring the workloads are manageable and able to operate in a secure fashi"
+      }
+    ]
+  },
+  "on_prem_services": {
+    "count": 56,
+    "terms": [
+      "on-prem",
+      "on-premises",
+      "data center",
+      "datacenter",
+      "private cloud",
+      "server",
+      "storage",
+      "compute",
+      "rack",
+      "hardware",
+      "appliance"
+    ],
+    "mentions": [
+      {
+        "term": "On-Prem",
+        "context": "Written and Practical Exam Format \u2022 Core - technology list \u2022 Workforce Mobility - technology list \u2022 On-Prem and Cloud Services - technology list \u2022 Large Scale Networks - technology list 2022 Cisco Systems, I"
+      },
+      {
+        "term": "data center",
+        "context": "usiness constraints) to support applications on the IP network (for instance voice, video, backups, data center replication, IoT, and storage) 4.2 Cloud/hybrid solutions based on business-critical operations 4.2"
+      },
+      {
+        "term": "storage",
+        "context": "plications on the IP network (for instance voice, video, backups, data center replication, IoT, and storage) 4.2 Cloud/hybrid solutions based on business-critical operations 4.2.a Regulatory compliance 4.2.b"
+      },
+      {
+        "term": "on-premises",
+        "context": "ses 1.1.a Machine learning 1.1.b Deep learning 1.1.c LLM 1.1.d GenAI 1.2 Service placement, such as on-premises, cloud, or distributed 1.3 Data sovereignty 1.4 Regulations, policies, and governance 1.5 Sustainab"
+      },
+      {
+        "term": "data center",
+        "context": "A and RoCE/RoCEv2 2.8 Connectivity models 2.8.a Isolated or purpose-built islands 2.8.b In the main data center, such as CLOS, two- or three-tier hierarchical 3.0 Security 3.1 AI/ML infrastructure hosting implic"
+      },
+      {
+        "term": "Storage",
+        "context": "4.3 AI-assisted operations 4.3.a Data scrubbing 4.3.b Log correlation 4.3.c Telemetry analysis 4.4 Storage 4.4.a Data storage strategy 4.4.b FC, FCoE, NVME, NVME-oF, software-defined storage 4.4.c IP-based"
+      },
+      {
+        "term": "storage",
+        "context": "erations 4.3.a Data scrubbing 4.3.b Log correlation 4.3.c Telemetry analysis 4.4 Storage 4.4.a Data storage strategy 4.4.b FC, FCoE, NVME, NVME-oF, software-defined storage 4.4.c IP-based storage protocols 4"
+      },
+      {
+        "term": "storage",
+        "context": "ry analysis 4.4 Storage 4.4.a Data storage strategy 4.4.b FC, FCoE, NVME, NVME-oF, software-defined storage 4.4.c IP-based storage protocols 4.5 Timing protocols, such as PTP 2024 Cisco Systems, Inc. This do"
+      },
+      {
+        "term": "On-Premises",
+        "context": "CCDE Practical Exam v3.1 On-Premises and Cloud Services Technology List Description: The following technologies are associated with the"
+      },
+      {
+        "term": "On-Premises",
+        "context": "and Cloud Services Technology List Description: The following technologies are associated with the On-Premises and Cloud Services elective of the CCDE Practical Exam v3.1. Candidates are expected to have a deep"
+      },
+      {
+        "term": "on-premises",
+        "context": "ol Plane 2.1 Inter-fabric connectivity, such as Multi-Pod, Multi-Site 2.2 External connectivity for on-premises and cloud 2.3 Multi-Cloud Network Architecture 3.0 Network Virtualization 3.1 Overlay 3.1.a Managem"
+      },
+      {
+        "term": "Data Center",
+        "context": "ddition to the technologies listed in the CCDE Core Technology list. 1.0 Transport Technologies 1.1 Data Center Interconnect options 2.0 Layer 3 Control Plane 2.1 Inter-fabric connectivity, such as Multi-Pod, Mu"
+      },
+      {
+        "term": "Data Center",
+        "context": "h as VXLAN and MPLS) 3.1.d Segmentation 3.1.e Policy 3.1.e.i Security 3.1.e.ii Topologies 3.1.e.iii Data Center Interconnect 3.1.e.iv Multiple site strategy 3.1.e.v Service insertion 3.2 Virtual networking 4.0 A"
+      },
+      {
+        "term": "On-Premises",
+        "context": "nisms 5.2.a BGP FlowSpec 5.2.b Washing 6. Automation 6. Automation 6.2 Crosswork network automation On-Premises and Cloud Services Technology List The On-Premises and Cloud Services Technology List document list"
+      },
+      {
+        "term": "On-Premises",
+        "context": "n 6. Automation 6.2 Crosswork network automation On-Premises and Cloud Services Technology List The On-Premises and Cloud Services Technology List document lists the technologies that CCDE candidates that plan t"
+      },
+      {
+        "term": "On-Premises",
+        "context": "rvices Technology List document lists the technologies that CCDE candidates that plan to select the On-Premises and Cloud Services Network area-of-expertise scenario during their CCDE Practical exam are likely t"
+      },
+      {
+        "term": "On-Premises",
+        "context": "cenario during their CCDE Practical exam are likely to encounter and thus are expected to know. The On-Premises and Cloud Services Technology list covers only the On-Premises and Cloud Services scenario of the C"
+      },
+      {
+        "term": "On-Premises",
+        "context": "r and thus are expected to know. The On-Premises and Cloud Services Technology list covers only the On-Premises and Cloud Services scenario of the CCDE Practical exam. This table only highlights changes, so make"
+      },
+      {
+        "term": "On-Prem",
+        "context": "echnology List \u2022 CCDE v3.1 Practical - Large-Scale Networks Technology List \u2022 CCDE v3.1 Practical - On-Prem and Cloud Services Technology List \u2022 CCDE v3.1 Practical - Workforce Mobility Technology List \u2022 CCD"
+      },
+      {
+        "term": "data center",
+        "context": "and business constraints) to support applications on the IP network (such as voice, video, backups, data center replication, IoT, and storage) 4.2 Cloud/hybrid solutions based on business-critical operations 4.2"
+      },
+      {
+        "term": "storage",
+        "context": "on and public/private/hybrid) 1.4.c Security 1.4.d Assurance 1.4.e Integrity 1.4.f Impacts (such as storage requirements and traffic patterns) 1.4.g Auto scalability 1.4.h Cost and ROI 1.4.i Governance 25% 2"
+      },
+      {
+        "term": "storage",
+        "context": "rt applications on the IP network (such as voice, video, backups, data center replication, IoT, and storage) 4.2 Cloud/hybrid solutions based on business-critical operations 4.2.a Regulatory compliance (regu"
+      },
+      {
+        "term": "On-Prem",
+        "context": "uch as Service Provider networks or large enterprise networks and their associated technologies. 2. On-Prem and Cloud Services The On-Prem and Cloud Services elective is centered around design and integratio"
+      },
+      {
+        "term": "On-Prem",
+        "context": "s or large enterprise networks and their associated technologies. 2. On-Prem and Cloud Services The On-Prem and Cloud Services elective is centered around design and integration of business-critical services"
+      },
+      {
+        "term": "On-Prem",
+        "context": "ied Design Expert Specialist - Large Scale Networks iii. Cisco Certified Design Expert Specialist - On-Prem and Cloud Services iv. Cisco Certified Design Expert Specialist - Workforce Mobility 2024 Cisco Sys"
+      },
+      {
+        "term": "on-premises",
+        "context": "ion of business-critical services from a networking perspective. These services may be placed in an on-premises data center, in the cloud, or a hybrid thereof. A deep understanding of applications and their requ"
+      },
+      {
+        "term": "data center",
+        "context": "ess-critical services from a networking perspective. These services may be placed in an on-premises data center, in the cloud, or a hybrid thereof. A deep understanding of applications and their requirements, as"
+      }
+    ]
+  },
+  "cloud_services": {
+    "count": 37,
+    "terms": [
+      "cloud",
+      "AWS",
+      "Azure",
+      "GCP",
+      "SaaS",
+      "PaaS",
+      "IaaS",
+      "public cloud",
+      "hybrid cloud",
+      "multi-cloud",
+      "container",
+      "kubernetes",
+      "docker"
+    ],
+    "mentions": [
+      {
+        "term": "Cloud",
+        "context": "Practical Exam Format \u2022 Core - technology list \u2022 Workforce Mobility - technology list \u2022 On-Prem and Cloud Services - technology list \u2022 Large Scale Networks - technology list 2022 Cisco Systems, Inc. This d"
+      },
+      {
+        "term": "Cloud",
+        "context": "the IP network (for instance voice, video, backups, data center replication, IoT, and storage) 4.2 Cloud/hybrid solutions based on business-critical operations 4.2.a Regulatory compliance 4.2.b Data gover"
+      },
+      {
+        "term": "Cloud",
+        "context": "stance sovereignty, ownership, and locale) 4.2.c Service placement 4.2.d SaaS, PaaS, and IaaS 4.2.e Cloud connectivity (for instance direct connect, cloud on ramp, MPLS direct connect, and WAN integration)"
+      },
+      {
+        "term": "cloud",
+        "context": "Service placement 4.2.d SaaS, PaaS, and IaaS 4.2.e Cloud connectivity (for instance direct connect, cloud on ramp, MPLS direct connect, and WAN integration) 4.2.f Security 1515% 5.0 Security Design 5.1 Net"
+      },
+      {
+        "term": "SaaS",
+        "context": "2.b Data governance (for instance sovereignty, ownership, and locale) 4.2.c Service placement 4.2.d SaaS, PaaS, and IaaS 4.2.e Cloud connectivity (for instance direct connect, cloud on ramp, MPLS direct c"
+      },
+      {
+        "term": "cloud",
+        "context": "hine learning 1.1.b Deep learning 1.1.c LLM 1.1.d GenAI 1.2 Service placement, such as on-premises, cloud, or distributed 1.3 Data sovereignty 1.4 Regulations, policies, and governance 1.5 Sustainability 1"
+      },
+      {
+        "term": "Cloud",
+        "context": "CCDE Practical Exam v3.1 On-Premises and Cloud Services Technology List Description: The following technologies are associated with the On-Premise"
+      },
+      {
+        "term": "Cloud",
+        "context": "ces Technology List Description: The following technologies are associated with the On-Premises and Cloud Services elective of the CCDE Practical Exam v3.1. Candidates are expected to have a deep understan"
+      },
+      {
+        "term": "cloud",
+        "context": "er-fabric connectivity, such as Multi-Pod, Multi-Site 2.2 External connectivity for on-premises and cloud 2.3 Multi-Cloud Network Architecture 3.0 Network Virtualization 3.1 Overlay 3.1.a Management plane"
+      },
+      {
+        "term": "Cloud",
+        "context": "tivity, such as Multi-Pod, Multi-Site 2.2 External connectivity for on-premises and cloud 2.3 Multi-Cloud Network Architecture 3.0 Network Virtualization 3.1 Overlay 3.1.a Management plane 3.1.b Control pl"
+      },
+      {
+        "term": "Multi-Cloud",
+        "context": "connectivity, such as Multi-Pod, Multi-Site 2.2 External connectivity for on-premises and cloud 2.3 Multi-Cloud Network Architecture 3.0 Network Virtualization 3.1 Overlay 3.1.a Management plane 3.1.b Control pl"
+      },
+      {
+        "term": "Cloud",
+        "context": "rprise wireless network 2.1.a WLAN architectures 2.1.a.i Centralized 2.1.a.ii Distributed 2.1.a.iii Cloud-managed 2.1.b Roaming optimizations 2.1.c Mesh network architecture 2.1.d RF and radio design 2.1.d"
+      },
+      {
+        "term": "Cloud",
+        "context": "s Networks 3.1 Technologies 3.1.a Classic 3.1.b SD-LAN (such as SD-Access and BGP EVPN/VXLAN) 3.1.c Cloud-managed solutions, such as Cisco Meraki 3.2 Operational planes 3.2.a Data plane 3.2.b Control plane"
+      },
+      {
+        "term": "cloud",
+        "context": "erspective along with the challenges and changes it comes with. There is also an increased focus on cloud- managed or cloud-delivered services, which has an impact on network designs. Several new technolog"
+      },
+      {
+        "term": "cloud",
+        "context": "ith the challenges and changes it comes with. There is also an increased focus on cloud- managed or cloud-delivered services, which has an impact on network designs. Several new technologies were added to"
+      },
+      {
+        "term": "Cloud",
+        "context": "tes. All rights reserved. 2 - Cisco Certifications CCDE Written & Practical Exam, Revision 3.1 4.2 Cloud/hybrid solutions based on business- 4.2 Cloud/hybrid solutions based on business- critical operatio"
+      },
+      {
+        "term": "Cloud",
+        "context": "tions CCDE Written & Practical Exam, Revision 3.1 4.2 Cloud/hybrid solutions based on business- 4.2 Cloud/hybrid solutions based on business- critical operations critical operations 4.2.a Regulatory compli"
+      },
+      {
+        "term": "Cloud",
+        "context": "FlowSpec 5.2.b Washing 6. Automation 6. Automation 6.2 Crosswork network automation On-Premises and Cloud Services Technology List The On-Premises and Cloud Services Technology List document lists the tech"
+      },
+      {
+        "term": "Cloud",
+        "context": "st \u2022 CCDE v3.1 Practical - Large-Scale Networks Technology List \u2022 CCDE v3.1 Practical - On-Prem and Cloud Services Technology List \u2022 CCDE v3.1 Practical - Workforce Mobility Technology List \u2022 CCDE v3.1 Wri"
+      },
+      {
+        "term": "Cloud",
+        "context": "ns on the IP network (such as voice, video, backups, data center replication, IoT, and storage) 4.2 Cloud/hybrid solutions based on business-critical operations 4.2.a Regulatory compliance (regulations as"
+      },
+      {
+        "term": "Cloud",
+        "context": "uch as sovereignty, ownership, and locale) 4.2.c Service placement 4.2.d SaaS, PaaS, and IaaS 4.2.e Cloud connectivity (such as direct connect, Cloud OnRamp, MPLS direct connect, and WAN integration) 4.2.f"
+      },
+      {
+        "term": "Cloud",
+        "context": ".2.c Service placement 4.2.d SaaS, PaaS, and IaaS 4.2.e Cloud connectivity (such as direct connect, Cloud OnRamp, MPLS direct connect, and WAN integration) 4.2.f Security 4.2.g AI/ML 15% 5.0 Security Desig"
+      },
+      {
+        "term": "SaaS",
+        "context": "d) 4.2.b Data governance (such as sovereignty, ownership, and locale) 4.2.c Service placement 4.2.d SaaS, PaaS, and IaaS 4.2.e Cloud connectivity (such as direct connect, Cloud OnRamp, MPLS direct connect"
+      },
+      {
+        "term": "Cloud",
+        "context": "ce Provider networks or large enterprise networks and their associated technologies. 2. On-Prem and Cloud Services The On-Prem and Cloud Services elective is centered around design and integration of busin"
+      },
+      {
+        "term": "Cloud",
+        "context": "nterprise networks and their associated technologies. 2. On-Prem and Cloud Services The On-Prem and Cloud Services elective is centered around design and integration of business-critical services from a ne"
+      },
+      {
+        "term": "cloud",
+        "context": "s from a networking perspective. These services may be placed in an on-premises data center, in the cloud, or a hybrid thereof. A deep understanding of applications and their requirements, as well as relat"
+      },
+      {
+        "term": "Cloud",
+        "context": "xpert Specialist - Large Scale Networks iii. Cisco Certified Design Expert Specialist - On-Prem and Cloud Services iv. Cisco Certified Design Expert Specialist - Workforce Mobility 2024 Cisco Systems, Inc."
+      }
+    ]
+  },
+  "large_scale_networks": {
+    "count": 116,
+    "terms": [
+      "routing",
+      "switching",
+      "WAN",
+      "LAN",
+      "SD-WAN",
+      "MPLS",
+      "BGP",
+      "OSPF",
+      "architecture",
+      "backbone",
+      "scalable",
+      "enterprise"
+    ],
+    "mentions": [
+      {
+        "term": "WAN",
+        "context": "tion to CI/CD framework) 2.5 Software-defined architecture and controller-based solution design (SD-WAN, overlay, underlay, and fabric) 3330% 3.0 Network Design 3.1 Resilient, scalable, and secure modula"
+      },
+      {
+        "term": "WAN",
+        "context": "IaaS 4.2.e Cloud connectivity (for instance direct connect, cloud on ramp, MPLS direct connect, and WAN integration) 4.2.f Security 1515% 5.0 Security Design 5.1 Network security design and integration 5"
+      },
+      {
+        "term": "SD-WAN",
+        "context": "olution to CI/CD framework) 2.5 Software-defined architecture and controller-based solution design (SD-WAN, overlay, underlay, and fabric) 3330% 3.0 Network Design 3.1 Resilient, scalable, and secure modula"
+      },
+      {
+        "term": "MPLS",
+        "context": "nt 4.2.d SaaS, PaaS, and IaaS 4.2.e Cloud connectivity (for instance direct connect, cloud on ramp, MPLS direct connect, and WAN integration) 4.2.f Security 1515% 5.0 Security Design 5.1 Network security"
+      },
+      {
+        "term": "architecture",
+        "context": "riven management, controller-based technologies, evolution to CI/CD framework) 2.5 Software-defined architecture and controller-based solution design (SD-WAN, overlay, underlay, and fabric) 3330% 3.0 Network Desi"
+      },
+      {
+        "term": "routing",
+        "context": "s 3.1.a Layers and their purposes in various environments 3.1.b Network topology hiding 3.2 Unicast routing protocols (OSPF, EIGRP, ISIS, BGP, and RIP) 3.2.a Neighbor relationships 3.2.b Loop-free paths 3.2."
+      },
+      {
+        "term": "Routing",
+        "context": ") 3.2.a Neighbor relationships 3.2.b Loop-free paths 3.2.c Flooding domains 3.2.d Scalability 3.2.e Routing policy 3.2.f Redistribution methods 3.2.g Securing routing protocols 3.2.h Aggregation 3.3 Fast con"
+      },
+      {
+        "term": "routing",
+        "context": "Flooding domains 3.2.d Scalability 3.2.e Routing policy 3.2.f Redistribution methods 3.2.g Securing routing protocols 3.2.h Aggregation 3.3 Fast convergence techniques and mechanisms 3.3.a Protocols 3.3.b Ti"
+      },
+      {
+        "term": "routing",
+        "context": "bursts 3.4.d Physical failures 3.5 Route aggregation 3.5.a When to leak routes and avoid suboptimal routing 3.5.b When to include more specific routes (up to and including host routes) 3.5.c Aggregation loca"
+      },
+      {
+        "term": "routing",
+        "context": "c flow and modification 3.7.a Metrics to modify traffic flow 3.7.b Third-party next hop 3.8 Generic routing and addressing concepts 3.8.a Policy-based routing 3.8.b NAT 3.8.c Subnetting 3.8.d RIB-FIB relatio"
+      },
+      {
+        "term": "routing",
+        "context": "2.5.b Learning and propagation of reachability information 2.6 Use-case specific optimizations for routing protocols 2.7 Application-level protocols, such as RDMA and RoCE/RoCEv2 2.8 Connectivity models 2.8"
+      },
+      {
+        "term": "routing",
+        "context": "ols and loop-free topology mechanisms 2.1.a REP 2.2 Transport mechanisms and their interaction with routing protocols over different link types 3.0 Layer 3 Control Plane 3.1 Factors affecting convergence 3.1"
+      },
+      {
+        "term": "routing",
+        "context": "link types 3.0 Layer 3 Control Plane 3.1 Factors affecting convergence 3.1.a Transport 3.2 Generic routing and addressing concepts 3.2.a Large-scale NAT 3.3 Multicast routing concepts 3.3.a Multicast delive"
+      },
+      {
+        "term": "routing",
+        "context": "nce 3.1.a Transport 3.2 Generic routing and addressing concepts 3.2.a Large-scale NAT 3.3 Multicast routing concepts 3.3.a Multicast delivery/implementation models 3.3.b mVPN 4.0 Network Virtualization 4.1 M"
+      },
+      {
+        "term": "routing",
+        "context": "c Congruent and noncongruent topologies 4.1.d Traffic Engineering (RSVP and TE tunnels) 4.2 Segment routing 4.2.a LDP and SR interworking 4.2.b SRv6/MPLS 4.2.c Traffic Engineering (SR-TE) (such as TI-LFA, OD"
+      },
+      {
+        "term": "MPLS",
+        "context": "g concepts 3.3.a Multicast delivery/implementation models 3.3.b mVPN 4.0 Network Virtualization 4.1 MPLS 4.1.a Label distribution (such as LDP, BGP, and RSVP) 4.1.b IGP integration 2024 Cisco Systems, Inc"
+      },
+      {
+        "term": "LAN",
+        "context": "tion 5.4.d UCS rack server integration 5.4.e Third-party servers 5.5 Compute connectivity 5.5.a SAN/LAN uplinks 5.5.b Port modes 2024 Cisco Systems, Inc. This document is Cisco Public. Page 2 -"
+      },
+      {
+        "term": "MPLS",
+        "context": "lization 3.1 Overlay 3.1.a Management plane 3.1.b Control plane 3.1.c Data plane (such as VXLAN and MPLS) 3.1.d Segmentation 3.1.e Policy 3.1.e.i Security 3.1.e.ii Topologies 3.1.e.iii Data Center Interco"
+      },
+      {
+        "term": "Architecture",
+        "context": "s Multi-Pod, Multi-Site 2.2 External connectivity for on-premises and cloud 2.3 Multi-Cloud Network Architecture 3.0 Network Virtualization 3.1 Overlay 3.1.a Management plane 3.1.b Control plane 3.1.c Data plane"
+      },
+      {
+        "term": "LAN",
+        "context": "Fi versions up to and including Wi-Fi 7 3.0 Campus Networks 3.1 Technologies 3.1.a Classic 3.1.b SD-LAN (such as SD-Access and BGP EVPN/VXLAN) 3.1.c Cloud-managed solutions, such as Cisco Meraki 3.2 Oper"
+      },
+      {
+        "term": "BGP",
+        "context": "ding Wi-Fi 7 3.0 Campus Networks 3.1 Technologies 3.1.a Classic 3.1.b SD-LAN (such as SD-Access and BGP EVPN/VXLAN) 3.1.c Cloud-managed solutions, such as Cisco Meraki 3.2 Operational planes 3.2.a Data p"
+      },
+      {
+        "term": "architecture",
+        "context": "ralized 2.1.a.ii Distributed 2.1.a.iii Cloud-managed 2.1.b Roaming optimizations 2.1.c Mesh network architecture 2.1.d RF and radio design 2.1.d.i Channel planning 2.1.d.ii Channel width 2.1.d.iii Spatial streams"
+      },
+      {
+        "term": "Enterprise",
+        "context": "rk control and identity management 1.1.a RADIUS, including Cisco ISE 1.1.b TACACS+ 2.0 Wireless 2.1 Enterprise wireless network 2.1.a WLAN architectures 2.1.a.i Centralized 2.1.a.ii Distributed 2.1.a.iii Cloud-"
+      },
+      {
+        "term": "routing",
+        "context": "ing your exam preparations. V3.0 V3.1 3. Layer 3 Control Plane 3. Layer 3 Control Plane 3.2 Unicast routing protocol operation (OSPF, 3.2 Unicast routing protocol operation (OSPF, EIGRP, ISIS, BGP, and RIP)"
+      },
+      {
+        "term": "routing",
+        "context": "3 Control Plane 3. Layer 3 Control Plane 3.2 Unicast routing protocol operation (OSPF, 3.2 Unicast routing protocol operation (OSPF, EIGRP, ISIS, BGP, and RIP) EIGRP, ISIS, BGP, and RIP) 3.2.g Securing rout"
+      },
+      {
+        "term": "routing",
+        "context": "ting protocol operation (OSPF, EIGRP, ISIS, BGP, and RIP) EIGRP, ISIS, BGP, and RIP) 3.2.g Securing routing protocols 3.2.h Aggregation 3.4 Factors affecting convergence 3.4 Factors affecting convergence 3.4"
+      },
+      {
+        "term": "routing",
+        "context": "vergence 3.4 Factors affecting convergence 3.4.c Micro-bursts 3.4.d Physical failures 3.9 Multicast routing concepts 3.9 Multicast routing concepts 3.9.b MSDP/anycast 3.9.b Intra- and interdomain multicast 3"
+      },
+      {
+        "term": "routing",
+        "context": "convergence 3.4.c Micro-bursts 3.4.d Physical failures 3.9 Multicast routing concepts 3.9 Multicast routing concepts 3.9.b MSDP/anycast 3.9.b Intra- and interdomain multicast 3.9.c PIM 3.9.c MSDP, anycast, a"
+      },
+      {
+        "term": "WAN",
+        "context": "tion to CI/CD framework) 2.5 Software-defined architecture and controller-based solution design (SD-WAN, overlay, underlay, and fabric) 2.6 Visibility, observability, and assurance 2.7 User and applicati"
+      },
+      {
+        "term": "WAN",
+        "context": ", and IaaS 4.2.e Cloud connectivity (such as direct connect, Cloud OnRamp, MPLS direct connect, and WAN integration) 4.2.f Security 4.2.g AI/ML 15% 5.0 Security Design 5.1 Network security design and int"
+      },
+      {
+        "term": "SD-WAN",
+        "context": "olution to CI/CD framework) 2.5 Software-defined architecture and controller-based solution design (SD-WAN, overlay, underlay, and fabric) 2.6 Visibility, observability, and assurance 2.7 User and applicati"
+      },
+      {
+        "term": "MPLS",
+        "context": "lacement 4.2.d SaaS, PaaS, and IaaS 4.2.e Cloud connectivity (such as direct connect, Cloud OnRamp, MPLS direct connect, and WAN integration) 4.2.f Security 4.2.g AI/ML 15% 5.0 Security Design 5.1 Network"
+      },
+      {
+        "term": "architecture",
+        "context": "n management, controller-based technologies, and evolution to CI/CD framework) 2.5 Software-defined architecture and controller-based solution design (SD-WAN, overlay, underlay, and fabric) 2.6 Visibility, observ"
+      },
+      {
+        "term": "architecture",
+        "context": "es you the flexibility to focus on your area of expertise in addition to validating core enterprise architecture HLD aspects. The exams are designed with dual-stack in mind, so candidates are expected to have sol"
+      },
+      {
+        "term": "architecture",
+        "context": "ty is expressed by multiple technology lists. The core technology list contains all core enterprise architecture technologies (all candidates are expected to know these topics), and multiple elective technology l"
+      },
+      {
+        "term": "architecture",
+        "context": "m is a two-hour, multiple-choice test with 90-110 questions that focuses on core enterprise network architecture HLD aspects. The exam serves as a pre-requisite for the CCDE Practical exam and provides a way of r"
+      },
+      {
+        "term": "architecture",
+        "context": "s you the flexibility to focus on your area of expertise, in addition to validating core enterprise architecture technologies. You will have to choose your elective during the CCDE Practical exam booking process."
+      },
+      {
+        "term": "Architecture",
+        "context": "entify relevant solutions to presented challenges, build implementation plans, and align Enterprise Architecture high level designs to business outcomes. Each of the scenarios you encounter during your exam stand"
+      }
+    ]
+  },
+  "workforce_mobility": {
+    "count": 49,
+    "terms": [
+      "mobility",
+      "wireless",
+      "Wi-Fi",
+      "remote access",
+      "VPN",
+      "endpoint",
+      "5G",
+      "4G",
+      "mobile",
+      "BYOD",
+      "edge computing",
+      "IoT"
+    ],
+    "mentions": [
+      {
+        "term": "Mobility",
+        "context": "please refer to: \u2022 CCDE v3.0 Written and Practical Exam Format \u2022 Core - technology list \u2022 Workforce Mobility - technology list \u2022 On-Prem and Cloud Services - technology list \u2022 Large Scale Networks - technolog"
+      },
+      {
+        "term": "IoT",
+        "context": "upport applications on the IP network (for instance voice, video, backups, data center replication, IoT, and storage) 4.2 Cloud/hybrid solutions based on business-critical operations 4.2.a Regulatory com"
+      },
+      {
+        "term": "mobility",
+        "context": "is Cisco Public. Page 5 7.2.a High availability, redundancy, and resiliency 7.2.b Controller-based mobility and controller placement 7.2.c L2/L3 roaming 7.2.d Tunnel traffic optimization 7.2.e AP groups 7.2."
+      },
+      {
+        "term": "Wireless",
+        "context": ".2 CWDM/DWDM 1.3 Frame Relay (migration only) 1.4 Cellular and broadband (as transport methods) 1.5 Wireless 1.6 Physical mediums, such as fiber and copper 2.0 Layer 2 Control Plane 2.1 Physical media conside"
+      },
+      {
+        "term": "Wireless",
+        "context": "ity mechanisms 6.1.e.vii VACL 6.1.e.viii MACsec (802.1AE) 6.1.e.ix MACsec in WAN environments 6.1.f Wireless security technologies 6.1.f.i WPA 6.1.f.ii WPA2 6.1.f.iii WPA3 6.1.f.iv TKIP 6.1.f.v AES 6.1.f.vi O"
+      },
+      {
+        "term": "wireless",
+        "context": ".4.d Migration from classic deployments 6.5 Network control and identity management 6.5.a Wired and wireless network access control 6.5.b AAA for network access with 802.1X and MAB 6.5.c Guest and BYOD consid"
+      },
+      {
+        "term": "Wireless",
+        "context": "tion 6.5.f EAP Chaining authentication method 6.5.g Integration with multifactor authentication 7.0 Wireless 7.1 IEEE 802.11 Standards and Protocols (up to and including Wi-Fi 7) 7.1.a Indoor and outdoor RF d"
+      },
+      {
+        "term": "Wireless",
+        "context": ".1 Carrier Ethernet 1.2 Ring-based (such as SONET/SDH and OTU) 1.3 Frame relay (migration only) 1.4 Wireless (including satellite links and microwave links) 1.5 Optical 2.0 Layer 2 Control Plane 2.1 Loop dete"
+      },
+      {
+        "term": "Mobility",
+        "context": "CCDE Practical Exam v3.1 Workforce Mobility Technology List Description: The following technologies listed are associated with the Workforce Mo"
+      },
+      {
+        "term": "Mobility",
+        "context": "ty Technology List Description: The following technologies listed are associated with the Workforce Mobility elective of the CCDE Practical Exam v3.1. Candidates are expected to have a deep understanding of t"
+      },
+      {
+        "term": "Wireless",
+        "context": "ity 1.1 Network control and identity management 1.1.a RADIUS, including Cisco ISE 1.1.b TACACS+ 2.0 Wireless 2.1 Enterprise wireless network 2.1.a WLAN architectures 2.1.a.i Centralized 2.1.a.ii Distributed 2"
+      },
+      {
+        "term": "wireless",
+        "context": "and identity management 1.1.a RADIUS, including Cisco ISE 1.1.b TACACS+ 2.0 Wireless 2.1 Enterprise wireless network 2.1.a WLAN architectures 2.1.a.i Centralized 2.1.a.ii Distributed 2.1.a.iii Cloud-managed 2"
+      },
+      {
+        "term": "wireless",
+        "context": "4.a Areas of coverage 2.4.a.i Expected coverage per area 2.4.a.ii Client density 2.5 Multicast over wireless 2.6 mDNS 2.7 Location services and solutions 2.7.a RTLS 2.7.b Cisco Spaces 2.7.b.i Analytics 2.8 Au"
+      },
+      {
+        "term": "Mobility",
+        "context": "5.4.e Third-party servers 5.5 Compute connectivity 5.5.a SAN/LAN uplinks 5.5.b Port modes Workforce Mobility Technology List The Workforce Mobility Technology List document lists the technologies that CCDE ca"
+      },
+      {
+        "term": "Mobility",
+        "context": "onnectivity 5.5.a SAN/LAN uplinks 5.5.b Port modes Workforce Mobility Technology List The Workforce Mobility Technology List document lists the technologies that CCDE candidates that plan to select the Workfo"
+      },
+      {
+        "term": "Mobility",
+        "context": "hnology List document lists the technologies that CCDE candidates that plan to select the Workforce Mobility area-of-expertise scenario during their CCDE Practical exam are likely to encounter and thus are ex"
+      },
+      {
+        "term": "Mobility",
+        "context": "ring their CCDE Practical exam are likely to encounter and thus are expected to know. The Workforce Mobility Technology list covers only the Workforce Mobility scenario of the CCDE Practical exam. This table"
+      },
+      {
+        "term": "Mobility",
+        "context": "ter and thus are expected to know. The Workforce Mobility Technology list covers only the Workforce Mobility scenario of the CCDE Practical exam. This table only highlights changes, so make sure to review the"
+      },
+      {
+        "term": "Mobility",
+        "context": "CCDE v3.1 Practical - On-Prem and Cloud Services Technology List \u2022 CCDE v3.1 Practical - Workforce Mobility Technology List \u2022 CCDE v3.1 Written and Practical Exam Format 2024 Cisco Systems, Inc. This documen"
+      },
+      {
+        "term": "IoT",
+        "context": "to support applications on the IP network (such as voice, video, backups, data center replication, IoT, and storage) 4.2 Cloud/hybrid solutions based on business-critical operations 4.2.a Regulatory com"
+      },
+      {
+        "term": "Mobility",
+        "context": "requirements, as well as related networking technologies is expected for this module. 3. Workforce Mobility The Workforce Mobility elective is focused on the design of solutions that benefit users in their d"
+      },
+      {
+        "term": "Mobility",
+        "context": "as related networking technologies is expected for this module. 3. Workforce Mobility The Workforce Mobility elective is focused on the design of solutions that benefit users in their daily job and routines,"
+      },
+      {
+        "term": "Mobility",
+        "context": "rt Specialist - On-Prem and Cloud Services iv. Cisco Certified Design Expert Specialist - Workforce Mobility 2024 Cisco Systems, Inc. This document is Cisco Public. Page 5 -"
+      },
+      {
+        "term": "wireless",
+        "context": "ithout losing access to the services they depend on. This requires a well-planned and well-designed wireless network to achieve. 4. AI Infrastructure The AI Infrastructure elective works with the various aspe"
+      },
+      {
+        "term": "mobile",
+        "context": "CCDE Practical exams is administered at Cisco Certification Centers, including fixed locations and mobile events- Booking your CCDE Practical Exam is done on the Cisco Expert Level Certifications Tracker p"
+      }
+    ]
+  }
+}

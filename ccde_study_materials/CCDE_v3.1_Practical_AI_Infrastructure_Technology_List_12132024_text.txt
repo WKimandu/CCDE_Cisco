@@ -1,0 +1,69 @@
+Wow, OK. This is interesting. CCDE Practical Exam v3.1
+AI Infrastructure Technology List
+Description: The following technologies are associated with the AI Infrastructure elective of the CCDE
+Practical Exam v3.1. Candidates are expected to have a deep understanding of the listed technologies
+and solutions and be able to integrate them while applying design considerations as described in the
+CCDE Exam Topics. Each of these technologies may appear in any delivery of the exam. If applicable for
+the technology candidates must expect content that is dual-stack by nature.
+Note: The technologies listed here are in addition to the technologies listed in the CCDE Core Technology
+list.
+1.0 AI/Machine learning
+1.1 Impacts on infrastructure resources and requirements for different AI/ML use-cases
+1.1.a Machine learning
+1.1.b Deep learning
+1.1.c LLM
+1.1.d GenAI
+1.2 Service placement, such as on-premises, cloud, or distributed
+1.3 Data sovereignty
+1.4 Regulations, policies, and governance
+1.5 Sustainability
+1.5.a Green AI
+1.5.b Affordability (CPU/GPU tweaking)
+1.5.c Effective use of AI accelerators
+1.5.d Power and cooling requirements
+2.0 Network
+2.1 Lossless fabrics
+2.2 QoS in lossless fabrics
+2.3 Connectivity and transport
+2.3.a Ethernet
+2.3.b InfiniBand
+2.3.c Latency considerations
+2.3.d Bandwidth and capacity
+2.3.e Single-site or multi-site
+2.3.f Impacts of various types of optics
+2.4 Infrastructure
+2.4.a Traditional
+2.4.b SDN, such as Cisco ACI, including integration and interconnection with other fabrics
+or other parts of the network
+
+2.5 Layer 2
+2.5.a Scalability
+2.5.b Learning and propagation of reachability information
+2.6 Use-case specific optimizations for routing protocols
+2.7 Application-level protocols, such as RDMA and RoCE/RoCEv2
+2.8 Connectivity models
+2.8.a Isolated or purpose-built islands
+2.8.b In the main data center, such as CLOS, two- or three-tier hierarchical
+3.0 Security
+3.1 AI/ML infrastructure hosting implications
+3.2 Infrastructure protection
+3.2.a Air-gapped
+3.2.b Public
+3.2.c Private
+3.3 Protection against malicious uses, such as web application firewalls etc.
+4.0 Hardware and environment
+4.1 Compute resources
+4.2 AI-enabling hardware
+4.2.a GPU
+4.2.b SmartNIC
+4.2.c DPU
+4.3 AI-assisted operations
+4.3.a Data scrubbing
+4.3.b Log correlation
+4.3.c Telemetry analysis
+4.4 Storage
+4.4.a Data storage strategy
+4.4.b FC, FCoE, NVME, NVME-oF, software-defined storage
+4.4.c IP-based storage protocols
+4.5 Timing protocols, such as PTP
+

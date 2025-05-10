@@ -1,0 +1,77 @@
+CCDE Practical Exam v3.1
+Workforce Mobility Technology List
+Description: The following technologies listed are associated with the Workforce Mobility elective of
+the CCDE Practical Exam v3.1. Candidates are expected to have a deep understanding of the listed
+technologies and solutions and be able to integrate them while applying design considerations as
+described in the CCDE Exam Topics. Each of these technologies may appear in any delivery of the exam.
+If applicable for the technology candidates must expect content that is dual-stack by nature.
+Note: The technologies listed here are in addition to the technologies listed in the CCDE Core Technology
+list.
+1.0 Security
+1.1 Network control and identity management
+1.1.a RADIUS, including Cisco ISE
+1.1.b TACACS+
+2.0 Wireless
+2.1 Enterprise wireless network
+2.1.a WLAN architectures
+2.1.a.i Centralized
+2.1.a.ii Distributed
+2.1.a.iii Cloud-managed
+2.1.b Roaming optimizations
+2.1.c Mesh network architecture
+2.1.d RF and radio design
+2.1.d.i Channel planning
+2.1.d.ii Channel width
+2.1.d.iii Spatial streams
+2.1.d.iv Radio Resource Management
+2.1.d.v Client considerations, such as transmit power, RSSI, and SNR
+2.1.e Antenna types
+2.2 Regulatory domains
+2.3 Site survey
+2.3.a Floor maps
+2.3.b Coverage requirements
+
+2.3.c Building materials
+2.3.d Attenuation
+2.3.e Interferences
+2.3.f Capacity planning
+2.3.g AP cell areas
+2.3.h Wired network
+2.3.h.i PoE
+2.3.h.ii Switch port capacity
+2.3.h.iii Uplink capacity
+2.3.i Outdoor/indoor locations
+2.3.j Survey types
+2.3.j.i Walkthrough
+2.3.j.ii Predictive
+2.3.j.iii Active
+2.3.j.iv Passive
+2.3.k Heat maps
+2.4 Requirement gathering and analysis
+2.4.a Areas of coverage
+2.4.a.i Expected coverage per area
+2.4.a.ii Client density
+2.5 Multicast over wireless
+2.6 mDNS
+2.7 Location services and solutions
+2.7.a RTLS
+2.7.b Cisco Spaces
+2.7.b.i Analytics
+2.8 Automation, Assurance, Insights, and Telemetry (Legacy and Catalyst Center)
+2.8.a AVC/NetFlow
+2.8.b Catalyst Center
+2.9 Wireless optimization using features in Wi-Fi versions up to and including Wi-Fi 7
+3.0 Campus Networks
+3.1 Technologies
+3.1.a Classic
+3.1.b SD-LAN (such as SD-Access and BGP EVPN/VXLAN)
+3.1.c Cloud-managed solutions, such as Cisco Meraki
+3.2 Operational planes
+3.2.a Data plane
+3.2.b Control plane
+3.2.c Management plane
+3.2.d Policy plane
+
+3.2.e Security plane
+3.2.f Orchestration plane
+

@@ -1,0 +1,362 @@
+Cisco Certifications
+CCDE Written & Practical Exam, Revision 3.1
+Blueprint Revisions
+Products and technologies are evolving faster than ever before. To keep up with the fast pace, we are introducing a
+new agile process that will allow us to align our exams faster with these changes: minor revisions. Minor revisions
+will provide us with the agility and speed that are necessary to adjust our programs to match industry changes and
+the evolution of technologies. Minor revisions will allow us to update track details (exam blueprint, equipment list,
+and software) more frequently while keeping overall changes to a minimum (up to 20%). These revisions allow us
+to ensure our content stays relevant, and they minimize learning curves between revisions.
+The main objective of a minor revision is to:
+• Further scope out the exam blueprint by ensuring exam objectives are clear.
+• Introduce new blueprint tasks to ensure exams stay relevant.
+• Phase out old(er) products and/or technology solutions that are less relevant today.
+• Update equipment and/or software.
+Today we are revising the CCDE Written and Practical exams.
+CCDE Minor Revision 3.1
+The CCDE Written and Practical exams will be updating through a minor revision (changes are small and
+incremental). Although the overall domains within the exam blueprint might look similar at first sight, with this
+minor revision we added and removed technologies and updated the exam topics to ensure exam relevancy.
+Refer to www.cisco.com/go/CertRoadmap for the list of exam topics covered in the updated CCDE Written &
+Practical exams and for more information about the Cisco Certified Design Expert certification program.
+Candidates can expect to be tested on the new exam material for CCDE starting November 20, 2024.
+CCDE Written & Practical Exams v3.1 – Executive Summary
+The new minor revision for CCDE allows us to keep the domains and topics closely aligned with the expectations of
+today’s network designers and architects. The CCDE exam blueprint v3.1 introduces AI/ML from a networking
+perspective along with the challenges and changes it comes with. There is also an increased focus on cloud-
+managed or cloud-delivered services, which has an impact on network designs. Several new technologies were
+added to the various technology lists. Note that changes are made to exam topics and the technology lists. Each is
+detailed in this release note.
+Below is a summary of the changes made to the CCDE Written & Practical exam topics.
+Cisco and Cisco logo are trademarks or registered of Cisco and/or its affiliates in the U.S. and other countries.
+To view a list of Cisco trademarks, go to this URL: http://www.cisco.com/go/trademarks.
+Cisco © and/or its affiliates. All rights reserved. 1
+
+Cisco Certifications
+CCDE Written & Practical Exam, Revision 3.1
+Exam Topic Change Highlights
+These tables contain only highlights of changes made to the exam topics. For details, refer to the actual exam
+topics list.
+V3.0 V3.1
+1. Business Strategy Design (15%) 1. Business Strategy Design (15%)
+1.3 AI/Machine Learning
+1.3.a Business needs
+1.3.b Data sovereignty (location and
+public/private/hybrid)
+1.3.c Security
+1.3.d Assurance
+1.3.e Integrity
+1.3.f Impacts (such as storage requirements
+and traffic patterns)
+1.3.g Auto scalability
+1.3.h Cost and ROI
+1.3.i Governance
+2. Control, data, management plane and operational 2. Control, Data, Management Plane, and Operational
+design (25%) Design (25%)
+2.4 Automation/orchestration design, integration, 2.4 Automation/orchestration design, integration,
+and on-going support for networks (for instance and on-going support for networks (such as
+interfacing with APIs, model-driven interfacing with APIs, model-driven
+management, controller-based technologies, management, controller-based technologies,
+evolution to CI/CD framework) and evolution to CI/CD framework)
+2.6 Visibility, observability, and assurance
+2.7 User and application experience
+3. Network Design (30%) 3. Network Design (30%)
+3.1 Resilient, scalable, and secure modular
+networks, covering traditional and software-
+defined architectures, considering:
+3.1.g Automation goals and requirements
+3.2 AI network design use cases (such as machine
+learning, large language models, and pattern
+recognition)
+4. Service Design (15%) 4. Service Design (15%)
+Cisco and Cisco logo are trademarks or registered of Cisco and/or its affiliates in the U.S. and other countries.
+To view a list of Cisco trademarks, go to this URL: http://www.cisco.com/go/trademarks.
+Cisco © and/or its affiliates. All rights reserved. 2
+
+Cisco Certifications
+CCDE Written & Practical Exam, Revision 3.1
+4.2 Cloud/hybrid solutions based on business- 4.2 Cloud/hybrid solutions based on business-
+critical operations critical operations
+4.2.a Regulatory compliance 4.2.a Regulatory compliance (regulations as
+provided)
+4.2.g AI/ML
+5. Security Design (15%) 5. Security Design (15%)
+5.1 Network security design and integration 5.1 Network security design and integration
+5.1.c Visibility 5.1.c Visibility, observability, and assurance
+5.1.f Regulatory compliance (regulations as
+provided)
+5.1.g Impacts of AI on corporate security
+policy (such as IP, PII, proprietary
+information, quality, corporate
+credibility, and use of external AI
+services)
+Core Technology List
+The Core Technology List document lists the technologies that every CCDE candidate is likely to encounter during
+their exam and thus are expected to know. The Core Technology List covers CCDE Written and the core scenarios
+of the CCDE Practical exam. This table only highlights changes, so make sure to review the full list before starting
+your exam preparations.
+V3.0 V3.1
+3. Layer 3 Control Plane 3. Layer 3 Control Plane
+3.2 Unicast routing protocol operation (OSPF, 3.2 Unicast routing protocol operation (OSPF,
+EIGRP, ISIS, BGP, and RIP) EIGRP, ISIS, BGP, and RIP)
+3.2.g Securing routing protocols
+3.2.h Aggregation
+3.4 Factors affecting convergence 3.4 Factors affecting convergence
+3.4.c Micro-bursts
+3.4.d Physical failures
+3.9 Multicast routing concepts 3.9 Multicast routing concepts
+3.9.b MSDP/anycast 3.9.b Intra- and interdomain multicast
+3.9.c PIM 3.9.c MSDP, anycast, and priority cast
+3.9.d PIM flavors
+3.9.e RP selection and placement
+4. Data Plane Transport Protocols (such as TCP, UDP,
+and QUIC)
+4.1 Areas of application and deployment
+4.2 Characteristics and properties
+4.3 Security
+Cisco and Cisco logo are trademarks or registered of Cisco and/or its affiliates in the U.S. and other countries.
+To view a list of Cisco trademarks, go to this URL: http://www.cisco.com/go/trademarks.
+Cisco © and/or its affiliates. All rights reserved. 3
+
+Cisco Certifications
+CCDE Written & Practical Exam, Revision 3.1
+4. Network Virtualization 5. Network Virtualization
+4.1 Multiprotocol Label Switching 5.1 Multiprotocol Label Switching
+4.1.c LDP 5.1.c Label distribution protocols, such as
+LDP, RSVP, and BGP+label
+4.2 Layer 2/3 VPN and tunneling technologies 5.1.d Segment routing
+4.2.g MACsec (802.1ae) 5.2 Layer 2/3 VPN and tunneling technologies
+5.2.g Overlay encapsulation and control
+plane protocols (such as VXLAN, LISP,
+and MP-BGP)
+5.2.h Infrastructure segmentation methods
+5.2.h.iv SGT
+5. Security 6. Security
+5.1 Infrastructure Security 6.1 Infrastructure security
+6.1.d Policy plane signaling
+6.1.d.i RADIUS
+6.1.d.ii TACACS+
+6.1.d.iii pxGrid
+6.1.d.iv SXP
+5.1.e Layer 2 security techniques 6.1.e Layer 2 security techniques
+6.1.e.viii MACsec (802.1AE)
+6.1.e.ix MACsec in WAN environments
+5.1.f Wireless security technologies 6.1.f Wireless security technologies
+6.1.f.vi OWE
+5.4 Network control and identity Management 6.4 Zero trust
+6.4.a ZTNA
+6.4.b Build policies using tools such as AI/ML
+6.4.c Use cases, principles, and architecture
+6.4.d Migration from classic deployments
+6.5 Network control and identity management
+6.5.a Wired and wireless network access
+control
+6.5.b AAA for network access with 802.1X
+and MAB
+6.5.c Guest and BYOD considerations
+6.5.d Internal and external identity sources
+6.5.e User- and certificate-based
+authentication
+6.5.f EAP Chaining authentication method
+6.5.g Integration with multifactor
+authentication
+6. Wireless 7. Wireless
+Cisco and Cisco logo are trademarks or registered of Cisco and/or its affiliates in the U.S. and other countries.
+To view a list of Cisco trademarks, go to this URL: http://www.cisco.com/go/trademarks.
+Cisco © and/or its affiliates. All rights reserved. 4
+
+Cisco Certifications
+CCDE Written & Practical Exam, Revision 3.1
+6.1 IEEE 802.11 Standards and Protocols 7.1 IEEE 802.11 Standards and Protocols (up to
+and including Wi-Fi 7)
+7. Automation 8. Automation
+7.2 Infrastructure as Code (tools, awareness, and 8.2 Infrastructure as Code (tools, awareness, and
+when to use) when to use)
+7.2.a Automation tools (i.e. Ansible) 8.2.a CI/CD and automation platforms (such
+7.2.b Orchestration platforms as Jenkins, GitLab, and GitHub)
+7.2.c Programming Language (e.g. Python) 8.2.b Configuration management tools (such
+as Ansible)
+8.2.c Provisioning tools (such as Ansible and
+Terraform)
+8.2.d Orchestration platforms
+8.2.e Programming languages (such as
+Python)
+7.3 CI/CD Pipeline
+Large-Scale Networks Technology List
+The Large-Scale Networks Technology List document lists the technologies that CCDE candidates that plan to select
+the Large-Scale Networks area-of-expertise scenario during their CCDE Practical exam are likely to encounter and
+thus are expected to know. The Large-Scale Networks Technology list covers only the Large-Scale Networks
+scenario of the CCDE Practical exam. This table only highlights changes, so make sure to review the full list before
+starting your exam preparations.
+V3.0 V3.1
+4. Network Virtualization 4. Network Virtualization
+4.1 Multiprotocol Label Switching 4.1 MPLS
+4.1.a Segment Routing 4.1.a Label distribution (such as LDP, BGP,
+4.1.b LDP and SR Interworking and RSVP)
+4.1.c MPLS Traffic Engineering 4.1.b IGP integration
+4.1.c Congruent and noncongruent
+topologies
+4.1.d Traffic Engineering (RSVP and TE
+4.2 QoS techniques and strategies tunnels)
+4.2.a End-user requirements 4.2 Segment routing
+4.2.b DiffServ 4.2.a LDP and SR interworking
+4.2.c IntServ 4.2.b SRv6/MPLS
+4.2.c Traffic Engineering (SR-TE) (such as TI-
+4.3 EVPN LFA, ODN, AS, and Flex-Algo)
+4.3.a Management plane 4.3 QoS techniques and strategies
+4.3.b Control plane 4.3.a End-user requirements
+4.3.c Data plane (such as VXLAN, MPLS, 4.3.b QoS behavior (such as PHB, queuing
+Cisco and Cisco logo are trademarks or registered of Cisco and/or its affiliates in the U.S. and other countries.
+To view a list of Cisco trademarks, go to this URL: http://www.cisco.com/go/trademarks.
+Cisco © and/or its affiliates. All rights reserved. 5
+
+Cisco Certifications
+CCDE Written & Practical Exam, Revision 3.1
+PBB) techniques, buffer depths, and MPLS
+4.3.d Segmentation QoS operations)
+4.3.e Policy
+4.3.e.i Security
+4.3.e.ii Topologies
+4.3.e.iii Multiple site strategy
+4.4 EVPN
+4.4.a Management plane
+4.4.b Control plane
+4.4.c Data plane (such as VXLAN, MPLS, and
+PBB)
+4.4.d Segmentation
+4.4.e Policy
+4.4.e.i Security
+4.4.e.ii Topologies
+4.4.3.iii Multiple site strategy
+5. Security 5. Security
+5.1 Infrastructure security 5.1 Infrastructure security
+5.1.b Control plane security
+5.1.b.i Securing and hardening BGP
+(such as RPKI, RoA, TTL-based
+security, peer authentication
+etc)
+5.1.b.ii Device hardening (such as
+CoPP, transit filtering, anti-
+spoofing etc)
+5.1.b.iii Out-of-band management
+5.2 DoS and DDoS protection mechanisms
+5.2.a BGP FlowSpec
+5.2.b Washing
+6. Automation 6. Automation
+6.2 Crosswork network automation
+On-Premises and Cloud Services Technology List
+The On-Premises and Cloud Services Technology List document lists the technologies that CCDE candidates that
+plan to select the On-Premises and Cloud Services Network area-of-expertise scenario during their CCDE Practical
+exam are likely to encounter and thus are expected to know. The On-Premises and Cloud Services Technology list
+covers only the On-Premises and Cloud Services scenario of the CCDE Practical exam. This table only highlights
+changes, so make sure to review the full list before starting your exam preparations.
+Cisco and Cisco logo are trademarks or registered of Cisco and/or its affiliates in the U.S. and other countries.
+To view a list of Cisco trademarks, go to this URL: http://www.cisco.com/go/trademarks.
+Cisco © and/or its affiliates. All rights reserved. 6
+
+Cisco Certifications
+CCDE Written & Practical Exam, Revision 3.1
+V3.0 V3.1
+4. Automation 4. Automation
+4.2 Network automation
+4.3 Network-wide deployments (including risks
+and factors)
+5. Data Center 5. Data Center
+5.1 Storage 5.1 Network
+5.1.a Physical topology 5.1.a Software-defined data center, such as
+5.1.b QoS requirements Cisco ACI
+5.1.c FC and FCoE 5.1.b DC fabrics based on EVPN, VXLAN, and
+5.1.c.i Zoning OTV etc.
+5.1.c.ii Trunking 5.1.c Topologies
+5.1.c.iii Link aggregation 5.1.c.i Spine/leaf topologies
+5.1.c.iv Load balancing 5.1.c.ii CLOS topologies
+5.1.d iSCSI 5.1.c.iii Hierarchical
+5.1.d.i Authentication 5.1.d AI/ML-enabled data center
+5.1.d.ii Multipathing 5.1.d.i Nonblocking fabric
+5.1.d.ii Low latency
+5.1.d.iii Lossless Ethernet
+5.1.d.iv RDMA protocols, such as
+RoCE, RoCEv2, and InfiniBand
+5.1.d.v Application requirements
+5.2 Application delivery 5.2 Storage
+5.2.a Load balancer deployment modes 5.2.a Physical topology
+5.2.b QoS requirements
+5.2.c FC and FCoE
+5.2.c.i Zoning
+5.2.c.ii Trunking
+5.2.c.iii Link aggregation
+5.1.c.iv Load balancing
+5.2.c.v Link pinning
+5.2.d iSCSI
+5.2.d.i Authentication
+5.2.d.ii Multipathing
+5.3 Compute 5.3 Application delivery
+5.3.a UCS blade integration 5.3.a Load balancer deployment modes
+5.3.b UCS rack server integration 5.3.b SSL offloading/decryption
+5.3.c HyperFlex integration
+5.4 Compute connectivity 5.4 Compute
+5.4.a UCS Fabric Interconnects
+Cisco and Cisco logo are trademarks or registered of Cisco and/or its affiliates in the U.S. and other countries.
+To view a list of Cisco trademarks, go to this URL: http://www.cisco.com/go/trademarks.
+Cisco © and/or its affiliates. All rights reserved. 7
+
+Cisco Certifications
+CCDE Written & Practical Exam, Revision 3.1
+5.4.a SAN/LAN uplinks 5.4.b UCS chassis-based and rack-based
+5.4.b Port modes servers
+5.4.c UCS blade integration
+5.4.d UCS rack server integration
+5.4.e Third-party servers
+5.5 Compute connectivity
+5.5.a SAN/LAN uplinks
+5.5.b Port modes
+Workforce Mobility Technology List
+The Workforce Mobility Technology List document lists the technologies that CCDE candidates that plan to select
+the Workforce Mobility area-of-expertise scenario during their CCDE Practical exam are likely to encounter and
+thus are expected to know. The Workforce Mobility Technology list covers only the Workforce Mobility scenario of
+the CCDE Practical exam. This table only highlights changes, so make sure to review the full list before starting your
+exam preparations.
+V3.0 V3.1
+1. Security 1. Security
+1.1 Network control and identity management 1.1 Network control and identity management
+1.1.a Cisco ISE 1.1.a RADIUS, including Cisco ISE
+1.1.b TACACS+
+2. Wireless 2. Wireless
+2.1 Enterprise wireless network 2.1 Enterprise wireless network
+2.1.a WLAN architectures 2.1.a WLAN architectures
+2.1.a.iii Cloud-managed
+2.7 Location services and solutions 2.7 Location services and solutions
+2.7.b DNA Spaces 2.7.b Cisco Spaces
+2.7.b.i Analytics 2.7.b.i Analytics
+2.8 Automation, Assurance, Insights, and Telemetry 2.8 Automation, Assurance, Insights, and
+(Legacy and DNAc) Telemetry (Legacy and Catalyst Center)
+2.8.b DNAc 2.8.b Catalyst Center
+2.9 Wireless optimization using features in Wi-Fi
+versions up to and including Wi-Fi 7
+3. Campus networks
+3.1 Technologies
+3.1.a Classic
+3.1.b SD-LAN (such as SD-Access and BGP
+EVPN/VXLAN)
+3.1.c Cloud-managed solutions, such as
+Cisco Meraki
+Cisco and Cisco logo are trademarks or registered of Cisco and/or its affiliates in the U.S. and other countries.
+To view a list of Cisco trademarks, go to this URL: http://www.cisco.com/go/trademarks.
+Cisco © and/or its affiliates. All rights reserved. 8
+
+Cisco Certifications
+CCDE Written & Practical Exam, Revision 3.1
+3.2 Operational planes
+3.2.a Data plane
+3.2.b Control plane
+3.2.c Management plane
+3.2.d Policy plane
+3.2.e Security plane
+3.2.f Orchestration plane
+Exam Format
+No changes have been made to the exam formats in this minor revision. Visit the CCDE Exam Format document for
+more information about the exam formats for CCDE Written and CCDE Practical exams.
+Cisco and Cisco logo are trademarks or registered of Cisco and/or its affiliates in the U.S. and other countries.
+To view a list of Cisco trademarks, go to this URL: http://www.cisco.com/go/trademarks.
+Cisco © and/or its affiliates. All rights reserved. 9
+

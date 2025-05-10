@@ -1,0 +1,75 @@
+CCDE Practical Exam v3.1
+On-Premises and Cloud Services Technology List
+Description: The following technologies are associated with the On-Premises and Cloud Services
+elective of the CCDE Practical Exam v3.1. Candidates are expected to have a deep understanding of the
+listed technologies and solutions and be able to integrate them while applying design considerations as
+described in the CCDE Exam Topics. Each of these technologies may appear in any delivery of the exam.
+If applicable for the technology candidates must expect content that is dual-stack by nature.
+Note: The technologies listed here are in addition to the technologies listed in the CCDE Core Technology
+list.
+1.0 Transport Technologies
+1.1 Data Center Interconnect options
+2.0 Layer 3 Control Plane
+2.1 Inter-fabric connectivity, such as Multi-Pod, Multi-Site
+2.2 External connectivity for on-premises and cloud
+2.3 Multi-Cloud Network Architecture
+3.0 Network Virtualization
+3.1 Overlay
+3.1.a Management plane
+3.1.b Control plane
+3.1.c Data plane (such as VXLAN and MPLS)
+3.1.d Segmentation
+3.1.e Policy
+3.1.e.i Security
+3.1.e.ii Topologies
+3.1.e.iii Data Center Interconnect
+3.1.e.iv Multiple site strategy
+3.1.e.v Service insertion
+3.2 Virtual networking
+4.0 Automation
+4.1 Deployment models
+4.1.a Bare metal
+4.1.b VM
+4.1.c Microservices
+4.2 Network automation
+
+4.3 Network-wide deployments (including risks and factors)
+5.0 Data Center
+5.1 Network
+5.1.a Software-defined data center, such as Cisco ACI
+5.1.b DC fabrics based on EVPN, VXLAN, and OTV etc.
+5.1.c Topologies
+5.1.c.i Spine/leaf topologies
+5.1.c.ii CLOS topologies
+5.1.c.iii Hierarchical
+5.1.d AI/ML-enabled data center
+5.1.d.i Nonblocking fabric
+5.1.d.ii Low latency
+5.1.d.iii Lossless Ethernet
+5.1.d.iv RDMA protocols, such as RoCE, RoCEv2, and InfiniBand
+5.1.d.v Application requirements
+5.2 Storage
+5.2.a Physical topology
+5.2.b QoS requirements
+5.2.c FC and FCoE
+5.2.c.i Zoning
+5.2.c.ii Trunking
+5.2.c.iii Link aggregation
+5.2.c.iv Load balancing
+5.2.c.v Link pinning
+5.2.d iSCSI
+5.2.d.i Authentication
+5.2.d.ii Multipathing
+5.3 Application delivery
+5.3.a Load balancer deployment modes
+5.3.b SSL offloading/decryption
+5.4 Compute
+5.4.a UCS Fabric Interconnects
+5.4.b UCS chassis-based and rack-based servers
+5.4.c UCS blade integration
+5.4.d UCS rack server integration
+5.4.e Third-party servers
+5.5 Compute connectivity
+5.5.a SAN/LAN uplinks
+5.5.b Port modes
+

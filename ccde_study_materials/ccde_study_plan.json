@@ -1,0 +1,91 @@
+I. {
+  "title": "CCDE Certification Study Plan",
+  "created_date": "2025-05-04",
+  "focus_areas": {
+    "AI Infrastructure": {
+      "description": "AI Infrastructure - CCDE certification core focus area",
+      "weeks": [
+        {
+          "week": 1,
+          "topics": [
+            "Exam Description: The following topics are general guidelines for the content likely to be included on\nthe CCDE Written (400-007) and Practical exam v3.1. However, other related topics may also appear on\nany specific delivery of the exam. To better reflect the contents of the exam and for clarity purposes, the\nguidelines below may change at any time without notice.\n\u2022 The CCDE Written (400-077) exam v3.1 is a 2-hour, multiple-choice test with 90-110 questions\nthat focuses on core Enterprise network architectures and technologies.\n\u2022 The CCDE Practical exam v3.1 is an 8-hour scenario-based exam that focuses on the core\nEnterprise network architectures and technologies, as well as on your selected elective.\nBoth exams validate your knowledge, skills, and abilities throughout the entire network design lifecycle.\nBoth exams are closed book, and no outside reference materials are allowed.\nYour knowledge, skills, and abilities of recommending, building, validating, optimizing, and adapting\ntechnologies and solutions in the context of complex, high-level network designs will be tested\nthroughout the exam:\n\u2022 Recommend technologies or solutions that align with the stated requirements.\n\u2022 Justify why a given decision was made.\n\u2022 Make design choices and fully design solutions that comply with the stated requirements.\n\u2022 Validate existing designs to ensure they are compliant with all requirements and suggest design\nchanges to accommodate for changed specifications or requirements in the network.\n\u2022 Perform optimizations of existing network designs to fix issues or mitigate risks.\n\u2022 Build high-level implementation plans or steps.\n\u2022 Recommend, build, or justify strategies.\nThe Written and Practical exams are designed with dual-stack in mind, so IPv4 and IPv6 should be\nexpected across every exam topic and technology.\nFor more information about the exam format and the technologies covered within your exam, refer to:\n\u2022 CCDE v3.1 Core Technology List\n\u2022 CCDE v3.1 Practical - AI Infrastructure Technology List\n\u2022 CCDE v3.1 Practical - Large-Scale Networks Technology List\n\u2022 CCDE v3.1 Practical - On-Prem and Cloud Services Technology List\n\u2022 CCDE v3.1 Practical - Workforce Mobility Technology List\n\u2022 CCDE v3.1 Written and Practical Exam Format\n2024 Cisco Systems, Inc. This document is Cisco Public. 1224 Page 1\n-\n\n15% 1.0 Business Strategy Design",
+            "AI/Machine Learning",
+            "AI network design use cases (such as machine learning, large language models, and\npattern recognition)\n2024 Cisco Systems, Inc. This document is Cisco Public. 1224 Page 2\n-\n\n15% 4.0 Service Design"
+          ],
+          "technologies": [
+            "AI Infrastructure Technology List"
+          ]
+        },
+        {
+          "week": 2,
+          "topics": [
+            "Automation/orchestration design, integration, and on-going support for networks (such\nas interfacing with APIs, model-driven management, controller-based technologies, and\nevolution to CI/CD framework)"
+          ],
+          "technologies": []
+        }
+      ],
+      "resource_count": 5,
+      "estimated_study_time": "10 hours"
+    },
+    "On-Prem Services": {
+      "description": "On-Prem Services - CCDE certification core focus area",
+      "weeks": [
+        {
+          "week": 1,
+          "topics": [
+            "Resilient, scalable, and secure modular network design based on constraints (such as\ntechnical, operational, application, and business constraints) to support applications on\nthe IP network (such as voice, video, backups, data center replication, IoT, and storage)"
+          ],
+          "technologies": [
+            "On-Premises and Cloud Services Technology List"
+          ]
+        }
+      ],
+      "resource_count": 2,
+      "estimated_study_time": "5 hours"
+    },
+    "Cloud Services": {
+      "description": "Cloud Services - CCDE certification core focus area",
+      "weeks": [
+        {
+          "week": 1,
+          "topics": [
+            "Cloud/hybrid solutions based on business-critical operations"
+          ],
+          "technologies": []
+        }
+      ],
+      "resource_count": 1,
+      "estimated_study_time": "5 hours"
+    },
+    "Large Scale Networks": {
+      "description": "Large Scale Networks - CCDE certification core focus area",
+      "weeks": [
+        {
+          "week": 1,
+          "topics": [
+            "Software-defined architecture and controller-based solution design (SD-WAN, overlay,\nunderlay, and fabric)",
+            "Resilient, scalable, and secure modular networks, covering traditional and software-\ndefined architectures, considering:",
+            "Impact on network design, implementation, and optimization using various customer\nproject management methodologies (for instance Waterfall and Agile)"
+          ],
+          "technologies": []
+        },
+        {
+          "week": 2,
+          "topics": [
+            "User and application experience\n30% 3.0 Network Design",
+            "Network security design and integration"
+          ],
+          "technologies": []
+        }
+      ],
+      "resource_count": 5,
+      "estimated_study_time": "10 hours"
+    },
+    "Workforce Mobility": {
+      "description": "Workforce Mobility - CCDE certification core focus area",
+      "weeks": [],
+      "resource_count": 1,
+      "estimated_study_time": "0 hours"
+    }
+  }
+}
