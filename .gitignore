@@ -40,3 +40,8 @@ transcription_log.txt
 desktop.ini
 .DS_Store
 Thumbs.db
+
+# Script files
+*.py
+*.bat
+*.ps1
