@@ -1,0 +1,939 @@
+start	end	text
+4.220000000000001	15.22	 All right, perfect. So, hello, everybody. Good morning. Good afternoon. Good evening. Wherever you're located. Welcome to today's very special joint compute champs and DCN ninjas super session.
+15.36	25.14	 We're titling it all about Cisco's vision and strategy for AI and the data center. So thank you so much for joining. Yeah, let's jump right in.
+25.14	39.26	 We have a very concise agenda for you today and really great speakers lined up. So we have Brian showed up our senior director for Cisco global partner sales. Jeremy Foster, our senior and general manager for Cisco compute.
+39.78	49.76	 And Lucas credit your Cisco fellow for data center, networking engineering as well as some panelists from the team who will be helping with Q and a.
+50.24	54.7	 Spencer menard solutions engineer, the Monica, technical marketing.
+54.78	55.12	 Okay.
+55.14	64.86	 Engineering technical leader and James Terry sales specialist from the compute sales go to market. So thank you so much everybody for jumping in and supporting in today's session.
+66.7	70.82	 On to the agenda, so Brian will be kicking us off with an introduction.
+71.08	83.72	 For the session, then Jeremy and Lucas will cover what is on the, you know, on the track today for compute and in a plus the latest announcements that were communicated during Cisco live us some weeks ago.
+84.68	102.8	 Followed by Lindsay and myself will be talking about our call to action from partner go to market. And finally, in the end, we'll have time for Q and a. so as our presenters are speaking, please feel free to send any questions you might have through the chat any comments and we'll make sure to answer them at the end.
+104.12	104.6	 And we'll make sure to answer them at the end.
+104.8	113.7	 So, yeah, thank you so much. And Brian, yeah, thanks Maria. And hello everyone. Good morning. Uh, maybe. Uh, I'm not sure if I'm going to be able to answer all of them. But I'm going to be able to answer them. So, yeah, thank you so much. And Brian.
+113.7	127.86	 Some good afternoons and some good evenings, uh, hope, uh, hope everyone's doing fantastic. So, uh, I'm super excited as Maria highlighted that, uh, actually, I think this is the 1st time we, we have the champions, uh, and the ninja communities.
+128.42	133.18	 Uh, together on 1 call, so I just want to thank all of you for helping us.
+133.48	143.16	 Uh, and and really, uh, driving the, the message and the strategy into all of our key customers that you're engaging with. And, uh, and I can't, uh.
+145.44000000000003	149.36	 really imagine all of the things that you're doing out there.
+149.5	154.6	 And so now with that, we've got a pretty important topic today.
+154.66	159.32	 And AI is hitting all of you.
+159.36	166.28	 It's hitting all of us in ways that I think are bringing a tremendous amount of opportunity
+166.28	171.5	 as we think about what we could be doing together, what we could be doing for our customers,
+171.5	179.32	 and really excited that I'm here today with Jeremy and Lucas to talk to you about what's
+179.32	182.56	 happening in the market and also what is our strategy?
+182.68	184.04	 How are we trying to differentiate?
+184.38	189.52	 And why is really now the time that we need you to really be leaning in?
+189.7	190.76	 And we want to help.
+191.48	192.7	 If you can go to the next one.
+200.58	201.02	 Okay.
+201.02	212.32	 So some of you might have seen this before, but so why is especially Gen AI becoming so
+212.32	213.3	 interesting?
+213.84	220.92	 And what you're seeing here, this is actually some work that OpenAI had done with some university
+220.92	221.44	 research.
+222.64000000000001	228.56	 And it's looking at the performance of GPT 3.5 compared to GPT 4.
+228.86	231.0	 Now, as many of you know, GPT...
+231.02	234.04	 So, you know, we've been talking about the performance of GPT 4.0, Omni, and obviously
+234.04	240.64	 there's been a lot of other innovations in both private and open source models.
+240.86	251.92	 But it's a little bit difficult to see at the bottom, but these are all SAT and AP high
+251.92	253.96	 school class testing.
+254.26	260.06	 And you look at the increases in green.
+261.02	263.52	 That's all of your GPT 4.0.
+263.72	273.3	 And so when you look at whether it's Claude Mistral, the OpenAI GPT work, it's really now
+273.3	279.5	 starting to accelerate the ability for these models to really deliver a tremendous amount of
+279.5	286.52	 really high impact, accurate reasoning across a lot of different subjects, a lot of different
+286.52	287.0	 topics.
+287.08	291.0	 And that's why really now is this.
+291.0	295.0	 This is the time that we really have an opportunity to work together.
+295.62	303.16	 And by the way, this is not just across LLMs, but there's now high impact, as many of you know, SLMs,
+303.84	308.82	 smaller footprint models that we're seeing a lot of customers express a lot of interest in.
+308.88	319.26	 And so, again, right now, it is just the right time that we can together be leaning in on these opportunities.
+319.58	320.44	 Go to the next one.
+321.46	324.62	 Brian, it's too bad they didn't have that when we were trying to take the SAT.
+326.88	329.26	 Because I don't remember any of that kind of assistance.
+331.32	332.5	 Well, that's why we're here.
+332.68	338.04	 That's why we're about powering the future for students.
+338.54	342.3	 So what are we really trying to do at a company level?
+343.36	347.74	 And I think if you remember just one thing, it's connect and protect.
+348.04	350.84	 And we're going to spend a lot of time talking about infrastructure.
+351.0	362.78	 But I think something that you're going to be very excited and very curious about is what can we do together to help you on the services side to really accelerate the value of AI.
+363.02	364.52	 So more to come on that.
+365.02	365.58	 Next.
+368.68	380.98	 And really from a journey standpoint, I just want you to memorialize that we now have a set of capabilities that we're ready to help you at any value.
+380.98	380.98	
+380.98	380.98	
+381.0	383.44	 I think it's going to be a very, very challenging phase of where you are.
+383.56	394.62	 And if it's at the model selection and rationalization, all the way through to deployment, tuning, whether it's RAG based and other motions.
+395.06	410.38	 So really there's a lot of different pieces that we're going to want to spend a lot more time after this call to help you kind of see what those components are, the vision, and how we can help you execute.
+410.7	410.98	 So, Brian, I think we're going to have a lot of fun.
+410.98	410.98	
+410.98	410.98	
+410.98	410.98	
+410.98	410.98	
+410.98	410.98	
+410.98	410.98	
+411.0	412.22	 We go to the next one.
+416.11999999999995	426.96	 And this is really a high level view, but you can kind of see all of the blue areas here are the areas that we're really have very strong coverage in.
+427.04	436.8	 The green areas, as I mentioned, we obviously are doing quite a bit of work and putting some investments into some of the companies that are building foundational models.
+437.92	440.98	 Jeremy is going to talk specifically about some of the partnerships that we're working on.
+441.0	442.04	 And then we're going to talk about some of the other things that we have on the compute side.
+442.94	450.58	 But, again, there's a lot of pieces that have come together over a period of time.
+450.7	454.46	 And we're really excited to talk to you about all of these components.
+454.7	459.24	 But, again, today's focus is really going to be around the infrastructure pieces.
+459.4	466.58	 But, again, just kind of eyeball this to know that there's various pieces that we're going to be able to help you with.
+468.52000000000004	469.76	 If you go to the next one.
+476.52000000000004	484.68	 And some of you that have been following even some of the recent investments at Cisco Live, we announced a billion dollar investment fund.
+485.02	491.6	 We've actually already been deploying quite a bit of money into companies.
+492.72	494.04	 Some listed here.
+495.04	498.76	 And, again, as I mentioned, Mistral and some of the others.
+500.66	502.38	 That's obviously one large piece.
+503.08000000000004	506.04	 We've done a fair amount of acquisitions.
+506.04	508.88	 Probably the most prominent one being Splunk recently.
+509.2	511.26	 And we're going to talk more about these partnerships.
+511.48	513.88	 So, again, a lot of different pieces going on here.
+514.16	517.44	 And if I show you this next slide, Murray, if you can go to the next one.
+518.84	525.0	 We've done some work around looking at, hey, where's all the money going?
+525.4	527.64	 And this is just kind of a visual.
+527.84	528.74	 And, by the way, this slide.
+531.0	534.64	 Is managed by a team inside Cisco.
+534.84	542.3	 And I'll tell you, in recent times, even between November until now, it is very difficult to keep this thing updated.
+542.62	554.4	 But you can see just the amount of money, the amount of, you know, you look at some of these some of the funding rounds that are going in.
+556.26	557.96	 It's pretty amazing.
+557.96	560.88	 The amount of money that's being invested.
+561.1	569.92	 And obviously Cisco is playing a pretty big role as well in not only partnerships but also on the investment side.
+570.16	571.0	 Go to the next one.
+573.88	587.94	 And as I mentioned, the when we talk about wanting to accelerate AI together with you, I just want you to just memorialize services we know is probably the most important thing for us.
+587.94	587.94	
+587.96	590.66	 And that's probably going to be the most critical piece.
+590.9	592.92	 And that's from start to finish.
+593.18	594.5	 Into deployment.
+594.74	596.0	 Into renewals.
+596.36	599.06	 From a core AI context.
+599.7	616.46	 The other piece that I would just say is that AI for to help accelerate or even shorten the time that it takes for you to consult, for you to help drive customer decisions and so forth.
+616.46	620.66	 There's different pieces there that we're going to want to circle back.
+620.92	635.68	 There's a lot of different pieces that we're doing to just make it a lot more efficient for our own workforce, our own tooling, our own workflows and really trying to drive significant amount of productivity.
+636.22	646.38	 Those are two different areas that I just want you to continue to memorialize because there's a lot of different pieces there that we're super excited to work with you.
+646.38	659.94	 And then the last piece is really just to help you on and help really drive the acceleration of any deals that you have in the pipeline and making sure that you're able to drive those with a high level of gross profit and gross margin.
+662.12	664.22	 And then just the last one here, Maria.
+666.2	669.8	 Before I hand it off to Jeremy and Lucas.
+670.26	676.32	 There's a lot of different things that we are rethinking as it relates to AI.
+676.36	676.36	
+676.38	683.26	 And I think that journey will continue to go on as it relates to how we're innovating with silicon, liquid cooling.
+683.92	685.38	 There's a lot of different pieces.
+685.48	694.04	 And again, this is kind of a market and a customer segment to view, but we're playing really meaningful roles in all of these.
+694.14	701.42	 And so some of these you see in kind of public announcements, blogs around, but more to really come across these vectors.
+703.7999999999998	705.84	 Now, let me just pause here real quick.
+705.84	710.52	 And introduce Jeremy and Lucas here.
+710.66	717.36	 If I hand it off to you to kind of walk us through some of our recent announcements, the innovation and strategies.
+717.52	719.84	 So, Jeremy, over to you.
+721.36	721.72	 Absolutely.
+722.16	725.78	 I think, first of all, thank you all for taking the time today to be here.
+725.98	729.4	 We're running a couple of minutes behind, so I'm going to go through these announcements quickly.
+729.56	735.24	 I know some of you may have seen some of these things, but important, I think, to talk about the data center space and where we're headed.
+735.84	744.08	 Overall, whether it's compute side, data center networking side, we're working together these last few years like we haven't worked together before.
+744.2	749.04	 And we're really, really excited about our portfolio, the things that are coming out.
+749.12	750.22	 We'll talk more about that later.
+750.74	760.58	 Those are really the results of additional investments that we've been making, specifically, at least in my case, for compute in regards to getting some of the new things out that I'll talk about here in a minute.
+760.64	764.82	 And we plan to continue to invest in the data center space and accelerate.
+764.82	765.02	 We'll talk more about that later.
+765.02	770.5	 Those are really the results of additional investments that we've been making, specifically, at least in my case, for compute and accelerate our product deployments here to make a much better portfolio for you all to be able to take to market.
+770.6	783.04	 And I think as we go around out this year and move into next year, at least from the fiscal perspective for Cisco, just very, very pleased with the progress we've made in terms of product development over these last few months.
+783.14	787.2	 And you're just going to start to see these products rolling out right now and becoming orderable.
+787.58	794.8	 And I think it's really important to just take a step back too and look at the fact that I've been in this data center space for a couple of months.
+794.8	794.8	
+794.8	798.72	 space like many of you have been for a long time, longer than I probably want to say,
+798.74	805.38	 but say north of 20 years. And I don't remember the data center itself ever being as important
+805.38	811.44	 as it might be right now. So whether that's the AI pieces, that's the transition around everyone's
+811.44	816.2	 favorite acquisitions that are taking place and hypervisors and every customer asking us what's
+816.2	820.4	 their best move forward. There's a tremendous amount of infrastructure that's in play in the
+820.4	825.8	 data center. And it's a great opportunity for all of us to be able to help our customers come
+825.8	833.4	 to a really good outcome and honestly just really step up and be able to drive those outcomes with
+833.4	838.38	 them. I think it's going to deliver a tremendous amount of dollars and great customer experiences.
+838.72	846.06	 So those priorities for us is across the data center portfolio, clearly this VMware transition,
+846.22	850.22	 which by the way, one of those outcomes is going to be just stick with VMware, but help customers
+850.22	854.52	 consolidate down that data center to minimize that spend. But also what are we doing with
+854.52	858.04	 Nutanix? What are we doing with Red Hat? And what are we doing with the rest of the ecosystem
+858.46	864.84	 to give you all options to take to customers as well? Simplifying infrastructure for AI,
+865.02	867.92	 we'll talk about that. That was certainly one of the big announcements at Cisco Live.
+869.5600000000001	874.46	 Security in everything we do. Another big announcement at Cisco Live was HyperShield.
+874.84	878.34	 That announcement happened a little bit before Cisco Live, but we also talked more about it at
+878.34	880.2	 Cisco Live as well as the ecosystem. So that's a great opportunity for us to take a look at that.
+880.22	886.7	 Integration of offload capabilities into UCS as well. So we're working with the security team,
+886.74	890.3	 we're working with the data center networking team. You'll start to see compute be more of
+890.3	895.86	 that fabric of the underlying applications at Cisco as well. And then we'll talk a lot about
+895.86	902.24	 management consolidation in our talk track today as well, which is a key development
+902.24	905.48	 priority for the next couple of years. Go to the next one, please.
+911.64	916.68	 So the thing we're always focused on doing is giving everybody the best building blocks. I know
+918.8	924.5	 from being in the field for so many years that it's so important when you have a mousetrap that
+924.5	929.78	 is better than somebody else's mousetrap, that's a great way to make sales and delighted customers
+929.78	934.08	 happen. And so when it's the data center networking portfolio, whether it's what we're
+934.08	939.28	 doing with our optics portfolio, what we're doing with UCS, those individual building blocks,
+939.44	940.2	 we have to focus on the data center networking portfolio. And so when it's the data center
+940.22	943.12	 networking portfolio, we have to focus on continuing to make better and have a broader
+943.12	949.54	 portfolio solutions for you all to take to market as well as our validated designs. So how do we
+949.54	957.08	 bring these together into solutions for AI, for VMware, for any of the use cases like you've seen
+957.08	962.26	 us doing for many years, but to continue to improve upon that. And if we go to the next one,
+962.4	969.42	 we'll hit several of these in terms of these announcements for Cisco Live. On the hardware
+969.42	970.2	 front, on the building side, we're going to be working with the data center networking portfolio
+970.2	972.12	 to help you build these things. So the first one is the AMD blade. It's the first AMD blade.
+972.34	980.76	 It's the first AMD blade that's orderable today. It'll start shipping here in another 90 days or so.
+980.86	986.58	 So really excited to have a modular form factor AMD blade that can handle kind of the latest and
+986.58	991.72	 greatest speeds and feeds from them in the portfolio as well as the rest of the rack mount
+991.72	998.04	 servers that you would expect from Cisco to complement that AMD-based. Those are also orderable
+998.04	999.88	 as well. X-series direct.
+1000.2	1006.2	 I know people on this phone call may be familiar with what we used to have with UCS Mini in the previous chassis.
+1006.58	1021.46	 X-Series Direct ties that together, plus additional intersite functionality to really bring together a solution for customers to leverage X-Series in a lot of different use cases when it's not attached to that scale-up fabric.
+1021.46	1043.38	 So whether it's a DMZ small area use case inside of an existing data center, or whether it's a customer who needs a couple of servers, a couple of GPUs, and have some decent-sized infrastructure out at the edge, X-Series can be a great opportunity for that with X-Series Direct and a really cost-effective way of deploying and managing those workloads at scale.
+1044.9	1049.06	 Lucas, any of the ones you want to mention here before we jump into…
+1049.06	1050.34	 I mean, there's so much, Jeremy.
+1050.42	1051.08	 I mean, I…
+1051.46	1057.08	 I don't want to go back what you said and don't want to expose your age, but it was not called data center back then, right?
+1057.38	1059.08	 And it was not called a server.
+1059.18	1065.52	 It was probably more of a computer in a rack somewhere in a server room or something like that.
+1065.62	1072.26	 I think we've been there in the same one, the shady cornice there, but thanks, Jeremy, for bringing that up.
+1073.14	1074.78	 So Jeremy mentioned fabric.
+1075.8999999999999	1080.84	 We in the data center talk about fabric so much, and it becomes kind of a tiring…
+1081.46	1087.52	 kind of term, but, hey, we have new fabric announcements, as it always comes.
+1087.7	1095.16	 So one thing we extensively did over the years is looking at operational models, and we figured there are too many of it within Cisco,
+1095.3	1101.46	 so we started trying to get them close together, and we'll have a couple of more slides as we go through.
+1101.64	1103.66	 But we announced Nexus One Fabric Experience.
+1104.06	1111.04	 It's all around the experience, which we're looking at in combination with Nexus Dashboard 4.0 or the Unified Nexus Dashboard,
+1111.04	1112.54	 as some people use it.
+1113.08	1115.9	 Hyperfabric was a big thing, again, sorry for the fabric term there.
+1116.04	1124.78	 And then, of course, how we're getting to the next speed levels when we look from a switching perspective, is it for AIML use cases or beyond them?
+1125.16	1128.32	 Were we going all the way up into the 800 gigs or so?
+1128.34	1136.2	 So these were some of the announcements we came out that Cisco Live and we continue to drive as we go through this second half of the year.
+1136.32	1137.6	 And there is more to come.
+1137.64	1138.62	 I just say as much.
+1139.04	1139.48	 Jeremy?
+1139.78	1140.7	 Yeah, absolutely.
+1141.04	1141.44	 Well said.
+1141.6	1150.32	 But we can maybe hit a couple more things on compute, and then we'll jump back over to Datastore Networking and go through some of our joint announcements.
+1150.82	1155.66	 I wanted to remind everybody about fabric-based computing, back to that fabric term.
+1155.84	1157.36	 I mean, this is really where we differentiate.
+1157.64	1161.6	 It starts with that intersite experience represented by that monitor at the top there,
+1161.68	1167.58	 and then our capabilities around helping customers deliver the automation for these policies, profiles, and templates,
+1167.8	1170.38	 and ultimately be able to manage these environments.
+1171.04	1181.54	 So whether it's VMware, Nutanix, it could be effectively a profile for something like Nutanix AI GPT in a box, right?
+1181.9	1185.78	 Could be the new solutions that Red Hat's rolling out in this space.
+1185.9	1193.26	 But we can make it very easy and cost-effective for customers to reduce the amount of physical footprint that they need to take up with compute,
+1194.1	1200.16	 have better performance where we're about to talk about some of our new AMD performance testing and setting.
+1200.16	1203.48	 We'll record benchmarks with those platforms as well.
+1203.54	1207.3	 You'll see that hit some of the public channels here pretty soon.
+1207.48	1215.08	 And just overall, greater flexibility and control to manage multiple workloads and to manage multiple hypervisors in the environments.
+1215.38	1219.76	 I think this is a key differentiator for us, particularly when people are looking for alternatives.
+1220.02	1224.5	 And I think we'll probably see a state that we haven't seen before in the data center,
+1224.56	1230.04	 certainly around virtualization, where maybe customers will be leveraging multiple hypervisors depending on use cases.
+1230.16	1233.86	 So being able to keep up with all of that is something we've been doing for a long time.
+1234.0	1240.98	 And it's going to be something that helps us, I think, pick up new customers that have a good experience on UCS.
+1240.98	1246.14	 Whether that's on a modular server, a rack mount server, it doesn't matter.
+1246.28	1248.4	 Those capabilities are the same across any form factor.
+1248.7	1256.14	 And then just to give you on the next slide a real quick view of what we mean by those use cases around X-Series.
+1256.82	1259.38	 X-Series Direct ties into Intersight.
+1259.5	1259.98	 Right.
+1260.16	1266.5	 And manage things at scale, whether it's 500 servers in a data center or whether it's 500 locations with eight servers apiece.
+1266.6	1274.44	 But as you can see here, this just gives you the ability to tie that fabric that we normally scale out on top of inside of the data center
+1274.44	1279.68	 and put it into the back of an X-Series chassis and then even tie in some additional rack mount servers.
+1279.9	1283.86	 So you can run up to 16 boxes off of this one X-Series Direct.
+1284.06	1286.0	 You can manage it directly from Intersight.
+1286.04	1288.84	 So you can scale off that SaaS-based management platform.
+1288.84	1296.28	 And get the right balance of storage, compute, performance that you need at even those edge locations.
+1296.6	1305.18	 So just wanted to put that in front of you as well before I think, Lucas, I'm going to hand it over to you to talk a little bit about some of the joint solutions.
+1305.44	1305.8	 Sure.
+1305.96	1306.36	 Absolutely.
+1306.54	1307.1	 Thanks, Jeremy.
+1308.86	1314.48	 A year ago, Cisco Live last year, we announced the Cisco Networking Cloud.
+1314.66	1317.02	 And there was a big round it.
+1317.08	1317.72	 What is it?
+1317.72	1318.48	 When is it coming?
+1318.84	1324.98	 And actually, I want to tell you that you all are probably in the midst of the Cisco Networking Cloud today.
+1325.22	1335.66	 So the Cisco Networking Cloud, as it comes to the data center, is all about design principles, Cisco itself, the product we're building, and the ecosystem which it fits into.
+1336.78	1341.5	 As part of the Cisco Networking Cloud, it's how you experience what we're doing.
+1341.66	1348.82	 You see three attributes or three areas where we're trying to bring or where we actually started to bring the Cisco Networking Cloud.
+1349.6	1353.84	 This is one category directly heading into the.
+1353.84	1354.06	 estrogen and cybersecurity aspects.
+1354.64	1358.92	 And when how do we propel the co-management cycle to the software?
+1359.56	1364.92	 This includes Into Guys.
+1364.92	1364.92	
+1364.92	1365.96	 This is another key part of our
+1365.96	1367.2	 TO maybe different attacks to image for advice.
+1367.5	1369.66	 So let me show you one example, we will be focusing on this in a little bit, but when the question came into question with an image recommendations experts.
+1369.66	1378.82	 Once we started youngsters were saying that they were starting to lose touch with encrypted information really from Open linked ganzuer because they couldn't close it, establish a network altogether within a cloud and not intendлиー
+1375.6999999999998	1376.82	weisen
+1378.84	1380.34	 we want to do end-to-end secure networking.
+1381.24	1383.98	 Of course, we want to attach the secure compute
+1383.98	1387.84	 into that area as we latch it on or attach it on.
+1387.96	1391.6	 But the networking cannot just be a packet forwarding.
+1391.6	1394.46	 It has to be secured as Brian already managed before.
+1394.62	1396.7	 We want to make sure the workloads we're having are secured
+1396.7	1398.76	 and there is an opportunity for us.
+1399.72	1403.98	 The other part is in regards of simplified operations
+1403.98	1406.94	 and specific to simplified AI native operations.
+1406.94	1410.72	 Everyone knows artificial intelligence infrastructure
+1410.72	1413.52	 is a very high demanding infrastructure.
+1413.74	1416.72	 It's a very data intensive infrastructure
+1416.72	1420.18	 and such has requirements to data flows
+1420.18	1423.02	 being undisruptively being forwarded across your network.
+1423.12	1425.48	 I'm sure you heard of neural networks
+1425.48	1428.84	 and how such GPU to GPU communication
+1428.84	1432.48	 becomes super critical to be forwarded at all time
+1432.48	1434.86	 and not dropped artificially.
+1434.94	1436.74	 So we not just want to,
+1436.94	1439.82	 build a network that is better for AI workloads,
+1440.04	1442.54	 but we also give you the operational aspects for that.
+1442.64	1444.16	 And as part of Cisco Networking Cloud,
+1444.4	1447.62	 we embodied that part in our products,
+1447.7	1449.88	 which I'm going to show in a second from now.
+1450.88	1452.38	 Next to that, assurance.
+1453.3	1457.58	 The digital experience assurance is very tightly coupled
+1457.58	1459.76	 with what your operational experience is.
+1460.32	1461.6	 Configuring something is one,
+1461.74	1463.92	 understanding how a flow goes and then assuring
+1463.92	1466.02	 that that flow is really going in that direction.
+1466.02	1468.56	 This is kind of the combination of where ops
+1468.56	1470.98	 and assurance comes together in the combination.
+1471.74	1472.66	 Next slide, please.
+1478.1999999999998	1479.38	 Click to the right.
+1480.38	1481.08	 Thank you.
+1481.12	1481.82	 There's a bit of lag.
+1482.6599999999999	1483.54	 That's fantastic.
+1483.74	1484.24	 I love it.
+1484.44	1486.28	 So we don't want to have lags in the network,
+1486.44	1487.56	 but sometimes it happens.
+1487.7	1488.94	 It's how it is.
+1489.0	1489.24	 Thanks.
+1490.74	1492.72	 We're talking about the Cisco Networking Cloud.
+1492.86	1495.58	 We're actually talking about the Cisco Networking Cloud
+1495.58	1496.0	 in general.
+1496.02	1497.62	 So we're talking about the combination of the Cisco Nexus
+1497.62	1499.1	 One Fabric experience.
+1499.34	1500.72	 So that One Fabric experience,
+1501.18	1505.18	 the same experience across Nexus and, sorry,
+1505.36	1509.66	 NXOS and ACI is one of the things we took to our heart.
+1509.86	1511.66	 We heard a lot of customers saying,
+1511.76	1513.04	 hey, you make it too complicated.
+1513.1	1514.02	 You have too many variations.
+1514.52	1518.18	 Can you give us a simpler and easier way to consume that?
+1518.36	1523.62	 And the Cisco Nexus dashboard is going to be that single point
+1523.62	1524.64	 of control and operations,
+1525.2	1526.0	 which will allow us to do that.
+1526.02	1529.36	 And we'll give you that One Fabric experience as a result.
+1529.68	1532.2	 So it's not about converging, merging,
+1532.38	1535.52	 or whatever else fabric types you can think of,
+1535.72	1538.96	 because there will always be very specific and very
+1538.96	1541.44	 specialized use cases for our customers,
+1541.52	1543.12	 which we want to continue to maintain.
+1543.46	1546.06	 But we try to give you a better experience,
+1546.12	1549.98	 a more consistent experience when a network being deployed
+1549.98	1553.38	 in an ACI infrastructure should look more like how a network
+1553.38	1556.0	 you could deploy in a VXLan EVPN network.
+1556.0	1559.14	 Or for other network types as you wish.
+1559.64	1564.14	 So the Cisco Nexus dashboard will be more or less the front end
+1564.14	1567.0	 of what we call the fabric federations,
+1567.58	1572.48	 meaning the interconnecting and ability to deliver common use cases
+1572.48	1575.36	 across our different networking fabric types,
+1576.2599999999998	1579.9	 which the Cisco Networking Cloud is a common attribute,
+1579.98	1581.82	 a common guideline,
+1582.0	1585.84	 which we're having as we're building Torbit's Unified Nexus Dashboard.
+1585.84	1585.98	 So we're trying to get that to work.
+1587.3	1589.12	 Lucas, I may pause you for one sec.
+1589.3	1590.22	 And open the floor.
+1590.5	1592.28	 Anyone have questions, comments?
+1592.4	1594.02	 Rita, I saw you may have unmuted.
+1594.68	1598.66	 Not sure if it was a question or anything you'd like to add.
+1603.1599999999999	1604.3	 Silence is golden.
+1605.36	1606.12	 Continue on.
+1606.3	1606.74	 Fantastic.
+1607.52	1609.24	 Now you stole my transition.
+1609.44	1610.14	 But that is fine.
+1610.24	1610.6	 I'm so sorry.
+1610.72	1611.52	 No, you're good.
+1611.64	1612.58	 You're good, Lindsay.
+1612.76	1614.42	 It's just all joking.
+1614.92	1615.36	 Okay.
+1615.84	1618.74	 No, we were talking about that Cisco One Fabric experience,
+1618.78	1620.84	 and now Cisco brings Hyperfabric,
+1620.86	1623.16	 which gives you another fabric experience.
+1623.38	1624.38	 And the answer is no.
+1624.56	1629.22	 So the Cisco Nexus Hyperfabric is built on the same base principles
+1629.22	1633.32	 as the Cisco Networking Cloud or the One Fabric experience,
+1633.36	1635.9	 so it comes together under that whole umbrella.
+1636.5	1639.6	 What we focused on when we looked at Hyperfabric,
+1639.62	1641.82	 or Cisco Nexus Hyperfabric,
+1641.9	1644.84	 is bringing a different footprint layout,
+1644.94	1646.98	 to our customers.
+1647.22	1653.64	 They're customers that might not want to have an operational footprint
+1653.64	1654.98	 from a tooling perspective.
+1655.34	1660.44	 They're customers that might not care about a control point or such.
+1660.62	1665.42	 So that's where we moved the operation and control pieces into the cloud
+1665.42	1668.04	 with a software as a service model.
+1668.22	1670.46	 So we're delivering the controller as a SaaS.
+1670.68	1674.04	 You could call it the Merakification of the data center.
+1674.98	1679.56	 As such, that control point is the only way to interact with the switching system.
+1679.72	1687.14	 We built specific switches that are connecting to that SaaS controller model,
+1687.34	1690.7	 which will give you that simplified fabric experience
+1690.7	1693.72	 you also see on the Unified Nexus dashboard
+1693.72	1695.54	 as part of Cisco Networking Cloud.
+1696.22	1701.52	 In Cisco Nexus Hyperfabric, it's all about design, order, deploy, validate, monitor, upgrade, and collaborate.
+1702.06	1704.02	 Somebody had to put so many things in there,
+1704.02	1704.9	 so many words down there.
+1704.98	1706.16	 It could have been just,
+1707.02	1709.84	 you design it, you order it, you build it.
+1710.22	1713.08	 It's all out of the SaaS offering.
+1713.36	1716.54	 It's all based on the models we built for you.
+1716.62	1719.14	 There's not much network engineering itself in there.
+1719.22	1721.54	 You select the switches, you select the interconnectivity,
+1721.72	1723.82	 you order that piece, you deploy it,
+1723.88	1727.5	 your Nexus Hyperfabric will deliver it as such.
+1728.3600000000001	1731.6	 Now, given the Nexus Hyperfabric is very focused on that
+1731.6	1734.0	 cloud delivery model of a network,
+1734.02	1738.5	 and became much more simplified as such,
+1738.62	1747.28	 we decided to make this the going forward networking full stack for AI cluster.
+1748.68	1753.92	 If you think of where the focus of an AI infrastructure is,
+1754.06	1755.4	 or the AI operation team,
+1755.58	1756.96	 it's around data science.
+1757.16	1759.38	 It's not around operating a network.
+1759.56	1761.74	 So we want to remove that aspect from it.
+1761.8	1762.94	 Regardless of this,
+1762.94	1767.76	 the in-time delivery of data between the GPU cluster,
+1767.82	1770.06	 between the AI cluster is important.
+1770.94	1774.18	 As such, we're expanding our monitoring capabilities,
+1774.48	1777.42	 our configuration capabilities into the host
+1777.94	1782.26	 for monitoring the NVIDIA GPU or DPU NIC part
+1782.94	1786.46	 to make sure that whatever is configured on the workload side
+1786.46	1789.2	 matches on what the networking delivers itself
+1789.2	1790.6	 and give you an end-to-end operation.
+1791.06	1792.62	 In addition to this...
+1792.62	1794.34	 There's a quick one that came in.
+1795.96	1800.44	 It was, does Hyperfabric include any Nexus devices,
+1800.6	1802.48	 which I know the answer to,
+1802.52	1803.36	 but I'm going to let you...
+1803.36	1804.7	 Yes, at this point,
+1804.84	1808.7	 Cisco Nexus Hyperfabric is focused on the Cisco 6000.
+1809.1	1812.8	 So it is not a Nexus switch at this present time.
+1813.18	1815.62	 We'll look on how that goes down the road.
+1816.04	1817.44	 The potential is there,
+1817.58	1818.96	 but even if we would add it,
+1819.02	1820.64	 it would be a Greenfield only deployment.
+1820.68	1822.34	 So reuse of hardware at that point.
+1822.62	1824.76	 But yeah, that's a good point.
+1824.84	1825.52	 Good question there.
+1825.74	1828.92	 But just go back to the Hyperfabric for AI cluster.
+1829.22	1832.22	 I want to make sure that we covered that entirely.
+1832.4	1834.68	 So it's from the workload,
+1835.4199999999998	1837.98	 the server, the GPU, the DPU,
+1838.18	1840.82	 the storage, the networking as one,
+1840.84	1846.22	 as one combined AI infrastructure for you,
+1846.3	1849.62	 all based on Ethernet and IP.
+1851.0	1851.96	 Next slide.
+1854.34	1857.04	 So I spoke about the Hyperfabric for AI,
+1857.26	1859.1	 which you see on the very left-hand side,
+1859.2	1862.06	 the SaaS solution or public cloud managed solution
+1862.06	1865.54	 for enterprise public sector commercial areas.
+1865.76	1866.46	 And you see there,
+1866.5	1867.68	 there is an FCS target,
+1867.96	1872.78	 which goes slightly into the next calendar year.
+1873.52	1876.76	 So I want to shift a little bit on what is shipping today
+1876.76	1879.8	 and what are the solutions we're pushing today,
+1879.9	1880.7	 we're pitching today,
+1880.8	1882.48	 we're giving you today to,
+1882.62	1886.26	 to achieve a similar or the same approach there.
+1886.72	1888.4	 For one on the very right,
+1888.5	1890.94	 we do for our hyperscaler friends,
+1891.14	1892.5	 very specific solution,
+1892.64	1895.82	 very customizable solution around Sonic
+1895.82	1899.2	 and bring your own operational model that you see on the right-hand side
+1899.2	1900.22	 with the Cisco 8K.
+1900.68	1903.28	 Our business and data center networking,
+1903.48	1906.6	 the focus where we have today is around Nexus 9000
+1906.6	1907.5	 with Nexus dashboard.
+1907.82	1912.16	 We are doubling up in the switching power we have in there
+1912.16	1915.94	 and the operational power when it comes to AI,
+1916.1	1917.46	 ML, Ethernet fabrics,
+1917.68	1920.04	 when it comes to what we are doing today,
+1920.22	1923.76	 what we're shipping today with customers and deploying today with customers
+1923.76	1926.62	 when it comes to AI and ML workloads.
+1927.14	1932.18	 We have not just the 9K with some not NXOS on top of it,
+1932.24	1934.72	 that will give you the necessary forwarding power,
+1934.88	1935.96	 the speeds and the feeds,
+1936.1	1936.8	 the feature,
+1936.98	1938.48	 but also the Nexus dashboard,
+1938.56	1940.1	 which helps you on the operational side.
+1940.26	1942.06	 So you're becoming much more of a,
+1942.16	1945.4	 network plus operation stack as such,
+1945.56	1949.64	 which then if your customer has a demand going into one step further,
+1949.92	1953.08	 we will go and deliver that as a full stack solution,
+1953.42	1955.64	 as you see on the left-hand side of the hyperfabric.
+1957.04	1958.1	 Next slide, please.
+1963.3200000000002	1964.74	 So as you can see here,
+1964.84	1971.0	 this is almost the accumulation of every data center technology in here
+1971.0	1974.48	 when we look at what is needed for an AI,
+1974.52	1975.06	 ML approach.
+1976.38	1977.68	 As we start off,
+1977.7	1978.72	 we have to switching power.
+1978.92	1981.9	 We have the Nexus 9000 with the high density,
+1982.0	1984.14	 400 gig ports today.
+1984.4	1987.5	 We're delivering them in a form factor of 32,
+1987.76	1988.1	 48,
+1988.36	1995.72	 as well as 64 ports and the respective optics for that to build such a
+1995.72	1997.44	 non-blocking spine leaf fabric,
+1997.56	1999.12	 as you see in the middle.
+1999.48	2000.98	 Now this non-blocking spine,
+2000.98	2002.06	 leaf fabric,
+2002.4	2005.52	 everyone can stitch it together from a cabling perspective,
+2006.04	2010.4	 but there are certain attributes which need to be delivered in order to
+2010.4	2012.66	 make it viable for the AI,
+2012.66	2013.26	 ML workloads.
+2013.58	2019.16	 We're talking there about a blueprint that allows you to build RDMA over
+2019.16	2026.84	 ethernet or Rocky V2 based networking traffic over a lossless network using
+2026.84	2028.76	 a priority flow control,
+2029.08	2030.96	 using congestion control,
+2030.98	2035.54	 and in combination with that,
+2035.56	2039.16	 a better load balancing approach across all the available links in there.
+2039.34	2042.26	 So we're looking at a proactive approach for load balancing,
+2042.38	2046.4	 a reactive approach of using quality of service in order to achieve ethernet
+2046.4	2048.16	 losslessness in such a network.
+2048.8	2051.26	 You'll see in addition to the switching,
+2051.34	2052.92	 the optics and the blueprint,
+2053.3	2058.2	 you see the automation piece Nexus Dashboard Fabric Controller is allowed to
+2058.2	2060.72	 give you the necessary configs for it.
+2060.74	2060.96	 And then you'll see the network configuration,
+2060.96	2060.96	
+2060.96	2064.78	 we're doing extensive interop testing with all the major NIC vendor,
+2065.06	2067.7	 meaning how you connect your clusters to that network.
+2067.92	2073.9	 And we give you a wide set of additional feature set in the NXOS operating
+2073.9	2074.88	 system.
+2075.4	2082.06	 I mentioned currently we're at the 64 ports of 400 gig resulting in a 25.6
+2082.06	2084.0	 terabit switching performance,
+2084.32	2085.62	 switching slash routing performance.
+2085.8	2090.86	 You will see the next generation silicon coming out with a 51.2 terabit,
+2090.86	2094.0	 which gives you the same footprint,
+2094.3	2095.48	 meaning 64 ports,
+2095.66	2098.98	 but we're doubling up in the port speed all the way up to 800 gigs.
+2099.04	2102.62	 So 64 ports of 800 gig is the next switching platform,
+2102.98	2109.14	 which we're delivering in regards of the AI ML networking blueprint or the AI
+2109.14	2111.72	 ML networking fabric.
+2112.98	2114.04	 Next slide, please.
+2115.58	2117.18	 Given there is a need today,
+2117.4	2119.48	 we put a bundle together for you.
+2119.56	2120.84	 So there is an AI ML blueprint,
+2120.86	2125.28	 which is a bundle which can accommodate up to 256 GPU clusters.
+2125.72	2128.24	 So you see there we are delivering a four spine,
+2128.44	2129.2	 eight leaf model.
+2129.46	2130.62	 If you do the math,
+2130.66	2133.24	 it's actually 512 for front panel port.
+2133.56	2134.94	 When we look at eight leaves,
+2135.08	2137.48	 given the non-blocking approach you want,
+2137.72	2139.28	 half of the ports to the front,
+2139.38	2140.8	 half of the ports for the uplinks,
+2140.98	2142.66	 the four spine to the interconnect.
+2143.34	2145.68	 Subscription licensing is recommended,
+2145.9	2147.24	 but not required.
+2147.44	2149.8	 So you can tag that in.
+2149.88	2150.62	 You can tag it,
+2150.86	2154.06	 the additional 10% we're giving on this bundle for essential
+2154.06	2154.4	 adventure,
+2154.64	2155.42	 the premier licenses,
+2155.48	2161.3	 as well as you get the 400 gig optics with that same bundle combination
+2161.86	2163.28	 bundle discount there.
+2163.38	2164.96	 You see the pit on the top right,
+2165.06	2168.86	 and this bundle should be available as pair July 1st.
+2169.5	2177.46	 So right for the summer vacation time or towards the next half year as we
+2177.46	2178.04	 go forward.
+2179.6	2180.24	 Jeremy,
+2180.24	2185.98	 what else do we have other than just tables and other things?
+2186.1	2186.78	 We did much more,
+2186.88	2187.04	 right?
+2187.16	2190.66	 Speaking of bundles and things kids want over summer break.
+2190.9	2191.04	 I mean,
+2191.06	2195.02	 what could be better than some next switches or large documents to read
+2195.02	2197.3	 about validated designs to bring all these things together?
+2197.54	2198.22	 Here we go.
+2198.34	2200.9	 Both what every kid wants for summer,
+2200.94	2201.06	 right?
+2201.14	2206.9	 But we have the validated designs that we've been building with Nvidia,
+2207.16	2207.82	 NVA,
+2207.92	2208.16	 IE.
+2208.16	2211.02	 Obviously we brought that on our price list as well to try and bring these
+2211.02	2214.28	 solutions together so you can source it all from one place.
+2214.7	2220.04	 But we're also following up with some specific rag flex pod and flashback
+2220.04	2222.88	 CVDs that you'll see come into market here soon.
+2223.74	2224.52	 GPT in a box.
+2224.6	2227.6	 Like I mentioned earlier with Nutanix through our hyperconverged platform,
+2228.7599999999998	2232.32	 additional operations for machine learning operations with Red Hat.
+2232.6	2234.64	 There's more going on with Red Hat too.
+2234.7	2237.6	 I think they've got a strong play in terms of how they're viewing the space.
+2237.6	2243.62	 And we'll continue to develop additional capabilities out with Red Hat in our
+2243.62	2243.96	 stacks.
+2245.3	2246.2	 I know Lucas,
+2246.28	2249.86	 your team did a lot of work with Nexus 9K and Intel Value 2 certification.
+2250.44	2252.6	 So there will be a blueprint around that.
+2252.76	2256.56	 And then we're going to continue to take those validated designs and build
+2256.56	2260.78	 Ansible playbooks and additional automation on top of those to make it easy to
+2260.78	2263.36	 go out to the hugging faces of the world to grab a model,
+2263.44	2264.02	 get started.
+2264.74	2266.74	 There's been a lot of work that happens after that,
+2266.74	2270.2	 but at least you can get the best practices, validated design,
+2270.7799999999997	2273.56	 architecture up and running as quickly as possible.
+2274.08	2276.78	 And if we go to the next slide, just to close out again,
+2277.1	2280.94	 I think our focus is all around building the best building blocks across these areas
+2280.94	2282.66	 and then bringing them together in solutions.
+2283.74	2285.62	 Nexus Hyperfabric is a great example of that.
+2285.78	2289.28	 Continue to invest in validated designs that you all can take to market,
+2289.3	2290.86	 help customers out with that as well.
+2294.16	2294.78	 So that's it.
+2294.84	2295.8	 We'll open up for some questions.
+2295.8	2296.54	 Yes.
+2296.82	2298.58	 Before we jump into call to action,
+2298.7	2300.14	 we actually had one more question for you.
+2300.2	2305.48	 So what is the difference between lossless network versus InfiniBand's lossless fabric?
+2305.72	2307.48	 Are we equivalent, better or worse?
+2308.52	2310.36	 Are we equivalent, better and worse?
+2310.44	2313.76	 That's always a big question on where you stand on the opinion.
+2314.62	2318.38	 So InfiniBand is a network technology similar like,
+2318.44	2321.28	 I'll just call it the fiber channel for data networks.
+2321.6	2325.42	 It was built very purpose for a very specific purpose.
+2325.42	2329.96	 And the high performance computing in order to make sure that you can do memory transfers
+2330.92	2333.26	 as direct and as fast as possible.
+2334.08	2338.46	 There was a time where InfiniBand was outperforming Ethernet quite a bit.
+2338.64	2345.96	 I think over the last couple of years, Ethernet with 400 and now 800 gig going into 1.6 terabit.
+2346.04	2351.74	 We got pretty, pretty faster on that side and not only faster,
+2351.88	2354.1	 but from the availability,
+2354.1	2355.96	 from an operational perspective,
+2356.18	2357.06	 from a knowledge perspective,
+2357.38	2361.1	 from a cost per byte or per bit per second perspective,
+2362.3	2364.94	 Ethernet is literally unbeatable there.
+2365.2	2368.28	 And that's why we saw such a big boom around Ethernet.
+2369.78	2373.62	 When we over 10 years ago started the fiber channel over Ethernet,
+2373.64	2375.44	 there was like everything should be Ethernet,
+2375.46	2377.88	 everything should be Ethernet at that point.
+2378.02	2380.36	 So today, I think speed wise,
+2380.48	2382.94	 we're comparable in that regards,
+2383.06	2384.08	 Ethernet versus Ethernet.
+2384.1	2384.28	 So we're comparable in that regards,
+2384.28	2384.88	 Ethernet versus Ethernet versus InfiniBand.
+2385.02	2387.5	 It literally ends up on the operational side,
+2387.66	2389.26	 on the flexibility side.
+2390.08	2392.58	 What one of my colleagues tends to say is,
+2392.76	2395.06	 if you go into this call,
+2395.22	2397.36	 I think we have 64 plus people in here,
+2397.52	2398.98	 if I count correct,
+2400.14	2405.22	 who of you can troubleshoot an InfiniBand network and probably will find one or two,
+2405.3	2408.58	 but that's exactly what's out there in the industry.
+2409.14	2414.08	 There is a very limited set of people that can bring in the Internet,
+2414.1	2420.28	 the InfiniBand to live operate InfiniBand and get it actually working at the speed you're expecting.
+2420.52	2424.68	 When we're going in this call here and ask who actually knows Ethernet,
+2424.84	2428.92	 can troubleshoot Ethernet and do performance optimization on Ethernet,
+2429.06	2434.2	 I probably get a thumbs up from 95 plus percent in that call.
+2434.46	2441.86	 And that's where we're seeing that actually the InfiniBand train has probably left behind a bit
+2441.86	2444.08	 and Ethernet ran down much more than it should have.
+2444.08	2452.24	 So it's much, much faster for that specific use case and for that technology.
+2452.74	2454.5	 Also, when we look at the industry,
+2454.74	2459.08	 there is currently one single vendor that is doing InfiniBand,
+2459.24	2459.84	 it's Nvidia.
+2460.4	2466.12	 When we look at some other vendors in the AIML space like Intel or AMD,
+2466.4	2469.02	 they're pretty much all swearing on Ethernet.
+2469.18	2473.58	 And you can see that also that Nvidia has that,
+2474.08	2475.48	 yeah, they're also good with Ethernet.
+2475.82	2478.84	 Of course they are because they don't want to be left behind.
+2479.02	2483.86	 So I think short answer to the very long answer I gave before,
+2484.04	2487.48	 I think Ethernet outperforms InfiniBand,
+2487.6	2491.96	 not just on the performance metrics on the wire,
+2492.14	2494.78	 but as a whole of a technology.
+2495.32	2496.06	 Ethernet ahead.
+2498.5	2499.06	 Awesome.
+2499.4	2502.26	 All right, questions are flowing and we have another one for you.
+2502.62	2504.06	 Does this platform allow you to use Ethernet?
+2504.06	2508.46	 Does it allow splitting of interfaces to support AOC cables like InfiniBand?
+2508.68	2511.94	 Like Spencer may have already touched on that one.
+2513.7400000000002	2515.24	 Spencer, you answered.
+2515.96	2517.42	 Speak up, unmute.
+2518.28	2520.1	 Oh, he's a panelist, his job is out.
+2520.1	2520.7	 We want to hear him.
+2521.4	2524.24	 Yeah, so there's a number of different breakout options.
+2524.58	2529.3	 Right at 400 gig, you can break out to multiple 100 or 200 gig interfaces.
+2529.56	2530.14	 That's correct.
+2530.22	2531.14	 On the Switch platform.
+2531.36	2532.64	 So there's a lot of,
+2532.64	2535.94	 it offers a lot of flexibility depending on what the customer's requirements are
+2535.94	2538.26	 and what types of NICs they want to connect to the fabric.
+2539.2799999999997	2542.66	 So if you have any more specific questions, we can dive into those as well.
+2543.5	2548.52	 Yeah, there's absolutely cable splits, breakout, absolutely there.
+2550.28	2551.72	 Haven't seen it on InfiniBand.
+2554.14	2555.36	 The same way, anyway.
+2556.54	2557.34	 More questions.
+2557.86	2558.86	 Very good, yeah, we do.
+2558.94	2559.3	 Thank you, Spencer.
+2559.62	2560.52	 Yep, one more.
+2560.76	2562.62	 What should one expect with Total Network?
+2562.64	2562.96	 What should one expect with the network cost?
+2563.24	2565.32	 Nexus versus NVIDIA IB network?
+2566.6800000000003	2568.08	 Oh, interesting.
+2568.4	2571.78	 I think when we look at the cost of an AI cluster,
+2571.9	2576.56	 where we're looking at the cost of the GPU side of the house specifically,
+2576.84	2583.28	 I think the network infrastructure part is almost neglectable from a cost perspective.
+2583.56	2586.04	 I think it's very comparable.
+2586.24	2590.4	 I don't have a good bomb I could pull out
+2590.4	2594.72	 on how much the same set of InfiniBand switches would cost,
+2596.52	2600.42	 but I would say it's absolutely comparable,
+2600.7	2603.42	 but we probably get more performance out of the switching
+2603.42	2607.46	 and the usability, reusability of the switching versus in the InfiniBand side,
+2607.64	2609.7	 meaning Ethernet versus the InfiniBand side.
+2609.98	2612.62	 And I think as you look at the push away from,
+2612.68	2615.24	 well, not say away, but a lot of these designs
+2615.24	2617.66	 and dollars that have been spent in the market,
+2617.7	2620.38	 big hyperscale, big, big, big, big, big,
+2620.38	2621.22	 big use cases, right?
+2621.32	2624.36	 As you start going into what enterprises are looking at
+2624.36	2627.96	 and what those use cases are that they're going to solve for on a day-to-day basis,
+2628.54	2630.56	 that's where Ethernet makes even more sense
+2630.56	2632.74	 because you can put together a RAG architecture
+2632.74	2636.42	 and worry as much about how are you going to support a thousand GPUs,
+2636.44	2639.24	 you're worried about how are you going to support four or eight.
+2639.48	2644.5	 And so the need for having a separate type of network to do that
+2644.5	2647.26	 is really expensive at an enterprise scale.
+2647.92	2648.36	 Yeah.
+2648.9	2650.36	 Maybe one more thing I want to add,
+2650.38	2651.44	 maybe I'll just add here,
+2651.64	2657.78	 and you probably saw for those that did see the announcements at Cisco Live,
+2659.2400000000002	2661.4	 Lucas and Jeremy kind of touched on this earlier.
+2662.12	2663.66	 Our partnership with Nvidia,
+2664.26	2671.64	 one of the key elements of that is to bring in a more mainstream Ethernet conversation into AI.
+2671.82	2673.72	 And that's why we're really working together.
+2673.98	2679.22	 Now, some of that work right now is coalescing around HyperFabric,
+2679.22	2681.68	 but there is broader work going on
+2682.22	2687.94	 where we can really kind of deepen the partnership with them across the entire portfolio
+2687.94	2689.5	 on the networking side.
+2689.66	2692.02	 So again, more to come on that.
+2692.1	2693.48	 That's not just GPUs,
+2693.48	2698.86	 it extends into GPUs and their Super NICs and so forth.
+2699.0	2700.84	 So again, a lot more to come there,
+2700.98	2704.76	 but they, not to speak for them,
+2704.82	2709.02	 but they obviously see some of these trends on the horizon.
+2709.22	2713.32	 So again, they've been really, really collaborative working with us.
+2713.56	2721.42	 And you're really starting to see the fruits of that innovation present itself in these recent announcements.
+2721.98	2722.8	 Yes, right.
+2722.94	2725.9	 And that's actually a good segue to the question that just came in,
+2726.0	2736.6	 which was around the extensibility of Nexus HyperFabric for AI to support also HGX like clusters.
+2736.8	2739.08	 And so with HyperFabric for AI,
+2739.08	2741.58	 we are in close collaboration with Nvidia.
+2743.26	2749.68	 Again, in future, we will have HyperFabric for AI in the 25 calendar year.
+2750.38	2752.74	 So it's not yet there, but the future is now.
+2752.94	2756.16	 And then as we go forward with the next couple of...
+2756.16	2759.76	 ...into the Nutanix on Cisco and Fusion itself.
+2759.86	2760.9	 And I think you hit on it.
+2761.02	2762.18	 Somebody I think is...
+2762.18	2763.28	 Did you think of that?
+2763.72	2764.94	 Yeah, we're just...
+2764.94	2765.84	 Oh, we got him.
+2766.14	2766.66	 Good.
+2766.8	2768.56	 Well, it was Nutanix and...
+2768.56	2768.98	 It's okay.
+2769.02	2770.4	 We were talking about Cisco and Fusion.
+2770.48	2771.16	 Yeah, listen to us, guys.
+2771.22	2773.9	 That's a perfectly good reason to come off mute in any case.
+2774.1	2774.72	 Here we go.
+2774.72	2775.8	 The double WebExes.
+2775.82	2776.72	 We love them.
+2777.24	2781.68	 Noah said, so Cisco HyperFabric for AI is already in the future,
+2781.78	2784.34	 meaning we're shipping it in the CY25,
+2784.62	2788.96	 first half of the first quarter of the CY25-ish of the year.
+2789.46	2793.38	 We're working right now with Nvidia to validate what kind of setups are there.
+2793.7	2797.8	 There is absolute the possibility to go into...
+2797.8	2802.36	 Different offerings, which Nvidia has in there like AGX at that point.
+2802.48	2806.9	 But given its already future, I want to keep it till we actually ship it,
+2807.0	2808.5	 and then we'll see where we go from here.
+2813.96	2814.4	 Awesome.
+2814.52	2815.42	 I think we'll keep it rolling.
+2815.62	2816.82	 There's more questions coming in.
+2816.9	2817.28	 Let's see.
+2818.84	2819.66	 A comment.
+2819.76	2823.04	 Worth noting, we have run into AI project storage issues with IB.
+2823.28	2826.58	 Not all storage solutions support IB, but Ethernet is then needed.
+2828.4	2831.74	 Yes, I guess that was Aaron, right?
+2831.84	2836.24	 So let me maybe say one or two things to AI networks.
+2836.56	2838.58	 There is something which is called the backend network,
+2838.86	2840.82	 which is where the GPU communicates.
+2840.84	2846.86	 There is a frontend network where actually the workload systems get the package loaded,
+2847.02	2849.74	 then the GPU rumbles it, transports it over the backend.
+2849.86	2853.62	 So in any case, Ethernet will be needed for the frontend,
+2853.72	2856.1	 given everyone talks Ethernet today,
+2856.32	2857.78	 while the GPU communicates.
+2857.78	2860.26	 So you could, in that pocket network of what we call the backend,
+2860.52	2864.72	 communicate to each other over that InfiniBand if wished.
+2864.88	2868.84	 At that point, you operate two different networks with two different technologies.
+2868.94	2872.5	 If you feel comfortable, that's your, I think that's a customer thing.
+2872.68	2877.32	 At the end, definitely we can build backend, frontend, all with Ethernet,
+2877.34	2880.92	 and we can also double up and build a storage network based on Ethernet,
+2880.94	2887.06	 where we see partners like VAST or others coming in for such Ethernet-based storage systems.
+2888.24	2890.08	 Sorry for the long march,
+2890.74	2895.08	 but I think it was important to say that it's not just one network.
+2899.94	2900.44	 Awesome.
+2901.02	2903.6	 So yeah, I think we can move on to call to actions,
+2903.7	2906.54	 if there are any questions at this point.
+2906.92	2907.98	 Yeah, great question.
+2908.08	2913.8	 Any follow-ups on top of the questions, feel free to unmute or continue to ping.
+2915.68	2917.76	 First off, thank you, Lucas, Jeremy, and everyone else.
+2917.76	2917.76	
+2917.76	2917.76	
+2917.78	2919.94	 And thank you, Brian, for diving deep into the new announcements.
+2920.24	2922.02	 Fantastic job presenting, as always.
+2922.26	2924.16	 So partners, what's next, right?
+2924.22	2925.24	 How can we support you?
+2925.7	2929.66	 First, we would recommend diving into our AI partner specialization.
+2929.9	2932.78	 We have two newly launched partner trainings on Black Belt,
+2932.96	2934.96	 both a sales and a pre-sales track.
+2935.92	2938.14	 Second, an AI partner practice guide.
+2938.38	2942.62	 So no matter where you're at in your AI journey, Cisco will meet you where you're at.
+2942.76	2946.0	 So whether that's understanding the foundation,
+2946.0	2948.88	 to building, to scaling, monetizing,
+2949.38	2951.88	 this will be a great guide to help you through those steps.
+2952.48	2954.7	 And then lastly, a partner sales center.
+2954.84	2958.24	 So we don't want to throw different links to you.
+2958.3	2962.16	 We want it in a one-stop shop place that you can find everything that you need.
+2962.28	2966.52	 So both of those links, ninjas and champs, you will be the first to receive those.
+2967.32	2971.1	 And then also noting, this community is open door policy, right?
+2971.14	2975.76	 So any additional support, questions that you have, please, please reach out.
+2975.76	2980.82	 Any suggestions for additional training are always open to get those on the calendar.
+2981.6	2984.54	 So please utilize this community as much as you can.
+2985.04	2986.66	 And then Maria, back over to you.
+2987.48	2988.8	 Perfect. Thank you, Lindsay.
+2990.64	2995.12	 So yeah, something that we also wanted to use this opportunity to cover
+2995.76	2999.24	 is to talk about two brand new partner programs that we have for you.
+2999.72	3002.5	 So the first one was just launched this week.
+3002.64	3003.96	 It's the HIP designation.
+3003.96	3008.8	 HIP is short for Hyperconverged Infrastructure Partner Designation.
+3009.22	3013.24	 And it's basically the new iteration of our HX specialization.
+3013.62	3020.18	 So basically the goal is to incentivize our partners to drive business with our HCI wind and chain portfolio.
+3021.36	3025.9	 And obviously to increase deal velocity by receiving, as you can see on the slide,
+3026.08	3032.26	 up to 85% discount on UCS M6 hardware and up to 82% on M7.
+3032.72	3033.94	 So yeah, really exciting.
+3033.96	3037.04	 And we have a really great program that we are hoping that you check out.
+3037.14	3041.84	 And the links for everything will be available on the deck when we share after the call.
+3043.12	3048.64	 We also want to give you a sneak peek on a new program launching in calendar Q3 this year,
+3048.78	3052.94	 which is the Hybrid Cloud Compute Specialized Pricing Program.
+3053.84	3059.16	 And the goal of this one is to reward partners who have basically completed the hybrid cloud specialization
+3059.92	3063.94	 by granting up to 75% discount on HCI and HX.
+3063.94	3067.84	 And we have a really great program that we are hoping to launch in the future.
+3067.84	3069.86	 So stay tuned for that as well.
+3070.38	3075.42	 So yeah, we really encourage you to take a look at these programs to really help boost your deal profitability.
+3077.52	3085.66	 It's probably worth noting that the hybrid, I'm sorry, the hyperconverged infrastructure piece,
+3086.78	3091.38	 if you are a current HX specialized partner,
+3091.38	3095.02	 we will grandfather you in.
+3098.14	3103.56	 Now, that's something that we're going to offer all of those partners that made that investment,
+3103.68	3105.3	 and we're going to pay it forward.
+3105.88	3113.52	 There will be specific details on when we're going to want you to meet the new hyperconverged infrastructure criteria.
+3113.74	3117.02	 So you'll see that as it becomes available.
+3117.66	3120.36	 We try to keep our terms and conditions fairly concise.
+3120.36	3126.54	 But again, if you were an HX specialized partner in the past,
+3126.68	3130.74	 we will grandfather you into these competitive discounts right away.
+3130.84	3136.76	 Now, the only caution I'll say is that it will be gated by a deal registration.
+3137.18	3144.88	 And so again, for anybody that has trouble getting that approved, just reach out to any of us.
+3145.1	3150.34	 We're working very closely with our field leadership to just make sure this is a stream of thought.
+3150.36	3151.06	 And we're going to try to keep it as streamlined as possible.
+3152.78	3153.18	 Exactly.
+3153.6	3154.74	 Brian, thanks for adding that.
+3159.18	3159.78	 All right.
+3159.88	3160.18	 Okay.
+3160.32	3162.48	 Any other questions?
+3163.7	3163.76	 Yeah.
+3163.88	3168.64	 Feel free to unmute yourselves, of course, or write in the chat.
+3185.88	3188.14	 So I don't see any questions coming in.
+3188.5	3189.6	 Do you see any, Lindsay?
+3191.8	3193.04	 I think we're good to go.
+3193.5	3196.48	 Lucas, Jeremy, Brian, we're trying to hold you five minutes after.
+3196.62	3197.4	 Anything we can do.
+3198.3	3199.72	 Oh, actually, one just came in.
+3200.12	3200.56	 Oh, there's one.
+3200.7	3201.02	 Yeah.
+3203.3	3208.06	 In the interest of support Cisco here, what challenges is Cisco facing that you can share?
+3218.14	3228.04	 So what challenges for you guys to be have in place to push your success to the goal that you're going to achieve bycks, especially in crypto completely.
+3228.16	3230.6	 Any thoughts you have on crypto?
+3230.76	3232.52	 So I actually wanted to ask wondering about these, I don't know if the NASCAR forecasters need to hang out with your six engineers, or which probably are the ones that are still waiting for this rescue.
+3232.52	3232.52	
+3232.52	3232.52	
+3232.52	3232.52	
+3232.68	3235.0	 I think we have to make sure we don't risk we're trying to beallows that this is what we want from you.
+3235.0	3235.28	 I look at.
+3235.28	3246.2	 Yeah, Lucas, you know, one question that just came to me kind of offline was around our thoughts on the UltraEthernet Consortium.
+3246.24	3262.2	 I know we play a pretty key role there and the role that some of those features like packet spraying and others are going to help or support the acceleration of Ethernet in these deployments.
+3262.24	3262.94	 Any thoughts there?
+3263.92	3275.38	 Yeah, so UltraEthernet Consortium is basically a set of different vendors who come together and try to make Ethernet better for lossless network transport.
+3275.88	3279.36	 Before, as mentioned, there was the Rocky Rocky B2 part.
+3279.54	3283.2	 Now we're looking at UEC, which is doing something very similar there.
+3284.58	3292.34	 There's a lot of work which is happening in the transport area, which is basically making Ethernet lossless.
+3292.36	3292.82	 Which?
+3292.94	3294.4	 We all know it's a collision domain.
+3295.1	3301.0	 It's never really lostness from Ethernet itself, but the upper layer protocols are helping there.
+3301.14	3305.08	 So there's a huge acceleration which happens there to achieve that.
+3305.28	3311.2	 In conjunction to that, you mentioned better load balancing across the network.
+3311.86	3315.3	 That's the first next or the first step we already achieved.
+3316.02	3321.78	 They're trying to do it more load aware than the packet spraying, which has.
+3322.92	3325.64	 Slightly different ideas behind.
+3325.88	3343.66	 We're actually either to Nick, the DPU in that case, or the GPU in that case, the super Nick is doing the sending and the reassembly at the end where we need to attach more data to these packets that we know what the order actually was and how we sent it that we can.
+3343.72	3345.48	 We can separate it on the back.
+3345.58	3349.68	 So there are a lot of new ideas and technologies are coming in.
+3351.06	3351.58	 The.
+3351.78	3352.78	 Spring is one.
+3353.7000000000003	3353.74	 We.
+3354.18	3356.64	 We invested into the spring part.
+3356.82	3358.06	 We looked into the spring part.
+3358.94	3366.64	 We did a lot of investment in having better quality of service capabilities for RDME over converged Ethernet traffic.
+3367.3	3369.12	 You see that in the blueprint.
+3369.5	3371.44	 That's definitely a bigger focus there.
+3371.62	3376.74	 And then, yes, as the UEC comes with the transport, we'll definitely go into that transport area.
+3376.96	3381.26	 But most interestingly is a lot of the UEC work is actually.
+3381.84	3385.56	 Loaded to the endpoint to the server if you want.
+3385.62	3397.04	 So, and the next smartness, which comes at that with a little bit of understanding in the network and subsequently help just to come back there.
+3397.9	3405.64	 There's a lot of things to basically educate people on that QoS is still cool, even as it was never cool at all.
+3405.74	3411.76	 But it's literally what we do with UEC or what we do with RDME over converged.
+3411.76	3412.48	 Ethernet.
+3412.92	3418.14	 It's all related to better packet forwarding quality of service at the end.
+3419.16	3419.98	 Hope that helps.
+3420.2	3420.96	 Yeah, it does.
+3421.12	3421.28	 Yeah.
+3421.32	3421.84	 Thanks, Lucas.
+3421.9	3426.18	 And Jeremy, maybe, maybe just one last word from you on.
+3426.52	3437.46	 Do you see just in that in the context of some of the larger challenges, is there maybe a sweet spot that you would like to see the partners really kind of aim for?
+3437.5	3441.58	 And I know it's kind of difficult because there's a lot of different, you know, moving pieces and opportunities.
+3441.58	3441.74	 But.
+3441.74	3441.74	
+3441.74	3441.74	
+3441.74	3441.74	
+3441.74	3441.74	
+3441.74	3441.74	
+3441.74	3452.5	 Is there something that you would say that is a can't miss area that that that partners should just put some additional focus around?
+3452.78	3464.78	 I think if you look at our portfolio, we're really focused on the fine tuning inferencing type use cases, regardless of if that's in a modular form factor or a rack mount server.
+3465.1	3468.34	 And that's where the validated designs are focused.
+3468.42	3469.88	 That's where our portfolio is focused.
+3470.14	3471.72	 And there's a lot of reasons we won't be.
+3471.74	3473.28	 We won't probably get into it since we're running out of time.
+3473.36	3476.44	 But that that is the area that I would say we would focus on.
+3476.52	3485.4	 And then also we'll continue to add additional GPU type capabilities and servers and boxes as we go through the next few years.
+3485.46	3487.42	 We've certainly got that feedback loud and clear.
+3488.44	3488.8	 Yeah.
+3490.02	3491.06	 Super. Thank you.
+3491.14	3491.9	 Thank you, Jeremy.
+3491.96	3495.96	 So, folks, what I would say is there's a lot more to come.
+3496.34	3501.24	 And I think we're just at the tip of the iceberg as it relates to some of the announcement.
+3501.24	3504.36	 Announcements that we made just recently at Cisco Live.
+3505.54	3512.74	 I think there's a lot of different pieces that are ready to go right now that we could start scoping, selling.
+3512.98	3524.04	 And I know several of you are already really deep in the weeds in in really positioning some of these solutions with pieces that we've already published and are ready to go.
+3524.14	3527.8	 So I just want to thank you for all of you that have already leaned in.
+3527.92	3531.22	 And I think for those that have been kind of.
+3531.22	3544.96	 Following these announcements and know our portfolio well, please lean in because there's a lot of pieces that you'll be surprised that we could really deliver that are relevant for these AI workloads.
+3545.32	3555.7	 Whether you're building purpose built or it's just another workload in your customer environment, there's a lot of innovation that we're ready to help share with you.
+3555.84	3558.38	 So hopefully you got a little bit of a glimpse of that today.
+3558.76	3559.94	 I just want to thank.
+3561.7	3568.96	 First, Jeremy and Lucas and all of our partners who made the time some of our distributors to I saw.
+3569.64	3571.8	 So thank you very much, everyone.
+3572.02	3573.62	 More to come on this topic.
+3573.9	3575.12	 More deep dives.
+3575.2	3577.48	 And again, we'll be back here very soon.
+3577.76	3578.9	 Thank you very much.
+3578.92	3580.46	 And good selling out there.
+3581.9	3582.7	 Thanks, everyone.
+3582.8	3583.12	 Everybody.
+3583.34	3584.04	 Take care.
+3584.36	3585.04	 Bye bye.
+3585.06	3585.66	 Thank you.
+3591.42	3591.68	 Bye bye.

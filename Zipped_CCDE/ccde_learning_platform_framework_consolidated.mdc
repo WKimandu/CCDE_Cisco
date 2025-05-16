@@ -1,0 +1,508 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Cursor AI Rules for CCDE Learning Platform Development
+- Use consistent code formatting across all project files
+- Maintain clear documentation for all NLP/NER components
+- Follow naming conventions for all content-related functions
+- Implement proper error handling for Moodle LMS integration
+- Use type hints in all Python code
+- Document all API endpoints with OpenAPI specifications
+- Create unit tests for all NLP processing functions
+- Maintain separation of concerns between content and presentation layers
+
+```project-prd
+# CCDE Learning Platform PRD
+
+## Product Vision
+Create an intelligent learning platform that leverages NLP, NER, and content creation to deliver personalized CCDE learning experiences through Moodle LMS.
+
+## Target Users
+- CCDE certification candidates
+- Network design instructors
+- Content creators for technical certification materials
+- Learning platform administrators
+
+## Key Features
+1. NLP-powered content analysis and classification
+2. Bloom's Taxonomy-aligned learning paths
+3. Automated assessment generation
+4. Moodle LMS integration
+5. Progress tracking and analytics dashboard
+
+## Success Metrics
+- User completion rate of learning modules
+- Assessment performance improvement
+- Time to certification readiness
+- User satisfaction ratings
+- Content coverage of CCDE curriculum
+```
+
+## 1. Project Governance Rules
+
+### 1.1 Project Management Structure
+- **Product Owner**: Responsible for prioritizing features and representing stakeholder interests
+- **Scrum Master**: Facilitates agile processes and removes impediments
+- **Development Team**: Cross-functional team with expertise in programming, NLP/NER, and CCDE content
+- **Content SMEs**: Subject matter experts for CCDE curriculum validation
+- **UX/UI Specialists**: Focused on learner experience and Moodle integration
+
+### 1.2 Decision-Making Framework
+- **Technical Decisions**: Development team with architecture review
+- **Content Decisions**: Content team with CCDE SME validation
+- **Priority Decisions**: Product owner with stakeholder input
+- **Design Decisions**: UX/UI specialists with user testing validation
+
+### 1.3 Documentation Standards
+- **Architecture Documentation**: UML diagrams, component specifications, API contracts
+- **Content Documentation**: Bloom's mapping, metadata schema, assessment alignment
+- **Code Documentation**: Inline comments, README files, API documentation
+- **User Documentation**: User guides, admin manuals, content creation guides
+
+### 1.4 Quality Assurance Rules
+- **Code Quality**: 80% test coverage minimum, static code analysis
+- **Content Quality**: SME review, Bloom's alignment verification, technical accuracy check
+- **Integration Quality**: End-to-end testing with Moodle LMS
+- **Performance Metrics**: Response time < 2s, NLP processing time < 5s per document
+
+## 2. Agile Implementation Framework
+
+### 2.1 Sprint Structure
+- **Sprint Duration**: Two weeks (10 working days)
+- **Planning Meeting**: Day 1, maximum 4 hours
+- **Daily Stand-ups**: 15 minutes, focused on progress and impediments
+- **Sprint Review**: Day 10, demonstration of completed work
+- **Sprint Retrospective**: Day 10, process improvement discussion
+- **Backlog Refinement**: Ongoing, dedicated session on Day 5
+
+### 2.2 User Story Guidelines
+- **Format**: "As a [role], I want [feature] so that [benefit]"
+- **Roles**: Learner, Instructor, Administrator, Content Creator
+- **Acceptance Criteria**: Minimum 3, maximum 7 per story
+- **Story Points**: Fibonacci sequence (1, 2, 3, 5, 8, 13)
+- **Definition of Ready**: Clear requirements, acceptance criteria, design mockups
+- **Definition of Done**: Code reviewed, tested, documented, deployed to staging
+
+### 2.3 Task Breakdown Rules
+- **Granularity**: Tasks should be completable within 1-2 days
+- **Technical Tasks**: Development, testing, documentation
+- **Content Tasks**: Creation, review, metadata tagging, assessment development
+- **Integration Tasks**: API development, Moodle compatibility, data synchronization
+- **Task Assignment**: Self-assignment within team capacity
+
+### 2.4 Workflow and Tooling
+- **Version Control**: Git with feature branching strategy
+- **CI/CD Pipeline**: Automated testing and deployment
+- **Project Management**: Jira or equivalent for story tracking
+- **Documentation**: Confluence or equivalent for living documentation
+- **Communication**: Slack or equivalent for team communication
+
+## 3. Platform Development Components
+
+### 3.1 Core Platform Architecture
+```python
+# Example architecture component structure
+class CCDEPlatformCore:
+    def __init__(self):
+        self.content_repository = ContentRepository()
+        self.user_progress_tracker = UserProgressTracker()
+        self.authentication_service = AuthenticationService()
+        self.moodle_connector = MoodleConnector()
+        self.analytics_engine = AnalyticsEngine()
+    
+    def initialize(self):
+        # Initialize core services
+        pass
+```
+
+### 3.2 NLP/NER Components
+```python
+# Example NLP component
+class CCDEContentAnalyzer:
+    def __init__(self, nlp_model_path: str):
+        self.nlp = spacy.load(nlp_model_path)
+        self.entity_recognizer = EntityRecognizer()
+        self.content_classifier = ContentClassifier()
+    
+    def analyze_document(self, document: str) -> Dict[str, Any]:
+        """
+        Analyze CCDE document content to extract entities and classify content.
+        
+        Args:
+            document: The document text to analyze
+            
+        Returns:
+            Dictionary containing entities, classifications, and metadata
+        """
+        doc = self.nlp(document)
+        entities = self.entity_recognizer.extract_entities(doc)
+        classification = self.content_classifier.classify(doc)
+        
+        return {
+            "entities": entities,
+            "classification": classification,
+            "blooms_level": self._determine_blooms_level(doc),
+            "technical_complexity": self._assess_complexity(doc)
+        }
+```
+
+### 3.3 Content Creation System
+- **Authoring Tools**: Structured content creation aligned with Bloom's
+- **Template System**: Standardized formats for different content types
+- **Assessment Generator**: Create questions aligned with cognitive levels
+- **Metadata Manager**: Tag content with relevant attributes
+- **Content Validator**: Verify alignment with CCDE curriculum
+
+### 3.4 Moodle Integration
+```python
+# Example Moodle integration component
+class MoodleConnector:
+    def __init__(self, api_url: str, api_key: str):
+        self.api_url = api_url
+        self.api_key = api_key
+        self.session = requests.Session()
+        self.session.headers.update({
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {api_key}"
+        })
+    
+    def create_course(self, course_data: Dict[str, Any]) -> int:
+        """
+        Create a new course in Moodle LMS.
+        
+        Args:
+            course_data: Course information including name, description, etc.
+            
+        Returns:
+            Course ID if successful
+        """
+        response = self.session.post(
+            f"{self.api_url}/webservice/rest/server.php",
+            params={
+                "wstoken": self.api_key,
+                "wsfunction": "core_course_create_courses",
+                "moodlewsrestformat": "json"
+            },
+            json={"courses": [course_data]}
+        )
+        response.raise_for_status()
+        return response.json()[0]["id"]
+```
+
+### 3.5 User Experience Components
+- **Learner Dashboard**: Progress visualization, recommendations
+- **Content Delivery Interface**: Interactive learning materials
+- **Assessment Interface**: Question presentation and feedback
+- **Administrative Tools**: Content management, user administration
+- **Analytics Dashboard**: Learning effectiveness metrics
+
+## 4. User Story Templates
+
+### 4.1 Platform Architecture Stories
+```
+As a platform architect, I want [specific architecture component] so that the system can [specific capability].
+
+Acceptance Criteria:
+1. Component successfully integrates with [related components]
+2. Performance meets specified metrics under [load conditions]
+3. Documentation includes [specific architectural details]
+4. Security requirements for [specific aspect] are implemented
+
+Technical Notes:
+- Technology stack: [specific technologies]
+- Integration points: [specific interfaces]
+- Performance expectations: [specific metrics]
+```
+
+### 4.2 NLP/NER Feature Stories
+```
+As a content developer, I want [specific NLP/NER feature] so that I can [specific benefit].
+
+Acceptance Criteria:
+1. Feature correctly processes [specific content type]
+2. Accuracy rate of at least [percentage] for [specific task]
+3. Processing time under [specific duration] for [content volume]
+4. Results are stored in [specific format/location]
+
+Technical Notes:
+- Algorithms: [specific approaches]
+- Training data: [specific datasets]
+- Evaluation metrics: [specific measurements]
+```
+
+### 4.3 Content Creation Stories
+```
+As a content creator, I want [specific content tool/feature] so that I can [specific benefit].
+
+Acceptance Criteria:
+1. Tool supports creation of content at [specific Bloom's levels]
+2. Content includes [specific metadata elements]
+3. Assessment items align with [specific cognitive levels]
+4. Content validates against [specific CCDE curriculum areas]
+
+Technical Notes:
+- Content structure: [specific format]
+- Metadata schema: [specific elements]
+- Validation rules: [specific checks]
+```
+
+## 5. Content Development Rules
+
+### 5.1 Bloom's Taxonomy Alignment
+- **Remember Level**: Terminology, definitions, basic concepts
+- **Understand Level**: Explanations, examples, comparisons
+- **Apply Level**: Procedures, implementations, configurations
+- **Analyze Level**: Troubleshooting, component analysis, system decomposition
+- **Evaluate Level**: Design assessment, approach comparison, solution critique
+- **Create Level**: Architecture design, solution development, implementation planning
+
+### 5.2 Content Structure Standards
+```json
+// Example content structure schema
+{
+  "learning_module": {
+    "title": "String",
+    "description": "String",
+    "learning_objectives": ["String"],
+    "prerequisites": ["String"],
+    "blooms_levels": ["remember", "understand", "apply", "analyze", "evaluate", "create"],
+    "content_sections": [
+      {
+        "title": "String",
+        "blooms_level": "String",
+        "content_blocks": [
+          {
+            "type": "text|code|image|video|interactive",
+            "content": "String or Object",
+            "metadata": {}
+          }
+        ]
+      }
+    ],
+    "assessments": [
+      {
+        "question": "String",
+        "blooms_level": "String",
+        "type": "multiple_choice|scenario|design",
+        "options": ["String"],
+        "correct_answer": "String or Index",
+        "explanation": "String"
+      }
+    ],
+    "references": ["String"]
+  }
+}
+```
+
+### 5.3 Metadata Schema
+- **Topic Classification**: CCDE domain and subdomain
+- **Cognitive Level**: Primary and secondary Bloom's levels
+- **Technical Scope**: Technologies, protocols, design patterns
+- **Difficulty Rating**: Beginner, intermediate, advanced
+- **Time Estimate**: Expected completion time
+- **Relationships**: Prerequisites, related content, next steps
+
+### 5.4 Assessment Development Rules
+- **Coverage**: Minimum 3 questions per Bloom's level
+- **Question Types**: Multiple choice, scenario-based, design exercise
+- **Feedback**: Specific explanations for correct and incorrect answers
+- **Difficulty Progression**: Increasing complexity within cognitive levels
+- **Scenario Authenticity**: Based on realistic network design challenges
+- **Validation**: Technical accuracy review by SMEs
+
+## 6. Sprint Planning and Execution
+
+### 6.1 Sprint Planning Process
+1. **Backlog Prioritization**: Product owner ranks stories by business value
+2. **Capacity Planning**: Team determines available story points
+3. **Story Selection**: Team selects stories based on priority and capacity
+4. **Task Breakdown**: Team breaks stories into specific tasks
+5. **Commitment**: Team commits to sprint deliverables
+
+### 6.2 Daily Execution Process
+```mermaid
+graph TD
+    A[Daily Stand-up] --> B[Development Work]
+    B --> C[Continuous Integration]
+    C --> D[Documentation]
+    D --> E[Review]
+    E --> F[Next Day]
+    F --> A
+```
+
+### 6.3 Sprint Review Process
+1. **Demonstration**: Show completed functionality to stakeholders
+2. **Feedback Collection**: Gather input on demonstrated features
+3. **Acceptance**: Product owner accepts or rejects stories
+4. **Metrics Review**: Analyze velocity and quality metrics
+5. **Backlog Update**: Incorporate feedback into product backlog
+
+### 6.4 Sprint Retrospective Process
+1. **Process Review**: Discuss what worked and what didn't
+2. **Impediment Identification**: Identify obstacles to productivity
+3. **Improvement Ideas**: Generate suggestions for process enhancement
+4. **Action Items**: Agree on specific improvements for next sprint
+5. **Follow-up**: Review previous retrospective action items
+
+## 7. Project Phases and Milestones
+
+### 7.1 Inception Phase (2 Sprints)
+- **Architecture Definition**: Establish technical foundation
+- **Content Model Design**: Define content structure and metadata
+- **Moodle Integration Planning**: Determine integration approach
+- **User Experience Design**: Create initial wireframes and mockups
+- **Deliverable**: Architecture document and proof-of-concept
+
+### 7.2 Foundation Phase (4 Sprints)
+```mermaid
+gantt
+    title Foundation Phase
+    dateFormat  YYYY-MM-DD
+    section Core Platform
+    Setup Development Environment :a1, 2025-06-01, 5d
+    Implement Basic Architecture :a2, after a1, 10d
+    Create Database Schema :a3, after a2, 5d
+    section NLP Components
+    Basic NLP Pipeline :b1, 2025-06-10, 10d
+    Entity Recognition :b2, after b1, 10d
+    section Content Tools
+    Basic Authoring Interface :c1, 2025-06-15, 15d
+    section Moodle
+    API Connection :d1, 2025-07-01, 10d
+```
+
+### 7.3 Enhancement Phase (6 Sprints)
+- **Advanced NLP Features**: Implement sophisticated analysis
+- **Content Recommendation**: Develop personalization capabilities
+- **Assessment Engine**: Build comprehensive testing system
+- **Analytics Dashboard**: Create learning effectiveness tracking
+- **Deliverable**: Feature-complete platform with advanced capabilities
+
+### 7.4 Refinement Phase (2 Sprints)
+- **Performance Optimization**: Enhance system efficiency
+- **User Experience Polish**: Refine interface and interactions
+- **Content Expansion**: Increase coverage of CCDE curriculum
+- **Integration Hardening**: Strengthen Moodle connectivity
+- **Deliverable**: Production-ready platform
+
+### 7.5 Launch Phase (1 Sprint)
+- **Deployment Preparation**: Finalize production environment
+- **User Documentation**: Complete guides and tutorials
+- **Administrator Training**: Prepare support materials
+- **Launch Planning**: Coordinate release activities
+- **Deliverable**: Launched platform with support materials
+
+## 8. Risk Management Framework
+
+### 8.1 Technical Risks
+```risk-matrix
+# Risk Matrix for Technical Risks
+| Risk | Probability | Impact | Mitigation |
+|------|------------|--------|------------|
+| NLP Accuracy Limitations | High | Medium | Human review process |
+| Integration Challenges | Medium | High | Early proof-of-concept |
+| Performance Issues | Medium | High | Regular performance testing |
+| Scalability Concerns | Low | High | Design for growth |
+| Security Vulnerabilities | Medium | Critical | Regular security assessments |
+```
+
+### 8.2 Content Risks
+- **Curriculum Alignment Gaps**: Regular validation with CCDE requirements
+- **Quality Inconsistency**: Implement standardized review process
+- **Bloom's Misalignment**: Verify cognitive level mapping
+- **Assessment Effectiveness**: Validate through user testing
+- **Content Coverage Gaps**: Track curriculum coverage metrics
+
+### 8.3 Project Risks
+- **Scope Creep**: Maintain strict change management process
+- **Resource Constraints**: Monitor team capacity and adjust scope
+- **Timeline Pressure**: Build buffer into sprint planning
+- **Stakeholder Alignment**: Regular communication and expectation setting
+- **Technical Debt**: Allocate time for refactoring in each sprint
+
+## 9. Measurement and Success Criteria
+
+### 9.1 Development Metrics
+```metrics-dashboard
+# Development Metrics Dashboard
+- Velocity: 30 story points/sprint (target)
+- Quality: <2 defects per 100 story points
+- Technical Debt: 20% of sprint capacity for refactoring
+- Documentation: 100% coverage of APIs and components
+- Integration: 99.5% uptime for Moodle connectivity
+```
+
+### 9.2 Content Metrics
+- **Curriculum Coverage**: Percentage of CCDE topics addressed
+- **Cognitive Level Distribution**: Balance across Bloom's levels
+- **Assessment Quality**: Effectiveness in measuring understanding
+- **Content Consistency**: Adherence to structural standards
+- **Metadata Completeness**: Proper tagging and relationships
+
+### 9.3 User Experience Metrics
+- **Task Completion Rate**: Success in achieving learning objectives
+- **Time on Task**: Efficiency of learning process
+- **User Satisfaction**: Feedback on platform usability
+- **Learning Effectiveness**: Pre/post assessment improvement
+- **Engagement**: Return rate and time spent on platform
+
+## 10. Implementation Roadmap
+
+### 10.1 Phase 1: Platform Foundation (Months 1-2)
+```python
+# Example implementation plan for Phase 1
+implementation_plan = {
+    "phase": "Platform Foundation",
+    "duration": "2 months",
+    "key_deliverables": [
+        "Core architecture implementation",
+        "Basic content model",
+        "Initial Moodle integration",
+        "Fundamental NLP pipeline",
+        "Basic user interface"
+    ],
+    "technical_stack": {
+        "backend": ["Python", "FastAPI", "PostgreSQL"],
+        "nlp": ["spaCy", "NLTK", "Hugging Face Transformers"],
+        "frontend": ["React", "TypeScript", "Material UI"],
+        "devops": ["Docker", "GitHub Actions", "AWS"]
+    },
+    "success_criteria": [
+        "Architecture documentation approved",
+        "Content model validated with SMEs",
+        "Successful connection to Moodle API",
+        "Basic NLP pipeline processes sample content",
+        "UI prototype demonstrates core workflows"
+    ]
+}
+```
+
+### 10.2 Phase 2: Content Processing System (Months 3-4)
+- Enhance NLP/NER components
+- Implement content classification
+- Develop metadata management
+- Create assessment generation
+- Build content validation
+
+### 10.3 Phase 3: Learning Path System (Months 5-6)
+- Implement personalized learning paths
+- Develop progress tracking
+- Create recommendation engine
+- Build adaptive content delivery
+- Implement assessment delivery
+
+### 10.4 Phase 4: Integration and Refinement (Months 7-8)
+- Enhance Moodle integration
+- Optimize performance
+- Refine user experience
+- Expand content coverage
+- Implement analytics dashboard
+
+### 10.5 Phase 5: Launch and Optimization (Months 9-10)
+- Finalize production deployment
+- Complete documentation
+- Conduct user training
+- Launch platform
+- Gather feedback and optimize

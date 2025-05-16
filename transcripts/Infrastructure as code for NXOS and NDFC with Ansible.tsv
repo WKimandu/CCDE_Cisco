@@ -1,0 +1,1146 @@
+start	end	text
+9.419999999999998	12.5	 Infrastructure of code is actually a rather simple principle.
+13.26	14.82	 It's very straightforward in reality.
+15.14	16.82	 It can be hard to implement at scale.
+17.22	19.6	 We're going to walk you through how you do that in this session.
+19.74	22.18	 But first, let us define what infrastructure code is.
+22.76	25.96	 It's taking the reusable task that we all perform.
+26.3	28.08	 With what we do at Cisco, we do it too.
+28.08	30.56	 I build test labs for customers.
+30.76	32.66	 That's a highly repeatable task.
+33.2	35.44	 You all have your own highly repeatable task.
+35.72	39.24	 And taking that and modeling it as code in some form or fashion.
+39.56	47.64	 Now to do that, we start bringing in software aspects and principles and tools into our industry, into our world.
+47.88	53.14	 Some of those are version control, so that's Git repositories or repositories in general.
+53.44	54.44	 That's pipelines.
+54.56	57.8	 Has anybody started hearing the word pipeline in our industry quite frequently?
+57.8	59.7	 Yeah, it's become quite the popular buzzword.
+59.96	62.48	 We'll define what that CICD means here in a second.
+63.359999999999985	67.98	 And when we start doing all this in an automated fashion, it is really good practice, highly
+67.98	68.5	 recommended.
+68.74	70.2	 I have a test background.
+70.36	71.18	 It's what I do for Cisco.
+71.24	72.12	 I do lots of testing.
+72.4	77.52	 It's to also include test automation, not only for your code, but also for the code
+77.52	81.22	 that you are using to automatically take care of your infrastructure.
+82.96	85.56	 Now we put this together just as a reference.
+85.64	87.78	 A lot of people sometimes hear these words.
+87.78	91.6	 These acronyms and terms, and they don't know how they all tie together or where they
+91.6	92.28	 fit in the picture.
+92.78	97.34	 So an SCM, that's your software code manager or management.
+97.76	98.92	 How many of you have heard of GitHub?
+100.5	101.46	 Okay, whole room.
+101.56	102.4	 How many of you have heard of GitLab?
+103.28	104.18	 Just about the same.
+104.28	104.84	 All right, good deal.
+104.94	108.78	 You'll actually see GitLab toward the end of our session, but these are where you create
+108.78	111.28	 those repositories and have those version control systems.
+111.9	116.52	 Now for when it comes to a pipeline, Jenkins is by far probably the most popular coming
+116.52	117.66	 from the software dev world.
+118.25999999999999	122.52	 You'll see GitLab CI in our session because we're using GitLab, so why not?
+123.16	128.18	 GitHub Actions is rather new, but GitHub has its own more or less pipeline nowadays.
+128.68	133.7	 And the last thing we wanted to define for you is a list of infrastructure code software
+133.7	135.88	 tools or automation execution tools.
+137.04	140.68	 It's a given we're talking about Ansible here in this session, but there are a number depending
+140.68	142.66	 on the type of infrastructure you're working with.
+144.14	147.64	 So when it comes to infrastructure as code for network, it's a given.
+147.64	147.64	
+147.64	147.64	
+147.66	151.3	 When it comes to network operations, it really doesn't matter the tool.
+151.46	153.16	 It doesn't matter the programming language.
+153.32	158.08	 Again, the principle is taking your infrastructure and mapping it into code in some form or fashion.
+158.67999999999998	164.06	 So that code becomes the source of truth, not your networking device itself.
+166.32	170.64	 Now I wanted to give you a 10,000 foot view of what this looks like when you pull it all
+170.64	170.86	 together.
+172.16	176.22	 You have your little man over here, your little person over here doing their infrastructure
+176.22	176.6	 code.
+177.66	177.76	 That's me.
+177.94	178.84	 We're hacking away.
+179.14	180.56	 We are coding away.
+180.92	184.3	 We want to commit that to one of these SCM platforms.
+185.22	187.2	 In our case, GitLab again for our lab.
+187.36	191.98	 So when you commit that to one of these platforms, how you build out a CSCD pipeline is that
+191.98	193.96	 platform detects there's a change.
+194.88000000000002	195.6	 Simple enough.
+195.94	199.4	 When it detects there's a change, it fires off these things called runners.
+199.82	204.7	 Those runners are going to go and deploy your infrastructure as code to a staging environment.
+205.12	206.92	 Now it's ideal to have a staging environment.
+207.12	207.64	 And that can cost you a lot of money.
+207.66	209.58	 It can come in many forms and fashions.
+209.72	211.06	 It can be virtualized.
+211.14	213.2	 It can be a subset of your production environment.
+214.04000000000002	218.82	 In some cases, I've worked with a couple customers where it is the pre-staging of their production
+218.82	220.36	 environment before it goes into production.
+221.08	225.48	 Anything to have a staging environment to test your infrastructure code against so that
+225.48	227.06	 you're happy with the changes it's going to make.
+227.58	231.74	 Now that's the continuous integration portion of the pipeline, the CI portion.
+232.46	235.56	 Now the CD portion can be defined one of two ways.
+236.16	237.64	 When you let the CD go to the pipeline, you're going to have a continuous integration portion.
+237.64	241.24	 When you let the CI portion run, as long as that's successful, it can sit there and wait
+241.24	242.56	 for you as the engineer.
+242.74	246.4	 So that's manual human intervention to say, okay, it's good.
+247.34	251.08	 Let it provision and configure my production environment.
+251.4	255.52	 So there's one step you have to take to say it's okay to let it go do that.
+256.31999999999994	257.94	 That's continuous delivery.
+258.7	264.8	 When it becomes continuous deployment is when you and your workflow and the engineering
+264.8	266.58	 team fully trust the automation.
+266.86	267.62	 And the pipeline.
+267.64	271.2	 That it automatically will just provision your production environment.
+271.56	275.5	 So again, there's a difference in continuous delivery and continuous deployment.
+278.15999999999997	280.92	 Now we're going to jump straight into infrastructure as code with NXOS.
+281.92	284.04	 So it's an automation orchestration platform.
+284.44	286.28	 It is open sourced by Red Hat.
+286.92	292.04	 The best thing about it in our industry is it doesn't require hardly any programming
+292.04	292.4	 knowledge.
+292.48	296.34	 If you do have programming knowledge, it's only going to help and amplify things that
+296.34	297.26	 you can do with Ansible.
+297.64	298.48	 But it's not required.
+298.78	300.3	 At least not from our experience.
+300.88	307.4	 Now what is required is you taking your configuration intent, how you want your network to look,
+307.48	309.36	 and defining that in data structures.
+309.78	314.56	 They can look several different ways, and we'll see a couple of those here in this session
+314.56	315.48	 and how we build that out.
+317.14000000000004	322.34	 With Ansible defined, we need to think about what makes up our Ansible environment.
+322.96	324.28	 Now go back to my daughter.
+324.36	326.38	 She's hacking away on her toy laptop.
+327.0	327.62	 Ansible is a very complex environment.
+327.62	329.02	 People would call that your control host.
+329.44	332.82	 If you read Ansible docs, you'll find the words control host there.
+333.7	338.36	 This for you and me is probably a Mac or a Linux machine, and if you have Windows, God
+338.36	338.86	 bless you.
+338.96	340.7	 Now's a good time to invest in one of the other two.
+341.56	344.66	 But in all seriousness, you have WSL on Windows.
+344.88	347.68	 You can make use of that so you're not left alone.
+348.66	350.02	 Or you can partner with Red Hat.
+350.1	355.86	 They have Red Hat automation platform, or their open source-ish version of that is AWX.
+357.08	357.6	 Now, I'm going to talk about the AWS.
+357.6	357.6	
+357.62	361.14	 Now, with our control host, we need to get Ansible on it.
+361.4	367.24	 Until we put Ansible on it, it's just still our laptop, per se, or a VM in a data center.
+368.52000000000004	370.6	 Now how many of you have experience with Python?
+372.06	372.7	 All right, good.
+372.78	373.44	 Good number of hands.
+373.62	374.86	 You don't really need it here.
+375.30000000000007	377.2	 We just need a Python environment.
+377.84000000000003	381.76	 We're going to have one comment about a Python environment after this, but you just need
+381.76	385.42	 somewhere where you have Python and you can install Ansible, and we're going to go through
+385.42	387.6	 how you install Ansible because there's a couple ways that's changed.
+388.52000000000004	391.32	 I just want to make sure it's fresh and current in your mind.
+392.08000000000004	395.9	 Now with Ansible installed, how Ansible is structured nowadays uses collections.
+396.2	399.44	 We're going to focus on mainly three collections in this session.
+399.72	404.02	 The built-in collections, the NXOS collections, that's probably a given.
+404.38	406.52	 And then, wait, does that say DCNM?
+407.04	408.84	 All right, well, I'll let Mike demystify that.
+408.98	410.28	 I don't even know what that means.
+410.38	411.92	 So I'm going to let Mike clarify that for you.
+411.96	412.78	 We got DCNM here.
+412.92	413.92	 He's going to talk about NDFC.
+414.26	415.7	 He'll marry that together for you.
+416.54	416.94	 Yeah.
+417.6	418.14	 Appreciate it.
+418.16	420.36	 Just want to, don't want to steal your thunder.
+421.04	427.12	 So once we have our control platform and Ansible installed, we are now ready to start modeling
+427.12	428.16	 our infrastructure as code.
+428.32	429.18	 Again, this is our intent.
+429.42	433.38	 This is where we want to create our source of truth that represents our network.
+434.22	436.42	 Ansible is going to do that in something called Playbooks.
+436.68	439.92	 Now we're going to break all of that down there and how you pull that together in a
+439.92	440.34	 use case.
+441.92	447.02	 Before we move on, though, we need to tell Ansible who our targets are, who we're going
+447.02	447.58	 to connect to.
+448.08	451.88	 As I talk to you about NXOS, keep in mind that's direct to switch.
+452.12	456.46	 So every switch you have in your network or every switch you have in a fabric, that control
+456.46	459.5	 Ansible control host is connecting direct to switch or switches.
+460.68	464.52	 When Mike talks to you, it's going to be direct to controller within DFC, right?
+464.58	465.54	 There's some subtle differences.
+466.3	474.08	 Now I do want to point out with NXOS when you go direct to a device such as a router
+474.08	474.58	 or a switch.
+474.94	476.84	 Ansible does support three ways of doing that.
+476.84	479.36	 Obviously, the CLI, good old SSH.
+479.38	480.78	 They call that the network CLI.
+481.06	484.54	 We do have netconf here, but we're not going to cover that in this session.
+484.66	487.12	 If you want to talk about that afterwards, please find me.
+487.3	490.7	 There's some subtle differences with how Ansible automation works.
+491.7	495.96	 It's kind of outside the NXOS things we're going to cover here, but it absolutely works.
+496.38	501.02	 Now with NXOS and the REST API, if you are using NX API, everything we talk about with
+501.02	504.92	 the NXOS, excuse me, then say something five times fast.
+505.12	506.3	 The network CLI.
+506.3	510.18	 We'll actually work with NX API via the REST API plugin inside of Ansible.
+512.1400000000001	515.32	 Now I told you I wanted to do a quick word about Python.
+515.54	517.24	 Again, you don't need to know a lot about Python.
+517.34	521.22	 One thing I would highly encourage you to do though is establish a Python virtual environment
+521.22	522.2	 in some form or fashion.
+522.36	524.0	 You can do this natively with Python 3.
+524.2	527.08	 We have a reference slide in your deck with how I like to do it.
+527.26	533.9	 It's pyenv because it not only lets you create the virtual environment, it lets you instantiate
+533.9	536.22	 different versions of Python itself.
+536.22	537.62	 So, you may have use cases.
+537.76	539.52	 I saw a lot of hands that came up about Python.
+539.96	541.84	 You might have some things you're trying to do with Ansible.
+542.02	543.56	 You might need different versions of Ansible.
+543.9	548.46	 You might be developing some little command line application or something in your Python.
+548.66	549.82	 It's best to keep those separate.
+549.98	554.46	 So we have a reference slide there for you outside of scope of the session, but we don't
+554.46	558.82	 want you walking out of here thinking, you know, I got my laptop and I can just slap
+558.82	559.66	 Ansible on it.
+559.72	560.6	 Take this step first.
+560.7	561.3	 Highly encouraged.
+563.6	566.0	 Now, I said there's a couple of ways to install Ansible.
+566.06	566.2	 I said there's a couple of ways to install Ansible.
+566.2	566.2	
+566.2	566.2	
+567.78	569.76	 This changed over the last couple of years.
+570.08	574.6	 So how you install Ansible is using the Python package manager pip.
+575.54	577.02	 So you pip install Ansible.
+577.18	582.68	 If we pip install core, that is going to come in a that is going to give you Ansible in
+582.68	583.4	 a lightweight fashion.
+583.5	585.22	 It's just going to give you the core components.
+585.4	588.34	 So remember that built in collection that I showed you at the top?
+588.46	591.42	 So that's something that comes with the core components.
+592.3199999999999	595.02	 Anything else you need, you actually have to install yourself.
+595.52	595.96	 Okay.
+596.22	599.64	 So the benefit of that is you potentially when you go install the collections, you're
+599.64	600.84	 going to get the latest and greatest.
+601.32	602.16	 That sound good?
+602.98	606.86	 Now if you do the traditional manner of installing Ansible where you just pip install Ansible,
+607.78	609.3	 you'll find this in Ansible docs.
+609.48	612.16	 I think we laugh and joke about it, but it's the batteries included.
+612.36	613.58	 It's the whole thing still.
+613.74	614.12	 Okay.
+614.2	619.9	 What that means is Ansible core along with a curated list of collections that Ansible
+619.9	621.58	 prepackages with the install.
+622.1400000000001	623.62	 And XOS is one of those.
+623.78	626.2	 But it doesn't mean you're getting the latest version of the install.
+626.2	626.64	 It means you're getting the latest version of the collection.
+627.08	628.36	 So keep that in mind, right?
+628.58	629.54	 Subtle little details.
+631.6	638.96	 Now with defining what Ansible is and bringing up this term collections, want to double click
+638.96	640.18	 into collections just briefly.
+640.3	641.6	 Make sure we're all on the same page.
+642.06	646.2	 So collections has been in existence since really Ansible 2.9.
+646.4	649.42	 It was kind of in a beta pre-release stage in there.
+650.1800000000001	654.52	 You could reference the old modules and the new way the modules are referenced.
+654.92	656.18	 If pip is in the old modules, you'll be able to see that the new modules are not in the
+656.18	656.18	
+656.18	656.18	
+656.18	656.18	
+656.18	656.18	
+656.18	656.18	
+656.18	666.2	 old modules.
+666.34	672.12	 So as I mentioned, if you did Ansible core and you need to install your collections,
+672.32	674.32	 you're going to use this command here at the bottom of the screen.
+674.6	681.38	 You can see that I do Ansible Galaxy collection install Cisco NXOS and Cisco.dcnm.
+681.66	682.1	 Okay.
+682.16	686.16	 And that will give me those collections in my Ansible environment or my Ansible collection.
+686.16	686.16	
+686.16	686.16	
+686.16	686.16	
+686.18	691.36	 Now, the important thing about collections is really that it's going to give you a bunch
+691.36	691.84	 of modules.
+692.28	697.18	 It's a bunch of code that's already been written to do something on our switches and routers
+697.18	697.82	 on our behalf.
+698.1	698.38	 Okay.
+698.42	700.0	 Code that you don't have to go and write.
+700.3	704.36	 And a lot of that code is going to come with filters and plug-ins for things.
+704.64	708.96	 We'll hit on a couple of them in this session to optimize things you're doing in Ansible
+708.96	711.24	 for delivering your configuration to the switch.
+714.1999999999999	715.96	 So taking the NXOS collection.
+715.96	718.76	 As an example, there are 77 modules.
+725.34	726.36	 Test one, test two.
+726.44	727.06	 Am I back?
+727.72	728.4	 All right.
+729.44	730.38	 Can I get a round of applause?
+730.58	730.92	 No, I'm just kidding.
+731.8	732.26	 All right.
+732.28	737.48	 So as we were going, we're going to take the Cisco NXOS collection as our example and double
+737.48	741.06	 click into that so we can see kind of what's packaged there with those modules.
+741.54	745.18	 Again, as I was saying, there are 77 modules already there.
+745.26	745.94	 They do a whole lot of things.
+745.94	745.94	
+745.94	745.94	
+745.94	745.94	
+745.96	746.44	 There's a whole lot for you.
+747.1	753.44	 Interface configuration, VLAN configuration, a whole bunch of routing protocols, et cetera.
+754.0	757.02	 Now I don't say this lightly.
+757.22	759.78	 I'm actually impressed with the documentation with these modules.
+760.06	761.82	 It tells you how to use them all.
+762.48	764.92	 I'm going to learn by doing and seeing.
+765.14	768.1	 There's lots of examples there to help you get started.
+768.34	769.6	 I really like that.
+770.18	775.72	 The module documentation also has the parameters that are required to run the automation.
+775.72	780.92	 As well as the ones that are set by default so that you know what is set by default in
+780.92	782.08	 case you need to override it.
+782.22	784.7	 I want to point that out because that's very important sometimes.
+784.84	787.74	 Sometimes we want to override the defaults that a module has set.
+788.04	789.54	 Just keep that in mind.
+790.06	794.36	 Now one thing I'd like to maybe demystify, I hear this from customers sometimes.
+794.5	798.76	 They wonder who to reach out to if they have a problem when they use Ansible.
+799.0	805.02	 Well, our NXOS modules, iOS modules, and iOSXR modules are actually maintained by Red Hat.
+805.72	808.72	 But maintained with heavy Cisco support in the background.
+808.96	811.74	 So just keep that in mind when you're using those core modules.
+813.3000000000001	819.26	 Now if we take one module out of the NXOS collection, out of the 77, and we look at
+819.26	825.34	 this NXOS VLANs module, when collections came into existence, it became best practice when
+825.34	829.98	 you were writing your Ansible automation to use the fully qualified collection name or
+829.98	831.0	 the FQCN.
+831.62	833.1	 Say that one five times fast.
+833.44	834.96	 We're used to saying FQDN.
+835.04	835.7	 But FQDN.
+835.7	835.7	
+835.7	835.7	
+835.7	835.7	
+835.7	835.7	
+835.7	835.7	
+835.7	835.7	
+835.7	835.7	
+835.72	836.38	 Throw a C in there.
+837.9799999999999	841.84	 Now you have the collection namespace that is part of that now.
+842.28	844.68	 So Cisco obviously here for this conversation.
+845.5	847.12	 Then you have the collection name.
+848.34	850.34	 And then the actual module name.
+850.46	854.2	 And that's what most of us are familiar with with Ansible if you started with this in the
+854.2	856.22	 early days is you just had that module name.
+856.4	862.68	 Now as I was mentioning in the documentation, it tells you what you need to drive a module
+862.68	863.94	 from an automation standpoint.
+864.16	865.54	 Every module is going to have parameters.
+865.54	865.7	 Every module is going to have parameters.
+865.7	865.7	
+865.7	865.7	
+866.4599999999999	871.02	 And you're going to need to pass in some type of value into those parameters to drive that
+871.02	871.66	 module's automation.
+873.76	874.46	 Okay, great.
+875.08	876.34	 We know what Ansible is.
+876.54	877.74	 We know how to get it installed.
+878.22	879.46	 We know about collections.
+879.8	884.2	 So let's start pulling all that together with some Ansible concepts for our use case.
+885.62	891.3	 Now for this session, I am going to describe to you and build out with you Ansible best
+891.3	893.8	 practices for a VXLAN EVPN use case.
+894.26	895.7	 How many are familiar with VXLAN?
+895.7	895.7	
+897.28	898.16	 All right, good.
+898.24	899.18	 Most of the room raised their hand.
+899.26	899.64	 That's awesome.
+900.5	902.94	 If you're not familiar with it, it's not a big deal.
+903.0	906.32	 Everything we're going to show you here applies to traditional networking.
+906.4	907.4	 It could be a three-tiered architecture.
+907.66	908.14	 It doesn't matter.
+908.46	908.5	 Okay?
+908.9599999999999	913.48	 Just the intent that we're going to describe here is relevant to VXLAN, but you can take
+913.48	916.84	 it and mimic it for any network architecture.
+917.7	921.64	 Now when we start with VXLAN EVPN, just a base fabric, we have a simple one here.
+921.92	923.3	 We have five devices.
+924.06	924.42	 Okay?
+924.42	929.46	 We want to do common configuration to all of our devices in the network.
+929.66	931.68	 Again, VXLAN EVPN or not.
+932.0	933.32	 We want to set host names.
+933.84	935.14	 We want to install features.
+935.38	937.08	 We're dealing with Nexus here, so we're going to install features.
+937.98	940.8	 You could add to that list things like NTP, AAA.
+941.1	944.04	 We want all these devices to have those things configured.
+944.2	947.2	 We want all that intent defined and configured by our automation.
+948.54	951.54	 Well, with VXLAN EVPN, we then need to establish the underlay.
+951.66	953.58	 We need to figure out and define how.
+953.58	957.7	 all of our switches are going to be connected to each other. So that's going to be interface
+957.7	964.64	 information, interface state, IP information, and also descriptions. You're also in the underlay
+964.64	968.72	 going to find routing protocols. So you can see there's quite a bit for underlay configuration
+968.72	975.76	 that we'd want to define in our code. Lastly, to get a base fabric up, you then need to define
+975.76	981.56	 the characteristics of an overlay. These are going to be VRFs, VLANs, host-facing SVIs, etc.
+984.62	989.52	 Now, when we bring this into Ansible and start modeling it as code, we have to define a directory
+989.52	993.76	 structure. Those of you that have used Ansible, any pains with the directory structures? Does it all
+993.76	1000.26	 make sense to you? Yeah? Okay. Ansible directory structures are very important, and what we have
+1000.26	1004.74	 here is a slimmed-down version of a best practice way to define that directory structure, one you
+1004.74	1008.14	 could use to start with and then scale up, or you could compare it to what you're doing today
+1008.6800000000001	1010.7	 and see if you need to make any modifications.
+1011.6800000000001	1017.08	 We broke this down into four categories. We need to define where to do our automation. So this goes
+1017.08	1023.0	 back to our targets that we defined early on, the data to do our automation. Remember, you've got to
+1023.0	1028.8	 have parameters fed into your modules to drive your automation. And then reusable code. We want
+1028.8	1033.44	 to make sure we write highly reusable code. We don't want one-off tasks and playbooks, right? We
+1033.44	1040.34	 want to make sure that's how we do it. And then at the very end, how Ansible pulls all this together,
+1040.46	1041.1	 as I mentioned,
+1041.56	1046.42	 is in playbooks. So we're going to define a playbook, and it's going to take all of the above,
+1047.48	1055.04	 it's going to pull all of the above together to run our Ansible automation. Now, here, you can see our simple
+1055.04	1064.32	 playbook defined, and we really want to do three things. I kind of described it going over our
+1064.32	1069.18	 fabric. We want to do common and underlay configuration, and we want to do overlay configuration.
+1069.9599999999998	1085.0	 Some of you, I'm not sure if you've seen playbooks designed this way. We're going to do this to show you how it's done in a reusable fashion. But you may be asking yourself, well, now, how does that playbook know what devices to connect to and where and how to apply certain pieces of configuration?
+1086.22	1099.16	 Well, that's where the Ansible inventory comes into play. Now, you could have more than one inventory file. We're going to use one here for the purposes of this session. But in the inventory file, it's where we start taking the connection information using Ansible.
+1099.18	1118.06	 So, we're going to start using parameters defined by Ansible that you need to populate, and they tell you how you connect to your switches. Again, here, we're going to use the network CLI, right? We're going to stick with good old SSH. But then we define our username, password, and in this case, since we're using Cisco NXOS, the network OS is Cisco NXOS NXOS.
+1118.84	1129.16	 Now, the next thing we do in our inventory files is a good practice, is to start to group our devices and how they reside in our network. For a VXLAN fabric, as you can probably guess with a lot of people, it's going to be a VXLAN.
+1129.18	1139.34	 So, this use case is pretty easy to do. We have two spines, so we can group our two spines into a spines group. We have three leafs, so we can group our three leafs into a leafs group.
+1140.34	1152.2	 If we head back to, well, excuse me, sorry about this. There is some slide real estate we needed to salvage in this session. So, we're going to take the Ansible connection and just simplify it down into network CLI.
+1152.52	1159.16	 Wanted you to have that in your notes, your reference slides that you take away from here. So, if you're looking back, you know why we changed that.
+1159.18	1160.04	 In the examples.
+1161.14	1168.36	 But if we do go back to our main playbook, we can now look at the three things that we wanted to do, the three configuration things we wanted to do.
+1168.66	1172.7	 Again, common configuration, underlay configuration, and overlay configuration.
+1174.06	1179.92	 We can look now and understand that our common and underlay configuration is going to be applied to our spine devices.
+1181.12	1184.88	 Our common and underlay configuration is also going to be applied to our leaf devices.
+1185.36	1188.3	 And our overlay configuration is only going to be applied.
+1189.18	1190.26	 To our leaf devices.
+1191.2	1200.8	 You can see how with Ansible doing it this way, we can target our configuration to specific devices based off how we have our reusable automation defined.
+1201.68	1203.52	 Now you might be asking yourself.
+1204.58	1210.72	 How do we define that reasonable automation? How are we telling Ansible what we want to do to our switches?
+1211.56	1216.86	 And we do that with Ansible roles. Now a lot of hands went up about Ansible. How many of you are using roles?
+1218.38	1219.16	 Not as many.
+1219.18	1220.56	 Not as many hands. That's good.
+1221.06	1224.96	 So Ansible roles is a good way to define reusable task in Ansible.
+1225.22	1231.0	 So take your general playbooks and you take those tasks that you have in your general playbooks and you group them into these roles.
+1231.9	1240.58	 This is very easy to do with a VXLan EVPN fabric use case because again we had our three configuration tasks that we want to do.
+1240.72	1245.22	 Right? We have common configuration. We have underlay configuration and overlay configuration.
+1245.74	1248.86	 You're going to get tired of me saying that, but I want to make sure you don't forget it.
+1249.18	1253.18	 So we can group all of our common configuration task into a common role.
+1253.34	1257.16	 We can take all of our underlay configuration tasks into an underlay role.
+1257.52	1261.62	 We can take all of our overlay configuration tasks into an overlay role.
+1262.4	1263.34	 That all make sense?
+1264.3	1265.74	 Awesome. A lot of head nods.
+1266.1	1272.34	 Now if we expand out what the directory structure and this is a simplified directory structure for this session for a role.
+1272.8	1278.44	 It is the task section here where we pull all of that together to define.
+1279.18	1280.94	 How we're going to configure our switches.
+1281.3400000000001	1281.7	 Okay.
+1282.5	1284.9	 Now I tried to find a Taylor Swift reference to this.
+1285.02	1286.52	 Don't ask me why, but I tried to.
+1287.26	1295.12	 How many of you can go back to 1995 and remember a hit song that uses the this is how we do it.
+1295.4	1297.6	 Can anybody go back to 1995 remember that?
+1298.5	1298.86	 Awesome.
+1298.98	1301.44	 Now I can't I cannot sing so I'm not going to sing it for you.
+1301.54	1306.4	 But there is a song that I want every one of you to pull up on your flight home.
+1306.52	1307.7	 Spotify, Apple Music.
+1307.98	1309.04	 This is how we do it.
+1309.18	1313.62	 And you're going to rock out to that and start your infrastructure is code journey right there on that plane.
+1313.76	1314.1	 Okay.
+1314.48	1317.58	 I want to have some messages dropped in our WebEx space that I'm doing it.
+1317.58	1319.82	 Give me a picture on your flight right there.
+1320.06	1320.98	 Let's make it happen.
+1321.46	1322.96	 Now you'll never forget this though.
+1323.0	1325.42	 You'll never forget the this is how we do it.
+1325.46	1326.32	 This is in Ansible.
+1326.4	1330.86	 This is how we actually apply the configuration to our switches through these reusable roles.
+1332.2999999999997	1335.54	 So if we unpack the roles just a little bit right.
+1336.36	1338.86	 So we're not looking at a whole bunch of code all over the place.
+1338.86	1342.38	 And definitions that way.
+1342.88	1344.96	 Let's look at it kind of from a graphical point of view.
+1345.14	1347.8	 I verbally talked about what our common role was going to do.
+1347.96	1350.62	 It's going to handle things like our host name and features.
+1351.02	1355.58	 Again you can keep expanding that if there's common things that you do across all your devices in your network.
+1355.76	1356.8	 They're all going to go there.
+1357.18	1357.62	 Okay.
+1357.66	1358.84	 Those tasks are going to go there.
+1359.2	1365.84	 The underlay very simple interface information IP address stuff descriptions routing protocols.
+1366.24	1368.74	 And if you do multicast in a VXLinux VPN.
+1368.8	1368.84	 You're going to get a lot of stuff.
+1368.84	1368.84	
+1368.86	1370.98	 And fabric all your PIM stuff is going to go there as well.
+1372.1	1373.14	 Then for the overlay.
+1373.66	1376.46	 If we build that out again we need VRS.
+1376.6	1377.84	 We need VLANs.
+1377.84	1379.04	 We need host facing interfaces.
+1379.56	1385.78	 We need that NVE interface to map all that to to make our leafs virtual tunnel endpoints or VTEPs.
+1385.78	1385.98	 Right.
+1386.02	1389.14	 So that that's all handled in that overlay role.
+1390.82	1395.06	 Now I want to expand just the overlay role for the purposes of dialogue here.
+1395.54	1398.72	 You can see this is the overlay tasks main.yaml.
+1398.86	1402.02	 So this is the actual task file for our overlay role.
+1402.16	1403.22	 Now it's a snippet of it.
+1403.82	1405.92	 Can't can't fit a whole lot of this on a slide.
+1406.06	1407.64	 So we're going to we're going to look at a snippet of it.
+1407.94	1413.12	 Now we're using that same reference and XOS module we referred to earlier.
+1413.28	1413.68	 Right.
+1413.96	1415.24	 And XOS VLANs.
+1415.5	1418.48	 Here we're taking a list of VLANs.
+1418.96	1421.58	 And we're sending it in a config block to the switch.
+1422.34	1422.82	 Okay.
+1423.16	1427.88	 Now remember when we use this role it's actually applying to all of our switches.
+1428.86	1433.96	 This data structure that you see in front of you is a simple what we call YAML list.
+1434.12	1434.92	 How many are familiar with YAML?
+1436.14	1436.58	 Okay.
+1436.6	1436.82	 Great.
+1437.08	1437.52	 Awesome.
+1437.64	1438.22	 Majority of the room.
+1438.42	1441.92	 This is a YAML list and it's actually a list of dictionaries.
+1442.06	1448.78	 There's a bunch of key pair values there with the name the VLAN ID and the map VNI are all the keys and the values associated there.
+1448.88	1453.68	 So now this is the data or this is how we want the switch to be configured with these items.
+1456.98	1458.72	 So let's pull everything we've done.
+1458.86	1459.6	 Up to this point together.
+1460.08	1460.92	 That sound good.
+1461.0	1463.28	 So we can see how it all connects and plays well together.
+1463.82	1467.44	 We have the way we want to do it defined in our Ansible inventory file.
+1468.02	1468.42	 Okay.
+1468.48	1469.0	 These are targets.
+1469.74	1470.78	 One or more switches.
+1470.86	1471.96	 We have five in this case.
+1473.04	1476.1	 We pull together and we pull out our main playbook.
+1476.84	1478.3	 This is what we want to do.
+1478.46	1478.86	 Okay.
+1478.92	1483.62	 Remember we want to do common configuration underlay configuration and overlay configuration.
+1484.0	1487.96	 We're going to stick with the overlay configuration example because that's the role we were looking at.
+1487.96	1496.14	 So if we pull that task file out and look at that we have that same overlay role sitting here now side by side.
+1496.26	1499.2	 So now you can see all the three pieces that we've looked at up to this point.
+1500.9399999999998	1512.94	 Now again just to drive the point home our leafs are going to reference our leafs in our main playbook are referencing our leafs to find an inventory file and the overlay configuration we have is referencing that task there.
+1513.32	1517.8	 And again when this does that 3VLANs to all three of our.
+1517.96	1518.3	 Leaf switches.
+1518.62	1520.3	 I think that's pretty awesome.
+1520.64	1522.46	 I think that's pretty easy and pretty straightforward.
+1522.82	1524.02	 Does anybody agree.
+1524.26	1525.32	 Can I get a show of hands.
+1525.44	1527.2	 We all agree that that's pretty easy that's pretty straightforward.
+1527.98	1528.66	 Okay awesome.
+1528.76	1529.82	 Some hands had nods.
+1529.82	1530.16	 Good deal.
+1530.7	1531.22	 All right.
+1531.24	1532.62	 Don't don't do your variables this way.
+1532.72	1533.32	 Don't please.
+1533.6	1534.0	 Okay.
+1534.12	1537.02	 This is just for illustrative purposes to show you how to pull all this together.
+1537.3	1540.42	 But do not do your drive your data this way.
+1541.02	1541.42	 Okay.
+1541.5	1545.08	 It does not make your roles is reusable as they can be.
+1545.3	1547.1	 So let's look at how we can make them.
+1547.1	1548.34	 More reusable.
+1555.48	1559.62	 By default a role is going to be named main.yaml when you first create it.
+1559.68	1563.36	 But you can use any name and include it in the main.yaml.
+1572.1200000000001	1574.8	 It'll only run your main file.
+1575.28	1576.84	 But if you include.
+1576.84	1578.78	 Something with the include built in.
+1578.88	1580.84	 It'll run anything that you include below.
+1580.96	1582.76	 I was trying to think how to answer that a little differently.
+1582.94	1583.98	 Because one of those built in.
+1585.3	1586.92	 Modules that comes with the Ansible.
+1587.52	1588.38	 Core collection.
+1588.64	1590.18	 So that built in collection.
+1590.94	1593.4	 There's a bunch of include type modules.
+1593.6	1595.72	 So you can actually include roles within roles.
+1596.0	1596.78	 You can include other.
+1597.6399999999999	1599.26	 Tasks from somewhere else.
+1599.3	1600.34	 And that would be what you do.
+1600.66	1601.6	 Here in this case.
+1604.12	1604.56	 Okay.
+1604.58	1605.92	 So a quick word about variables.
+1606.26	1606.7	 Again.
+1606.84	1607.76	 This is just a level set makes.
+1607.82	1608.68	 We're all on the same page.
+1608.78	1610.58	 And we know how to reference them all the same way.
+1610.78	1611.14	 Now.
+1611.7800000000002	1617.34	 Variables and Ansible are primarily used within the tasks of the modules that we just looked at.
+1617.52	1619.18	 They can be used in conditional logic.
+1619.5	1620.92	 They can also be used in templates.
+1622.24	1625.5	 Another thing that we're going to show you in this session is how you can use.
+1626.5800000000002	1630.92	 Excuse me how you can use variables and define them on the fly dynamically within your task.
+1631.14	1632.08	 Does anybody do that today.
+1632.2	1634.82	 Does anybody build dynamic variables in your playbooks today.
+1635.66	1636.02	 Awesome.
+1636.06	1636.52	 Pretty cool.
+1636.84	1637.26	 Pretty cool.
+1637.74	1639.82	 Now when we reference variables and Ansible.
+1639.96	1642.34	 We do so in what's called Jinja 2 syntax.
+1642.68	1644.3	 Or reference it in Jinja 2 syntax.
+1645.6000000000001	1651.1	 So if we take our same NXOS VLANs example from before out of our overlay roles.
+1651.38	1654.22	 We can institute variable substitution.
+1654.66	1658.8	 How variable substitution looks is with quotes and double curly brackets.
+1659.72	1660.52	 Simple enough.
+1660.56	1661.46	 Easy enough to recognize.
+1662.1200000000001	1665.6	 So now if we look at our NXOS VLANs task.
+1665.9	1666.82	 In the module.
+1666.84	1670.98	 We see we have three places where we have quotes in double curly brackets.
+1671.28	1673.74	 So we're doing variable substitution in three locations.
+1674.9199999999998	1678.46	 We have a variable now called VLAN names VLAN ID and VNI ID.
+1679.4399999999998	1682.1	 We define those variables in some file within Ansible.
+1682.28	1682.64	 OK.
+1683.3999999999999	1687.34	 And those are simply passed into the task and that is variable substitution.
+1687.66	1688.14	 OK.
+1688.18	1692.1	 The variables will take on the values of those variables wherever they're defined.
+1693.1399999999999	1693.58	 Now that's great.
+1693.7	1695.52	 That is a great first step in.
+1695.52	1696.64	 In reuse.
+1696.92	1698.58	 But we can do so much better.
+1699.16	1703.18	 If we go back to the understanding that we had a list defined before.
+1703.62	1706.14	 In our variable file location wherever it may be.
+1706.36	1709.16	 We can define a list of that same VLAN data.
+1709.7	1710.5	 Does that make sense?
+1710.62	1711.82	 We've just expanded it out.
+1712.88	1714.08	 Now that list again.
+1714.16	1715.82	 I just want to reiterate this.
+1716.0	1718.62	 If anybody isn't custom to looking at YAML.
+1718.92	1721.7	 That list becomes a list of dictionaries.
+1721.84	1723.04	 With all of that data.
+1723.46	1723.94	 OK.
+1724.24	1725.5	 Now what we can do with that.
+1725.5	1728.24	 With Ansible modules in any given task.
+1730.48	1731.32	 Is use a loop mechanism.
+1731.82	1737.18	 Now you probably see one thing two things different here with our NXOS VLANs example.
+1737.4	1739.84	 We've now added a loop keyword.
+1740.72	1743.02	 So this is a loop mechanism or construct that Ansible offers.
+1743.86	1746.34	 And we use the networks list that we have before.
+1747.26	1750.84	 But now in our quotes and double curly brackets.
+1751.6	1753.08	 We now have a new word item.
+1753.8	1755.14	 Item is going to tell us.
+1755.14	1757.42	 Where we are in our list as we iterate over it.
+1757.56	1760.66	 So in this example in the current state we are right now.
+1760.82	1762.24	 We are in our second.
+1762.7	1763.76	 Entry of our list.
+1763.94	1766.54	 So when we perform the variable substitution this time.
+1766.72	1767.56	 It's going to pull.
+1767.84	1770.62	 The values from the second location of the list.
+1771.64	1772.58	 I don't make sense.
+1773.6	1774.94	 Seem pretty good pretty powerful.
+1775.62	1777.18	 OK this is also great.
+1777.54	1781.66	 But also this can be very slow and Ansible depending on your your data set.
+1781.8	1782.24	 OK.
+1782.54	1785.12	 So I'm going to show you one other way later on with template.
+1785.14	1788.32	 How we can expedite this because every time this loop executes.
+1788.58	1789.92	 It's a configuration operation.
+1790.72	1791.62	 See how it can be.
+1792.4	1793.06	 Pretty slow.
+1793.84	1796.24	 OK when we show you how you can do it in one config transaction.
+1798.4399999999998	1801.74	 Now to get back on track with our four categories.
+1802.12	1806.2	 We've been looking at different ways to model the data and use the data in our task.
+1806.98	1809.82	 Now we need to figure out where to define it with an Ansible.
+1810.34	1814.42	 On the word about the word about variables Ansible does have a lot of locations.
+1814.56	1814.86	 You can.
+1814.86	1820.94	 Define variables there's north twenty twenty plus and use precedence to dictate what which ones are selected first.
+1821.22	1822.8	 That's outside the scope of the session.
+1822.98	1826.14	 We probably could spend thirty forty five minutes just just talking about that.
+1826.3	1831.92	 There was a link that you can reference for for your own self to understand where you want to place variables.
+1832.28	1840.44	 Now what Mike and I are showing you in this session is the two most common places you're going to place variables and that's in your group bars and your host bars.
+1841.18	1844.56	 Group bars probably pretty straightforward if we've followed along.
+1844.56	1849.54	 Up to this point remember we define two groups in our inventory file spines lease right.
+1850.74	1858.26	 So if we look in our group bars we're going to have two files that model after those those groups is as simple as that.
+1859.4800000000002	1870.94	 Now if we expand our lease group variable file we can see that we have things that we want provisioned and configured to every single leaf in our fabric.
+1871.6399999999999	1873.12	 We want them all to have the same features.
+1873.42	1874.36	 We want them.
+1874.36	1877.4	 All to have the same networks same networks that we just looked at.
+1877.8	1880.74	 Now when we get to host bars.
+1881.36	1886.24	 This is where for some people gets just a little bit complicated because it's a little more to keep up with.
+1886.96	1894.68	 Now you remember we had five devices in our fabric so you have to define all five here for anything that is specific to that device.
+1895.16	1903.74	 So if we expand our leaf one as an example we have a host name to find there we have our L three interface configuration to find there.
+1903.74	1909.84	 And that's going to be different across every leaf in the fabric so every device is going to have a host bars file.
+1910.4	1919.96	 Now the host bars file this is where it gets a little tricky sometimes we all like to think of our host names of our devices if you didn't use your host name in your inventory file and suppose not going to find it.
+1920.46	1930.98	 Okay so whatever name you used or however you use to connect to your switch whether it's the FQDN or the IP address in your inventory file that's how you need to name your host bars file.
+1933.74	1937.84	 All right we're going to pull it all together one last time for the win for the grand slam.
+1938.6	1946.8	 We have our category of where to do it and we know how we're going to do that with with the groups that we defined there are targets remember.
+1948.4	1958.4	 We pull back in our main playbook this time we are actually going to focus on our common configuration we're going to get away from the overlay we've talked about that enough let's talk about a common configuration.
+1959.72	1963.66	 So in our common for our common configuration we're going to take in it's going to be.
+1963.74	1966.5	 Executed across across both the spines and the leafs.
+1967.52	1979.0	 So if we pull our common configuration task in right so we looked at the overlay one now this is what the common one might look like you have a task that configures the host name you have a task that configures the features.
+1979.58	1986.5	 You can see our features task is using loop it doesn't have that capability to do the the the big config block a word on that later.
+1988.34	1993.02	 We have to sticking with our leaf one example because we need we need to pick one of our switches an example here.
+1993.1	1993.46	 So.
+1993.74	2002.04	 We're going to stick with our leaf one our leaf one has access for variables that are in the group bars leaf file and it also has its own specific host file.
+2002.7	2011.8	 So for configuring the host name is going to reference the variable directly out of its host file but for the features is going to reference it directly out of its group leaf bars file.
+2012.78	2018.42	 That makes sense we're pulling variables out of two different locations to make this a highly reusable task.
+2020.56	2021.04	 Now.
+2021.9	2023.5	 That's great we pulled all this.
+2023.5	2023.68	 Together.
+2024.5	2030.26	 A question I get a lot of times is after you do work like this is like I want to run it how do I run it how do I make it work.
+2030.58	2033.2	 Very simple remember on your control host.
+2034.3	2039.86	 My daughter sitting there hacking away she wants to run her playbook she just needs to do Ansible playbook minus I.
+2040.62	2049.16	 Okay there's a lot of more command options with Ansible playbook but minus I is the thing we need to specify our inventory file that stands for inventory.
+2049.58	2053.18	 Then we want to take our main playbook in our case we created that VX.
+2053.18	2064.4	 Lan Yamo file is our main playbook you pass it in and you'll see something like this this is a main playbook running against the five node fabric just like we talked about using the same exact roles that we talked about.
+2064.66	2075.9	 You see a lot in yellow that means Ansible is making those configuration changes this is how you see that I didn't potency that maybe you've heard with Ansible right there's a configuration change occurring right now.
+2078.06	2078.54	 Now.
+2079.8	2082.74	 That's Ansible concepts around NXOS with infrastructure.
+2082.8	2083.16	 Is.
+2083.18	2087.6	 Code but I want to point out some details specifically about NXOS when you're doing this.
+2088.18	2093.34	 For starters there are actually two types of modules can get a show of hands of how many people that knew that.
+2094.86	2095.88	 Not so many hands.
+2096.6	2106.12	 There are the traditional legacy modules and there are these things called resource modules you're going to want to look at the resource modules in any of the work you're doing because this is how we achieve that.
+2107.18	2111.02	 Single transaction for configuration and will double click into that on the next slide.
+2111.8199999999997	2112.62	 Now what.
+2112.62	2119.94	 Ansible and Red Hat learned over time is between network vendors are network OS is the legacy modules were not always consistent.
+2120.3	2128.98	 Okay if we did OSPF module and NXOS but then iOS and then you went to some other vendor they might not all look the same.
+2129.12	2129.46	 Okay.
+2130.04	2141.58	 The other thing with legacy modules is they must use the loop constructor mechanism and Ansible because they can't take the bulk configuration that I'm going to show you how resource modules can take.
+2142.62	2149.22	 The other thing about legacy modules they really had two states it's not super ideal for infrastructure as code but you can make it work.
+2149.7	2154.88	 They had the present state and the absence day so present means creating absent means deleting.
+2155.72	2172.02	 With the resource modules they became consistent across the board within the same OS between network OS is between vendors OK so they look and feel the same if you have a if you have a heterogeneous or homogeneous environment they're going to look and feel all the same.
+2172.1	2172.54	 No matter.
+2172.54	2175.3	 Who would vendor or network operating system you're working with.
+2175.78	2186.0	 Now they can still leverage the Ansible loop construct but again there is a way you can kind of send all the configuration in one transaction to speed up your Ansible execution time.
+2186.6	2191.28	 And lastly they actually introduced a number of new states for consistency and clarity.
+2192.38	2202.18	 What Mike's going to talk to you about actually covers this as well so we didn't want to hit you with it twice so I'm a leave that to Mike Mike's going to cover these these states with you because they also apply to.
+2202.18	2203.06	 The NDSC modules.
+2205.8399999999997	2217.24	 K alluded to this a number of times where we talk about we can use templating to do things with a single transaction if we look at our task now we still have our index OSV lands but we've added something before it.
+2218.5	2229.88	 Using Ansible's built in module set facts so this comes out of that built in collection we are going to do a look up with a plug in to a file that has a dot J to extension.
+2230.4	2231.74	 A dot J to extension.
+2231.74	2232.88	 Is a ginger template.
+2233.8399999999997	2234.96	 Okay still using ginger here.
+2235.1	2238.8	 Okay we're not we haven't really changed that we're still leveraging the same ginger stuff.
+2239.7400000000002	2252.26	 Our simple little ginger script at the bottom is has a for loop in it that's going to iterate over our same networks that we've already defined multiple times throughout this session and building out our Ansible playbook.
+2253.02	2259.96	 What happens when the ginger template runs and iterates over that data structure is going to set a variable with set facts.
+2261.04	2261.56	 So.
+2261.74	2265.02	 We just dynamically set a variable in line in our task.
+2265.28	2266.94	 Okay we're back in our overlay task.
+2267.2	2270.92	 So we just created a variable at runtime while while the things running.
+2271.56	2279.86	 That variable then gets put into our index OSV lands this time we're going to use a little filter trick here there's a ton of these filters these are things you don't have to write yourself.
+2280.14	2282.6	 Okay we can do it with JSON YAML etc.
+2283.2	2291.06	 We are building a YAML payload that matches the expected parameters to this resource module.
+2291.06	2295.52	 We know it's a resource module because it has this config parameter.
+2296.86	2305.82	 I can take this entire data structure I've got to be lands here it could be fifty and I can send that all in one config transaction to my switch.
+2306.54	2307.46	 Sound pretty cool.
+2309.9	2320.62	 Now there's two other things I want to hit on that are specific to an exos when you're doing infrastructure as code there comes a time when you will run into a situation where.
+2321.06	2326.14	 There is not a module for what you're trying to do I know that's hard to believe when I just told you there's seventy seven of them.
+2326.5	2335.92	 But you will run into it and actually have an example right here when we build out that the excellent EVP and fabric in our underlay role we didn't dive into that one.
+2336.6	2349.48	 Purposely so because I wanted to make sure we focused on something that came out of that role and that is where we had to use the index OS config module to actually configure our PIM any cast our peas between our spines now there are PIM modules.
+2349.48	2353.06	 But not one that will set up him any cast our P for me.
+2353.86	2363.24	 So we can take the CLI config that we all know and love right there were anchored back to and we can pass that in as lines of config with this index OS config module.
+2363.68	2378.96	 OK so you can achieve still anything that you want to configure with this fallback module I do want to reference two other things about this module that are pretty important from my perspective with infrastructure as code is one you can take a running backup of your device before change window.
+2379.74	2403.96	 I think that's pretty good cool because you can store that as in your get repository as as an archive in your version control the other thing is all these modules that brought up this be excited to be in fabric guess what they don't save anything they do all the configuration for that particular piece of the network that you're building out this is the module you need to use to actually commit and save your running config to your startup config and we can do that in four ways.
+2404.36	2409.24	 Well there's really three the fourth way I'll go and jump to is never never save but that.
+2409.48	2410.44	 Probably sounds like a bad idea.
+2411.0	2417.38	 Now the first one is always always perform a save always write the running config to the startup config.
+2418.16	2425.6	 The second one is modified and the third one is changed now these tend to kind of confuse people so let me try to demystify that.
+2426.2400000000002	2438.76	 Modified is only going to actually perform a save operation a copy run start if if there is a change in the running config since the last time the startup config was saved.
+2439.48	2439.58	 Okay.
+2440.4	2447.2	 The changed option is only going to run if this task and it so it's config task has made a change.
+2448.16	2458.36	 Now customers I've worked with sometimes this is important especially between the always a modified the frequency in which they want to perform their their right operations essentially their copy run start operations.
+2458.8	2466.16	 So keep that in mind I've worked with some customers where they just save all the time at the very end of every every time a playbook or a roll runs.
+2466.54	2469.08	 But that's something you'll need to determine about your.
+2469.08	2469.42	 Your environment.
+2469.68	2469.88	 Yeah.
+2473.02	2473.56	 Never.
+2475.12	2475.76	 It's never.
+2476.12	2476.54	 Yeah.
+2492.94	2495.56	 Do you want to take that one between the legacy.
+2495.56	2498.1	 So the answer is it's not going to undo it.
+2498.32	2498.86	 There.
+2499.08	2508.66	 Is a trick you can do actually did a slide of the on this years ago at Barcelona where you can actually use a snapshot capability and XO S.
+2508.86	2522.86	 And create a snapshot and then use basically a block within ansible and so if anything fails in there then you can basically add kind of a recovery clause to to basically go back to that snapshot.
+2523.68	2523.74	 People.
+2526.28	2526.88	 I'm.
+2527.7999999999997	2528.94	 So it basically just creates.
+2529.08	2535.88	 Kind of a snapshot of the running config before you start applying any config that anything fails in there that it basically just reverts back to that snapshot.
+2536.16	2539.7	 I want to see what Mike had for you the other way is when you do in XO S.
+2539.84	2549.42	 Config there's an option to do a config replace but to his point you still have to take some type of precursor backup and then you can do a config replace to revert it back.
+2549.82	2549.82	
+2553.32	2553.76	 You.
+2553.98	2553.98	
+2554.3	2554.74	 Do.
+2554.74	2554.74	
+2556.56	2557.0	 You.
+2558.5	2558.94	 Can.
+2558.94	2558.94	
+2558.94	2567.46	 Yeah we're still dealing with the CLI this is CLI automation in the day right guys we're still dealing with the CLI buffer and how many commands they can take right that's that's really what you're alluding to.
+2567.58	2577.32	 But that's the point with infrastructure as code is you're breaking these things down into smaller parts of the network we talked about your roles with common configuration underline overlay.
+2577.42	2588.7	 But you can break the roles down to maybe something even more granular protocols I could have a role based for my routing protocols I could have a role for my layer to so on and so forth so your transactions your config transactions.
+2588.7	2589.76	 Would be smaller.
+2595.3	2602.74	 I'm sorry he was asking a question about if there's a problem when you run an answer will playbook does it revert itself back.
+2610.94	2618.4	 Now one other kind of fallback module I want you all to be aware of is in XO S command don't see this one use quite as often as in X.
+2618.7	2622.38	 In XO S config but I have I've seen uses it enough and I've I use it myself.
+2623.36	2632.88	 It lets us in any arbitrary show commands so when we're running for example our infrastructure is code if we want to grab kind of the your before and after states for example this is a great way to do that.
+2633.26	2640.94	 If you need to handle prompts okay there is a copy module but for example it doesn't do FTP if you actually need.
+2641.06	2648.0	 FTP the index was command module has this these parameters for prompt and answer so you can pass the command you want to it.
+2648.0	2656.2	 And whatever prompts that you expect back you can respond to that in line in code okay so pretty pretty useful for some corner cases.
+2657.24	2658.94	 Now one last example.
+2659.92	2663.92	 When we build out our VX and EVP and fabric earlier and you saw that big playbook run.
+2664.38	2672.36	 I thought I was pretty cool that the entire network was just being brought up in that playbook as code right I'm never going to see a lot of touch or do anything.
+2673.36	2675.76	 Now if I just want to add a new overlay.
+2676.16	2677.92	 Okay I just want to add.
+2678.0	2678.84	 Some new networks.
+2679.6	2683.08	 This is kind of what the config looks like if you do this by hand.
+2683.56	2685.38	 On the left and right side of the slides.
+2686.32	2689.6	 In the middle these are the modules that you would need out of the next collection.
+2692.56	2698.84	 To make this playbook run and just provision the new networks or the new overlay I literally only have to go.
+2699.22	2705.28	 To my group bars leafs file remember where we moved our networks into we put our networks in there.
+2705.68	2707.86	 And said the leaf was going to reference the side of there.
+2708.0	2714.1	 That's the only thing we have to go touch we update that list of our new networks that we want to provision and we rerun the playbook.
+2714.92	2715.8	 That's all we do.
+2716.28	2718.08	 And that's what's going on here in front of you.
+2718.68	2722.18	 You see the green that's the item potency showing in Ansible where.
+2723.08	2731.44	 The things that were previously defined in our network list are are are already configured on the switch that again item potency piece Ansible knows it was configured.
+2731.92	2735.66	 The yellow is the new networks that were provisioning into our fabric.
+2736.52	2737.18	 Pretty cool.
+2738.64	2739.08	 Awesome.
+2740.96	2743.26	 I wish I wish I could say yes.
+2745.76	2746.2	 Now.
+2746.96	2748.58	 I've talked to you about an exos.
+2749.38	2754.04	 And Ansible and how you apply that as infrastructure as code using a VX lane EVP and use case.
+2754.92	2757.82	 And that was all direct to switch so keep that in mind.
+2758.34	2766.3	 I'm going to pass over to Mike now and he's going to show you how to use in DFC and Ansible for infrastructure as code but now it's direct to controller.
+2766.64	2767.24	 Thank you.
+2768.0	2768.46	 So.
+2770.0200000000004	2775.0	 The old name was DC and that's kind of the older monolithic application.
+2775.18	2779.7	 It's a very powerful application that allows you to basically build fabrics.
+2780.0	2784.62	 The new name is called NDS your Nexus dashboard fabric controller.
+2785.1	2797.98	 Now the Nexus dashboard fabric controller actually it's it's an application that that is installed on Nexus dashboard and it's part of a suite of applications that allow you to manage your data set.
+2797.98	2797.98	
+2797.98	2797.98	
+2797.98	2797.98	
+2797.98	2798.18	 Center.
+2798.24	2799.76	 So just a couple others.
+2799.84	2807.56	 I want to point out is orchestrator orchestrator allows you to manage multiple fabric types of if you have ACI based fabrics or NDSC based fabrics.
+2807.6	2816.58	 You can manage that with that application insights gives you day to observability and the one that we're talking about today of course is fabric controller.
+2816.82	2826.86	 Now the reason it was re architected is because it we wanted it to look and feel like our other data center applications modern topology views workflows.
+2827.98	2832.68	 And it's also been re architected using a cut kubernetes microservices architecture.
+2833.06	2836.88	 So it it scales better and performs better.
+2838.02	2840.44	 But today we're focused on automation.
+2840.62	2850.38	 So one of the cool things about NDSC is the application itself already has a lot of powerful automation built in.
+2850.5	2857.78	 So Matt when he was going through direct to device you have to define the topology right.
+2857.78	2866.62	 Ansible doesn't just tell you what the topology looks like you have to interconnect everything come up with the IP addressing scheme all of that with NDSC.
+2867.02	2878.12	 You can basically go from provisioning of fabric in days because it's complicated provision of fabric right and you can actually do this in minutes now because what happens is when you actually bootstrap a device and NDSC.
+2879.78	2887.12	 You designate a role so as an example let's say I want to bring in a spine device or two spine devices and four leaf devices.
+2887.98	2904.32	 NDSC will basically all you have to do is give it a seed I seed fabric IP it'll come in you designate a role say I want this to be a spine device I want this to be a leaf device and it will automatically start to apply the best practices template based CLI configuration for that role.
+2904.5	2917.5	 So it knows what a spine role looks like from a configuration perspective it know what knows what a leaf looks like from a configuration perspective you you you couple that with Ansible because it's got a very powerful northbound API.
+2917.78	2932.24	 So you don't have to click in the GUI anymore you can drive all this through the northbound rest API that integrates with tools like Ansible and so that's where you start to get the enhanced programmability pieces all right before I do this though Matt referenced earlier.
+2933.22	2945.18	 We made a lot of references to DCM I don't know if you noticed that but the D that the collection on Ansible Galaxy is still called DCM so you're probably wait a second I thought we were talking about NDSC so why are we referencing DCM.
+2946.08	2947.76	 Well the problem is.
+2947.78	2954.94	 Is that when I came up with the name for this collection all we had was DCM and I didn't have a pair of these.
+2955.6	2967.16	 These are my 2020 hindsight specs infused with the latest AI that I can see into the future and come up with the correct collection name but all we had was DCM back then.
+2967.5	2977.66	 But this is me wearing those and I see collection names now I could have picked the correct collection name but it's fine we went with DCM once you actually put a collection out on Ansible.
+2977.72	2977.76	 But it's fine we went with DCM once you actually put a collection out on Ansible.
+2977.78	2987.28	 Galaxy unfortunately it's a little bit difficult to change that name and plus if you've already written playbooks for DCM we didn't want you to have to change those modules.
+2987.58	2988.32	 And plus if you've already written playbooks for DCM we didn't want you to have to change those modules.
+2988.32	2998.8	 Because one of the byproducts of this is that when you actually start to use these modules so we have 12 modules in our collection you don't actually have to make any changes okay.
+2999.2	3007.76	 If you have a playbook to create a verse in DCM that same playbook will work with NDSC.
+3008.56	3015.14	 Now we have 12 modules you can go to Galaxy again you know Cisco dot DCM or Cisco DCM.
+3016.2200000000003	3024.78	 We're not going to focus on all of these in here today we're going to focus on the subset but you can go look at the documentation to figure out what your use case demands.
+3025.24	3030.76	 But these are the primary VXLAN EVPN fabric modules that we're going to focus on today.
+3031.2	3037.74	 It's all built on our HTTP API plug-in so we wrote one and that's actually what distinguished us from the other modules.
+3044.38	3046.52	 Here's one that can be found under technologicalaspk.com and we have some string reverbs for an example and can also be used to copy and paste somebody to the data that they've already created.
+3046.52	3050.44	 So the productor enabled this is all an important place to go because if you're trying toenut that'd be anti engineering if you're self구요 in fantasy you don't want to have to.
+3050.44	3054.28	 I did remember to add that a second second maybe an Bijler that should appeal to every downloader is an amazing service for download and immediately download the package.
+3054.32	3065.4	 Very undertaught they've done basically well that's just been kind of that's just the new addition you come back to and we've never used into that question which does not dropdowns through operation at fancy I can always.
+3065.4	3069.28	 opinion we always need fire because we want to forge it probably don't need that in automation
+3069.28	3073.76	 but I thought this was a really cool picture so let's talk about levels of complexity
+3074.94	3080.76	 we all we obviously saw the case that this is a a single leaf device we have a lot of CLI
+3080.76	3085.58	 configuration that we need to manage now who's actually written has anybody written their own
+3085.58	3090.52	 python scripts to manage CLI configuration on their devices anybody okay so you know it's
+3090.52	3098.84	 fairly difficult right it takes a lot so when we start to introduce NXOS modules and Matt was
+3098.84	3103.38	 talking about the the direct to device approach I wanted to just kind of highlight how the different
+3103.38	3108.58	 modules like the different aspects of the CLI that these manage because NXOS modules start to
+3108.58	3115.9	 module start to treat the CLI kind of like objects so it'll actually look and say is that particular
+3115.9	3120.08	 command or is that particular configuration already in the right state and if it is
+3120.08	3120.5	 you can't do that so we're going to start to introduce NXOS modules and we're going to start
+3120.5	3120.5	
+3120.52	3120.96	 to do that so we're going to start to introduce NXOS modules and we're going to start
+3120.96	3125.52	 then we're not going to touch it and of course with Ansible you can start to you know include
+3125.52	3132.08	 all of this code that you're writing in a github repository and manage your network using
+3132.08	3138.7	 infrastructure as code principles but what if we had an easy button right that's where the
+3138.7	3145.82	 controller comes in so it makes configuring a VXLAN EVPN fabric much easier you combine that
+3145.82	3150.5	 with Ansible we only have seven modules now that we need to worry about so we're going to start
+3151.52	3158.26	 to simplify things a little bit but we're very use case based now so we're talking about VXLAN EVPN
+3158.26	3166.66	 so let's walk through some of the steps and talk about what we want to build today so the first
+3166.66	3171.1	 step we're going to I'm going to show you kind of how we put the modules together to build this we
+3171.1	3176.72	 want to create a fabric now if you've used NDFC quick show of hands who's familiar with the
+3176.72	3180.5	 templates in NDFC or DCNM all right so we're going to start to build this and we're going to start to
+3180.52	3186.38	 build this so the first step when we create this object we have the ability to just use the
+3186.38	3193.5	 default templates values or we can actually use Ansible to override those template values so as
+3193.5	3200.1	 an example let's say you wanted to change some of the underlay parameters or overlay or VPC or let's
+3200.1	3204.38	 say we wanted to change some of the bootstrap capabilities and we wanted to actually allow
+3204.38	3210.5	 NDFC to be used as a DHCP server for Pope because you want to add your devices to the
+3210.52	3215.7	 fabric using Pope we can use that module to change the default parameters when we create the fabric
+3215.7	3220.46	 the next step is we want to add devices to our fabric we want to add some spine devices we want
+3220.46	3228.06	 to add some leaf devices now we need to start to define our overlay we have a green a blue subnet
+3228.7400000000002	3237.02	 l2vni 7000 and we have a red subnet l2vni 4000 so we can obviously switch between these layer 2
+3237.02	3240.5	 if all the hosts are on the same subnet but we do want to define some of the underlay so we're going to
+3240.52	3244.88	 We need a layer 3 VNI to enable routing between those subnets.
+3245.78	3249.26	 And then finally, we want to configure some hosts.
+3249.86	3252.26	 We have one on our first leaf.
+3252.3	3253.56	 We have one on our second leaf.
+3254.58	3258.08	 And so we're going to talk about the modules that we can use in the collection to make this happen.
+3258.96	3259.56	 All right.
+3261.3799999999997	3262.92	 So looking at the playbook.
+3262.98	3266.68	 Now, earlier Matt was talking about kind of the structure of a playbook.
+3266.78	3269.98	 And he kind of used the term, this is what we want to do.
+3269.98	3272.08	 So what do we want to do in this particular playbook?
+3272.24	3275.26	 You see at the top in the blue there, we've got NDSC controllers.
+3277.06	3280.22	 So we kind of know kind of like where we want to do it.
+3280.24	3282.84	 But what we want to do is down here under tasks.
+3283.16	3285.44	 We want to add some devices to the fabric.
+3286.34	3293.08	 Now, you see there that in green, there's this thing called an HTTPI connection plug-in or netcommon.http.
+3294.72	3295.94	 Say that five times.
+3296.04	3296.78	 I can't even say that.
+3296.88	3298.3	 Anyway, it doesn't matter.
+3298.36	3299.7	 This is how we connect.
+3299.98	3301.64	 We connect to NDSC and authenticate.
+3301.86	3304.72	 Now, in the middle there, you see kind of that password.
+3304.86	3307.2	 It's kind of squiggly and kind of looks weird.
+3307.8	3311.38	 It's a best practice that you encrypt your password using Ansible Vault.
+3311.54	3313.4	 So if you use Ansible, you probably know that.
+3313.5	3318.84	 But just a quick reminder, because a lot of our examples do show clear text passwords, but we don't do that in production.
+3320.8399999999997	3324.64	 Now, in this particular case, we're going direct to controller.
+3324.76	3329.78	 We're no longer going direct to device because the controller is the one that's managing the devices.
+3329.78	3333.1	 So all we have to say is, playbook, manage my controller.
+3333.48	3336.24	 So in this case, we're managing an NDFC controller.
+3336.7	3338.9	 I also have a DCNM controller there.
+3338.98	3340.4	 We're not managing that, but we could.
+3343.12	3343.68	 All right.
+3343.74	3345.9	 So now we want to create the fabric.
+3346.38	3348.34	 First of all, we do need a task.
+3348.6	3351.18	 So has anybody ever run Ansible Lint on their playbooks?
+3352.04	3354.58	 Has it screamed at you if you didn't put a name on your task?
+3354.86	3355.06	 Okay.
+3355.14	3356.64	 So I put a name on my task.
+3356.74	3357.38	 I sometimes forget.
+3357.54	3358.68	 So today, I didn't forget.
+3358.78	3359.76	 So we want to create this fabric.
+3359.76	3359.76	
+3359.78	3362.38	 We pulled in a Jinja 2 template name.
+3362.68	3364.0	 It's somewhere else.
+3364.08	3366.18	 It could be fabric stage or fabric prod.
+3366.48	3369.48	 And this is the variable payload.
+3369.72	3383.66	 So there's a vars component to a task where you can say, I want to override these parameters in my templates, my fabric templates in MDFC, and I want to specify what the BGP autonomous system or ASN number is.
+3383.84	3389.76	 And then the overlay mode, you know, if you're familiar with MDFC, kind of an old version of it would use this.
+3389.76	3389.88	 It's a little bit more sophisticated.
+3389.88	3389.88	
+3389.88	3389.88	
+3389.88	3389.88	
+3389.88	3394.62	 So we want to use the NXOS profiles to apply configuration that's no longer a best practice.
+3394.7	3398.76	 So instead, we want to use straight CLI to configure VXLAN EVPN.
+3399.02	3401.8	 So how do we actually pass that into the device?
+3402.04	3404.5	 We use the DCM rest module.
+3404.7	3412.98	 Now, I say up there that this is a stopgap module, but this is actually a really useful module for this particular part of the workflow.
+3413.5	3419.74	 Because DCM rest, any API that's exposed within MDFC and that's not a node, it's a node that's not a node.
+3419.74	3419.74	
+3419.74	3419.74	
+3419.74	3425.48	 And we'll actually put a link into our chat later that shows you where these APIs are located.
+3425.78	3427.42	 You can pass any API.
+3427.58	3430.08	 So that's what this path value is.
+3430.26	3432.64	 So this is the API used to create a fabric.
+3432.88	3434.74	 Post means we want to create something new.
+3434.82	3436.32	 Put means we want to update something.
+3436.62	3438.94	 And we basically JSONify that payload.
+3439.02	3441.22	 We pass it in, and this fabric gets created.
+3441.54	3444.78	 Now, you see that we have ignore errors.
+3444.9	3445.62	 Ignore errors.
+3445.72	3447.18	 I want to be clear.
+3447.36	3449.72	 This particular module is not a node.
+3449.72	3450.44	 This is not item potent.
+3450.62	3462.9	 So if you wanted to make sure this fabric already existed before you create it, you could call the API with the DCM rest module to get a list of fabrics and make sure it's already there before you try to create the new fabric.
+3462.96	3468.4	 Now, we do have a fabric module on our roadmap, so we'll handle that for you once it's available.
+3468.6	3476.06	 But if you have something in your workflow that you need to do and we don't have a module for it yet, you can always fall back on DCM rest.
+3476.34	3476.88	 Make sense?
+3477.04	3477.78	 Yes, question.
+3478.22	3478.66	 .
+3480.08	3480.52	 .
+3489.74	3491.24	 So great question.
+3491.52	3493.6	 I mean, you could do it with Python.
+3494.36	3495.6	 I'm not going to say you couldn't.
+3495.6	3501.14	 But you don't get the benefit of inventory management, structuring your tasks the way you want to structure.
+3501.3	3508.86	 And we also have a lot of very powerful modules already that do like 90% of what you would want to do in a VXLany VPN fabric.
+3508.86	3515.88	 And so we always provide a rest module, though, for some of those workflow items that might be kind of outside the normal scope.
+3516.1	3520.86	 So creating a fabric is usually kind of a one-time operation, so it wasn't the highest priority.
+3521.1	3525.58	 Our higher priority was verfs, networks, interfaces, those kinds of things.
+3526.38	3526.82	 .
+3529.7999999999997	3530.42	 All right.
+3530.9	3533.78	 So next we want to add some devices to our fabric.
+3533.88	3536.2	 So we're going to use the DCM inventory module.
+3536.2	3541.7	 So the DCM inventory module allows us to add two spine to four leaf devices if we wanted to.
+3542.14	3545.28	 Now, in this particular case, you see I've got one device.
+3545.84	3548.38	 It's using that kind of that config block.
+3548.7	3550.5	 And so this is passing in a list.
+3550.58	3560.32	 So I could pass all six of my devices in as a list of devices, and that would be executed as a single transaction to instantiate all those devices within my fabric.
+3560.52	3563.0	 So you can see there that I've got a seed IP.
+3563.16	3566.18	 Now, if you're used to DCM or NDFC, you know the same thing.
+3566.18	3571.24	 A seed IP can allow you to discover other devices that are a couple hops away.
+3572.12	3573.7	 The module doesn't support that.
+3573.76	3575.72	 You have to explicitly list all the devices.
+3576.2	3579.06	 But in this particular case, we're adding a leaf device.
+3579.22	3585.78	 We don't want to preserve the config because this is a Greenfield import, so we're doing a Greenfield addition to our fabric.
+3587.32	3588.7	 We also support Pope.
+3588.92	3592.6	 This is a fairly new addition, but it's nice.
+3592.66	3595.88	 A lot of customers want to use Pope in their workflow.
+3595.88	3605.08	 So once you buy all those new Nexus 9000 devices from us and you receive them, you just put the serial numbers into your playbook.
+3605.46	3608.02	 You put the switch in Pope mode.
+3608.1	3610.64	 You can also use a playbook to do that, a direct-to-device playbook.
+3610.88	3618.82	 And then run this module, and it'll pull in your device using Pope and add it to the fabric using the role that you specify.
+3620.72	3621.36	 All right.
+3621.68	3623.96	 So now we want to start to look at our overlay.
+3624.64	3625.1	 So.
+3625.1	3630.1	 If we want to add a VRF object, we use the DCNM VRF module.
+3630.54	3633.0	 We have multiple states that we support.
+3633.1	3636.72	 We also support deleted, but I wanted to talk about the states where we're adding things.
+3637.16	3639.22	 That's merged, replaced, and overridden.
+3639.38	3644.52	 Now, I've got an example in just a minute that will help clarify what those means because they can be confusing.
+3644.86	3649.3	 But in this particular case, we want to add a list of VRFs.
+3649.44	3651.82	 We only have one in our particular list today.
+3651.96	3655.08	 But you can see there that I've defined a VRF object.
+3655.08	3659.32	 And I've got a VRF name called CLVRF1 with a VRF ID and a VLAN ID.
+3659.56	3666.8	 Now, if you're familiar with NDFC, you know that you can just get NDFC to propose a new ID because it's managing all the resources.
+3667.94	3674.58	 If you omit the parameters in the module, it will pull from NDFC resource pool and automatically fill that in.
+3674.66	3679.64	 So you don't have to explicitly specify the VRF ID and VLAN ID.
+3680.18	3682.34	 But you can see in my attach block.
+3683.38	3684.16	 I'm saying.
+3684.16	3687.32	 I want to attach this VRF to all four of those leaf devices.
+3687.46	3688.58	 Those are my four IPs.
+3689.7	3692.2	 I want to attach and deploy the configuration.
+3692.56	3694.3	 So that all happens in one transaction.
+3695.12	3697.88	 By the way, this is, you know, quite a few clicks in the GUI.
+3697.94	3701.62	 So it's nice to just be able to consolidate things using Ansible into one single transaction.
+3703.34	3703.94	 All right.
+3708.1	3708.9	 So, okay.
+3708.98	3709.5	 Here we go.
+3711.46	3713.14	 I wanted to explain states.
+3713.14	3714.3	 And I thought, you know what?
+3714.34	3716.42	 It's really boring explaining states with VRFs.
+3717.0	3721.38	 So a couple months ago I was going to a friend's house.
+3723.06	3725.32	 He introduced me to gourmet grilled cheese sandwiches.
+3725.58	3728.12	 Raise your hand if you've ever had a gourmet grilled cheese sandwich.
+3728.24	3728.68	 They're amazing.
+3728.9	3729.18	 Right?
+3729.28	3732.16	 So I got two pieces of bread.
+3732.3	3735.26	 But I'm like, oh, my mind was blown that you could put avocado.
+3735.54	3736.72	 You could put apples.
+3736.88	3738.84	 I actually pulled just a pepper out of my fridge.
+3738.96	3739.88	 I don't know if that would be good.
+3740.0	3741.4	 But, you know, it seemed like it might be good.
+3741.98	3748.42	 So what if we wanted to merge that with some other amazing ingredients like some type of meat, another piece of cheese?
+3748.56	3753.16	 We end up with just an even better grilled cheese sandwich, gourmet grilled cheese sandwich when it's merged.
+3754.86	3763.34	 So let's look at merge and how does that apply to a VRF on an NXOS module or an NDFC module that's managing the VRF.
+3763.44	3765.32	 So in this particular case, you have a playbook.
+3765.46	3769.14	 We have VRF1, it's property A, property B, and property D.
+3769.58	3771.38	 I merged that with a VRF.
+3771.4	3776.58	 And I have a playbook with my VRF1 on NDFC that has property C but it doesn't have property D.
+3776.74	3779.32	 So what do I end up with after the merge?
+3779.84	3781.12	 Fairly self-explanatory.
+3781.18	3782.14	 We're all four properties.
+3784.14	3786.34	 So I've got a problem.
+3786.54	3786.88	 Right?
+3787.1	3788.68	 So who's my source of truth?
+3789.78	3790.76	 Is it Ansible?
+3791.34	3792.38	 Is it NDFC?
+3793.3599999999997	3795.96	 Now, I know what you might say if you're used to NDFC.
+3796.02	3799.52	 If you go and start to configure something on NDFC that doesn't match up with the templates,
+3799.58	3801.24	 NDFC will start screaming at you.
+3801.24	3803.72	 And telling you that you've got config drift, which is great.
+3804.58	3808.58	 But Ansible, these Ansible modules provide two additional states.
+3808.7	3810.24	 One called replaced and one called overridden.
+3810.88	3814.42	 That allow Ansible to start to act like the source of truth in these scenarios.
+3815.0	3816.76	 So how do you replace a sandwich?
+3817.32	3820.86	 So my son doesn't like gourmet grilled cheese sandwiches.
+3820.96	3822.38	 He likes really plain sandwiches.
+3824.04	3826.58	 I like gourmet grilled cheese sandwiches.
+3826.78	3829.48	 So his desired state is the plain one.
+3829.48	3832.72	 But the actual state is the gourmet grilled cheese sandwich.
+3832.8	3834.48	 So what happens in a replace case?
+3834.86	3837.06	 Well, we throw away all the amazing ingredients.
+3837.2	3838.62	 We keep a couple amazing ingredients.
+3838.7	3841.6	 But we end up with a very plain sandwich in the end.
+3841.66	3843.92	 A completely replaced state.
+3844.22	3845.96	 So what does this look like with a VRF?
+3846.92	3848.82	 With a VRF, we have a playbook here.
+3848.9	3852.94	 And this is actually now the source of truth for that one VRF.
+3852.94	3853.52	 For VRF 1.
+3855.86	3857.92	 NDFC has that additional property.
+3857.92	3860.74	 So after the replace operation, what happens?
+3860.84	3863.22	 Well, now it looks exactly like my playbook.
+3863.36	3867.42	 Now, one very important note here with replaced.
+3867.72	3870.2	 It didn't impact my other VRFs at all.
+3870.28	3871.64	 It didn't touch those VRFs.
+3871.78	3874.54	 It only touched the one that was defined in my playbook.
+3875.84	3877.42	 So let's look at overridden.
+3877.78	3879.22	 How do we override a sandwich?
+3880.94	3882.22	 So I'm happy.
+3882.28	3883.68	 My son is happy.
+3883.76	3885.8	 If we get our desired state, right?
+3886.26	3887.9	 But the actual state is the same.
+3887.9	3893.42	 My son is more happy because he has more plain sandwiches than my single gourmet grilled cheese sandwich.
+3893.56	3896.42	 So if I go through an override option,
+3898.96	3902.26	 now my overridden state looks like my desired state.
+3902.34	3903.04	 But what happened?
+3903.14	3905.7	 We did a replace plus purge, right?
+3905.78	3907.78	 We got rid of one of those sandwiches.
+3908.32	3911.62	 So what happens in our NDFC module for VRF?
+3912.18	3915.06	 Well, now we have two VRFs defined in our playbook.
+3915.1	3916.6	 VRF 1 and VRF 3.
+3916.6	3918.76	 This is my source of truth.
+3920.62	3923.56	 NDFC has VRF 1, VRF 2, and VRF 3.
+3923.64	3925.36	 So we don't have VRF 2 on NDFC.
+3925.56	3929.76	 So after the override operation, we purge VRF 2.
+3929.94	3932.08	 We also update a property in VRF 3.
+3932.3	3937.82	 So you can see there that through the overridden state, Ansible is truly the source of truth
+3937.82	3941.32	 because it purged anything that wasn't defined in the playbook.
+3942.0	3943.32	 This can be dangerous.
+3943.36	3944.84	 So I would just say use it.
+3945.34	3946.02	 You know.
+3946.02	3949.44	 If this is something that you want to use, it's great.
+3949.92	3954.02	 It actually can be very useful in a source of truth case.
+3954.44	3957.52	 But just know that these states are available for your use.
+3958.64	3959.76	 There is a merge option.
+3959.9	3962.68	 Yeah, that was the first one that I talked about back here.
+3963.72	3964.34	 That's okay.
+3965.2599999999998	3966.5	 Anyway, it's in the slide.
+3966.58	3969.08	 But yeah, that's the first one where it will just merge everything.
+3969.3	3973.52	 But then you've got the issue, of course, that like who's the actual source of truth in that case.
+3973.66	3974.26	 Yes, question.
+3983.44	3986.42	 So the module will delete it if you choose O.
+3989.24	3990.68	 It will delete it.
+3994.92	3999.0	 So NDFC, so the module will actually go and unattach it.
+4000.38	4000.84	 Yes.
+4001.26	4003.64	 But it does it in one transaction for you.
+4003.7	4005.56	 So you have one task to do all of that.
+4006.02	4007.6	 So it's multiple clicks in the GUI.
+4007.64	4008.9	 It's one task in Ansible.
+4010.18	4010.7	 .
+4014.3	4016.48	 So very, very good question.
+4017.08	4019.86	 It is asynchronous, right?
+4019.96	4021.64	 So it will actually send it.
+4021.7	4025.6	 So when you watch in the GUI, so when we get a 200 okay back from the API,
+4026.3	4028.52	 NDFC sometimes is still working in the background.
+4028.96	4031.08	 So that's kind of a more advanced case.
+4031.16	4033.48	 So when we're adding verps and networks with NDFC,
+4033.48	4038.86	 we actually have logic in our module to make sure that something is complete before it moves to the next step.
+4041.66	4042.06	 Exactly.
+4042.68	4044.3	 Yeah, we do pull in the module.
+4044.44	4048.3	 We do provide some options in the module as well because in some cases you may not want to pull.
+4048.48	4050.22	 And so we want to speed up the transaction.
+4050.36	4055.74	 So you would get a 200 okay back and then you would have to use a different task in Ansible to pull on your own.
+4058.96	4059.36	 .
+4062.4	4062.8	 .
+4062.8	4062.84	 .
+4062.84	4063.1	 .
+4063.1	4063.44	 .
+4064.1	4064.58	 .
+4068.48	4068.96	 .
+4070.08	4070.56	 .
+4070.56	4071.28	 .
+4072.08	4072.56	 .
+4072.56	4072.6	 .
+4072.6	4072.76	 .
+4072.76	4072.76	
+4072.76	4072.78	 .
+4072.78	4073.32	 .
+4077.02	4077.5	 .
+4077.5	4077.5	
+4078.7	4085.62	 So let's actually talk about that offline because we are querying state before we go in to maintain idempotence.
+4085.7	4089.28	 So I'd like to look at your specific use case and see if there's a particular issue
+4089.28	4090.08	 that you're seeing there.
+4090.22	4091.34	 So okay excellent.
+4091.82	4092.46	 All right.
+4092.52	4093.0	 .
+4093.44	4099.96	 So we want to create, we want to finish out our overlay configuration.
+4100.14	4106.58	 So the next step is we want to create our red VLAN and our blue VLAN here.
+4106.74	4108.44	 So we use the DCM network module.
+4108.76	4111.28	 Supports the same states that I was just talking about.
+4114.3	4117.06	 We also pass in the configuration block.
+4117.12	4123.24	 So this is two different list items, one for the red VLAN and one for the blue VLAN.
+4123.24	4127.74	 You can see there I've got VLAN 55 mapped to VNI ID 4000.
+4127.86	4132.16	 On the blue, I've got 88, VLAN 88 mapped to VNI 7000.
+4132.54	4135.26	 And I want to attach red to leaf one and leaf three.
+4135.4	4140.08	 I want to attach the blue to leaf two and leaf four.
+4142.38	4143.12	 All right.
+4143.94	4147.72	 Finally, my workflow, I need to configure some host interfaces.
+4148.16	4152.68	 And so this is where I'm able to basically take one of my hosts
+4152.68	4153.22	 on leaf four.
+4153.24	4156.2	 This is the DCM interface module.
+4156.34	4159.7	 And by the way, this interface module supports Fex interfaces,
+4159.96	4161.84	 Ethernet interfaces, loopback interfaces,
+4161.84	4165.04	 all the different interface types that NDFC supports.
+4165.26	4166.58	 This module supports those.
+4166.62	4170.26	 In this particular case, we're just configuring an access interface for that host,
+4170.5	4173.02	 putting it into access VLAN 55.
+4175.38	4176.14	 All right.
+4176.16	4180.56	 So let's move on to wrap it, kind of bring it all together.
+4180.66	4182.92	 So Matt talked a lot about reusability.
+4183.96	4186.78	 I kind of broke the cardinal rule that he told me not to.
+4187.14	4191.88	 And I just used straight tasks because I was talking about the modules.
+4191.94	4197.8	 But in reality, you would want to take those module tasks and put them into reusable roles.
+4198.22	4203.18	 So in this case, I would want to put my create fabric things tasks into my create fabric role.
+4203.700000000001	4209.1	 My add inventory stuff, I would want to put my add inventory role overlay into overlay,
+4209.38	4212.58	 and then manage my interfaces all in a common role as well.
+4213.340000000001	4216.3	 And one thing we haven't shown you is you can pass variables into roles.
+4216.36	4219.02	 So you can do some variability there and drive behavior roles.
+4219.28	4221.96	 But that was kind of beyond the scope of what we wanted to cover.
+4221.96	4226.1	 We wanted to have that literal and stockоко remember issues.
+4227.24	4228.2	 If you have to put author code into different fields that shouldn't
+4228.2	4228.2	
+4228.2	4228.2	
+4228.2	4228.2	
+4228.2	4228.2	
+4228.18	4228.18	

@@ -1,0 +1,1785 @@
+start	end	text
+0.0	4.04	 So here's what we're going to cover today for the next 90 minutes plus.
+4.480000000000001	8.16	 We're going to talk a little bit about what infrastructure as code is, right?
+8.26	11.66	 We're going to briefly sort of describe what we think infrastructure as code is.
+11.9	15.64	 Then we're going to get into infrastructure as code with Ansible and Raf is going to cover
+15.64	16.84	 that portion of that.
+17.02	18.26	 Then we're going to come back to me.
+18.36	22.34	 I'm going to talk about infrastructure as code with Terraform and then we'll talk about
+22.34	22.84	 next steps.
+22.98	27.28	 Where do we go from here based on some of the information that you heard about in today's
+27.28	27.56	 session?
+28.280000000000005	30.0	 Well, what is infrastructure as code?
+30.16	34.52	 A lot of people like to define what infrastructure as code is, right?
+35.06	40.08	 Simply, it's management and provisioning of computer resources or computer networks through
+40.08	43.46	 code and data structures instead of through CLI commands.
+43.72	49.2	 Now our friends on the cloud side and even some of our friends on the server side already
+49.739999999999995	50.36	 are doing this.
+50.4	54.44	 They're already leveraging infrastructure as code tools like Ansible and Terraform.
+54.64	57.26	 However, now with things like the...
+57.26	63.74	 ACI REST API and the ability to use infrastructure as code tools like Ansible and Terraform,
+63.9	68.38	 now we as networking folks can start to look at leveraging those tools as well.
+68.56	73.74	 Because traditionally, network operators, obviously, we looked at CLI and as Raf mentioned,
+74.04	79.04	 finger net, configuring things by going through a CLI in order to configure those.
+79.7	84.82	 In some cases, we may use an application in order to provision whatever infrastructure
+84.82	87.1	 or configurations we want to push out there.
+87.1	94.66	 Now, as mentioned, their new automation tools using Ansible and Terraform also allow us to
+94.66	98.9	 define and configure and provision our infrastructure and our environment.
+99.28	104.24	 And infrastructure as code tools define an intended state.
+104.36	109.42	 What do we want the state of our infrastructure to look like with some of these automation
+109.42	112.04	 tools that we'll be talking about today?
+112.32	115.42	 And some of those automation tools are as follows.
+115.48	117.08	 You have some that are SCI-based.
+117.08	117.08	
+117.08	117.08	
+117.08	117.08	
+117.08	118.62	 You have some that are SCM or source control management.
+118.98	123.18	 Some of the more popular ones such as Git, GitHub, GitLab, BitBucket.
+123.28	126.48	 There may be others that you're using in your own environment.
+126.88	130.02	 And then you have some pipeline for CI CD as well.
+130.24	134.32	 Some of the more popular ones are Jenkins, Drone, CircleCI, and others.
+135.24	139.96	 And then you have the execution software, what you're actually going to write your infrastructure
+139.96	141.02	 as code in.
+141.22	146.94	 Now, as you can see, there's a ton of options for infrastructure as code tools, right?
+146.94	152.14	 But two of the more popular ones that we're obviously going to be talking about today
+152.7	157.4	 and two of the more popular ones that you'll probably see out there are Ansible and Terraform.
+158.02	162.68	 And certainly they're the most popular with customers like yourselves that are looking
+162.68	166.56	 at moving into automation for their ACI and multi-site environments.
+167.9	172.02	 Now in an ideal environment, this is where the end goal, where we ultimately want to
+172.02	172.92	 be, right?
+173.94	175.92	 We usually want a user.
+176.06	176.88	 It could be yourself.
+176.94	183.28	 It could be engineers on your team to submit any code to some type of source control management
+183.28	184.02	 environment.
+184.18	189.08	 Now again, that could be Git, could be GitHub, any number of those.
+189.28	193.84	 That would get actually pushed out to some CI CD tool, right?
+196.08000000000004	202.82	 Would notice that there's been a change that's been pushed out to our source control management
+202.82	204.24	 repository, right?
+204.38	205.74	 It would pick that up.
+205.86	206.86	 And it would actually.
+206.86	212.06	 It would actually do some actions based on the infrastructure, based on that code that
+212.06	212.68	 we've defined.
+213.6	218.9	 And then an execution runner would actually trigger the automation tool that we want to
+218.9	219.16	 use.
+219.3	223.34	 So in this case, it would trigger something like Ansible, would trigger something like
+223.34	223.78	 Terraform.
+223.98	228.28	 It could even trigger something like Python and Go, but we're not covering that in those
+228.28	233.3	 sessions because Ansible and Terraform are probably the most popular tools, especially
+233.3	234.52	 with folks like yourselves.
+234.78	236.82	 Who are more coming from a network background.
+236.84	236.84	
+236.84	237.9	 A networking background.
+238.3	240.82	 But you don't really have programming experience.
+241.28	246.26	 So really, how can you leverage these kinds of automation tools when you don't necessarily
+246.26	248.54	 have programming experience itself?
+249.22	255.3	 Now one of the most popular tools for infrastructure as code is Ansible, and Raf is actually going
+255.3	256.34	 to cover Ansible.
+258.84	259.52	 Cool.
+259.72	265.88	 So what is Ansible?
+266.14	266.24	 Ansible.
+266.48	266.48	
+267.04	269.64	 I'm pretty sure everybody here is very familiar with it.
+269.76	271.5	 You've heard the terminology about it.
+271.62	275.64	 At the end of the day, its origins comes back from these in Linux.
+275.96	284.86	 Its focus has been in automation to help provision and accelerate changes to Linux networks.
+285.0	288.62	 So configuring things inside of boxes like Nginx or HTTP.
+289.18	295.72	 What we've done in the side of the Cisco community now is start leveraging Ansible as a mechanism
+295.72	298.7	 for us to configure network devices.
+298.88	301.42	 And one of those is ACI.
+301.68	308.3	 And ACI, of course, has the advantage of it being a very, very programmatic enabled environment
+308.98	310.78	 because of its RESTful API.
+311.76	317.5	 So a couple of the important aspects of it is that it is an agentless system.
+318.66	325.06	 And all the connections and program is going to happen directly from your computer that
+325.06	325.7	 you're using today.
+325.7	325.7	
+325.7	325.7	
+325.7	327.56	 So you can use it to talk to the ACI fabric.
+328.06	328.26	 OK?
+331.3	337.52	 The other part that I wanted to kind of key into, because I think this is important, and
+337.52	340.72	 I want to mention something because this is something I saw actually today.
+342.48	346.4	 In the breakfast with the other speakers, I sat at a table with a group of speakers
+346.4	350.4	 just like, no, attendees just like yourself, and talking a little about this.
+350.48	352.38	 And I think there's a challenge, right, that you all face.
+352.48	355.34	 They ask you to automate, automate, automate.
+355.58	355.68	 And I think that's a challenge.
+355.68	355.68	
+356.44	361.98	 And at the same time, it's like, no BGP, no OSBF, VXLan, VPN.
+363.6	364.96	 The plate is huge.
+365.44	370.48	 And a programmer can focus purely on programming, but that network engineer has to focus on
+370.48	372.72	 the outcome, which is to have a network that's operational.
+373.76	380.64	 And for us, the advantage of Ansible for you is it takes away the need of learning to code.
+381.56	385.66	 All that you're going to need to learn is a little bit about data science.
+385.66	385.66	
+385.66	385.66	
+385.66	385.66	
+385.66	385.66	
+385.66	385.66	
+385.66	385.66	
+385.66	385.66	
+385.66	385.66	
+385.66	385.66	
+385.66	385.66	
+385.66	385.66	
+385.66	385.66	
+385.66	385.66	
+385.66	385.66	
+385.68	385.9	 And that's the key.
+385.9	385.9	
+387.46	391.76	 And that is kind of the very key and good elements that we have in regards to utilizing
+391.76	395.98	 Ansible or Terraform, for that matter, to do the job.
+397.4	399.14	 So what makes up Ansible?
+401.72	404.0	 Well, the cool thing about it is you can run it almost anywhere.
+404.2	404.68	 I know.
+405.21999999999997	406.68	 His laptop has been running it.
+406.72	407.88	 My laptop has been running it.
+407.92	409.18	 We have servers that run it.
+409.18	409.7	 We're on everywhere.
+410.1	412.32	 But there's many different structures that make it possible.
+412.5	415.66	 So you can run it from right out of the automation platform, which is the most optimal way to
+415.66	416.62	 do it.
+416.78	421.36	 A lot of capabilities that Red Hat has built into to make you execute it.
+421.62	425.68	 Again, all the way down, if you want to go upstream for that, is AWX, which is the open
+425.68	427.48	 source version of Red Hat AP.
+428.78	430.38	 All the way down to your machine.
+430.68	435.14	 The one area that I would say is going to be Windows.
+436.72	440.2	 Personally, I would just fire up a virtual machine with Linux and run it inside instead
+440.2	445.64	 of trying to deal with that virtualization that Windows created for their platform.
+445.64	445.64	
+445.64	445.64	
+447.68	452.6	 So what goes on top of that is Ansible's core elements.
+454.42	463.22	 As you see in this, it'll be as a foundation, a Python environment that will have in itself
+463.90000000000003	470.14	 the core and then the modules that are part of the collection system.
+470.42	471.54	 And I'm going to go a little bit into that.
+472.94	475.64	 What you do after that, or you layer on top of that, is what you call the core.
+475.64	475.64	
+475.64	479.14	 This is what you want, the intent of how you want to put the network together.
+480.42	482.32	 This is a part that you work with.
+482.82	486.04	 The other stuff, somebody else coded for you.
+486.78	491.94	 You don't need to know about how to do a request library or something to the REST interface.
+492.1	492.46	 You don't.
+492.46	495.56	 You specify things, what you want in this layer.
+496.46	499.58	 And then the last part of what's needed is, of course, the targets.
+499.72	503.34	 This is going to be your 14 ACI Fab or 16 ACI Fab.
+503.4	505.44	 Whatever you have is the capability to do.
+505.54	505.62	 So that's the core.
+506.18	506.68	 Okay?
+507.16	509.74	 So installing Ansible.
+510.9	512.96	 This is the first question I imagine everybody has.
+513.06	514.54	 How do I install Ansible?
+516.66	518.0	 You can buy it from Red Hat.
+519.1	523.74	 You can get it directly from the Internet through the open source community in PyPy.
+524.3	526.2	 It's very simple to install.
+527.66	528.16	 Okay?
+528.7	529.94	 There's nothing much to it.
+531.44	533.64	 But as everything, there's a but.
+534.44	535.62	 To do it correctly.
+535.62	539.76	 You definitely do not want to skip on some of these nuances there.
+539.88	543.88	 The first thing that we talk about here is the use of virtual environments.
+544.06	550.14	 Now, I could spend the next hour and a half talking about virtual environments and how
+550.14	551.18	 to get it set up correctly.
+552.04	555.56	 But I'm pretty sure you guys would be like, hey, I want to know how this works with ACI.
+555.88	562.9	 But if you download the slide where the next slide after this does include an explanation
+562.9	564.14	 of how to use Pyenv.
+564.68	565.16	 Okay?
+565.16	565.48	 Okay.
+565.48	567.96	 So I'm going to show you a recommended way that I have for you guys to do it because
+567.96	573.54	 you get two things with that, a virtual environment for Ansible and also the capability of selecting
+573.54	576.66	 the specific version of Python that you want to utilize in your system.
+577.32	582.62	 So for example, if you want to use, you know that it works with 3.9.10 and with a specific
+582.62	585.28	 package, you get both of them combined with Pyenv.
+585.34	587.08	 So there's an explanation right after this slide.
+587.18	589.32	 Download the PDF and you should get it.
+590.14	590.58	 Okay?
+592.06	594.46	 But the reason that this is very important.
+595.48	596.14	 I want to emphasize this.
+596.34	602.24	 Is this gives you the ability to set up specific versions of everything that you want to be
+602.24	603.3	 able to run Ansible.
+604.0400000000001	604.44	 Okay?
+605.0	608.7	 Because once you figure it out and you have it working, you kind of want to say, look,
+608.8	610.3	 I want to repeat this again and again.
+610.74	615.04	 And now you have that kind of like version control of all the elements that are in there
+615.04	616.12	 that you know is going to work.
+616.64	617.04	 Okay?
+618.26	618.8	 All right.
+620.84	622.84	 So what are the best practices here?
+623.5	624.98	 There's two ways to install Ansible.
+624.98	630.76	 You can pip install Ansible on your system and install everything.
+631.38	634.26	 It'll download Ansible and install all the modules.
+634.44	635.86	 Everything will come through in one shot.
+636.12	640.42	 Or you install core and you selectively then install the different collections.
+640.98	644.78	 I recommend that part because it gives you the ability again to selectively know which
+644.78	647.58	 versions of these collections you want to use.
+647.88	648.4	 Okay?
+648.5	649.8	 That you know are going to work.
+650.06	652.54	 Instead of just telling Ansible, hey, bring everything down.
+652.54	653.3	 Okay?
+659.08	661.18	 So, raf, what are you talking about?
+661.28	661.66	 What is collections?
+662.64	663.4	 What is this?
+663.86	665.58	 What is this thing that you're talking about?
+665.72	665.78	 So.
+666.1	669.66	 One question for you, and when you say install in a virtual environment, you're
+669.66	676.32	 just talking about in a container or in a, you know, use a VM, a Linux VM?
+677.22	678.02	 Very good question.
+678.06	681.86	 This question is when I'm talking about installing a virtual environment, I'm talking about a
+681.86	685.78	 a virtual machine, a container, or whatever it is.
+685.96	687.78	 You can have it inside a container,
+687.88	688.68	 you won't be, you don't have to.
+688.96	691.88	 A virtual environment is a individual structure
+691.88	693.76	 specific to a directory.
+694.38	695.88	 You can specify it that way.
+696.18	698.5	 So it's not a virtual, it could be a virtual machine
+698.5	700.18	 and you can put it inside of that virtual machine,
+700.28	701.32	 create a virtual environment,
+702.7800000000001	706.14	 or you can have it be in your machine,
+706.32	709.02	 your laptop, if you have a Linux box,
+709.12	711.12	 you can set it up there, it doesn't matter.
+711.12	713.1	 Usually in container land,
+713.32	716.02	 we don't use them inside of the container.
+716.88	719.26	 Inside of the container, we build the container
+719.26	722.32	 with all the specifics that we need for it to run Ansible
+723.5799999999999	725.14	 inside of the Docker file.
+725.56	727.22	 And then that container becomes,
+727.74	729.68	 in essence, a virtual environment.
+730.74	732.56	 But you can have in your laptop, for example,
+732.66	736.28	 hundreds of virtual environments, all available to you.
+736.34	738.2	 You can have one that says, hey, Ansible 2.3,
+738.24	740.5	 Ansible 2.3, whatever you want.
+740.58	741.1	 You can put them on your laptop,
+741.1	742.34	 you can put them all in, okay?
+744.1800000000001	746.78	 All right, so what are collections?
+748.52	751.72	 Collections are what Ansible created
+752.52	755.08	 to deal with the situation of multi-vendors
+755.86	758.1	 having their code embedded in Ansible.
+758.26	759.98	 Before, it used to be like Ansible
+759.98	761.46	 was on a schedule of releases,
+762.26	765.1	 and Cisco and every vendor had to align to those releases.
+765.54	768.08	 That, of course, doesn't work too well, right?
+768.34	771.08	 Because if we wanted to release something tied to a release,
+771.08	771.08	
+771.1	771.78	 a release of ACI,
+774.02	775.74	 I'm pretty sure Red Hat's not gonna be like,
+775.84	777.1	 oh, wait for Cisco, no.
+778.12	780.22	 So what they did is they created a modular system
+780.22	782.42	 that allows us to install modules on our own terms,
+782.62	784.54	 and every vendor now utilizes the system,
+784.72	785.56	 which is fantastic,
+785.86	787.84	 because now we have our own cadence
+787.84	789.74	 and mechanism of release and cut.
+791.1399999999999	795.02	 So I've included here two URLs in the bottom
+795.02	798.6	 to show you guys those collection URLs and where they are.
+798.98	801.08	 You can go see them, and each of the individuals,
+801.08	803.5	 you can see the individual releases that are out there, okay?
+806.54	808.7	 So here's another very important page.
+808.82	809.74	 Save this one down.
+810.14	813.04	 If I'm working with a customer entering stuff,
+813.24	814.9	 this probably page is there all the time.
+815.0	817.36	 I don't know if Thomas' feels like the same.
+817.5	819.46	 You have this thing up and you're looking all the time.
+819.58	821.88	 This is the list of the modules
+821.88	824.7	 that are part of the collection, okay?
+825.34	827.06	 This is the Bible.
+828.02	829.32	 Everything is here.
+829.32	831.3	 If you wanted to know how, let's say,
+831.38	833.68	 a bridge domain is gonna be built in these thing,
+833.8	836.58	 in the modules, you can go click on it.
+836.64	838.04	 It gives you every parameter.
+838.2	839.16	 It gives you examples.
+839.4	840.08	 It gives you everything.
+840.26	842.32	 So it's really good information right there.
+845.14	849.1	 So these modules are used by tasks,
+849.38	851.5	 and I'm gonna start using some of this terminology
+852.34	855.86	 so you can start stacking this information in your head
+855.86	858.56	 and start seeing how all these elements are going to connect
+858.56	859.32	 to each other,
+859.84	861.14	 because I think it's important
+861.14	863.46	 to understand what everything does.
+864.24	868.78	 But these modules, what they do is they specify
+868.78	870.9	 an action or a task that's gonna be completed.
+871.06	873.86	 So if we look at the one that we have here, right,
+874.6999999999999	878.26	 we have one that's doing a bridge domain.
+879.12	881.22	 So the module name is ACIBD,
+881.9	884.08	 and it has a full namespace reference.
+884.4	887.78	 And you can see in this where you have different parameters,
+887.78	889.98	 like the VIRF, the bridge domain type,
+890.76	893.92	 the name, ARP flooding, L2 and NUNUniCAT.
+893.98	897.88	 So if you've done any ACI, these are standard things
+897.88	899.42	 that you're very well aware of,
+899.46	901.92	 and you have to define for every bridge domain
+901.92	902.52	 that you put out.
+905.54	908.22	 So the advantage, I mean, if you see this,
+909.02	912.32	 do you feel that you need to know programming for this?
+913.66	914.66	 What do you guys think?
+915.28	916.5	 This is doable, right?
+917.78	919.5	 We're not doing crazy things.
+919.62	920.16	 Yeah, question.
+920.34	923.36	 So can I fix it from a spreadsheet, a CSV?
+923.74	924.3	 Yes.
+924.34	924.82	 You can.
+925.02	927.86	 There are modules that, excuse me, Raf,
+928.04	931.86	 there's a specific module around read CSV
+931.86	933.28	 that I not turn my mic back on.
+935.0200000000001	937.16	 It's, I don't know if he's got,
+937.28	939.26	 it's called read underscore CSV,
+940.1	944.16	 and that will actually read in comma separated values
+944.16	946.84	 from a CSV file if you so choose.
+946.84	947.76	 So yes.
+947.98	950.82	 So a lot of the modules that Raf is talking about here
+950.82	952.94	 with ACI, and there are a ton of them,
+953.4399999999999	955.7	 you're not just limited to just these.
+955.94	958.24	 You can leverage things like read CSV,
+958.46	960.06	 so you can read in those values
+960.62	963.22	 to maybe replace some of the configuration there.
+963.48	965.54	 And the beautiful thing, and he'll talk about variables,
+965.62	968.62	 is you can really start to not only make your playbooks
+969.18	972.22	 repeatable, but really start to scale up your configurations.
+972.8	973.28	 Yes.
+974.3	974.78	 Yeah.
+974.9	976.7	 So you can tell an answerable to read the CSV,
+976.8	976.82	 but you can't just say, oh, I'm not going to read this.
+976.82	978.56	 I'm going to read the CSV instead of have to write this
+979.74	980.14	 scripted.
+980.14	981.96	 It's not our code.
+982.72	985.32	 There's a module to read CSV that you just tell the module,
+985.44	987.5	 like, hey, read this CSV, and it's going to read it,
+987.54	989.18	 and it's going to place everything where it belongs.
+990.4200000000001	990.82	 Yes.
+991.06	991.66	 Sorry, question.
+991.94	993.36	 What would you use for an editor?
+994.36	995.28	 We're going to get to that.
+996.84	998.3	 I'm loving you guys, by the way.
+998.34	999.52	 We presented this session in Europe,
+999.56	1000.3	 and we had no questions.
+1000.78	1002.2	 Yeah, you guys are awesome.
+1003.22	1003.8	 All right.
+1005.22	1006.74	 So I wanted to show this.
+1006.82	1008.42	 Again, I just want to show this so you guys can see.
+1008.52	1009.2	 This is simple.
+1009.32	1009.88	 This is not hard.
+1009.94	1011.3	 It's not a mountain to climb here.
+1011.42	1013.02	 It's a fairly easy process.
+1013.86	1014.38	 All right.
+1014.46	1016.94	 So let's talk a little bit about concepts and answerables.
+1016.96	1019.16	 So first one that I want to talk to you guys is
+1020.0199999999999	1021.42	 specifically around the directory structure.
+1022.72	1024.02	 I've been burned by this.
+1025.22	1026.2	 Start in the right way.
+1027.74	1030.58	 Take this slide, look at it, and say, this is the way to go.
+1030.64	1033.06	 Just start there, even if you're not totally comfortable
+1033.06	1034.86	 with it, but it's a great place to start.
+1035.6	1036.98	 And it'll let you grow.
+1037.38	1038.68	 Because one of the things that happens
+1038.68	1040.68	 if you end up with a bunch of playbooks
+1040.68	1042.36	 and one directory and things connected,
+1042.46	1043.58	 it will get out of hand fast.
+1044.16	1047.56	 And then it's hard for you to manage growth in Fabrics.
+1048.12	1049.92	 And I can tell you, for example,
+1050.16	1052.12	 like one of the last customers that I worked with,
+1052.18	1055.86	 we ended up with, so like 25,000 lines of YAML.
+1057.48	1057.9	 Okay?
+1059.2399999999998	1060.86	 Remember, this is ACI.
+1060.96	1064.36	 You can get an L3 out with BGP and have, you know,
+1064.86	1067.54	 100 BGP peers there and suddenly, you know,
+1067.58	1069.1	 this configuration could get gnarly.
+1069.74	1069.82	 Okay?
+1070.5	1071.22	 All right.
+1071.6	1073.6	 So what do we use?
+1074.8000000000002	1075.92	 Answer to your question.
+1076.8200000000002	1078.6	 You're not going to use Word.
+1080.12	1080.18	 No?
+1081.3000000000002	1081.9	 No?
+1081.96	1082.72	 Get that out.
+1083.86	1084.08	 All right?
+1084.6999999999998	1087.62	 You need to utilize an editor for programmers.
+1088.02	1091.3	 You need something that's going to give you the ability
+1091.3	1094.08	 to help you in doing this.
+1094.86	1097.3	 A good YAML and YAML linter.
+1097.4	1100.38	 So linters are a way for an ID to tell you,
+1100.42	1101.52	 hey, you're doing something wrong.
+1102.26	1102.66	 Okay?
+1103.24	1105.36	 We'll actually guide you along the way and say,
+1105.48	1106.94	 hey, this is incorrectly configured
+1106.94	1108.16	 or there's something wrong.
+1108.24	1109.48	 You didn't indent this correctly.
+1109.64	1110.72	 I don't understand what you're doing.
+1111.12	1111.52	 Okay?
+1112.34	1113.12	 Really valuable.
+1113.24	1114.14	 So I list a couple here.
+1114.28	1115.92	 This is not an exclusive list.
+1116.02	1117.5	 This is what we could fit inside of the deck.
+1118.04	1120.1	 Very common one right now is VS Code.
+1121.4	1122.04	 It's free.
+1122.12	1122.76	 It's open source.
+1122.88	1123.96	 You can download it and run it on your laptop.
+1123.96	1124.52	 It's fantastic.
+1124.8	1125.82	 I use it all the time.
+1127.24	1131.08	 Other ones like ATOM, PyCharm has a community version
+1131.08	1135.1	 and also has a for pay version.
+1135.26	1137.96	 It has PyCharm, I will say from a perspective of Python,
+1138.08	1139.24	 is insanely powerful.
+1140.08	1143.1	 And then you have Eclipse and no plus plus even does it,
+1143.16	1143.7	 but limited.
+1144.18	1144.62	 Okay?
+1145.26	1146.56	 These are some of the tools you use.
+1146.7	1149.7	 Personally, VS Code and Atom is a great place to start.
+1150.54	1151.12	 All right.
+1151.18	1152.64	 So what is an answerable role?
+1153.96	1156.82	 And this is starting now getting into the new way
+1156.82	1158.18	 of Ansible doing things,
+1158.36	1162.42	 but a role is a way for you to establish a collection
+1162.42	1164.02	 of tasks that are going to complete a task,
+1164.12	1165.28	 something that you want to do.
+1165.58	1168.78	 So let's say you want to define an L3 out.
+1169.98	1172.42	 Anybody here configured L3 outs in ACI?
+1175.04	1176.54	 How much steps is that?
+1178.56	1179.56	 Quite a few, right?
+1179.96	1183.94	 So what you can do is you can actually bundle everything inside of one.
+1183.94	1183.94	
+1183.94	1183.94	
+1185.1599999999999	1189.54	 Roll and say the role is to make an L3 out
+1189.54	1191.16	 and then it will have the capacity.
+1191.28	1193.8	 You pass the information into it and it's able to do it.
+1194.26	1196.06	 Or you can make it as simple as,
+1196.12	1198.9	 hey, I want to have a role that's make a VLAN pool.
+1200.18	1203.02	 So it's up to you guys to define how you want it
+1203.02	1203.9	 to be structured.
+1204.48	1205.4	 Does that make sense?
+1206.98	1207.42	 Okay.
+1208.62	1213.6	 Then we move into Playbooks and I'm pretty sure
+1213.6	1217.82	 everybody's heard Playbooks mentioned somewhere in this industry.
+1218.08	1220.26	 I got a Playbook for this, I got a Playbook for that.
+1220.44	1221.86	 You know, Playbook, Playbooks, Playbook, Playbooks.
+1222.06	1224.62	 But at the end of the way that I want you guys to understand,
+1224.78	1228.88	 Playbooks is a way where you're going to start connecting things.
+1229.78	1232.82	 You're going to connect roles to inventories, to variables.
+1233.14	1236.96	 It's kind of like the central place for you to establish
+1236.96	1238.9	 what is it that you want to do.
+1240.18	1243.4	 But if you create them correctly, then suddenly,
+1243.4	1246.74	 you have the ability to do a lot of reuse.
+1247.78	1248.82	 And this is key.
+1249.02	1250.92	 And I'm going to show you guys a little bit about this.
+1251.86	1252.4	 All right.
+1252.9999999999998	1253.8	 Ansel Inventory.
+1254.28	1255.86	 Who are you going to do it to?
+1256.74	1258.48	 Probably this is a little bit different
+1258.48	1261.04	 than what you guys were expecting to see, correct?
+1263.12	1263.52	 Huh?
+1264.38	1265.84	 Is everybody here that done read
+1269.4999999999998	1271.16	 inventory files with INI?
+1273.0400000000002	1273.4	 Yes?
+1273.8600000000001	1274.22	 Yeah?
+1274.8400000000001	1276.7	 The typical way that I've seen everybody do it
+1276.7	1277.76	 is with the INI format.
+1277.92	1280.96	 But a better way to do it is with the YAML format.
+1281.04	1283.22	 And this here is saying, in this case,
+1283.24	1285.36	 you're going to see this a lot, is East Fabric.
+1286.1200000000001	1288.16	 And then it's going to be like the variables that are there,
+1288.24	1290.5	 which is admin, username, and password, and then the host.
+1290.6	1292.0	 And this is the Fabric IP.
+1293.3600000000001	1295.94	 I'm showing you this for simplicity so you understand.
+1297.1000000000001	1301.14	 But please never put your username and password inside of your code.
+1301.14	1301.14	
+1301.14	1301.14	
+1301.14	1301.14	
+1301.14	1301.14	
+1302.28	1303.16	 All right?
+1303.82	1305.48	 Just please don't.
+1306.16	1310.66	 Because if you go into Git land and you do a commit
+1310.66	1312.3	 with that username and that password,
+1312.52	1314.08	 you're going to spend the next five hours
+1314.08	1316.1	 with somebody that knows Git really, really well
+1316.1	1318.78	 trying to get it out of the, expunge it from the repository.
+1319.44	1319.88	 Okay?
+1320.7	1324.52	 The best way to do it is to utilize environment variables.
+1325.8	1326.98	 And then they'll just be,
+1327.1	1328.72	 that information will just exist
+1328.72	1329.8	 as an environment variable there.
+1329.8	1333.18	 The better, better, better, better way is to use Vaults.
+1333.36	1335.28	 But beyond the scope of this.
+1336.26	1336.92	 All right.
+1338.8600000000001	1342.0	 Another huge part of Ansible is going to be Jinja.
+1342.26	1345.66	 The Jinja template system is the one that actually is used
+1345.66	1349.92	 to fill in variables inside of things.
+1350.02	1351.1	 It's a templating system.
+1351.96	1354.52	 So I know if you've worked with things before
+1354.52	1357.24	 in programmability, templates are used to substitute.
+1357.62	1359.78	 It's an easy way to print code, put a data in there,
+1359.78	1359.78	
+1359.78	1360.46	 get a structure through it.
+1360.52	1361.82	 At the end, you have something.
+1362.18	1362.46	 Okay?
+1364.34	1366.84	 Now, we use this extensively in Ansible.
+1366.96	1368.38	 And what I wanted for you guys to see is
+1369.02	1373.8	 if I defined this name here, username, and value is John,
+1374.4199999999998	1376.4	 and then I come down here and say username,
+1376.5	1378.86	 and I say, hey, this is going to be username.
+1379.5	1381.02	 In the end, when it runs,
+1381.1	1384.36	 it's going to substitute this section here with John.
+1385.26	1385.66	 Okay?
+1388.16	1388.7	 All right.
+1389.78	1390.36	 So we're doing it all together.
+1391.62	1395.32	 First thing is we take, as I mentioned earlier,
+1395.4	1399.32	 we had the East fabric defined inside of the playbook.
+1399.46	1401.52	 And what it's done is gone read the inventory
+1401.52	1404.6	 to see, get the username, the password for it there.
+1405.22	1407.46	 The next part is going to be to say, hey,
+1407.56	1411.48	 we got a role that we're going to do access policy VLANs,
+1412.16	1414.1	 and it's going to go find it and say, hey,
+1414.18	1417.64	 that is the task that's involved in access policy VLANs.
+1418.02	1419.76	 And then it starts connecting the data.
+1419.76	1421.06	 It's going to be in the dots, right?
+1422.18	1424.68	 You'll see that it has now username password,
+1424.82	1425.74	 the inventory host name,
+1425.8	1427.12	 which is matches from the other side.
+1427.24	1428.78	 And it's just connecting everything together.
+1434.2	1436.38	 So once that's done, execution.
+1437.62	1440.38	 And here you'll see what it looks like.
+1440.44	1443.22	 We're invoking the Ansible playbook.
+1443.34	1446.2	 We ask the inventory file to be the East fabric.
+1446.46	1448.94	 We run it and boom, off it goes.
+1448.94	1452.4	 And Ansible says right here that it made the change.
+1452.74	1453.14	 OK?
+1457.42	1458.32	 Any questions?
+1461.24	1465.76	 So let's go into the details that are related to ACI.
+1466.46	1468.9	 So first things first on this list,
+1469.6200000000001	1471.4	 you will see something that says gather facts,
+1471.64	1472.68	 and it's set to false.
+1473.28	1473.84	 OK?
+1474.28	1475.76	 And connection is local.
+1475.9	1476.54	 Why is that?
+1477.18	1478.92	 This is a very important thing to understand.
+1478.92	1481.66	 When Ansible runs against a Linux box,
+1482.9599999999998	1485.18	 Ansible transports itself into the box.
+1486.36	1488.38	 So to know what it's connecting to
+1488.38	1490.58	 and know what it's going to do, it gathers facts.
+1491.12	1493.02	 Like it goes there and looks around and says,
+1493.16	1494.08	 oh, this is all the details.
+1494.26	1495.94	 And then it knows what it needs to do
+1495.94	1498.1	 to work with that particular version of Linux.
+1498.98	1500.84	 But for ACI, we won't do that, right?
+1500.96	1502.64	 In ACI, we're not going to connect to the box
+1502.64	1503.3	 and do all these things.
+1503.34	1504.98	 For ACI, what we're going to do is we're going to interact
+1504.98	1507.26	 with ACI's REST interface.
+1507.88	1508.9	 So the connection is going to be, OK, we're going to connect to the box.
+1508.9	1508.9	
+1508.9	1510.34	 The connection is we will never gather facts,
+1510.8200000000002	1512.02	 and the connection is local.
+1512.2	1513.28	 So if you run it from your laptop,
+1513.48	1518.62	 that laptop is actually connecting to the ACI fabric
+1518.62	1519.08	 directly.
+1519.66	1520.36	 Does this make sense?
+1522.3600000000001	1522.72	 OK.
+1523.48	1526.06	 And then outside of that, I've included some here for you guys
+1526.06	1529.06	 for references, in or errors, falses.
+1529.22	1530.42	 And these are just ways for you to,
+1530.44	1531.88	 if you want to see the playbooks end,
+1532.04	1534.22	 if there's a problem or if you're just like,
+1534.32	1535.1	 I'm just testing.
+1535.18	1536.68	 I just want it to keep going, right?
+1536.82	1537.18	 Whatever.
+1537.96	1538.8	 And then the role.
+1539.4199999999998	1539.86	 OK?
+1542.6799999999998	1550.58	 So those tasks that are in those roles are going to contain,
+1551.24	1553.66	 as we showed earlier, let's just follow this example.
+1553.88	1555.26	 So ACI VLAN pool.
+1555.44	1557.78	 That is going to be the module that we're going to use.
+1557.96	1560.76	 So we're going to make a task that's called Create Engineering
+1560.76	1561.44	 VLAN Pool.
+1561.76	1564.8	 And then here we have, hey, the username, the password,
+1564.98	1565.48	 all that stuff.
+1565.82	1568.58	 And then we say, hey, the pool is going to be called,
+1568.58	1569.48	 and it's VLAN pool.
+1570.14	1570.62	 OK?
+1571.22	1575.26	 And then pool allocation mode is going to be defined as static.
+1575.44	1579.2	 You all know this part from, easy part from ACI.
+1579.56	1580.6	 And then the description.
+1581.34	1584.4	 Then we need to specify the state.
+1585.26	1588.14	 Here we're going to say it's present, meaning that we want
+1588.14	1588.38	 it.
+1588.56	1591.5	 If we were to delete it, we would say absent.
+1592.6	1593.08	 OK?
+1593.92	1595.6	 And that's kind of very important decisions
+1595.6	1597.82	 that you're going to start seeing with between Terraform,
+1599.4999999999998	1600.3	 and Ansible.
+1600.46	1600.84	 OK?
+1601.2	1603.56	 The other part here that's important is validate certs
+1603.56	1605.04	 as no, use SSL as no.
+1605.14	1606.1	 That is just depending.
+1606.3	1610.08	 If your Fabric has valid certs, woo-hoo.
+1610.9	1613.16	 If you don't, then you're probably
+1613.16	1614.94	 going to do a self sign, and you're just
+1614.94	1615.82	 going to use those in.
+1616.0	1616.5	 Make sense?
+1617.86	1618.26	 OK?
+1618.3	1621.08	 And then the bottom part, delegate to local host.
+1621.2	1621.66	 Why is that?
+1623.4999999999998	1625.34	 Because we're going to run it on our own machine
+1625.34	1626.46	 that we're running right now.
+1626.82	1627.22	 OK?
+1627.22	1628.3	 All right.
+1629.94	1630.48	 Authentication.
+1630.56	1633.72	 I did hear somebody say they had version 3 ACI out there.
+1634.66	1640.08	 So if you are in version 3 and version 4 of ACI,
+1640.16	1642.8	 you're going to have to go and utilize the right side,
+1642.88	1643.76	 the certificate base.
+1643.94	1645.6	 The reason for that is because ACI
+1646.46	1649.8	 would see the repeat of connections coming from Ansible
+1650.58	1654.58	 as a denial of service attack for the username.
+1654.7	1657.0	 So inside of ACI 3 and 4, the username,
+1657.0	1659.3	 and passwords were restricted to x amount of connections
+1659.3	1659.84	 per minute.
+1660.82	1662.38	 This changed in ACI 5.
+1662.7	1665.34	 In ACI 5 and ACI 6, it became an option.
+1665.74	1667.3	 You can turn it on if you want to, whatever.
+1668.4	1670.84	 Certificate base just bypasses it,
+1670.86	1673.4	 because it just connects to the API via the certificate system.
+1674.04	1675.7	 And then it directly goes through.
+1675.9	1678.12	 So if 3 and 4, you're going to need to use the bottom.
+1679.06	1679.5	 OK?
+1679.82	1682.92	 As I mentioned earlier, you can utilize the left side
+1682.92	1685.02	 with username, password, and use environment variables
+1685.68	1686.24	 as a method.
+1686.54	1686.98	 OK?
+1687.0	1687.76	 To authenticate.
+1688.1	1690.08	 Best possible way is vaults.
+1691.0600000000002	1691.7	 All right.
+1693.6200000000001	1696.08	 Last part of this is the rest modules.
+1697.84	1700.84	 And the rest modules gives you as a fallback mode
+1700.84	1703.26	 that if the module doesn't exist in ACI,
+1703.4	1707.18	 then it allows you to configure directly through JSON objects
+1707.18	1710.02	 to push into the fabric whatever is not
+1710.02	1710.94	 available through the module.
+1711.06	1713.8	 So the Ansible and the Terraform modules both
+1713.8	1716.6	 give you the ability to configure everything in ACI.
+1716.6	1718.74	 If the module's not there, you can get the object in.
+1719.02	1719.24	 OK?
+1720.26	1720.8	 All right.
+1720.92	1721.94	 Let's go through an example.
+1723.06	1724.78	 This is what I call an unoptimal mode.
+1725.02	1727.68	 In an unoptimal mode, we've sat down and we've coded one.
+1727.84	1730.62	 We call the task, create engineering VLAN pool.
+1731.12	1733.44	 And then we go in and we say the pool, and we call it.
+1733.44	1734.46	 We put everything specific.
+1735.4	1737.66	 Now, if you wanted to create 100 VLAN pools,
+1738.8	1741.36	 you would now have to create 100 one of these guys.
+1741.72	1742.12	 Right?
+1742.62	1745.6	 Each one an individual task that you do for each one.
+1745.82	1746.58	 There's a better way.
+1746.58	1751.84	 The better way to do it is to utilizing lists and lists
+1752.74	1755.44	 of objects or dictionaries, if you want to call it Python.
+1755.62	1758.72	 And this is just saying, hey, I'm just going to go ahead
+1758.72	1761.94	 and I'll keep adding here definitions of different VLAN
+1761.94	1763.54	 pools in this list.
+1763.9	1766.3	 And then when you do that, what happens
+1766.3	1770.12	 is it gives you the ability now for us to run this
+1770.6599999999999	1771.46	 through iterative mode.
+1772.22	1774.44	 So what is this iterative mode magic?
+1775.44	1776.56	 So if you can see here, this is the iterative mode magic.
+1776.56	1778.28	 So if you can see here in the bottom, there's a little thing.
+1778.4	1779.18	 It says loop.
+1780.24	1780.68	 OK?
+1781.4	1784.8	 And that loop is pointing to VLAN pools as a variable.
+1784.96	1786.72	 And it's going up here to VLAN pools here.
+1787.16	1787.6	 OK?
+1788.18	1790.52	 And then that guy has a list.
+1791.64	1793.36	 We have four of them right here.
+1793.72	1796.76	 Four different elements in this list.
+1796.82	1797.54	 The four objects.
+1797.84	1800.32	 Those four objects, we want to iterate through.
+1800.42	1800.48	 Right?
+1800.54	1803.14	 We're just going to use the same task, go through the variables,
+1803.32	1805.0	 ding, ding, ding, ding, ding, and configure.
+1805.0	1809.12	 So what we do is we use this concept of item.
+1809.22	1812.14	 So down here, inside of this object,
+1812.36	1815.6	 that item element is going to reference each element
+1815.6	1816.88	 in that list.
+1817.5600000000002	1824.66	 And then after that, item dot the name of the variable.
+1825.8200000000002	1826.44	 See?
+1828.72	1830.0	 You guys following me?
+1830.1	1830.82	 Did I lose you?
+1830.98	1831.62	 We good?
+1832.42	1833.04	 Cool.
+1833.2	1834.98	 So now what happens is, we're going to do this.
+1834.98	1840.1	 As we go through doing this, and someone is going to say,
+1840.2	1841.78	 oh, I'm going to go through that list.
+1842.78	1847.02	 And it is going to now iterate through it and end up with,
+1847.78	1848.44	 guess what?
+1852.1399999999999	1853.18	 Four VLAN pools.
+1853.98	1854.38	 Right?
+1854.74	1857.18	 And again, I made this example super easy,
+1857.22	1858.2	 so it's easy to understand.
+1858.58	1858.98	 Right?
+1859.04	1860.88	 I know your ACI fabrics are not this way,
+1860.94	1862.0	 but you get the concepts.
+1862.22	1862.6	 Right?
+1862.64	1864.46	 Here are the four of them that have been created.
+1872.04	1875.96	 You can substitute that variable definition there,
+1876.1	1879.2	 and you can tell Ansible to do the exact same thing with the CSV.
+1879.7	1882.28	 And it'll just read it and run it.
+1884.4199999999998	1887.26	 Do you have to structure the header of the CSV?
+1887.66	1887.92	 Absolutely.
+1888.3	1888.74	 Absolutely.
+1890.06	1890.9	 It's very easy.
+1890.96	1892.2	 We do this all the time with CSV.
+1892.34	1893.74	 Some customers ask us to do a CSV.
+1893.86	1894.26	 We have them.
+1894.98	1896.22	 I think there's a way to do it with Excel, too.
+1896.98	1899.3	 There's so many ways that are out there to do it.
+1899.92	1902.32	 It's documented what their names of them
+1902.32	1903.32	 are supposed to be over there?
+1904.08	1904.08	
+1904.08	1905.4	 For what different objects?
+1905.74	1906.0	 Yep.
+1906.8	1907.2	 Cool.
+1908.7399999999998	1912.46	 So in the main.yaml under roles, would there
+1912.46	1914.54	 be bars under roles?
+1914.6	1915.36	 They would be multiple.
+1916.02	1918.94	 I can't VLAN pools, but later down on the file,
+1919.02	1920.94	 you would have something else for the next thing you wanted to do.
+1921.22	1923.36	 And so depending on which playbook you're running,
+1923.46	1924.44	 which one it will grab.
+1926.0	1926.36	 OK.
+1926.48	1930.72	 So the question is, if I have different things or whatever
+1930.72	1933.16	 that you want to do, and the name in there,
+1933.7	1934.92	 it's going to read it.
+1935.0	1936.64	 And I'll show you guys a little bit trick about this.
+1936.78	1939.66	 But this variable there, Ansible is going to read and find.
+1940.1000000000001	1942.92	 There cannot be two named VLAN pools, two variables named
+1942.92	1944.64	 VLAN pools around in different places.
+1944.84	1945.86	 You have one of them.
+1945.9	1947.22	 Because if not, it's going to be like, wait, wait, wait.
+1947.22	1947.6	 What are you doing?
+1947.7	1948.3	 There's two of them.
+1948.74	1949.1	 OK.
+1949.4	1952.86	 But we can have VLAN pools in two different fabrics, right?
+1953.3000000000002	1954.96	 And we're going to organize it in a little bit.
+1954.98	1955.68	 We're going to use it to do that.
+1957.1	1957.7	 All right.
+1957.8	1961.56	 So if you have VLAN pools and ETGs in that same file,
+1961.66	1962.88	 and it creates both of them?
+1963.4	1963.44	 Yeah.
+1963.68	1964.12	 Yeah.
+1964.22	1964.64	 OK.
+1964.74	1967.42	 You can have one file that has 200,000 lines in it.
+1967.5	1969.96	 I would highly, highly recommend not doing that.
+1970.52	1973.3	 So I think, for example, VLAN pools should be in one file.
+1973.82	1976.98	 Ansible will go into a directory we're going to specify.
+1977.5	1979.68	 And he's going to read all of the files first.
+1979.92	1981.3	 He's going to put everything in memory.
+1981.88	1983.3	 And then he's going to run.
+1983.5	1984.96	 So even if you say csv.
+1984.96	1984.96	
+1984.98	1986.4	 It gets loaded first.
+1987.0	1987.44	 OK.
+1987.9	1988.46	 All right.
+1988.72	1990.02	 So a word about variables.
+1991.14	1993.16	 So here there's a folder called group vars.
+1993.62	1995.44	 And again, back to what I was structure
+1995.44	1997.84	 I was telling you about, how important this is.
+1998.2	2001.74	 Because what it's going to allow us is to group the way that
+2003.04	2006.1	 is going to allow us to group the way that these variables all
+2006.1	2007.76	 are going to be read by the system.
+2007.78	2008.42	 Because why?
+2008.64	2010.44	 You might have, how much is it?
+2010.46	2011.12	 16 fabrics?
+2011.86	2012.62	 16 fabrics.
+2012.76	2014.58	 You might not going to have those
+2014.58	2016.68	 variables all broken apart, right?
+2017.4	2018.62	 They're not going to be one.
+2018.78	2021.12	 Your VLAN pools for one fabric makes sense.
+2022.08	2024.8	 But for 16, you want to have 16 places, right?
+2024.96	2025.82	 So what do we do?
+2025.9	2029.62	 We move these variables away from those tasks
+2029.62	2031.82	 into the group vars.
+2032.06	2037.94	 And the group vars, we organize them via the host names
+2037.94	2038.96	 that we've defined.
+2039.44	2044.28	 So if I do this really quick, I go up here, I create a playbook.
+2044.32	2044.56	 OK.
+2044.56	2046.5	 I get somebody that says, hey, it's
+2046.5	2048.38	 EaseFabric access policies.
+2049.72	2051.88	 He's going to go in and look in group vars,
+2052.04	2054.04	 and he's going to find EaseFabric.
+2055.92	2058.46	 EaseFabric now has all these definitions of different files.
+2059.74	2062.1	 And he's just going to read them all in one .
+2062.1	2065.18	 If you ran the playbook and you had a lot of stuff in it,
+2065.22	2066.82	 the first thing you're going to see is Ansible, like,
+2066.82	2068.82	 reading, reading, reading, reading, everything
+2069.34	2069.7	 into memory.
+2070.36	2072.62	 And then after it reads it, then it's
+2072.62	2074.22	 able to execute the task.
+2074.22	2087.8	 with the variables that have defined yes yes question is if I have the same
+2087.8	2091.48	 variable name in two different parts under the same directory will error out
+2091.48	2095.38	 the answer is yes because it's seen two things now a thing in the end what's
+2095.38	2100.58	 going to happen is it's going to read the last one at red so it might be even
+2100.58	2104.8	 worse for you because it might not error out it might just go and say okay read
+2104.8	2108.08	 that again rep substitute it over here this is the last one I read and which
+2108.08	2114.28	 one it read last you want to guess which one I have no idea my suggestion to you
+2114.28	2120.34	 would be definitely don't do that okay all right so putting it all together
+2122.1	2130.36	 here it is the work of art look how fantastic this is what a beauty
+2130.36	2138.18	 all put together now so what do we have we have group bars on the top or
+2138.18	2145.18	 defined for an East fabric okay we have the role defined for that we have the
+2145.18	2150.36	 playbook that's calling the East fabric and and the roles and the inventory and
+2150.96	2158.1	 when we put it all together now what we get is the execution of ansible in a
+2158.1	2160.22	 beautifully structured format that allows you to
+2160.36	2164.96	 scale because think about it if we had 16 fabrics like the gentleman just in
+2164.96	2169.5	 with he can create playbooks are distinctive to each one he says playbook
+2169.5	2175.08	 for East fabric West fabric North fabric South fabric whatever it is and then
+2175.08	2181.58	 those arrows you're reusing the tasks you don't have to create now tasks for
+2181.58	2185.72	 each of those you're just reusing it and so the task is let's say create an L3
+2185.72	2190.26	 out you do it right it'll work the same
+2190.26	2193.66	 for all of you just need different variables to see how it's going to be
+2193.66	2199.68	 built and that's how it runs creates all these vion pools amazing and then the
+2199.68	2209.8	 end is here you can see them being added and in ACI what's it 5 or 6 6 in ACI 6
+2210.44	2216.38	 look at these little a things we're getting creative guys you choose so you
+2216.38	2220.14	 know what that means you can either have an Undertable or a
+2220.14	2221.86	 terraform logo attached to that.
+2222.7400000000002	2224.22	 So what do you do
+2224.22	2225.98	 when you see one of these
+2226.6	2227.5	 in an object?
+2230.58	2232.04	 Don't mess with it.
+2232.42	2233.56	 You know why?
+2234.62	2236.14	 Because if somebody goes
+2236.14	2237.86	 in there and runs that script again,
+2238.06	2240.2	 guess what's going to happen to the changes that you
+2240.2	2240.48	 made?
+2241.84	2243.2	 They're going to be gone.
+2244.46	2246.14	 So if you sit down in your
+2246.14	2248.04	 Saturday afternoon and you're like, hey, we fixed this
+2248.04	2250.04	 problem and you went and you plugged it directly and then
+2250.04	2252.02	 next week and somebody comes and says, hey, we have to do this
+2252.02	2253.92	 again. Run some
+2253.92	2255.66	 playbook or somewhere and suddenly like, oh,
+2255.84	2256.94	 network outage again.
+2257.58	2259.1	 This is what we call split brain.
+2259.66	2260.02	 Okay?
+2261.0	2262.86	 What if the note came from Ansible?
+2266.04	2267.82	 Great question. That's a great question.
+2267.88	2269.86	 The question is, how does he know it came from
+2269.86	2271.76	 Ansible? So there is an annotation in the
+2271.76	2273.08	 objects that we've included
+2273.62	2275.34	 since ACI 5 and 6
+2275.34	2277.56	 that gives us the knowledge of
+2277.56	2277.84	 where
+2277.84	2278.02	 it's from.
+2278.04	2279.64	 Where it originated and the Ansible
+2279.64	2281.84	 modules that we currently have create that
+2281.84	2283.86	 annotation. So it'll show up as
+2284.6000000000004	2285.86	 orchestration, Ansible
+2285.86	2287.48	 orchestration, Terraform.
+2291.24	2291.96	 It still
+2296.3600000000006	2297.8	 does. Because
+2297.8	2299.52	 the annotation itself is
+2299.52	2301.68	 built as part of the ACI REST
+2301.68	2302.8	 module itself.
+2303.76	2304.48	 Gotcha?
+2305.5	2306.5	 And that's
+2306.5	2307.96	 in the newer version of
+2308.04	2309.88	 the ACI code itself.
+2310.3	2313.42	 In previous versions, and you'll see it when I go through my demo,
+2313.62	2318.56	 it'll actually be a symbol, but it's nowhere as pretty as what RAF has up there.
+2318.72	2321.88	 Yeah. And if you go inside of it, you will see in the top bar,
+2322.06	2326.0	 it'll say this object has been created with Ansible warning.
+2327.34	2329.62	 So we give you the indications to do.
+2329.8	2333.78	 Now in a true infrastructure as code world, if you were go down that path,
+2333.96	2338.02	 you definitely want to all your changes to happen, your fabrics originating from the code.
+2338.02	2338.6	 So you can see that the code is based on the code base.
+2338.84	2339.68	 Originated from this.
+2339.84	2340.16	 Okay?
+2340.38	2343.86	 And with that, pass the ball over to Thomas to cover
+2344.56	2346.62	 wonderful world of Terraform.
+2346.8	2347.26	 Thanks, Raf.
+2347.7	2348.46	 Appreciate it.
+2349.32	2350.98	 It's pretty good, huh? Ansible?
+2351.12	2351.48	 Yeah.
+2351.68	2352.16	 Yeah.
+2352.28	2352.7	 Yeah.
+2353.06	2357.24	 Certainly a lot of reasons why it has become one of the more popular
+2357.24	2361.44	 infrastructure as code tools, not just in general, but especially for ACI.
+2361.58	2365.54	 But I'm going to talk about another popular infrastructure as code tool called Terraform.
+2365.74	2366.94	 What is Terraform?
+2367.54	2368.26	 Excuse me.
+2368.26	2372.88	 It is an open source infrastructure provisioning tool from HashiCorp.
+2373.24	2377.44	 It runs as a single binary and it runs on many platforms.
+2377.68	2381.44	 So you can run it on your Windows systems, your Mac, your Linux.
+2381.8	2385.78	 Do anybody have any, does anybody have any Solaris systems in their environment still?
+2386.04	2388.24	 You can actually, not at all, one person.
+2388.34	2388.58	 Okay.
+2388.64	2390.66	 I was like, nobody, oh, there's another one.
+2391.48	2395.06	 You can actually run Terraform on Solaris if you so choose.
+2395.26	2395.96	 Free BSD.
+2396.94	2397.28	 Free BSD.
+2397.28	2397.28	
+2397.28	2400.38	 So there are other options for you if you want to run Terraform in your environment.
+2401.38	2404.8	 Terraform uses HashiCorp Configuration Language, or HCL.
+2405.02	2411.12	 It is a declarative language in which you are going to use to define the infrastructure
+2411.12	2413.22	 that you want Terraform to provision.
+2414.52	2420.4	 It leverages the same APEC REST API calls today that you're already using through the
+2420.4	2423.02	 GUI, and that Raf had kind of mentioned, as well.
+2423.14	2425.36	 So it uses the same REST API interface.
+2426.94	2438.14	 No programming knowledge is required because Terraform, like Ansible, abstracts the underlying Python in Ansible's case and Go in Terraform's case.
+2438.24	2446.96	 It abstracts that, so you only need to know about how to structure your HCL configurations in order to use Terraform.
+2447.24	2454.06	 And really, you only require data structure knowledge about the objects that you want Terraform to provision in your environment.
+2455.2200000000003	2459.08	 Installing Terraform is very easy. This is just off of the Terraform website.
+2459.36	2463.38	 As I've mentioned, there's many options for varying operating systems out there.
+2463.5	2470.78	 In this case, you can install it on Mac here using Brew. You can actually install it using a Windows binary.
+2471.08	2473.6	 So lots of options that are out there.
+2473.7	2478.14	 Now, the Terraform binary is just a command line executable file, right?
+2478.22	2482.94	 It doesn't know anything about ACI or AWS or anything yet.
+2483.06	2483.96	 That's just...
+2484.06	2489.1	 That's the binary that's going to be used to run actual Terraform itself.
+2490.3	2494.1	 And let's talk about some Terraform concepts while we're on that.
+2495.08	2498.02	 So Terraform has the concept of plans and configuration files.
+2498.24	2507.68	 And what those are are a collection of HCL instructions to tell Terraform what you want to do and what you want to provision in your environment.
+2507.94	2510.06	 It uses a .tf extension.
+2510.28	2514.04	 So Terraform will actually scan a directory in which you create...
+2514.06	2515.2	 create your configuration files.
+2515.48	2520.42	 And it knows, because of the declarative nature of Terraform, and I'll talk about that in a moment,
+2521.06	2528.24	 it knows that you want to execute and create all of those resources that you want Terraform to actually create.
+2529.14	2537.48	 You can have this broken up into smaller configuration files or .tf files, or you can have it in one large main .tf file.
+2537.7	2541.94	 Main .tf is what you'll see a lot in examples when you look at Terraform itself.
+2542.3	2544.04	 And here you tend to structure it.
+2544.04	2545.92	 It's under one directory here.
+2546.06	2548.54	 So in this case, it's considered the default workspace.
+2548.9	2554.02	 A workspace is where you would have all of your Terraform configurations set up and structured.
+2554.28	2562.54	 And in this example here, I have my L3L configurations that I'm going to provision through Terraform all in one particular directory itself.
+2564.38	2566.58	 Now, as I mentioned, Terraform...
+2566.58	2574.02	 the Terraform binary itself doesn't know anything about the API calls to the APIC or the Multisite Orchestrator.
+2574.04	2575.46	 It doesn't know any of that.
+2575.56	2577.58	 We require providers for that.
+2577.7	2587.52	 And what providers do is it allows us to create, read, update, or remove, or in Terraform vernacular, destroy infrastructure that it provisions.
+2587.86	2594.38	 And it relies on specific vendor plug-ins, which are downloaded and installed via initialization.
+2594.66	2599.68	 We will talk about what that process of Terraform initialization is in a moment.
+2600.24	2604.02	 But Terraform providers understand those API calls.
+2604.04	2606.04	 That we want to make for infrastructure.
+2606.26	2608.44	 We want a provision to ACI itself.
+2608.72	2617.0	 And since Terraform is an open source tool, you can actually write your own providers if you know Go, if you so choose.
+2617.32	2620.14	 I do not Go, so I do not know any Go.
+2620.24	2622.62	 So I don't really contribute to that.
+2622.74	2625.56	 I'm more of an end user myself of Terraform.
+2626.2000000000003	2629.64	 Now, there are three types of providers that are available for you.
+2629.78	2632.28	 The first one is the official provider.
+2632.56	2633.6	 And that is...
+2633.6	2634.02	 Those are the...
+2634.04	2637.8	 Those are the providers that are actually owned and maintained by HashiCorp.
+2638.06	2641.46	 A couple of examples of that are the major cloud providers.
+2641.6	2644.98	 AWS, GCP, Azure, and some others.
+2645.16	2649.5	 So those are the ones that HashiCorp themselves owns, updates, and maintains.
+2649.98	2655.94	 The second type of provider, and this is where Cisco falls in, is the partner provider.
+2656.88	2659.6	 So we are a HashiCorp partner.
+2659.7	2664.02	 And HashiCorp certifies our ACI and MSO providers.
+2664.02	2674.68	 So this is where you would find the provider for all of the resources if you want to provision ACI and Multisite using Terraform itself.
+2675.1	2678.46	 And then finally, there's a third type of provider that is available for you.
+2678.68	2683.04	 That third type of provider, as you can imagine since it is open source, is the larger community.
+2683.38	2689.08	 So in this case, that's published and maintained by individuals in the larger open source community.
+2689.36	2693.2	 So those are the three types of providers that you would have in your environment.
+2694.02	2700.98	 If you want to see more information about not only the ACI or MSO provider, but maybe all of the providers,
+2701.22	2707.2	 you can check out the website at the top right of the page here, registry.terraform.io.
+2708.54	2712.5	 So here's an example Terraform provider configuration for ACI.
+2712.74	2721.98	 So in this case, I'm specifying in my configuration file, and this could be in my main .tf or any other type of file name with a .tf extension.
+2722.38	2723.66	 Terraform doesn't care.
+2723.66	2725.94	 It doesn't care exactly about the name itself.
+2726.26	2729.5	 So in this case, I have my Terraform configuration itself.
+2730.02	2735.74	 And here, I specify what providers I want Terraform to use.
+2736.08	2740.72	 In this case, I want Terraform to use the ACI provider.
+2741.66	2752.9	 And the source of that provider where Terraform is going to grab that and download it is going to be in the namespace under source Cisco DevNet ACI.
+2753.08	2753.64	 Now, if you want to use Terraform, you can use the source of that provider.
+2753.64	2758.44	 Now, what you don't see in here, but just know that in the background, this is what happens.
+2758.6	2769.32	 When you initialize the Terraform provider, it actually goes out to registry.terraform.io under that namespace, so Cisco DevNet ACI.
+2769.4	2776.26	 And that's where it goes to download the provider information that is required for Terraform to provision infrastructure.
+2777.16	2782.12	 You can use versioning for Terraform providers, in this case, the ACI provider.
+2782.12	2786.18	 As of this session, 2.8 is the latest.
+2786.44	2798.66	 And chances are, knowing my luck, the Cisco BU, who does actively maintain both the ACI and the multi-site Terraform provider, they've probably published a new version.
+2798.92	2800.54	 They did this to us in Amsterdam.
+2800.78	2808.98	 So it would not surprise me if 2.8 is no longer the new version by the time you are currently watching this or by the time you go check yourselves.
+2810.18	2812.1	 Here, though, I specify. . .
+2812.12	2818.16	 a version of the Terraform ACI provider that I want Terraform to go out and download and use.
+2819.12	2826.74	 If you do not specify a provider version, like the one listed up there, it will automatically use the most recent version.
+2826.94	2828.08	 So just know that.
+2829.1	2833.2	 Now, here, I actually specify my Terraform provider configuration itself.
+2833.44	2839.68	 So since I wanted to use the ACI provider, now I'm going to actually configure it to use that provider itself.
+2839.96	2842.1	 In this case. . .
+2842.1	2848.14	 like Raf used with Ansible, we're going to use signature-based authentication or self-signed certificates.
+2848.52	2850.92	 So I define a local user name.
+2851.18	2852.74	 Let me see if I can get this to work here.
+2853.04	2859.36	 So I define my local user name on the APIC, which you have to if you're using signature-based authentication.
+2859.54	2862.98	 You have to have a local user on the APIC in order to use that.
+2863.24	2869.58	 And then I also identify my private key as well as the certificate that I want Terraform to use.
+2869.96	2871.1	 . .
+2871.1	2874.16	 Then I also provide the APIC URL.
+2874.4	2880.3	 So this is the URL with the IP address of the management interface of my APIC.
+2880.3	2886.04	 So it knows the IP in which Terraform needs to push its infrastructure as code out to.
+2886.32	2889.84	 And then finally, specifying insecure equals true.
+2889.92	2895.44	 If we're not using SSL certificates, then we could just set that to insecure is true.
+2895.48	2897.88	 And we are not using SSL certificates here.
+2899.38	2901.08	 Here is an example of a. . .
+2901.08	2901.08	
+2901.08	2904.32	 of using the multi-site or Nexus Dashboard Orchestrator.
+2904.6	2905.92	 Just a quick show of hands.
+2906.08	2909.52	 How many of you are using Nexus Dashboard Orchestrator in your environment?
+2909.88	2910.58	 Okay, a few of you.
+2910.68	2915.76	 This is going to be relevant for you right now, but also for a lot of you.
+2915.84	2916.98	 And I'll get to that in a moment.
+2917.4	2924.84	 So here I've defined that within my Terraform configuration that I want it to use the multi-site provider.
+2925.26	2930.62	 So in this case, I specify the namespace where I want Terraform to go down and download.
+2931.08	2932.72	 And I'm going to use the name of the plugin that it uses.
+2933.4	2936.96	 And similar to what we did previously, I can specify the version.
+2937.1	2938.86	 In this case, I have 0.71.
+2939.12	2945.88	 The latest as of today, or the last time I checked a couple of days ago, it's 0.10.0.
+2946.0	2946.9	 That's the latest one.
+2947.84	2949.86	 There are some slight differences here.
+2950.04	2954.16	 I'm actually using variable substitution, much like Raf mentioned, that you can use.
+2954.36	2958.22	 You can use variable substitution for username and passwords.
+2958.42	2959.8	 So that is certainly an option.
+2959.8	2967.36	 And much like Raf mentioned with Ansible, I can actually have my username and password in my provider configuration itself.
+2967.64	2970.58	 But as you can imagine, that's not very secure, right?
+2970.7	2971.9	 Because it's right there and available.
+2972.7	2975.74	 Similar to what we also had, we had the URL and the insecure.
+2975.86	2979.54	 But here is where the focus comes in for Nexus Dashboard Orchestrator.
+2979.74	2987.66	 For those of you that are unfamiliar with it, Nexus Dashboard Orchestrator is an application that lives on Nexus Dashboard.
+2987.66	2995.38	 So if we are going to have Terraform provision code and infrastructure to our multi-site environment,
+2995.78	2998.5	 we're going to want to put this platform equals nd.
+2998.64	3008.7	 And what that does is it allows Terraform to know that I need to speak to that application that resides on a Nexus Dashboard Orchestrator.
+3008.84	3010.74	 Or on a Nexus Dashboard itself.
+3011.06	3016.24	 So just know if you are looking at provisioning code and infrastructure with Terraform,
+3016.44	3017.64	 using the MSN.
+3017.64	3020.84	 And if you are looking at a MSO provider, that you will need to do that.
+3024.04	3026.52	 Terraform has a concept of data source and resources.
+3026.86	3031.84	 So this is what we use to create and update and manage our infrastructure.
+3032.12	3034.86	 In the case of Terraform resources, we use that.
+3034.9	3038.1	 It's specific to a given provider, so ACI and MSO.
+3038.18	3043.94	 And we could use that to create, update, or remove, or in Terraform vernacular, destroy.
+3044.04	3046.58	 And we'll talk about what all those mean in a moment.
+3047.64	3053.38	 It describes your intent for the particular infrastructure that you want to deploy in your environment.
+3053.74	3059.38	 Data sources, however, allow Terraform to read information from an environment.
+3059.52	3067.5	 Because maybe we want a Terraform resource to act upon information that it gathers via a data source itself.
+3067.66	3070.64	 And I've got a couple of examples that will actually go through this in a bit.
+3071.22	3077.62	 Also, as of this presentation, there are over 230 Terraform resources.
+3077.62	3079.1	 So there are Terraform resources and data sources.
+3079.7400000000002	3083.18	 And then there are 45 MSO resources and data sources.
+3083.42	3091.94	 So lots of resources available to do the most common things that you would do in an ACI fabric with Terraform.
+3093.76	3095.48	 Here's a Terraform resource example.
+3095.72	3100.62	 So in this case, and I decided to go a little bit outside of the standard tenant example.
+3100.92	3104.7	 In this case, I'm actually going to use the type of resource.
+3104.88	3107.6	 And that type of resource is the ACI bulk unit.
+3107.62	3108.74	 And that's called EPG to static paths.
+3108.92	3115.66	 So in this case, I want to deploy static paths to multiple interfaces within an EPG in my environment.
+3115.88	3119.14	 So there's actually a Terraform resource that would allow you to do that.
+3119.3	3120.78	 And that's the type of resource itself.
+3121.62	3123.98	 You also have the name of the resource.
+3124.36	3130.52	 So this is just what I'm naming the resource for the infrastructure I'm going to provision with that resource itself.
+3130.94	3135.2	 Now, Terraform and HashiCorp configuration language configuration
+3135.2	3142.26	 start out with curly braces for a start of a resource block and the ending of a resource block itself.
+3142.84	3143.54	 Right?
+3144.28	3146.38	 Terraform is a stateful application.
+3146.8	3154.94	 So when you provision infrastructure with Terraform, it tracks the state of that infrastructure you provision in your environment.
+3155.08	3164.82	 And that's where it's a big difference between Terraform and Ansible is that Terraform knows about the state of any infrastructure that you have provisioned with it.
+3164.82	3166.48	 Why is this going to be important?
+3166.96	3170.98	 When you store state file information, we'll talk about that in a couple of slides.
+3171.18	3176.56	 It is going to use the type of resource and the name of the resource in order to do that.
+3176.7	3182.52	 And you will see that when we look at the Terraform state file itself and how it keeps that information in there.
+3183.38	3194.8	 Please note that the name of the resource must be unique because it does track state and it keeps information in that state file of what it's doing.
+3194.8	3194.8	
+3194.8	3194.8	
+3194.8	3194.8	
+3194.82	3196.82	 It doesn't have to be specific to what infrastructure it has provisioned.
+3196.82	3203.02	 The name of the resource must be unique whenever you are leveraging a resource to provision infrastructure.
+3204.92	3208.04	 Here is an example of a Terraform data source.
+3208.28	3216.2	 So in this case, I would like to provision a tenant in my multi-site environment and I want to provision that across multiple sites.
+3216.5	3222.7	 So in this case, I want to have Terraform use the data source for MSO site to go out
+3222.7	3224.8	 and read information on the site.
+3224.82	3235.4	 And I can take that information and leverage that in a resource to now provision that tenant out to both sites.
+3235.7	3246.98	 So this is an example of how Terraform can read in information from the environment and actually use that and act on that to provision infrastructure in my environment itself.
+3247.14	3248.94	 So that's an example of a data source.
+3251.1600000000003	3254.74	 230 resources, data sources, that's a lot.
+3254.8	3254.8	
+3254.8	3254.8	
+3254.82	3262.76	 And there's a lot of resources that will pretty much cover everything that you want to do with Terraform within an ACI fabric.
+3263.4	3267.56	 But it doesn't cover everything, as Raf mentioned before, in Ansible.
+3268.12	3275.08	 Well, what do you do if you don't have a resource to provision some infrastructure that you want to provision with Terraform?
+3275.48	3279.4	 You can use the resource called ACI REST Manage.
+3279.6	3284.6	 And what that does is it allows you to manage objects via the REST API.
+3284.6	3289.74	 So you can manage objects via the REST API interface, the same one that you use through the APIC GUI with no resource.
+3290.6	3299.44	 Now, the big difference between ACI REST Managed and ACI REST, so there's actually two separate resources that are available to you.
+3300.7200000000003	3313.98	 Previously, they just had the ACI REST resource, which would allow you to implement those API calls and work around there not being a Terraform resource available for any infrastructure you want to provision.
+3313.98	3323.68	 The challenge with that was you couldn't reconcile any state information that Terraform might have for infrastructure that it has already provisioned.
+3323.72	3333.72	 With the ACI REST Managed resource, it actually allows you to reconcile and know the state of infrastructure that it itself has provisioned.
+3334.12	3341.98	 And then for Multisite, there is also a Multisite or MSO underscore REST in which you can also use API calls.
+3342.1	3343.58	 Now, how do you gather those API calls?
+3344.38	3346.36	 There are two ways you can gather those API calls.
+3346.64	3352.6	 Are any of you familiar with the API inspector within the APIC?
+3352.74	3354.26	 Okay, some of you are, right?
+3354.52	3365.16	 You can use that to capture and see those API calls, capture them, and then structure your ACI Managed REST resource to actually provision that with Terraform.
+3365.38	3366.94	 There is another way.
+3367.08	3371.0	 Does anybody know how you can also capture what those API calls would be?
+3372.2	3373.9	 You can. Go for it.
+3373.98	3375.26	 You can use the browser or inspectors.
+3376.76	3378.0	 Say that again?
+3378.48	3380.78	 Most browsers have an inspect element.
+3380.96	3384.58	 You can. You can actually use the browser and use an inspect element.
+3384.74	3390.82	 As a matter of fact, for Multisite, that's actually the way you have to do it because there is no API inspector in Multisite.
+3391.04	3401.02	 You can also right-click on an object and then click on download, and you can download the JSON or XML version of that object.
+3401.12	3403.96	 And that will also allow you to get some of the API calls.
+3403.96	3408.16	 So, a couple of different ways to do it.
+3408.3	3419.12	 In the example that I have listed below, I needed to use this ACI REST Managed to configure a user for a particular domain within my ACI Fabric.
+3419.2	3428.44	 There isn't a resource in order to do this, so I was able to capture the API calls, and based on that content, hopefully I can still do this, maybe.
+3429.86	3433.64	 I can actually specify here the class name here.
+3433.64	3436.54	 User domain, and then specify the content.
+3436.68	3437.34	 This is very simple.
+3437.46	3439.14	 We just want to specify all.
+3439.56	3449.98	 So, you are no longer limited if there isn't a Terraform resource, much like if there isn't an Ansible module for what you want to provision or automate.
+3450.1	3454.04	 You are no longer limited to just the resources that are available to you.
+3457.34	3463.62	 Terraform has, the Terraform registry has extensive documentation, both on ACI as well as on Multisite.
+3463.64	3474.82	 So, here you can find out more information about not only the ACI provider itself, but you can also find out about all the resources and data sources that are available for you.
+3475.24	3480.32	 But here is also the interesting thing too, as you start your journey with Terraform.
+3480.5	3489.92	 It will give you more information on the individual resources, in this case the ACI application EPG, but it also gives you example code that you can use.
+3490.08	3493.62	 So, you don't necessarily have to come up with the code all on your own.
+3493.62	3493.62	
+3493.62	3500.66	 You can just leverage what you have here, and you can create your own infrastructure as code with Terraform.
+3500.82	3504.66	 Now, in fairness, this isn't something unique to Terraform.
+3504.94	3510.46	 There is extensive Ansible documentation on modules in which is the same thing.
+3510.6	3520.48	 It will provide you examples, so if you want to create things, again, whether it's in Terraform or within Ansible, there is documentation for modules or resources for both.
+3520.86	3523.6	 One other thing to be aware of, and unfortunately I can't say it, is that there is a lot of documentation for modules.
+3523.6	3523.6	
+3523.6	3524.46	 I couldn't fit it in the slide.
+3525.1	3527.62	 You have to be aware of what's mandatory.
+3527.68	3532.44	 What is the mandatory configuration that this resource is going to be looking for?
+3532.7	3534.82	 And by the way, same thing with Ansible.
+3535.0	3544.48	 So, just keep that in mind as you start your automation journey and you're looking at using resources like this or modules like some of the ones that Raf had mentioned.
+3544.72	3553.46	 There are configurations that those tools and those collections and those modules are going to expect that you have configured in your environment.
+3555.7200000000003	3559.2	 Terraform is a stateful application, as I mentioned before.
+3559.46	3565.32	 It will keep and track information on the state that it provisions in your environment.
+3565.44	3572.5	 And it tracks and keeps that in a Terraform state file or a Terraform.tf state file if you track it locally.
+3572.72	3580.24	 When you run Terraform locally on your system, it generates a Terraform.tf state file that is local to your system.
+3580.32	3583.44	 So you can actually see the state of the infrastructure that you're running.
+3583.44	3584.28	 And you can see that it is provisioned.
+3584.52	3585.96	 Now, there's one challenge with that.
+3586.02	3588.08	 That's normally okay as you're starting your journey.
+3588.32	3600.62	 If I wanted to provision infrastructure in my environment using Terraform, but maybe Raf comes along, as he does sometimes, and he needs to make an update to my infrastructure, guess what the problem is?
+3600.74	3606.84	 The problem is that state file is locally on my system, and I can't share that with Raf.
+3607.04	3608.7	 And I only like to share some things with him.
+3608.76	3613.42	 But still, if I need to share that with him or share that maybe with someone else, I can.
+3613.42	3616.78	 But if I want to share that with him, right, he's on my team, I can't do that, right?
+3617.02	3621.22	 So that's why it has the concepts of a backend.
+3621.42	3624.56	 And there are several backends that you can use, remote, AWS.
+3625.26	3631.5	 Terraform Cloud is HashiCorp's orchestrator for Terraform, so you can use any one of those.
+3631.66	3635.5	 But back to the structure of Terraform state files, okay?
+3636.22	3642.34	 Remember we configured previously in a couple of slides ago that ACI bulk EPG to static path?
+3642.34	3643.08	 Did I get that right?
+3643.14	3645.76	 Sometimes I always mess up the name of the resource.
+3646.0	3651.54	 So here is where that information that I provisioned before, this is where it shows up.
+3651.6	3659.36	 That's how Terraform knows about the infrastructure that we provisioned and that resource that we had up here before, right?
+3659.52	3665.1	 It also includes information on the details around the interfaces and the EPGs,
+3665.22	3671.42	 so it collects and stores the state of that infrastructure that it has provisioned with Terraform.
+3672.8	3673.92	 Now, caveat.
+3675.06	3680.36	 You cannot and you should not and you must not modify the state file directly.
+3680.94	3682.66	 Do not modify the state file.
+3683.34	3686.86	 If you need to make changes to your infrastructure through Terraform,
+3687.04	3692.18	 they should be made through your Terraform configuration files, those TF files that I mentioned before.
+3692.78	3698.62	 You can and you should make those changes to those resources directly there.
+3698.72	3701.32	 Do not make changes to your Terraform state file.
+3701.38	3701.62	 Question?
+3702.34	3706.8	 I mean, I've run into this problem all the time with Terraform and Azure where we get config drift
+3706.8	3711.28	 because somebody made changes to Azure and we modify the state file all the time.
+3711.5	3711.74	 Yeah.
+3711.92	3713.7	 So is it different with ACI?
+3714.86	3716.52	 It's not different.
+3716.62	3721.38	 So the question is he was using his experience from Azure, right, and config drift
+3721.38	3724.62	 where sometimes they've had to modify the state file.
+3725.34	3727.56	 Let me rephrase what I said before.
+3730.2200000000003	3732.32	 It becomes a question of,
+3732.32	3734.68	 can you modify your state file?
+3734.88	3735.38	 Yes.
+3735.98	3736.5	 Yes.
+3736.54	3737.68	 You can, right?
+3737.82	3738.26	 You can.
+3740.02	3740.84	 Should you?
+3741.26	3742.6	 Probably not because,
+3742.86	3744.62	 and as you're probably experienced,
+3745.5	3749.7	 you don't know what the consequences of making those kinds of changes.
+3750.12	3753.6	 And I think sometimes it can make a problem,
+3753.74	3754.74	 as you probably have seen,
+3754.88	3757.32	 it can easily exacerbate a problem.
+3757.52	3760.0	 So I think when I say don't modify the state file,
+3760.0	3764.4	 I'm not saying that you can't because it's locked down via some permissions.
+3764.96	3768.3	 I'm just, to avoid some of the experiences you're having,
+3768.48	3772.16	 I'm trying to make sure that I steer folks that are new there.
+3772.46	3776.08	 So with ACI, can we prevent them from making changes
+3776.08	3781.32	 and force them to go either Terraform or Azure?
+3782.4	3789.38	 So the question is, can we use Terraform or can we use ACI to prevent,
+3789.38	3794.66	 people from making changes in the fabric and only use them,
+3795.48	3798.24	 you know, have them only use Terraform in that case?
+3799.38	3800.7	 Raf kind of ran over here,
+3800.78	3802.64	 so I'm going to let him give his opinion first.
+3802.9	3805.14	 He clearly is very passionate about it.
+3805.2	3807.94	 And if I have, I may have something to add to that,
+3807.96	3808.96	 but I'm going to let Raf go first.
+3809.48	3810.32	 It's interesting.
+3810.52	3811.14	 I'll say this.
+3811.22	3817.26	 This is one of those fundamental things that we run when we try to talk customers, right?
+3817.62	3819.22	 So some of the ways that customers,
+3819.38	3823.74	 have done it is to remove the admin right capabilities of operators.
+3825.12	3826.82	 Then they no longer have a chance.
+3826.96	3829.94	 Now it's kind of a brutal, you know, approach.
+3830.56	3836.24	 And it does have the side effect of removing some of the troubleshooting capabilities that you have
+3836.24	3839.38	 because like things like ACI Diag, FMB Read and stuff,
+3839.48	3841.62	 suddenly not become available to the operator.
+3842.52	3847.18	 Now I have made a request into the BE now that we wanted the capability
+3847.18	3849.36	 that if I push something into the ACI,
+3849.38	3854.9	 that there would be some flag at part of policies to say if it is pushed,
+3855.2	3857.8	 that it becomes unmutable to the user interface.
+3858.34	3859.42	 You cannot change it.
+3860.06	3861.34	 It's a request I put in.
+3861.46	3865.14	 I'm seeing how if I can make it go through and get it done
+3865.14	3868.84	 because for the people that are trying or doing stuff with infrastructure as code,
+3869.12	3872.1	 the source of truth has to be the Git repository.
+3872.44	3873.48	 It has to be the code.
+3873.7	3874.88	 That's where you want to go.
+3875.2	3878.34	 If you have people making changes after the fact,
+3879.38	3881.7	 then suddenly you cannot use that source of truth anymore.
+3882.04	3883.18	 It just breaks everything.
+3883.94	3885.68	 So we'll see how this progresses.
+3885.76	3889.68	 I'm trying to get more customers to bend around my request
+3890.4	3891.98	 to get that capability added.
+3892.1	3893.16	 And if we do then that would be awesome
+3893.16	3895.14	 because then it would be like when you see the little symbol,
+3895.98	3896.6	 don't change.
+3896.92	3897.14	 Yeah.
+3899.92	3902.4	 And you can probably structure your roles.
+3902.68	3906.16	 And like Raf mentioned, you don't give access to the admin user.
+3906.48	3908.8	 I also think just to build on what he said,
+3908.8	3910.96	 and by the way, if Raf can't get that feature,
+3911.8	3913.32	 to be you to implement that feature,
+3913.44	3914.36	 really nobody can.
+3915.3	3918.04	 I will also say that it is a mentality.
+3918.62	3922.1	 Some of us, and I include myself in that us,
+3922.34	3925.46	 are just so used to being able to jumping on a box,
+3925.6	3928.64	 making our changes to whether it's just,
+3928.76	3929.78	 oh, I'll just do it myself.
+3930.28	3934.6	 So it is a mindset that may be harder to change
+3934.6	3937.1	 because now we should be leveraging these tools
+3937.1	3940.0	 in order to make those changes to our infrastructure.
+3940.18	3942.26	 So part of it is also a mindset too
+3942.26	3945.84	 because we can only take this so far.
+3946.1	3947.4	 Yes, you have a question.
+3947.9	3948.38	 .
+3952.8	3953.28	 Okay.
+3955.46	3958.96	 So, yeah, I get this question every Cisco Live
+3958.96	3961.76	 and I say to myself I'm going to put a slide in there
+3961.76	3964.92	 and then I don't and one day I'm going to.
+3965.02	3965.26	 Okay.
+3965.26	3969.74	 The question was what happens if you need to make an update, right,
+3969.84	3972.66	 because of an issue you need to modify infrastructure
+3972.66	3974.26	 and provision with Terraform.
+3974.44	3978.18	 Well, ideally you would make that change in Terraform.
+3978.4	3980.34	 You would make that change in Terraform, right?
+3980.58	3982.5	 Just as much as you would in Ansible
+3982.5	3985.28	 because you want to make sure, as the gentleman here mentioned,
+3985.46	3987.28	 you don't want necessarily any config drift.
+3988.52	3991.86	 Depending on that change that you make, okay,
+3991.94	3995.12	 you will have to do some, you will have to reconcile
+3995.84	3998.22	 that configuration that maybe you configured
+3998.22	4000.92	 through the APIC itself with what Terraform has.
+4001.18	4004.36	 And depending on the object that you've updated, right,
+4004.44	4010.88	 and this is, you may have to do some things within Terraform to import.
+4011.16	4012.94	 For those of you that may not be familiar,
+4013.08	4015.0	 Terraform has an import capability
+4015.0	4019.34	 where you can go out and import configurations into your environment.
+4019.58	4021.54	 So you may have to do something around that.
+4021.56	4023.54	 First off, you'll have to make sure that Terraform
+4023.54	4025.22	 has the necessary configuration.
+4025.26	4025.62	 You'll have to make sure that you have the necessary configurations
+4025.62	4028.58	 to support those updates because the last thing you want to do
+4028.58	4031.7	 is run Terraform and destroy those updates
+4031.7	4033.94	 that you made out into the system, right?
+4034.1	4035.54	 So you have to reconcile that.
+4035.64	4037.6	 You may need to use something like Terraform import,
+4037.86	4040.48	 but you also have to make sure that your resources are updated
+4040.48	4043.66	 to make sure that it has those configurations in there.
+4044.0	4044.38	 Yes?
+4045.44	4045.96	 .
+4051.12	4051.64	 Yeah.
+4055.72	4056.12	 .
+4063.4199999999996	4065.84	 So Terraform import, and I'll talk about the Terraform import,
+4066.02	4067.88	 and then Raf, if you want to talk about the Ansible side.
+4068.4	4071.44	 Terraform import is more of a tool,
+4072.24	4073.58	 because here's the challenge, right?
+4073.66	4077.12	 When we are looking at Greenfield deployments, right,
+4077.22	4079.28	 well, I'm going to use those with Terraform.
+4079.38	4081.22	 So we're using this with Terraform day one,
+4081.36	4082.38	 and that's great, right?
+4082.98	4084.96	 I'm building all my infrastructure with Terraform.
+4085.26	4085.44	 This is great.
+4086.2400000000002	4090.68	 Well, what happens if you have an existing ACI fabric
+4091.26	4093.82	 that you now, with infrastructure already configured,
+4094.02	4098.2	 tenants, EPGs, what if you want to use that?
+4098.38	4100.48	 What if you want Terraform to now manage that?
+4101.38	4102.9	 And this is where Terraform,
+4103.04	4104.82	 you have to use something like Terraform import
+4104.82	4106.38	 to actually do that.
+4106.84	4108.6	 The challenge with Terraform import
+4109.26	4113.04	 is that you can only import one object at a time.
+4113.04	4115.22	 Now, let's say, for example, in his case,
+4115.34	4117.08	 he had to create a new EPG,
+4117.16	4118.82	 or he had to modify a contract
+4118.82	4121.92	 to get whatever was broken working, right?
+4122.02	4122.76	 That's easy.
+4122.94	4125.76	 But if you want to import, let's say, for example,
+4125.82	4128.12	 an entire tenant and all those child objects,
+4128.3	4130.16	 that becomes a lot less trivial.
+4130.3	4131.26	 So, to your question,
+4131.44	4134.58	 could you use Terraform import to reconcile,
+4135.44	4139.0	 you know, reconcile any changes before you do any pushes?
+4139.18	4140.76	 You probably could,
+4140.76	4144.76	 but that's probably a lot more,
+4144.88	4147.2	 and especially if you're talking about a child object
+4147.2	4149.18	 that's below a parent object,
+4149.42	4151.5	 that's where it may become a lot more challenging.
+4151.66	4152.72	 Well, I mean, I hate to say it,
+4152.72	4156.24	 but a lot of times it's quicker to do things
+4156.24	4158.8	 than to do it, i.e. change a port speed.
+4159.12	4159.76	 It is.
+4160.4800000000005	4163.74	 And to go back into tangible or going to Terraform
+4163.74	4165.7	 or even Python scripting.
+4165.78	4167.88	 So, let me say this right,
+4167.98	4169.48	 and we need to move on to a little bit here,
+4169.56	4170.74	 but the idea is,
+4170.76	4173.1	 the intention of when you're going infrastructure as code
+4173.1	4174.72	 is that that's the source of truth.
+4175.820000000001	4177.84	 If the source of, if you go into the GUI
+4177.84	4178.96	 and you start making changes,
+4179.9800000000005	4182.74	 you're not thinking that that's your source of truth anymore.
+4183.68	4186.62	 And if you do that, you run into a situation now
+4186.62	4189.86	 like you're going back to the old ways, right?
+4189.96	4191.02	 You're going back to the mentality
+4191.02	4193.42	 that my configuration is at the network.
+4193.48	4194.7	 It's not in the source control.
+4195.22	4197.5	 So, it's a, this is, it is a process.
+4197.88	4199.66	 Aggregating the code from the network,
+4199.66	4200.64	 you're saying the code is now
+4200.64	4202.94	 not to be .
+4203.46	4203.82	 Exactly.
+4204.76	4206.28	 Like for example, in my lab,
+4206.42	4208.28	 I have my whole topology for lab,
+4208.32	4210.62	 having a Cisco lab is define this out of network.
+4210.86	4212.46	 I can go to the APIC right now, blow it away,
+4212.54	4213.92	 come back in 10 minutes, it's configured.
+4214.46	4215.24	 It doesn't matter.
+4215.36	4215.98	 I don't care.
+4216.56	4219.36	 So, again, this is a process thing that you have to adopt
+4219.36	4220.2	 and the things that,
+4220.26	4221.78	 that's why it's a little bit difficult
+4221.78	4222.44	 for some implementation,
+4222.94	4224.46	 but it's a really cool one.
+4225.02	4225.38	 Yes.
+4225.58	4227.78	 I just want to mention that this is
+4227.78	4228.62	 one of these web,
+4228.62	4229.3	 not just web,
+4229.54	4233.84	 but you would run a Terraform on a regular basis
+4233.84	4236.58	 to make sure that there are no changes
+4236.58	4239.32	 and basically that you need no changes
+4239.32	4240.26	 on this data.
+4240.56	4241.16	 You could.
+4241.32	4242.24	 You could.
+4242.4	4244.7	 And there are customers right now
+4244.7	4246.94	 that utilize that as a security mechanism.
+4247.28	4249.26	 So, for example, they run it and they say,
+4249.4	4251.06	 don't, like for example,
+4251.14	4252.9	 you can tell Ansible, go run and just check.
+4253.14	4254.96	 If it's not what is defined,
+4255.54	4257.24	 all alarms go off.
+4257.76	4258.32	 Like,
+4258.62	4258.9	 why?
+4259.6	4259.96	 Right.
+4260.04	4260.9	 So, that's,
+4260.9	4262.16	 let's keep going.
+4262.4	4262.68	 Yeah.
+4264.120000000001	4266.12	 So, I'd love to talk to you more about it after.
+4266.22	4266.7	 So, maybe if,
+4266.84	4268.16	 I have a lot of things to say.
+4268.16	4268.56	 Oh, you do?
+4269.14	4269.5	 Okay.
+4269.84	4270.54	 I have a nice thing to say.
+4270.56	4271.26	 Am I going to,
+4271.28	4272.7	 are you saying that I'm going to be here
+4272.7	4274.12	 for a little while after the presentation?
+4274.5	4274.64	 Yeah.
+4274.8	4276.5	 I would love to answer all of your questions.
+4277.1	4279.12	 So, here's the interesting thing about Terraform.
+4280.200000000001	4282.38	 Terraform uses a declarative model, right?
+4282.64	4284.22	 It keeps track of state file,
+4284.28	4285.36	 but guess what it also does?
+4285.54	4287.88	 It knows all the dependencies
+4287.88	4291.08	 for ACI objects in your environment.
+4291.38	4294.74	 And it actually builds a graph of that relation,
+4294.82	4295.44	 those relationships.
+4295.6	4298.02	 So, it knows that tenants have a relationship
+4298.02	4299.08	 to application profiles,
+4299.32	4300.44	 have a relationship to,
+4300.44	4301.64	 to verfs and bridge domains,
+4301.82	4303.26	 and that verfs and bridge domains
+4303.26	4304.94	 have a relationship with each other.
+4305.06	4307.88	 So, it actually builds a graph of those relationships
+4307.88	4310.34	 using a directional tree without loops.
+4310.84	4312.5	 And that's one of the interesting things.
+4312.66	4313.5	 And in this case,
+4313.52	4316.8	 I've got my ACI bridge domain resource here.
+4316.8	4318.72	 So, if I bring this up here,
+4318.82	4323.0	 you can see when I configure my ACI bridge domain here
+4323.0	4325.82	 that I actually specify the tenant
+4325.82	4327.44	 that my bridge domain is under,
+4327.56	4329.46	 as well as the relationship
+4329.46	4332.78	 or the association of that bridge domain to the verf.
+4333.54	4336.48	 The other interesting thing about Terraform is
+4337.08	4339.32	 it's not procedural, it's declarative.
+4339.42	4341.02	 I can tell Terraform,
+4341.24	4342.72	 these are my configurations.
+4343.24	4346.06	 And because of the declarative nature of Terraform,
+4346.06	4348.74	 it will figure out the order of operations
+4348.74	4350.64	 in order to provision that infrastructure.
+4351.0	4353.38	 And that also makes it a little bit slightly,
+4353.42	4355.16	 slightly different than what Ansible does.
+4355.54	4356.76	 So, you can tell it,
+4356.78	4359.24	 I, you know, in so many configurations
+4359.24	4360.9	 and in no particular order,
+4361.0	4362.4	 I want to provision this infrastructure,
+4362.7	4365.34	 it will go out and provision that infrastructure for you.
+4365.4	4368.06	 You don't necessarily have to tell it what to do
+4368.06	4369.14	 and in what order.
+4369.5	4371.26	 Terraform actually figures that out.
+4371.780000000001	4374.02	 In this case, you could see a little bit more
+4374.02	4374.72	 where I've defined
+4374.72	4376.38	 those associated relationships
+4376.38	4378.5	 between the ACI bridge domain
+4378.5	4381.4	 and other objects like verfs and tenants themselves.
+4382.94	4384.36	 Terraform supports variables
+4384.36	4385.7	 and different variable types.
+4385.9	4388.88	 It supports string, number, bool,
+4388.98	4390.36	 as well as a list.
+4390.64	4394.88	 By default, if you don't specify any variable type,
+4395.14	4396.1	 it will use any.
+4396.22	4398.34	 So, we'll just assume that you want to use
+4398.34	4400.58	 or can use any type of variable
+4400.58	4402.14	 with your variable declaration.
+4402.5	4404.04	 And you can define it
+4404.04	4405.52	 in an external file,
+4405.66	4407.74	 or you could call it with the dash var,
+4407.9	4408.66	 a dash var file,
+4408.82	4411.46	 when you run your Terraform configuration.
+4411.72	4413.54	 We'll show you that in a moment,
+4413.6	4415.1	 running Terraform configurations.
+4415.58	4418.5	 You can define that in a variables.tf file,
+4418.64	4422.32	 or you can define it in a Terraform.tf vars file.
+4422.52	4424.22	 So, what is a tf vars file?
+4424.5	4427.06	 It allows you to separate the data
+4427.06	4428.7	 from the variable declaration.
+4428.98	4430.18	 So, maybe, for example,
+4430.34	4433.3	 I want to give Raph the ability
+4433.3	4435.42	 to provision his own infrastructure.
+4435.62	4438.28	 I can give him that Terraform.tf vars file.
+4438.46	4439.64	 He can update that,
+4439.7	4441.92	 and we can run that and provision that
+4441.92	4444.56	 through my Terraform configurations themselves.
+4445.0	4447.08	 So, it allows you to separate out the data
+4447.66	4450.6	 for the variables from the variables itself.
+4451.04	4452.92	 In this case, this is how we define,
+4453.1	4454.44	 and this is a very, very basic example
+4454.44	4457.34	 of how we define variables in Terraform.
+4457.44	4459.5	 In this case, I've got my variable name,
+4459.68	4461.72	 my L3out underscore name,
+4461.86	4463.28	 and if I specify data,
+4463.3	4465.54	 I'm just specifying that that default
+4465.54	4468.62	 should equal CL underscore L3out.
+4468.78	4469.98	 And in this case,
+4470.02	4472.72	 in my actual Terraform configuration itself,
+4473.0	4475.76	 you can see where I'm actually going to use
+4475.76	4477.08	 that variable itself.
+4477.44	4480.0	 Terraform variables are defined with a var,
+4480.14	4482.12	 dot, and then variable name itself.
+4482.38	4485.22	 So, that will actually do variable substitution
+4485.22	4487.94	 and replace that with that CL L3out.
+4488.84	4490.34	 One thing to note,
+4490.44	4492.38	 I've defined in the default here
+4492.38	4494.24	 what that variable should be.
+4494.36	4495.84	 If you leave that blank,
+4495.94	4497.34	 and when you run Terraform,
+4497.46	4498.74	 Terraform will prompt you
+4498.74	4501.5	 to put whatever that entry should be.
+4502.02	4503.24	 So, just note that
+4503.24	4506.14	 if you work with Terraform and Terraform variables.
+4507.54	4509.06	 Terraform also supports iteration,
+4509.38	4510.6	 much like Ansible does.
+4510.86	4512.96	 So, we could create, for example,
+4513.12	4515.24	 three endpoint groups or EPGs.
+4515.38	4517.74	 We could create three bridge domains, right?
+4517.82	4519.84	 Three individual resource declarations
+4519.84	4520.82	 for bridge domains.
+4520.98	4522.26	 But why would we want to do that?
+4522.38	4523.62	 That's a little bit inefficient.
+4524.04	4524.94	 So, in this case,
+4525.0	4526.38	 there are two types of iteration
+4526.38	4528.2	 we can use with Terraform.
+4528.5	4529.62	 One is count.
+4529.82	4530.8	 So, in this case,
+4530.86	4533.58	 I can actually specify count equals three,
+4533.74	4535.24	 and I can go in,
+4535.28	4540.06	 and I can specify the name of my bridge domain here
+4540.06	4541.32	 to be this name,
+4541.54	4544.02	 and then whatever the count index is.
+4544.34	4545.54	 So, in this case,
+4545.58	4550.5	 it will create Web BD 1, 2, and 3, right?
+4550.74	4552.36	 So, that's one way to do iteration.
+4552.38	4553.94	 If we want to provision infrastructure.
+4554.32	4556.54	 The other way is for each,
+4556.74	4559.5	 and this actually uses a set or a map
+4559.5	4561.88	 in order to provision infrastructure that way.
+4562.0	4564.88	 So, the example I have on the side here,
+4565.5	4568.38	 I actually have a list of variables
+4569.04	4570.96	 associated with bridge domains
+4570.96	4572.8	 that I want to deploy, right?
+4572.96	4574.06	 So, in this case,
+4574.1	4577.06	 within my resource for the ACI bridge domain here,
+4577.2	4580.32	 I can actually specify here,
+4580.52	4582.26	 if I can get this working correctly,
+4582.38	4585.86	 my name, I can actually use each.value,
+4586.18	4589.62	 so I can create a bridge domain for Web,
+4589.82	4591.54	 App, and DB here.
+4591.66	4595.24	 Now, because I am using this as a list,
+4595.34	4599.22	 and Terraform for each wants that in a set or map,
+4599.5	4601.16	 I have to, apologies,
+4601.44	4604.62	 I have to use this to set
+4604.62	4607.56	 to convert that information from that list
+4607.56	4610.2	 to a set or map.
+4610.46	4612.36	 So, just know that that's a requirement
+4612.38	4614.56	 if you're going to use for each.
+4615.44	4618.28	 So, those are the two types of iteration or looping
+4618.28	4620.2	 that are available to you with Terraform.
+4621.14	4623.42	 Terraform also has the concept of reusability
+4623.42	4624.66	 with Terraform modules,
+4624.92	4626.88	 and that allows us to reuse configurations
+4626.88	4628.32	 in our environment.
+4628.48	4630.08	 They're just self-contained configurations.
+4630.58	4631.42	 You had a question?
+4632.819999999999	4635.16	 Variables, you know, with Ansible,
+4636.38	4638.5	 you can, you know, list, list dictionaries.
+4638.5	4638.96	 Yes.
+4638.96	4639.34	 Yes.
+4640.38	4640.42	 Yes.
+4640.42	4640.82	 Yes.
+4641.38	4644.0	 I see this, and I don't know Terraform at all.
+4644.26	4646.72	 It feels limited, like, I mean,
+4646.72	4649.34	 you had that loop, but it was like three items.
+4649.44	4651.1	 Well, I got my items have to be items,
+4651.12	4652.12	 you know what I'm saying?
+4652.3	4655.0	 Yeah, so there are a lot more Terraform,
+4655.1	4656.74	 there are a lot more types of variables.
+4656.86	4659.36	 So, he was wondering if there are other variable types
+4659.36	4660.88	 to match what Ansible does.
+4661.02	4664.12	 Pretty much what Ansible can do, Terraform can do as well.
+4664.3	4665.7	 It's just not shown here.
+4665.82	4667.72	 I wanted to just show more of the concept
+4667.72	4668.96	 than anything else.
+4669.02	4670.4	 But, yeah, you're, you're not necessarily,
+4670.4	4670.82	 you're not necessarily limited,
+4671.04	4673.0	 or Ansible doesn't have, necessarily have
+4673.0	4675.76	 any more variable types than, than Terraform does.
+4676.96	4680.94	 So, you can use Terraform modules for re-usability.
+4681.16	4683.92	 So, I can actually take some of my configuration,
+4684.16	4685.44	 let's say, for example, I want to provision
+4685.44	4688.24	 a number of tenants, and I can actually put this
+4688.24	4689.82	 in a separate modules directory.
+4690.2	4694.76	 And then, in my main.tf, instead of actually using
+4694.76	4696.84	 the same Terraform configuration,
+4697.36	4699.84	 I can actually call a module,
+4700.4	4701.92	 which will reference the information
+4701.92	4703.54	 in this Terraform.tf.
+4703.74	4706.94	 So, we can leverage modules for re-usability
+4706.94	4710.06	 of our code within Terraform itself.
+4712.58	4715.18	 Please note that with Terraform modules,
+4715.38	4716.94	 if you are using modules locally,
+4717.22	4720.44	 you may need to re-initialize via Terraform init.
+4722.4	4724.5	 So, Terraform does support the same authentication
+4724.5	4726.06	 that Raf had mentioned before.
+4726.32	4728.1	 You can use environment variables
+4728.1	4729.92	 or variables for username and password.
+4729.92	4732.28	 You can use username and password as well.
+4732.44	4735.34	 And we also can use certificate-based authentication.
+4735.44	4737.5	 One thing I want to note for you
+4737.5	4739.48	 multi-site orchestrator or NDO users,
+4739.76	4742.88	 you cannot use signature-based authentication
+4742.88	4744.32	 with multi-site.
+4744.4	4746.64	 That is not available for multi-site.
+4748.0	4750.7	 All right, let's talk about deploying infrastructure as code.
+4751.04	4753.52	 So, we want to provision our infrastructure
+4753.52	4756.9	 using Terraform init, and you can't really see it up there.
+4757.0	4759.64	 I guess it's cut off, but just trust me, I guess.
+4759.92	4763.36	 The command is Terraform init, as you can see right there.
+4763.58	4766.42	 So, in this case, I've specified my provider configuration.
+4766.94	4768.58	 When I run Terraform init,
+4768.74	4770.88	 it's going to go out to the Terraform registry
+4770.88	4774.68	 and grab that provider configuration and download that.
+4774.9	4778.38	 It will put that into a .Terraform local directory
+4778.38	4780.56	 where I run this Terraform init command,
+4780.8	4783.6	 and it will also create a provider lock file
+4783.6	4786.58	 to lock in the provider and the provider version there.
+4786.68	4789.36	 This case, if you happen to be working with other team members,
+4789.36	4792.26	 the provider information that you have set up there
+4792.26	4793.9	 is actually locked in.
+4795.46	4797.78	 Terraform plan allows you to see
+4798.36	4801.2	 what actions that Terraform is going to use.
+4801.48	4804.18	 And once again, it seems like this is cut off at the top.
+4804.2	4806.5	 That's okay. The command is Terraform plan.
+4806.8	4810.08	 So, you can run, once you put together your Terraform configurations,
+4810.44	4812.06	 you can run Terraform plan,
+4812.22	4816.26	 and Terraform will show you exactly what it's going to do
+4816.26	4819.2	 and what it's going to add into your environment.
+4819.36	4822.62	 So, it's a great way to check that the Terraform configurations
+4822.62	4824.24	 that you're going to put together
+4824.24	4826.86	 are actually what you're expecting it to.
+4828.54	4832.5	 Terraform apply then allows you to apply those configurations
+4832.5	4834.5	 out to the target system itself.
+4834.84	4836.38	 So, when you run Terraform apply,
+4836.78	4839.66	 much like plan, it will scan the local directory
+4839.66	4842.42	 for your configuration or your .tf files,
+4843.08	4844.6	 and it will then show you
+4844.6	4847.04	 what changes it's going to make in your environment.
+4847.24	4849.12	 And then it will prompt you
+4849.36	4851.64	 whether or not you want to move forward with it.
+4851.7	4853.06	 So, different than Terraform plan,
+4853.34	4855.1	 it prompts you to let you know,
+4855.18	4857.58	 would you like me to provision this infrastructure or no?
+4857.88	4861.12	 If you type in yes, it will then move forward
+4861.12	4863.46	 and provision all of that infrastructure here.
+4863.76	4865.92	 You can actually see Terraform state here.
+4866.04	4867.94	 So, this is the state of all the infrastructure
+4867.94	4869.22	 that Terraform has provisioned.
+4869.26	4872.34	 If you say no, it won't provision any of that infrastructure.
+4872.56	4875.38	 Maybe you see an error with some of your Terraform configurations
+4875.38	4876.4	 that you need to correct.
+4876.96	4879.18	 One additional thing with Terraform apply,
+4879.36	4881.98	 you can use the auto approve,
+4882.32	4883.6	 the dash auto approve,
+4883.82	4885.76	 and that actually will bypass
+4886.36	4889.14	 the review of what Terraform is going to do.
+4889.38	4891.66	 It prompts you and you'll have to say yes,
+4891.78	4893.58	 and it will automatically move ahead
+4893.58	4896.3	 and provision that infrastructure in your environment.
+4896.58	4898.38	 So, that's the Terraform apply command.
+4898.68	4901.0	 And here is an example of provisioning
+4901.0	4902.0	 a three-tier application.
+4902.46	4904.88	 So, in this case, you see at the top there,
+4905.04	4906.6	 I've provisioned it with Terraform.
+4906.78	4907.68	 That's the annotation.
+4907.68	4910.1	 And you will see that in the current version
+4910.1	4912.62	 if you're running 5.2 and you use Terraform,
+4912.8	4914.22	 that is what you will see in there.
+4914.4	4916.16	 You see here that it lets you know
+4916.16	4919.12	 this object was created by an orchestrator.
+4919.5	4921.04	 So, it gives you all that information.
+4921.44	4925.8	 But all this infrastructure was provisioned via Terraform,
+4925.96	4928.02	 multiple Terraform.tf files.
+4928.96	4930.98	 For those of you that have a lot of experience,
+4931.24	4932.1	 as you can imagine,
+4932.2	4934.6	 how many clicks and how many GUI windows
+4934.6	4937.18	 would it have taken in order to do this?
+4937.18	4939.98	 And by the way, it's the same thing with Ansible as well.
+4940.1	4942.0	 You could very easily do a lot of the stuff
+4942.0	4944.44	 that Terraform is doing with Ansible itself.
+4944.78	4947.0	 So, here I've provisioned my three-tier application,
+4947.44	4951.12	 including contracts and contract relationships itself.
+4951.92	4954.56	 Another Terraform command is maybe we don't need
+4954.56	4955.54	 this infrastructure anymore.
+4955.68	4957.32	 I can use Terraform destroy.
+4957.64	4959.14	 So, similar to Terraform apply,
+4959.48	4962.4	 it scans your state file of the infrastructure
+4962.4	4963.58	 that it has provisioned,
+4964.18	4966.56	 and then it will remove that infrastructure.
+4967.259999999999	4969.94	 It will also prompt you whether or not
+4969.94	4972.86	 you want to move forward with removing that infrastructure.
+4973.24	4975.38	 And similar to Terraform apply,
+4975.74	4979.1	 you can specify auto-approve where you can bypass that,
+4979.24	4981.68	 but I strongly recommend that you do not
+4981.68	4983.5	 because you certainly want to ensure
+4983.5	4985.4	 whatever you're removing in Terraform
+4985.4	4987.16	 is all that you're removing in Terraform.
+4987.86	4990.88	 You can also specify with the dash target,
+4991.04	4993.28	 you can look at the Terraform state file,
+4993.4	4995.98	 and you can actually target specific things
+4995.98	4996.92	 that you want to remove.
+4996.92	5000.14	 There is another way to remove configuration in Terraform.
+5000.32	5004.58	 You can comment out resources and run Terraform apply,
+5004.88	5008.2	 and it will actually remove that configuration as well.
+5009.8	5011.54	 Now, you've heard a lot about Ansible.
+5011.66	5013.0	 You've heard a lot about Terraform.
+5013.2	5014.86	 And Raf and I put this slide together
+5014.86	5016.92	 to sort of compare the two tools.
+5017.14	5019.28	 So, in this case, both are open source,
+5019.4	5021.02	 as mentioned by both of us.
+5021.06	5023.18	 Both Ansible and Terraform are open source.
+5023.820000000001	5026.9	 Both Ansible and Terraform have a big Cisco branch.
+5026.9	5026.9	
+5026.92	5027.54	 They have a very active ACIBU commitment,
+5027.86	5029.66	 certainly from the ACIBU.
+5029.96	5032.04	 There are active ACIBU resources
+5032.04	5035.52	 that are working on both Terraform and Ansible itself.
+5036.02	5037.62	 The infrastructure is code type.
+5037.8	5040.48	 You've got Ansible, which is a procedural language.
+5041.16	5044.1	 You tell it what you want Ansible to provision,
+5044.34	5047.2	 and Ansible will provision it in the order you specify.
+5047.98	5050.02	 Terraform, as I've mentioned, is declarative.
+5050.16	5052.84	 You tell it what the end state you want it to be,
+5052.98	5055.6	 and based on your resources and your configurations,
+5055.84	5056.9	 it will go out and provide you
+5056.92	5057.14	 with the infrastructure that you need
+5057.14	5059.0	 to provision that infrastructure as such.
+5060.86	5063.44	 Terraform is stateful. Ansible is not.
+5063.68	5068.06	 You can look at the number of ACI and MSO modules and resources,
+5068.34	5071.06	 but again, don't look at that number and say,
+5071.22	5073.52	 wow, there's so many more Terraform resources
+5073.52	5075.6	 than there are Ansible modules.
+5075.94	5077.38	 That's not quite the case.
+5077.64	5081.28	 With Terraform, a lot of things are broken out
+5081.28	5083.8	 into separate resources to do things
+5083.8	5086.06	 that may be inclusive in Ansible
+5086.06	5087.66	 within a single Ansible module.
+5088.04	5092.52	 So it's not like the ACI BU is working more on Terraform
+5092.52	5094.1	 than it is on Ansible.
+5094.26	5096.88	 But still, you can see the number of modules
+5096.88	5097.8	 and resources there.
+5098.32	5098.84	 .
+5104.239999999999	5106.58	 So Ansible is a configuration management tool,
+5106.68	5108.96	 so it is unaware of what you may have
+5108.96	5110.34	 already configured with it.
+5110.64	5112.8	 Okay, well, what I was asking, though,
+5112.82	5115.88	 is the current state, right, of the,
+5115.88	5116.84	 of the Terraform,
+5116.86	5117.68	 is it a state-based state?
+5117.68	5118.74	 Terraform does, yes.
+5118.94	5120.66	 Yeah, Terraform does. Ansible does not.
+5120.88	5122.14	 So you can provision things.
+5122.42	5124.6	 You may not have provisioned things with Ansible,
+5124.76	5127.34	 but if you tell Ansible to configure something
+5127.34	5129.08	 through Ansible, through Ansible Playbook,
+5129.18	5131.0	 it will attempt to configure that again.
+5131.32	5134.08	 So it has no concept of state like Terraform does.
+5134.3	5135.5	 Yeah, it doesn't.
+5135.5	5138.34	 You can write your Ansible Playbooks to go out
+5138.34	5141.56	 and write pretasks, checks, to do that,
+5141.6	5144.46	 but it doesn't inherently carry any state information
+5144.46	5145.34	 associated with that.
+5145.48	5147.2	 And then two quick things, real quick.
+5147.8	5149.6	 Obviously, Ansible is written in Python,
+5149.86	5150.68	 Terraform in Go,
+5150.9	5153.3	 and then the last one is one that customers
+5153.3	5154.32	 are always interested in.
+5154.56	5157.3	 Can I get tag support? Indeed, you can.
+5158.18	5159.68	 But there's always a caveat,
+5159.88	5160.72	 so let me explain.
+5161.240000000001	5163.32	 You can call an open attack case,
+5163.42	5164.78	 but they are not going to troubleshoot
+5164.78	5167.56	 your Ansible Playbook or your Terraform configurations.
+5168.1	5170.18	 They will work if there's a particular problem
+5170.18	5172.56	 with a resource or an Ansible module.
+5173.02	5173.5	 Okay?
+5174.46	5176.54	 We also opened an issue on the GitHub repository
+5176.54	5178.46	 for both Terraform and Ansible.

@@ -1,0 +1,1219 @@
+start	end	text
+2.68	5.1	 Should I start or should we start?
+7.5	9.02	 Okay, sounds good.
+9.9	11.72	 All right. Hi, everyone.
+13.02	14.96	 We're going to start with this session
+14.96	17.62	 about the ACI operational best practices.
+18.68	22.3	 The focus area of this session is about
+22.3	25.88	 layer 2 integration and also a little bit of security.
+27.339999999999996	29.16	 You already heard from
+29.16	31.7	 Joyce asking something about endpoint security groups.
+31.92	33.38	 So at the end of the presentation,
+33.62	35.8	 we're going to build on top of what he presented earlier.
+37.26	39.74	 So the agenda, no, wrong.
+40.46	41.84	 So this is the agenda.
+43.36	44.62	 We're going to start from
+46.62	50.06	 the layer 2 networks integration with an example,
+50.2	52.66	 which gives me the opportunity to explain to you also
+52.66	55.4	 the latest enhancements that
+55.4	56.98	 we introduced for layer 2 integration.
+57.32	59.44	 So why and how to use virtual port channels?
+60.52	62.36	 Should we run spanning tree or not?
+62.54	64.46	 The answer of course is yes to
+64.46	65.78	 run spanning tree on the external devices,
+66.52	69.26	 but, and we're going to talk about what follows,
+70.27999999999999	72.88	 using MCP which is something that I've seen,
+72.94	75.34	 it's a bit misunderstood what
+75.34	77.34	 MCP does and how it should be used.
+78.91999999999999	82.34	 Then mitigating endpoint flapping that could be the result of
+82.34	84.86	 a loop by using Roggen point
+84.86	87.48	 control which is another feature that has been
+87.48	90.88	 used or not used and there's a bit of confusion.
+91.28	93.4	 And then we're going to talk about segmentation,
+93.56	97.18	 how to segment the fabric with endpoint security groups,
+97.28	101.74	 with or without flooding encapsulation and how to add
+115.64	118.58	 a new element where we're going to add
+119.22	122.56	 different features to make it very stable.
+122.92	125.46	 So the example deployment assumes
+125.46	127.1	 that you're trying to connect blade switches.
+127.46	129.22	 So these are blade enclosures.
+130.36	134.76	 So these two switches represent typically non-Sysco switches.
+135.16	137.34	 Let's say HP for instance or Dell.
+138.4	143.42	 And then these are the blade servers and the VMs running on them.
+143.52	144.56	 And they are
+144.56	147.38	 connected to ACI Leafs and this is the topology you'll
+147.38	149.84	 know about with the ACI Leafs and Spines.
+151.44	154.3	 Some assumptions on the blade server environment.
+154.66	158.22	 So this is the blade enclosure and again you have here
+158.22	162.26	 the blade switches with port channels and assumptions of
+162.26	165.18	 what these switches are capable of they can run a spanning tree,
+165.32	166.88	 the dot 1d version,
+167.84	170.32	 potentially with rapid spanning tree for fast convergence.
+172.82	173.94	 And because
+174.56	176.72	 they're non-Sysco typically they don't run
+176.72	178.54	 provenance spanning tree, right?
+178.64	182.18	 So it's going to be either one instance or
+182.18	185.06	 multiple instances of spanning tree but not one provenant.
+187.26	190.16	 They typically, I mean port channels of course they can do,
+190.4	192.84	 but sometimes they can also be clustered together.
+194.46	196.9	 And then they have of course spanning tree features
+196.9	199.0	 like a BPDU guard and these kind of things.
+199.24	204.54	 So this is basic assumptions that are fairly representative of what's in the,
+204.54	204.54	
+204.54	204.54	
+204.56	204.78	 in the market.
+205.02	207.5	 Of course there could be other things that I'm not aware about,
+207.68	209.22	 but this is all we need for this discussion.
+210.3	211.8	 So first question is,
+212.4	215.72	 how should we connect the blade switches to the fabric,
+215.9	216.76	 to the ACI fabric?
+218.64000000000001	221.02	 And so why it would be a good idea to use
+221.02	223.8	 virtual port channels and how to use the virtual port channels?
+224.24	228.76	 And I'm pretty positive that all of you would
+228.76	231.6	 agree that it's a good idea to use virtual port channels,
+231.78	234.54	 but let's try to, you know,
+234.54	234.54	
+234.54	234.54	
+234.54	234.54	
+234.54	234.54	
+234.54	234.54	
+234.54	234.54	
+234.54	234.54	
+234.54	234.54	
+234.54	234.54	
+234.54	234.54	
+234.54	234.54	
+234.54	234.54	
+234.54	234.54	
+234.56	236.28	 look a bit more into the details.
+237.48	241.1	 So if I'm not connecting blade switches with virtual port channels,
+242.12	244.66	 what I'm going to do is I'm going to configure
+244.66	248.22	 the ACI leaves to pass BPDUs because otherwise it would be a loop.
+249.08	252.84	 And I would have to rely on the external blade switches spanning
+252.84	256.58	 tree capabilities to keep in this case this port blocked, right?
+256.8	259.6	 And it will be only this port block and not this one because remember
+259.6	262.72	 that ACI doesn't run spanning tree so it's just a hub,
+262.84	264.48	 it's just in that for spanning tree,
+264.56	265.52	 it's just a hub, not in general.
+265.7	269.66	 But so it's passing BPDUs and then to break the loop,
+269.8	271.74	 this port will be to be blocking.
+272.3	276.02	 So this approach without VPCs would rely on the external blade switches
+276.54	281.52	 to do the spanning tree correctly and to block one port in this case,
+281.64	283.5	 and of course more ports in a bigger topology.
+284.46	285.84	 That's without VPCs.
+285.94	289.66	 Now, if this spanning tree was disabled or there was an issue,
+289.9	293.92	 you would have a nice loop which would not be nice,
+295.02	297.44	 so you would experience a problem.
+298.54	302.08	 Okay. So if you don't do any VPCs and if you don't configure VTropor channels,
+302.3	304.2	 make sure you configure ACI to pass
+304.71999999999997	307.22	 BPDUs so that this is the resulting topology.
+307.84	311.0	 But the message of this presentation is actually that this is not
+311.0	314.08	 the best possible implementation that you can,
+314.24	316.18	 I mean the best possible design, okay?
+317.94	319.44	 Now, if you use VTropor channels,
+320.09999999999997	323.64	 this whole topology becomes nicer because all ports will become
+323.64	327.96	 forwarding as you certainly know if you use ACI already,
+328.18	331.38	 you would have a policy group type VPC for these two ports,
+331.48	334.8	 1, 1 on both leaves and then policy group type VPC,
+334.94	338.58	 VPC2 for 1, 2 and 1, 2 and this would result in
+338.58	342.0	 these two port channels between the blade switches and the leaves,
+342.14	345.3	 and the resulting topology overall will be like this.
+345.42	347.72	 So you would have a lot of port channels there.
+348.52	352.84	 So intrinsically, this topology doesn't have any blocking ports, which is good.
+352.94	353.38	 Okay.
+353.64	355.1	 the first benefit of using VPCs.
+356.12	357.08	 That's the first one.
+357.92	360.22	 Now, the other advantage of using VPCs,
+360.24	361.9	 especially if you're using also
+361.9	363.86	 the link aggregation control protocol,
+364.08	367.26	 is that the link aggregation control protocol is also
+367.26	369.16	 going to do a verification on the links,
+369.28	371.38	 and making sure that if they are joined together,
+371.66	373.56	 it's because they should be joined together,
+373.68	376.86	 not because of some static configuration.
+377.52	379.82	 So, LACP is a good verification mechanism,
+379.82	383.16	 and there's a nice feature in LACP,
+383.94	387.6	 which is the ability to put a port into individual state.
+387.9	390.44	 Individual state means that if you look at
+390.44	393.06	 the state machine or the specifications for LACP,
+393.24	397.86	 we see the I state is when the LACP partner,
+398.06	401.82	 meaning the device that the leaf is talking with,
+402.0	405.84	 is not sending any LACP packets on a link.
+406.1	409.48	 So, the LACP side of
+409.48	412.04	 ACI will put the port into individual state,
+412.28	414.62	 meaning that port is not joined in any port channel.
+415.32	417.58	 Is it good that the port is individual state?
+417.8	419.78	 Where should it be instead part of a port channel?
+420.14	423.74	 It depends. In the specific scenario that we're talking about,
+423.96	426.08	 it's not a good thing because what we
+426.08	427.62	 want is the ports to be port channel together,
+427.88	429.14	 and if they're not,
+429.38	433.54	 I don't want to introduce a forwarding topology that has a loop.
+434.58	436.38	 So, it's a good thing to have
+436.38	438.62	 this option called suspend individual,
+439.20000000000005	440.3	 LACP suspend individual,
+440.64	444.6	 which is an option that by the way is the default in
+444.6	446.78	 the configuration of ACI in the LACP policy,
+447.04	450.28	 and what that option does is ensuring
+450.8	453.3	 that if you meant these ports to be a port channel,
+453.52	457.48	 and if your blade switches are not configured for port channeling,
+457.5	460.26	 then these ports are going to be brought
+460.26	463.04	 down instead of being put into forwarding mode,
+463.22	465.46	 and that can save outages.
+466.70000000000005	468.14	 It can save outages,
+468.14	470.46	 because without that option,
+470.66	473.22	 if you disable spanning tree,
+473.46	477.72	 or if you didn't configure the BPUs forwarding on the leaves,
+477.92	480.14	 and if you didn't configure the port channeling,
+480.16	481.94	 and you attach to the ACI fabric,
+482.28	484.76	 and if you didn't have LACP suspend individual,
+485.1	486.62	 then you could have a loop potentially.
+487.76	491.86	 So, LACP combined with the policy group type BPC,
+492.06	495.3	 also protects from this kind of misconfigurations.
+495.32	496.06	 So, it's a good thing.
+497.65999999999997	500.04	 Another benefit of VPC is traffic distribution.
+500.36	501.82	 So, all of you certainly know
+501.82	503.82	 about the port channel hashing capabilities.
+504.26	506.14	 So, you can hash multiple fields of
+506.14	508.16	 the traffic and distribute across multiple links.
+508.6	514.32	 What probably is less obvious is that in case of VPCs,
+514.32	518.9	 if you have only one link per leaf like this,
+520.4399999999999	522.5	 it's not necessarily obvious that you
+522.5	524.66	 also get low distribution for this topology.
+524.78	524.84	 Okay.
+524.84	528.84	 And this is not because of the port channel hashing per se,
+529.48	531.0600000000001	 because if you think about it-
+532.3	532.3	
+532.3	532.56	 Excuse me?
+533.72	534.18	 Yeah.
+534.8	535.78	 Can you mute yourself?
+536.26	536.66	 Nope.
+536.7	539.86	 Unless you have a- Okay.
+539.96	541.34	 So, where am I?
+541.7	544.88	 Sorry. Let's go back.
+545.6	550.42	 Okay. So, what I was saying is that what's not obvious here is
+550.42	553.48	 that how the port channeling hashing is helping.
+553.66	554.82	 Well, here is not port channeling,
+554.84	556.32	 but it's actually the VXLAN hashing that is helping in
+556.32	557.58	 the north to south direction,
+558.22	560.88	 but it's rather the ECMP load balancing,
+561.2	562.98	 so the routing load balancing.
+563.78	566.1	 And then the question will be how can that
+566.1	568.18	 be because it's maybe later to traffic.
+568.44	571.4	 Well, that is because in the VXLAN headers,
+572.0	573.76	 and if you look at the specifications,
+574.72	578.26	 it's possible to use the source UDP port to
+578.26	580.9	 encode the hash of inner frames.
+581.14	583.64	 And that's how VXLAN specifications,
+583.64	587.36	 enable the load balancing distribution
+588.1	589.44	 for encapsulated traffic.
+590.88	592.4	 Okay. So, putting it all together,
+592.72	594.38	 you have frames from the servers.
+594.62	599.12	 Basically, the ACI leaf is hashing these original frames.
+599.34	602.96	 It's encoding the result into the source UDP port.
+603.16	605.68	 It's putting that into the VXLAN header,
+605.86	610.08	 and then you have ECMP load balancing on the VXLAN headers,
+610.78	613.58	 and that distributes traffic across the multiple layer three,
+613.62	613.62	
+613.62	613.76	 three paths.
+614.08	616.68	 And the end result is that you also get traffic load
+616.68	620.06	 distribution from these leaves of VPC2 to the server.
+620.6800000000001	624.48	 So, if we don't look at all the details,
+624.62	626.48	 the summary is that with VPCs,
+626.48	628.36	 you also get load distribution,
+628.68	630.96	 not just for the server to ACI leaf traffic,
+631.3	632.74	 but also in the reverse direction
+632.74	635.9	 from the ACI fabric to the server.
+636.04	638.08	 So, these are the multiple benefits
+638.08	640.24	 of using VH report channels.
+641.7000000000002	643.6	 So, more looping around,
+643.6	644.22	 loop prevention capabilities,
+645.3800000000001	648.5	 use of all the links for both directions of the traffic.
+649.74	650.98	 How about spanning tree?
+651.14	653.14	 So, should we run spanning tree
+653.14	655.42	 on the external blade switches or not?
+656.7	658.68	 Well, let's think about it.
+659.12	661.12	 I mean, yes, the answer is yes,
+661.2	662.92	 we should never disable spanning tree
+662.92	664.16	 on the external switches
+664.16	666.22	 because it's one loop protection mechanism.
+666.82	668.86	 But let's think about it a bit more.
+669.16	673.0	 So, the topology that we put in place with VPCs,
+673.0	674.02	 which is this one,
+674.12	680.04	 is equivalent to a bridge domain that I call here web,
+680.16	682.62	 the bridge domain in the tenant configuration,
+683.28	687.54	 with a lot of layer two links going to these individual switches.
+688.56	691.02	 You could have more than one bridge domain, of course.
+691.04	694.18	 You could also divide different bridge domains if you want.
+694.36	695.84	 But by and large,
+696.02	698.86	 if you have VMware or any virtualization technology,
+699.24	702.22	 and you need to have the same VLAN available on all the blades,
+702.22	704.56	 you're gonna have a large bridge domain
+704.56	706.64	 with a lot of blade switches
+706.64	709.06	 laid to external networks connected to the fabric.
+709.6	712.92	 So, this is representative of a classic topology
+712.92	714.32	 that you may have in your network.
+714.58	717.74	 So, layer two domain with a bunch of blade switches
+717.74	718.52	 connected to it.
+720.1199999999999	721.96	 Okay, are there any looped paths?
+723.14	724.34	 No, there aren't.
+724.96	725.68	 Could there be?
+725.78	726.76	 Yes, there could be.
+727.04	728.4	 What could you do wrong?
+728.62	730.06	 I mean, what could somebody do wrong
+730.06	731.6	 to make it,
+732.2800000000001	734.52	 bad to add a loop?
+735.22	737.28	 Well, you could connect two blade switches
+737.28	738.32	 to each other directly.
+738.9200000000001	742.32	 You could also misconfigure the port channel,
+742.52	746.1	 but as we talked about it in a few slides ago,
+746.26	747.8	 this is solved by LACP.
+749.26	750.82	 You could also connect blade switches
+750.82	752.56	 of different enclosures together,
+752.76	754.3	 and this also would introduce a loop.
+754.94	757.94	 So, potentially, there is still a possibility
+757.94	759.96	 to mess up this topology.
+761.08	761.86	 So, is it,
+762.22	763.38	 a good idea to run spanning tree?
+764.1800000000001	765.24	 The answer is yes,
+765.48	766.98	 but it's also a good idea to minimize
+766.98	768.52	 the scope of spanning tree,
+768.64	771.76	 and that's something that we're gonna talk about now.
+773.6400000000001	777.78	 As you probably remember from past ACI sessions,
+780.02	781.84	 ACI is able to forward BPDUs.
+782.04	785.58	 So, here you have your blade switches running spanning tree.
+787.62	790.92	 You can configure an EPG with the native VLAN.
+791.6400000000001	792.2	 It's also easily accessible by using the visualizer.
+792.22	795.42	 that is matching, that is allowing the forwarding the BPDUs
+796.2	801.3	 and that makes sure that ACI will just forward these BPDUs
+801.3	803.96	 from the root switch, which will be one of your blades,
+804.16	806.76	 to all the other switches, which will point to this blade
+806.76	807.66	 as the root.
+807.86	809.7	 So if you have, let's say, 100 blade switches,
+810.26	812.18	 one of them in one rack would be the root
+812.18	814.66	 and all the other ones would be sending,
+814.74	817.9	 I mean, would be considering the device as the root switch.
+819.7800000000001	821.04	 So this is fine.
+821.04	823.12	 I mean, it's a loop-free topology
+823.12	824.9	 with spanning tree running on top of it.
+826.68	828.58	 But there are a couple things to consider.
+829.66	834.14	 First one is that from, you know that these switches
+834.14	836.88	 are running also rapid spanning tree, .1w.
+838.92	841.68	 But here, the EPG and the bridge domain
+841.68	844.28	 are operating as a hub for the BPDUs,
+844.38	847.56	 meaning that the BPDUs sent by this device
+848.2199999999999	850.16	 are seen by all the other devices, okay?
+851.2	854.4	 So the port type from a spanning tree perspective
+854.4	856.74	 that you need to configure on these blade switches
+856.74	858.1	 is port type shared.
+858.76	860.46	 And that's actually documented.
+860.78	863.2	 So if you go to the documentation, you'll find out.
+865.1	866.88	 And that means the convergence time,
+867.02	870.0	 should there be any change in topology, is 30 seconds,
+870.16	871.34	 which is not very fast.
+872.62	874.16	 That's one consideration.
+874.58	876.86	 The other one is if you have a topology change notification,
+877.5	881.02	 okay, in this topology, a TCN in principle, should not be at 30 seconds.
+881.02	881.02	
+881.02	881.02	
+881.02	882.74	 happen because everything is forwarding anyway.
+883.04	884.64	 There's nothing really blocking.
+885.06	887.86	 But should there be one, the topology chain notification
+887.86	890.96	 will be felt across the entire fabric.
+891.6999999999999	893.08	 So two considerations.
+893.44	895.4	 Spanning tree protocol is not the best one in the world.
+895.52	898.08	 So you get the 30 seconds convergence time.
+898.24	900.38	 And second, TCNs, if they happen,
+900.52	901.66	 they are quite disruptive.
+902.12	903.82	 It's not a good idea to have them.
+904.18	906.02	 So is it good to run spanning tree?
+906.1	910.0	 Yes, but here we're building a large, potentially a large
+910.0	912.78	 spanning tree topology if you have a lot of lay switches,
+913.06	916.08	 let's say hundreds of them, all of them part of the same
+916.08	916.46	 lay-to domain.
+917.5999999999999	919.68	 So it's a good idea to keep spanning tree enabled.
+919.88	922.42	 But how can we minimize the scope of spanning tree
+922.42	924.36	 to make it more constrained?
+925.2999999999998	928.42	 So if these were Cisco switches, one possible approach
+928.42	931.46	 would be to scope VLANs because you run provenance spanning
+931.46	931.68	 tree.
+931.8	933.62	 So if you scope VLANs on a pair of switches,
+934.26	937.2	 then, of course, you would have a lot of small spanning tree
+937.2	937.42	 domains.
+937.64	939.98	 But with classic non-Sysco switches,
+940.0	943.9	 like the Blaze switches, then you cannot do that, right?
+945.6999999999999	950.78	 So one approach is to focus on the failure scenarios rather
+950.78	952.94	 than trying to merge all the spanning trees together.
+953.66	956.58	 So let's focus on the scenarios that could introduce a loop.
+956.84	959.48	 So the first one is this one where instead
+959.48	961.22	 of a channel, you have individual links.
+961.44	963.42	 But as we mentioned before, this is solved
+963.42	964.98	 by using LACP suspend individual.
+965.34	968.26	 So spanning tree is not really doing much in this scenario.
+969.0799999999999	972.02	 How about two Blaze switches connected to each other?
+972.24	975.02	 Well, in principle, if you put spanning tree BPDU guard
+975.02	979.0	 on ports that are not meant to be used for network connectivity,
+979.56	981.38	 well, then when these two ports are connected,
+981.64	984.12	 then spanning tree would disable the port.
+984.28	986.3	 So spanning tree BPDU guard would definitely
+986.3	987.22	 help in this case.
+988.42	991.54	 And similarly, you also have spanning tree BPDU guard
+992.28	995.48	 on ACI, the fabric access policies.
+996.12	997.98	 So if somebody is connecting a port,
+998.62	1001.6	 that is not meant for Blaze switches connectivity,
+1002.8199999999999	1006.38	 you can also configure a BPDU guard in order
+1006.38	1009.86	 to disable the port if that is connected to a Blaze switch.
+1011.6	1015.78	 So all in all, what we are saying is keep spanning tree
+1015.78	1019.8	 running on the blades, but for this kind of topology
+1019.8	1022.56	 with a lot of later devices all interconnected
+1022.56	1025.4	 in the same topology, maybe it's a good idea
+1025.4	1027.96	 to not enable BPDU forward.
+1027.96	1027.96	
+1027.98	1028.76	 So we can do that by putting a BPDU guard on the fabric
+1028.76	1031.18	 and instead to harden the topology
+1031.18	1035.34	 by putting all these different configuration checks,
+1035.58	1039.44	 meaning BPDU guard, and then using, of course,
+1039.5	1040.24	 BPDU port channels.
+1040.48	1043.48	 So the message here is let's not merge all the spanning tree
+1043.48	1045.04	 together if it's a large topology.
+1045.88	1048.8	 Let's keep spanning tree running on the blade enclosures.
+1049.5	1052.76	 Let's use VPCs, of course, so intrinsically there's no loop.
+1052.86	1056.78	 And this way, if there's a misconfiguration, the loop should
+1056.78	1057.28	 not occur.
+1058.5	1059.96	 Okay, so that's the message.
+1060.36	1063.78	 But then this example, there are examples where instead
+1063.78	1068.14	 you just have two modular switches and that's all
+1068.14	1070.4	 your related to network that connects to maybe a fabric path
+1070.4	1070.6	 network.
+1071.0	1073.12	 Well, in that case, it may instead make sense
+1073.12	1074.66	 to pass spanning trees.
+1075.24	1076.9	 But in this case, in this example,
+1077.04	1078.6	 it's not necessarily a good idea.
+1079.58	1084.1	 So that's a summary of the later recommendations
+1084.1	1085.48	 for this kind of scenario.
+1086.78	1091.42	 Now, we're gonna add a few more elements to it
+1091.42	1094.76	 that are very specific to ACI.
+1094.86	1100.04	 One is the miscabling protocol, MCP,
+1101.28	1104.32	 where we put also a few enhancements that you may be
+1104.32	1105.36	 interested in using.
+1105.92	1110.86	 And so let's take a look at another topology,
+1110.96	1116.3	 and let's think about what MCP could do.
+1116.78	1118.84	 So if you're using ACI already, you know about
+1118.84	1119.62	 the miscabling protocol.
+1120.48	1125.02	 And so here I'm showing you a switch, actually two switches,
+1125.66	1127.7	 connected with a VPCs to the leaves.
+1127.84	1129.38	 And then we're also adding this link,
+1129.44	1132.14	 which I call link one or link two.
+1132.58	1136.22	 And the first question is whether this additional link
+1136.78	1140.3	 would be disabled or not by MCP.
+1141.86	1146.3	 Okay, is MCP gonna consider this a miscabling configuration?
+1146.78	1148.04	 Is it a loop?
+1149.12	1151.08	 Okay, so that's a question.
+1151.68	1153.38	 And of course, it depends.
+1153.64	1156.58	 Okay, it depends on which VLANs are present on those links.
+1156.76	1160.1	 Okay, because if there's no, well, if there's no EPG,
+1160.7	1164.76	 assuming that this port is not connected to an EPG,
+1164.78	1165.96	 then there's no loop, of course.
+1166.94	1171.24	 Assuming that both of the PC and the link, individual link,
+1171.36	1173.84	 are on EPG one, which are on BD one,
+1175.48	1176.76	 then it could be a miscabling.
+1176.76	1176.76	
+1176.76	1176.98	 So it could be a loop.
+1177.16	1181.88	 By default, if you cannot clear VLAN one,
+1182.0	1184.4	 or the native VLAN on the external blade switch,
+1184.66	1188.14	 it is indeed considered a loop, okay?
+1188.66	1192.4	 Because MCP will see the MCP frame going out on the VPC
+1192.4	1193.68	 and coming back on this link,
+1193.78	1195.18	 so it will disable this port.
+1197.32	1199.92	 So, and that's right to do so.
+1201.26	1203.7	 Now, MCP has a priority mechanism,
+1204.3	1206.74	 so the virtual port channel wins over the port,
+1206.74	1206.74	
+1206.74	1207.42	 over the individual link,
+1208.1200000000001	1211.44	 and so MCP is indeed doing the right thing
+1211.44	1214.68	 to disable this link and protecting the fabric from a loop.
+1216.38	1219.06	 But how about the second switch?
+1219.54	1223.04	 If on the second switch I can clear the trunk
+1223.04	1227.48	 from the native VLAN, which Cisco switches can do,
+1227.54	1230.42	 I don't know about the other vendor switches,
+1231.4	1233.84	 then MCP here is not doing anything
+1233.84	1236.5	 because there's no MCP frame coming back.
+1236.74	1236.74	
+1237.44	1240.1	 And then this could be the right thing to do,
+1240.6599999999999	1242.12	 because intrinsically there's no loop
+1242.12	1243.62	 if the native VLAN is not trunked.
+1245.4599999999998	1248.78	 But if I was to trunk the same VLANs on link two
+1248.78	1250.5	 as they are on the VPC two,
+1250.6	1251.6	 then it could be a loop,
+1251.74	1254.86	 and in this case, MCP, the default MCP,
+1254.92	1256.72	 would not detect the loop.
+1257.54	1260.16	 And that's why we also have per-VLAN MCP.
+1261.78	1263.4	 So, is the poll disabled or not?
+1263.52	1263.9	 It depends.
+1264.16	1265.12	 Is MCP useful?
+1265.42	1266.1	 Yes, it is.
+1266.1	1268.94	 I mean, at least the default MCP should always be used.
+1269.14	1271.6	 And it's already protecting from one scenario.
+1272.26	1275.5	 And it could also protect from this additional scenario
+1276.02	1278.1	 if we use per-VLAN MCP.
+1278.74	1280.2	 So what is MCP?
+1281.5	1282.36	 Why, okay.
+1282.66	1285.04	 This is a summary of what MCP is,
+1285.22	1286.4	 which probably you already know.
+1287.5	1292.24	 So it's sending these special frames to detect loops,
+1292.44	1293.76	 mostly miscabling problems.
+1293.76	1298.92	 And the default is to send MCP frames
+1298.92	1300.7	 on the native VLAN of a trunk port.
+1301.66	1304.74	 It's only sending them if there's an EPG connect configured,
+1305.0	1307.14	 because otherwise it doesn't make sense to verify the link.
+1308.9	1311.98	 And it can also be configured to verify the link
+1311.98	1313.36	 on multiple VLANs.
+1315.02	1316.88	 MCP is configured at two levels.
+1317.1	1319.84	 There's a global level, and there's a per-port level.
+1320.46	1322.44	 Both of them must be enabled for it to work.
+1322.44	1325.06	 The port level configuration by default is enabled.
+1325.32	1327.42	 And so if you enable it globally,
+1327.5	1330.2	 then you get it running on all the ports automatically.
+1333.3	1335.72	 Now, there's another option, the one I mentioned,
+1335.82	1337.06	 which is the per-VLAN MCP,
+1337.84	1340.8	 which is also something you can enable globally.
+1340.98	1345.92	 And as of 6.0.2, it's also something you can enable per port.
+1346.12	1347.92	 And that's very, very important.
+1349.78	1351.82	 Because up until 6.0.2,
+1351.82	1354.74	 if you wanted to verify all the VLANs in a link,
+1354.92	1356.7	 you needed to do it on the entire fabric.
+1357.14	1359.96	 And this is something that doesn't scale well,
+1360.1	1361.3	 because just like spanning tree,
+1361.44	1365.06	 if you need to send PPUs on every single VLAN
+1365.06	1365.82	 on every single port,
+1366.1	1368.96	 it's using quite a lot of CPU cycles.
+1369.6599999999999	1372.66	 So now we have the ability to decide on which port
+1373.24	1376.5	 you want to enable MCP per VLAN.
+1377.5	1380.78	 And you can also decide how many VLANs you want to monitor.
+1380.78	1382.94	 It used to be a maximum of 256.
+1383.42	1385.74	 This has been now increased to 2,000.
+1387.16	1389.88	 So there are more options per port that became available,
+1390.08	1391.78	 and they should be used wisely,
+1391.94	1393.94	 meaning especially for per-VLAN MCP.
+1394.74	1398.36	 So per-VLAN MCP, it's not spanning tree.
+1398.74	1403.4	 It's verifying all the VLANs or up to 256 VLANs in a link,
+1403.48	1405.5	 or up to 2,000 VLANs in a link,
+1405.54	1406.7	 depending on the software version.
+1407.4	1409.36	 And if there's a loop detected,
+1409.64	1410.76	 the port is brought down.
+1411.28	1412.36	 It's not just the VLAN.
+1412.44	1413.12	 It's the entire port.
+1413.48	1414.8	 And so this is okay.
+1414.92	1417.82	 It's a good thing to do if you have redundant topology
+1417.82	1418.46	 like this one.
+1418.84	1420.12	 Because if you have...
+1420.12	1424.76	 Imagine you have your fabric path existing 5K, 7K network
+1425.28	1426.74	 connected to the ACI fabric,
+1427.22	1428.92	 and you run spanning tree there,
+1429.04	1430.3	 but then spanning tree stops working.
+1430.56	1431.8	 Then MCP would kick in,
+1431.88	1434.52	 and it would disable one of the two ports
+1434.52	1435.7	 and keep the other one up.
+1435.9	1439.38	 So MCP in this case is doing something very useful,
+1439.48	1440.74	 because it's protecting the port,
+1440.74	1440.74	
+1440.74	1445.02	 you from the loop and it's also keeping one fabric active,
+1445.2	1448.62	 one path active and it's good that it's verifying
+1448.62	1451.06	 all the VLANs because then if there's a loop on any mean
+1451.06	1452.82	 and then it's gonna help with that.
+1454.26	1456.9	 If you're connecting the external A2 network
+1457.66	1459.36	 with a double sided VPC like here,
+1460.6200000000001	1464.16	 MCP here, the usefulness is questionable
+1464.16	1466.94	 because MCP is gonna disable the entire port channel
+1467.7	1469.06	 and so if you disable the entire port channel,
+1469.06	1471.46	 you're effectively cutting out the entire A2 network.
+1471.72	1476.54	 So yes, you stopped the loop but you also disconnected
+1476.54	1479.0	 the existing A2 network from the fabric
+1479.0	1479.96	 so it's not a good idea.
+1481.1	1485.76	 So per VLAN MCP, yes, it's useful but it should also be used
+1486.74	1490.54	 in a meaningful way but in any case,
+1490.56	1492.18	 because of the feedback that we received
+1492.18	1494.18	 from many of our customers,
+1494.42	1498.32	 we increased the scalability of MCP so as I mentioned,
+1498.32	1501.28	 now it's possible to monitor up to 2,000 VLAN on a port
+1501.28	1505.28	 and we also increased the scale to 12,000 P comma Vs,
+1505.3	1508.38	 port times VLANs and if the scale is exceeded,
+1509.34	1514.66	 then ACI raises a fault if this fault you see here.
+1515.58	1519.36	 And you can also monitor the MCP scale utilization
+1520.32	1522.68	 by using this command, show MCP summary,
+1522.88	1525.66	 which you may already use but we now have
+1525.66	1528.3	 these additional options which give you a quick,
+1528.3	1532.48	 quick overview of the utilization of resources
+1533.18	1534.82	 so that you can stay within the scalability limits.
+1536.5	1540.08	 So summary, it's a good idea to use MCP on all the ports.
+1540.66	1543.32	 Whether to use per VLAN MCP, it depends.
+1543.72	1546.24	 But just for you to know, we increased the scalability
+1546.24	1549.84	 limits to make it more friendly to use it more flexible.
+1551.8200000000002	1557.42	 Okay, now we have talked about how to reduce the chance
+1557.42	1559.62	 for loops but you know, there are still scenarios
+1559.62	1562.72	 where a loop or a flapping endpoint could show up.
+1562.96	1566.0	 And that's where we have this feature which protects
+1566.8	1570.78	 the fabric but it also, by doing so, it also limits
+1570.78	1573.0	 the scope, the impact of a potential loop.
+1573.36	1576.42	 So let's imagine that you have an external topology
+1576.42	1580.3	 that is creating a loop, then you have a frame
+1580.3	1582.86	 that is continuously moving between these two leaf ports
+1582.86	1587.32	 on this bridge domain, so this is a bad thing of course,
+1588.18	1591.44	 you know, it's gonna keep, you know, it's gonna create
+1591.44	1593.48	 a lot of traffic and then you see the same MAC
+1593.48	1597.3	 moving all the time and so there is a feature called
+1597.3	1601.14	 Rogaine Point Control which has been there for a long time
+1601.66	1606.0	 and it needs to be enabled globally and with Rogaine
+1606.0	1609.76	 Point Control, this feature monitors how many times
+1609.76	1613.64	 this MAC or IP is moving between ports and if it's more
+1613.64	1617.06	 than a certain frequency, then basically it disables
+1617.06	1621.64	 learning for that specific MAC or IP and it's quarantined
+1621.64	1625.44	 for a configurable amount of time and then when the timer
+1626.04	1629.96	 expires, then the endpoint is cleared from the forwarding
+1629.96	1631.88	 table so it is then learned again.
+1632.34	1637.92	 So it's a good feature, the frequency should, ideally
+1637.92	1640.56	 you should not change it, it's six moves within 30 seconds
+1640.56	1643.06	 above that number Rogaine Point Control kicks in.
+1644.2	1647.04	 And then one of the main drawbacks of this feature is that
+1647.04	1647.04	
+1647.04	1647.04	
+1647.04	1647.04	
+1647.04	1652.38	 the whole timer, meaning the time during which the MAC
+1652.38	1657.06	 or IP cannot be updated anymore, was 30 minutes and many
+1657.62	1660.04	 customers consider that too much because it was creating
+1660.56	1663.84	 too long potential outages when there was a loop or some
+1663.84	1666.66	 misconfiguration or something going on and so we reduced it
+1666.66	1670.86	 to five minutes so now it's possible to, actually in my
+1670.86	1673.18	 opinion, you should lower the whole timer to five minutes.
+1677.16	1680.92	 When the loop or when the flapping happens, this fault is
+1680.92	1683.24	 raised, that's a way to find out what's going on.
+1684.1	1687.66	 The feature also tells you which MAC is causing the issue
+1688.34	1692.48	 and where it is so you get a lot of information about which
+1692.48	1694.06	 specific device is having problems.
+1694.94	1698.6	 So if we apply this to a layer two scenario like the one
+1698.6	1703.38	 we saw before, we have again potentially a loop, maybe we
+1703.38	1707.0	 disable Spanning Tree by mistake, now if Rogaine Point Control is
+1707.0	1707.02	 in the loop, we can disable Spanning Tree by mistake.
+1707.02	1707.02	
+1707.02	1707.02	
+1707.04	1709.1	 So we have a loop that's in place and if everything else,
+1709.2	1713.38	 for some reasons, didn't work, the problem is felt on this
+1713.38	1716.6	 bridge domain on BD1, it's not felt on other bridge domains
+1717.1399999999999	1719.66	 and that's because Rogaine Point Control kicks in and
+1719.66	1722.54	 quarantines all the MAC, I mean not all the MAC addresses
+1722.54	1724.94	 that are moving as a result of this loop.
+1725.38	1728.6	 And so yes, for those devices you have interruption of
+1728.6	1732.92	 connectivity but also your other bridge domains are not
+1733.66	1734.14	 affected.
+1735.2	1737.02	 So it is a good idea to enable Rogaine Point Control to enable
+1737.02	1737.02	
+1737.02	1737.38	 Spanning Tree, and you can do that with Rogaine Point Control
+1737.38	1741.3	 globally, but it's also a good idea to avoid too much downtime
+1741.3	1745.96	 for temporary loops and the way you do it is by changing the
+1745.96	1751.06	 old timer, the old interval from 1800 seconds to five
+1752.32	1754.5	 minutes, that's the way to do it.
+1755.5800000000002	1759.72	 The other point is that when you're making configuration
+1759.72	1763.68	 changes, like imagine that you have operations that is
+1763.68	1766.5	 introducing a new blade switch in your,
+1767.02	1769.4	 in your fabric, your, in your RCI fabric,
+1771.06	1773.52	 and you know that there's a chance of potentially
+1773.52	1777.52	 introducing loops, it's a good idea to keep an eye on this
+1777.52	1783.1	 fault and if you see it happening, then, and if you know
+1783.1	1786.14	 that the issue has been resolved, because maybe it's a
+1786.14	1790.3	 temporary issue, then you can clear the Rogaine Point,
+1790.54	1794.46	 the quarantine endpoints manually, so that connectivity
+1794.46	1795.46	 is restored.
+1795.46	1799.54	 The assumption here is that if you know that this was,
+1799.56	1803.76	 you know, expected because it's a temporary problem,
+1803.94	1807.24	 it's fixed, then you can restore connectivity in less than
+1807.24	1811.56	 five minutes by using either the UI or by creating a script
+1811.56	1815.6	 that is just going ahead and clearing Rogaine Points.
+1817.6200000000001	1822.04	 Having said all of this, there are scenarios where there are
+1822.04	1825.44	 glitches that are detected by Rogaine Point Control, and they
+1825.44	1825.44	
+1825.44	1825.44	
+1825.44	1831.78	 are temporary in nature, and one of them is, for instance,
+1832.0	1833.14	 failover of firewalls.
+1833.18	1839.28	 Certain firewalls, when they failover, they have, for some
+1839.28	1842.3	 transient amount of time, they're using the same MAC address
+1843.1000000000001	1846.28	 from maybe both devices, and that's not a theoretical
+1846.8600000000001	1848.98	 scenario, it's a real one, we've seen it in multiple
+1848.98	1853.68	 customers environments, and so, when you have these kind of
+1855.0	1858.78	 scenarios, if Rogaine Point Control is present, the MAC
+1858.78	1861.26	 address of the firewall will be quarantined for five minutes
+1861.26	1865.0	 or 30 minutes, and if your firewall is in the path, then you
+1865.0	1867.48	 have an outage because the MAC is quarantined.
+1867.88	1872.04	 So, to avoid that scenario, it's possible to exclude specific
+1872.04	1875.26	 MAC addresses from Rogaine Point Control, and that's something
+1875.26	1877.6	 you can do from this release, from 5.2.3.
+1878.5	1880.76	 So you can go to the bridge domain, and you can exclude the
+1880.76	1883.66	 MAC addresses that are not, that you think, that you're not going to use.
+1883.66	1883.66	
+1883.68	1884.76	 So a break, and it does 17.1 figures, or 10, it's the answer.
+1884.76	1884.76	
+1884.76	1884.76	
+1884.76	1884.78	 accurate way to do that 오러, but at this point, those 15
+1884.78	1888.78	 open-endślę are allowed to flap during a certain amount of
+1888.78	1889.08	 time.
+1890.9	1895.38	 If the problem, TED is caused by IP addresses flapping and not
+1895.38	1900.06	 by MAC address flapping , then the solution is to disable IP data
+1900.06	1903.86	 data plane learning instead of excluding the MAC.
+1904.56	1907.4	 And so that's basically another configuration
+1907.4	1909.7	 and this you can do on the bridge domain itself.
+1910.14	1911.7	 Okay, there's an option on the bridge domain
+1911.7	1913.16	 to disable IP data plane learning.
+1914.22	1917.04	 Okay, so two different configurations.
+1917.46	1919.54	 One is if the problem is the MAC flapping
+1919.54	1922.48	 and the other is if the problem is the IP flapping.
+1925.26	1930.04	 Okay, now one key point that I would like to mention
+1930.06	1932.88	 that we addressed in the latest releases
+1932.88	1935.82	 is the fact that the flapping can happen
+1935.82	1937.08	 not just on the bridge domain,
+1937.24	1938.56	 it can also happen on the layer three out.
+1939.28	1941.22	 Because when you configure layer three out SVI
+1941.82	1943.98	 for connectivity to a firewall for instance,
+1944.66	1946.78	 that SVI is effectively a bridge domain
+1947.5	1949.1	 and if the MAC is flapping too much
+1949.1	1950.62	 on that layer three out SVI,
+1951.28	1953.88	 then Rog and point control also kicks in
+1953.88	1956.72	 and it quarantines the MAC
+1956.72	1959.02	 and then you get again some disruption.
+1960.06	1962.62	 So to address this in 6.0.3,
+1962.76	1964.74	 we're allowing you to exclude the MAC address
+1965.3799999999999	1966.3	 not just from the bridge domain
+1966.3	1968.5	 but also from the layer three out.
+1969.88	1972.08	 And furthermore, in 6.0.3,
+1972.16	1974.88	 we are adding a few usability enhancements
+1974.88	1976.52	 which are very useful.
+1977.14	1980.9	 One is the ability to define MAC addresses
+1980.9	1985.06	 that should be excluded across the fabric from Rog and point.
+1985.2	1986.6	 So if you have the same firewall vendor
+1987.5	1988.66	 on a bunch of different bridge domains,
+1988.88	1989.88	 instead of configuring
+1989.88	1991.08	 this in every single bridge domain,
+1991.3	1992.6	 you can enter it globally
+1992.6	1994.12	 and then it's excluded globally.
+1995.6	1999.04	 And also if you want to exclude all the MAC addresses
+1999.66	2001.76	 from Rog and point control in a given bridge domain,
+2002.5	2005.68	 you can also do that by using a star in configuration
+2005.68	2007.08	 in the bridge domain itself.
+2007.42	2009.58	 So this makes life much easier.
+2009.94	2014.4	 So quick summary is if you're having firewalls,
+2016.14	2018.44	 so quick summary, first enable Rog and point control,
+2018.54	2018.94	 two.
+2019.88	2023.7	 If you have firewalls in your network that are causing,
+2023.94	2025.68	 I mean when they failover,
+2025.72	2028.08	 they may have active active MAC addresses and so on,
+2029.3999999999999	2031.58	 then you should exclude the MAC address
+2032.86	2034.56	 from Rog and point control detection.
+2035.76	2037.86	 Starting from 6.0.3, you can do it globally.
+2038.1	2040.48	 So you just type that MAC address once and you're done.
+2040.72	2043.1	 And if you're using previous races,
+2043.2	2044.46	 you need to do it on the bridge domains
+2045.2600000000002	2046.56	 where the firewall is located.
+2048.26	2048.7	 Okay.
+2052.2599999999998	2056.78	 So before you all fall asleep, questions?
+2060.68	2061.16	 No?
+2061.32	2067.18	 How many of you have had experience with MCP, using MCP?
+2067.38	2067.78	 Okay.
+2068.38	2069.34	 Is it useful?
+2069.78	2071.48	 I mean what are we doing to enhance it?
+2071.6	2071.96	 Is it okay?
+2072.32	2073.54	 Is it meeting your needs?
+2073.72	2074.0	 Yeah.
+2076.48	2077.9	 We're increasing the limits, yes.
+2078.02	2079.72	 12,000 port.
+2079.88	2080.22	 12,000 port.
+2080.22	2080.22	
+2081.18	2081.62	 Sorry?
+2081.86	2082.8	 Scale was a problem.
+2082.88	2083.54	 Scale was a problem.
+2083.68	2083.9	 Yeah.
+2084.06	2084.5	 Okay.
+2084.98	2086.76	 How about Rog and point control?
+2086.98	2089.2	 How many people are used it, have used it?
+2089.34	2089.62	 Yeah.
+2090.6	2091.04	 Okay.
+2091.14	2096.46	 Is this addressing your needs or something left to fix?
+2096.98	2097.42	 Okay.
+2098.6	2099.04	 Okay.
+2099.38	2099.82	 Okay.
+2101.54	2102.18	 All right.
+2103.28	2104.82	 So moving to the next topic,
+2105.58	2107.48	 let's add the segmentation to the fabric.
+2108.8399999999997	2109.72	 And you're,
+2109.72	2112.88	 you certainly know about the joining of ACI,
+2112.98	2115.46	 but let me, allow me to take a little bit,
+2115.56	2117.52	 a step back and make a little bit of history.
+2118.22	2121.14	 Prior to ACI, how was segmentation done?
+2121.32	2122.88	 Well, you had VLANs and subnets.
+2123.36	2124.9	 The flooding scope was the VLAN.
+2125.26	2126.64	 Traffic was allowed by default.
+2127.44	2129.68	 Segmentation, security filtering was done with ACLs.
+2129.68	2129.84	 Okay.
+2129.88	2131.0	 So that's prior to ACI.
+2131.7	2135.9	 Then you could create isolation with prior VLANs.
+2136.2	2138.26	 Probably a lot of you still use prior VLANs
+2138.26	2139.1	 in the legacy networks.
+2140.18	2142.8	 So you had the concept of community VLANs
+2142.8	2144.74	 and concept of isolated VLANs.
+2144.94	2149.32	 And you think of it, ACI EPGs are like community VLANs
+2149.32	2149.62	 in a way.
+2150.2999999999997	2151.16	 You can think of it that way.
+2152.76	2154.42	 And then to allow traffic,
+2155.3999999999996	2159.08	 you had again to use ACLs.
+2159.76	2160.28	 Okay.
+2160.34	2162.56	 And then you had the concept of the primary VLAN.
+2164.04	2165.74	 So that's prior to ACI.
+2165.84	2168.28	 Now, if we add ACI into the picture,
+2169.72	2171.4	 it looks very similar in a way.
+2172.2799999999997	2175.12	 You have EPGs, which you can think of more or less
+2175.12	2178.6	 like community VLANs, especially with flooding encapsulation.
+2179.56	2183.04	 Then you have the ability to create intra-EPG isolation,
+2183.48	2186.1	 which is equivalent to an isolated VLAN in the end.
+2186.68	2188.76	 And then you have contracts to allow communication
+2189.4399999999996	2191.22	 between different EPGs.
+2192.04	2194.4	 And you can control the flooding scope.
+2194.78	2197.56	 By default, the flooding scope is the entire bridge domain.
+2197.9	2198.12	 Okay.
+2198.94	2200.96	 But then if you want to limit the flooding
+2200.96	2203.04	 to just an individual EPG,
+2203.1	2205.18	 then you need to use flooding encapsulation.
+2205.6	2205.82	 Okay.
+2206.3	2209.52	 So that's a way to see the evolution
+2209.52	2212.72	 from legacy networks to ACI.
+2214.82	2216.5	 Now, flooding encapsulation,
+2217.3399999999997	2218.52	 let me go straight to this point,
+2219.32	2220.54	 which is very specific.
+2221.12	2224.8	 Flooding encapsulation has been widely adopted.
+2225.12	2226.7	 I mean, we have many people using it.
+2227.3	2227.86	 Why?
+2228.12	2231.88	 Because to go to what is everybody now calls
+2231.88	2233.16	 application-centric environments,
+2234.54	2237.04	 one approach has been to use a single bridge domain,
+2237.8399999999997	2239.0	 put all the solvenants under it,
+2239.14	2241.28	 and segment it with endpoint groups.
+2241.72	2245.12	 If you do so, then what happens is that everything is fine,
+2245.3	2247.38	 but then flooding, of course, is the BD.
+2247.7	2251.04	 And so if you have multi-destination frames of one EPG,
+2252.06	2253.86	 they will be seen by other EPGs.
+2254.18	2255.6	 And so with flooding encapsulation,
+2255.94	2258.1	 you can scope the flooding to individual EPGs.
+2258.1	2258.1	
+2259.8799999999997	2266.42	 This is fine, but if you're running with hundreds of EPGs
+2267.12	2270.94	 under the same BD and hundreds of subnets under the same BD,
+2271.02	2273.4	 which actually we have customers doing so,
+2274.3	2278.44	 they may experience some scalability problems
+2279.02	2282.88	 because the CPU has to replicate ARP requests
+2282.88	2286.06	 on all the different EPGs because ACI has to do proxy ARP
+2286.06	2288.06	 to scope the ARP itself.
+2288.12	2291.26	 And that has some scalability challenges.
+2291.86	2296.76	 So basically, if you have more than 1,500 port times VLANs,
+2297.2799999999997	2301.2	 then ARP requests may not be resolved correctly, okay?
+2301.76	2304.54	 So flooding encapsulation has been working great,
+2305.3599999999997	2308.74	 but when you get to hundreds of subnets under the same EPG,
+2308.8	2311.68	 same BD, and hundreds of EPGs under the same BD,
+2311.78	2316.9	 you may have some, you may experience some scalability issues
+2316.9	2318.1	 with flood inhibitors.
+2318.12	2319.6	 So flooding encapsulation, okay.
+2320.62	2322.68	 So let's talk about endpoint security groups
+2322.68	2325.7	 because endpoint security groups enables you
+2325.7	2329.2	 to migrate to application centric without this problem
+2329.2	2330.88	 to start with, and in general,
+2330.9	2333.96	 in a more elegant and flexible way, okay?
+2334.12	2338.32	 So with endpoint security groups,
+2338.5	2340.94	 you don't need to have a lot of EPGs under the same BD.
+2341.68	2345.82	 You can have the classic one EPG per BD topology
+2345.82	2348.1	 that the majority of ACI have.
+2348.12	2348.14	 So you can have a lot of EPGs under the same BD
+2348.14	2348.14	
+2348.14	2349.04	 that the majority of ACI users have.
+2350.6	2354.3	 And then you can segment by creating endpoint security groups
+2355.26	2358.62	 that are orthogonal, independent of the subnet.
+2359.52	2362.32	 And by the way, tying to the previous slide,
+2362.5	2365.34	 this doesn't suffer from the scalability concern
+2366.22	2369.12	 that we mentioned before because even though sometimes
+2369.12	2371.44	 you have to have, ACI has to do proxy ARP,
+2371.54	2373.88	 there's no need for the ARP to be replicated
+2373.88	2375.16	 across all the bridge domains
+2375.16	2376.84	 because within each bridge domain,
+2376.84	2378.8	 you'd only need one EPG, okay?
+2379.56	2382.54	 So the control plane is also less stressed
+2383.08	2385.96	 than it is with flooding encapsulation.
+2388.1600000000003	2391.98	 So practical usage of endpoint security groups.
+2393.2000000000003	2396.74	 So when you start putting security into the ACI fabric,
+2397.04	2400.66	 the classic way to start is by using VZN to VZN contracts
+2400.66	2402.32	 to allow any to any communication.
+2403.4	2406.82	 The other classic way to do so is by using, you know,
+2407.88	2412.76	 a permit all or a contract provided and consumed
+2412.76	2415.04	 by all the EPGs, that's the other approach.
+2416.0800000000004	2419.54	 Or the other approach yet is to use a preferred group
+2419.54	2422.6	 and put all the EPGs in the same preferred group
+2422.6	2426.78	 so they can talk freely and then start adding other EPGs
+2427.7000000000003	2429.24	 that are not part of the preferred group
+2429.24	2430.84	 and specific contracts within them.
+2430.9	2434.32	 That's been the classic way to have more segmentation.
+2434.92	2435.98	 But what if,
+2436.82	2440.22	 you want to create multiple groups of EPGs
+2440.22	2443.68	 instead of just one because preferred groups in ACI,
+2443.7	2444.88	 there's one per VRF.
+2445.42	2450.44	 So what if you want to divide your EPGs into multiple groups?
+2450.68	2451.86	 How can we do that?
+2452.26	2454.82	 Well, ESG is a way to do so.
+2455.54	2460.06	 Okay, so can we do this in other ways?
+2460.14	2463.1	 Yes, you could do it with a full mesh of contracts, yes.
+2463.28	2465.24	 So, but then you have a lot of contracts to maintain.
+2466.82	2469.34	 Or you could merge all the subnets in the same BD
+2469.34	2472.9	 and then, you know, do what we were describing before
+2472.9	2475.3	 with multiple EPGs in the same BD.
+2475.44	2478.1	 But then again, it's not perfect either,
+2478.22	2479.98	 especially if you have a lot of EPGs.
+2480.68	2483.52	 But here we come, here ESG comes to the rescue.
+2483.8	2488.76	 You could also create ESGs which are matching EPGs.
+2488.96	2492.78	 So you can say that ESG A is matching EPG 1, 2, and 3.
+2492.88	2495.36	 ESG B is matching EPG 4, 5, and 6.
+2495.66	2496.8	 And basically, it's like, okay, so you can do this.
+2496.8	2498.02	 It's like having two preferred groups
+2498.6800000000003	2501.5	 where EPG 1, 2, and 3 can talk freely
+2501.5	2503.58	 and EPG 4, 5, 6 can talk freely.
+2503.78	2505.6	 And you can have, of course, contracts
+2505.6	2507.22	 between the different ESGs.
+2508.78	2510.26	 So you don't need to change
+2510.26	2512.04	 the underlying VLAN configuration.
+2512.58	2514.64	 You don't need to change the underlying IP addressing.
+2515.6	2519.5	 So it's an easy way to create segmentation in your network
+2520.06	2523.2	 starting from a network-centric deployment, okay?
+2523.7400000000002	2526.12	 And it doesn't have the scalability concerns
+2526.12	2528.38	 that I mentioned before for flood encapsulation.
+2529.4	2532.58	 And that's a way that it's been widely used.
+2533.88	2537.9	 And furthermore, if you then want to have more specific ESGs,
+2538.14	2541.1	 like you want to say certain VMs belong to,
+2541.16	2544.28	 like of a given application belong to a different ESG,
+2544.42	2545.64	 you can also do that.
+2545.76	2548.68	 You can add more specific selectors
+2548.68	2553.0	 so that you have more specific IPs or more specific VMs that
+2553.0	2554.46	 go into different ESGs.
+2554.46	2557.8	 So you can easily create a segmentation like this
+2557.8	2562.04	 and then you can have more specific ESGs later on.
+2564.34	2567.4	 So these are the different ways to classify traffic.
+2568.48	2570.9	 Some of them have been introduced from FIDO2.
+2572.14	2574.12	 So there's the EPG selector we mentioned,
+2574.28	2577.04	 the tag selector, which is basically the way to tag IPs
+2577.04	2580.18	 and MAC addresses, and the IP selector.
+2580.26	2583.9	 So you can easily segment your network
+2583.9	2584.44	 and then you can easily create a segmentation.
+2584.44	2584.44	
+2584.44	2584.44	
+2584.44	2584.44	
+2584.44	2584.44	
+2584.44	2587.28	 and then introduce more specific ESGs as you go
+2588.62	2591.18	 by using the endpoint security groups.
+2591.92	2595.72	 And we just published a nice white paper on this topic.
+2595.86	2596.62	 You can find it there.
+2597.1	2602.38	 And that white paper is actually using a very nice way
+2603.2000000000003	2606.96	 to map the concept of application as it is understood
+2606.96	2610.2	 by the application team to the segmentation
+2610.2	2612.36	 as it is understood by the network team.
+2612.46	2614.42	 And that's something that Joe was already mentioning.
+2614.42	2614.42	
+2614.42	2614.78	 yesterday.
+2615.18	2619.06	 Because oftentimes we run into this communication barrier
+2619.06	2622.06	 between what application means to the application team
+2622.06	2624.14	 versus what can be on the network side.
+2625.1800000000003	2630.68	 And if we try to nail it down to individual applications
+2630.68	2632.96	 running in individual server, which ports are opening
+2632.96	2636.14	 to the other server, then you go into this crazy journey
+2636.14	2639.1	 of trying to open individual ports and creating zillions
+2639.1	2641.84	 of EPGs and it's gonna be a never ending project
+2641.84	2643.06	 that is doomed to fail.
+2643.8	2644.4	 There's a lot of things that we can do.
+2644.4	2645.82	 There's a much more reasonable approach
+2645.82	2647.44	 and that's described in that white paper,
+2647.6	2650.4	 which consists in saying let's take all the servers
+2650.4	2654.16	 that make, for instance, purchasing application
+2654.86	2658.88	 or a ticketing application and let's put them all
+2658.88	2661.36	 into the same ESG so you don't have to go crazy
+2661.36	2664.6	 opening individual tiny ports and then use the contracts
+2664.6	2668.56	 in ACI to allow communication between bigger environments,
+2668.74	2669.88	 bigger chunks of applications.
+2670.3	2673.04	 And there's a very good example there because the white paper
+2673.04	2673.74	 has been developed.
+2673.74	2675.36	 It's been developed on a real example,
+2676.3799999999997	2681.18	 so it's very easy to follow and it's a very practical
+2681.18	2685.54	 approach to understand how to segment your network,
+2685.7	2688.24	 how to introduce application centric with ESGs.
+2688.6	2692.36	 Before I move forward, questions on ESGs?
+2692.54	2694.48	 Are you guys using already ESGs?
+2695.1	2697.22	 Somebody started, yes, okay.
+2698.3399999999997	2699.62	 Only one, okay.
+2704.2400000000002	2706.92	 Too new or it's not too new anymore.
+2712.28	2713.74	 Ah, the migration issue.
+2716.7200000000003	2717.38	 .
+2727.36	2730.9	 There is some migration problem between the EPG approach
+2730.9	2733.72	 and the ESG because effectively, you cannot, you know,
+2733.72	2733.72	
+2733.72	2733.72	
+2733.72	2736.02	 have contract between the EPG and ESG.
+2736.22	2737.32	 Let me address that one.
+2737.6	2740.54	 I mean, if you didn't know, maybe you didn't, but anyway.
+2740.76	2743.84	 You can, if you have a contract between EPGs and then if you
+2743.84	2750.16	 match the EPG from an ESG, the ESG is able to talk to the EPG
+2751.14	2752.18	 via the contract.
+2752.56	2755.36	 What you cannot do at that point is to add more contracts
+2755.36	2758.02	 to the EPG that is matched by the ESG.
+2758.84	2761.02	 But if the ESG is matching the existing EPG,
+2761.74	2762.82	 you're not creating any disruption.
+2763.82	2766.2	 You know, the traffic flow will still be allowed
+2766.2	2767.1	 that was allowed before.
+2767.5	2770.42	 And then you can start migrating the contract to the ESG.
+2770.56	2773.64	 So we thought about the EPG selector,
+2773.7	2776.56	 not just for what I described, but also for migration.
+2776.98	2778.16	 That's the perfect scenario,
+2778.32	2781.86	 but the application can be really tricky.
+2782.46	2782.9	 Okay.
+2784.88	2789.1	 Okay, other feedback on ESGs?
+2789.92	2790.4	 .
+2791.78	2793.12	 Sorry, here there was a...
+2794.84	2796.36	 Okay, sorry about it.
+2796.42	2799.82	 So I wanted to ask you about contract logging.
+2800.7599999999998	2800.76	 Yeah.
+2801.44	2805.14	 You can now, during the CSG migrations,
+2805.14	2808.92	 it's very useful to enable logging on your contracts.
+2809.48	2812.22	 I just wanted to ask you what are the best practices
+2812.22	2813.54	 around contract logging?
+2813.86	2817.2	 Should it always be on just for troubleshooting purposes?
+2818.08	2820.76	 Well, the Denial plus Log is on, right?
+2820.8	2823.1	 So the Denial plus Log, you can check the, you know,
+2823.1	2823.1	
+2823.1	2823.1	
+2823.1	2825.58	 In the operational view, you can go and see
+2825.58	2830.38	 the flow aggregated summary or the per-packet summary.
+2830.6	2832.3	 If you talk about permit plus log,
+2832.38	2833.38	 you need to add it to the contract,
+2833.5	2834.74	 but there's nothing different with
+2834.74	2837.4	 ESG versus EPGs when it comes to contract logging.
+2837.62	2838.38	 So, it's the same story.
+2838.62	2840.22	 It's rate limited, so of course,
+2840.22	2843.1	 you cannot expect to see every single packet log,
+2843.62	2845.64	 but it gives you an idea of what traffic is hitting.
+2846.44	2848.04	 Then of course, for the counters,
+2848.14	2849.84	 as you know, the counters are wrapping around.
+2850.02	2851.54	 But if your goal is to see,
+2851.54	2855.72	 there is this contract parser command on the CLI of the leaf,
+2855.88	2858.14	 where you can actually see what's being hit.
+2858.3	2859.34	 It's not accurate.
+2859.64	2861.14	 I mean, it's not meant to be accurate.
+2861.28	2863.42	 It's meant to be for troubleshooting and figuring out
+2863.42	2865.08	 if the traffic is hitting those contracts.
+2865.18	2868.28	 So, you can use those with EPGs or with ESGs.
+2868.96	2872.06	 Then the chance of a re-remitting CPU is
+2872.06	2874.32	 limited because there's rate limiting in place.
+2874.5	2876.62	 So, it's designed in a way that, sure,
+2876.72	2877.98	 it's not 100 percent accurate,
+2878.12	2880.66	 but it's meant to be for troubleshooting.
+2882.38	2883.76	 You had a question maybe?
+2886.96	2890.0	 If I have a network where I have preferred group,
+2890.68	2893.28	 can I just simply place those EPGs into
+2893.28	2896.48	 the ESG and switch out the preferred group?
+2896.86	2898.8	 So, the question is, if you have preferred group,
+2898.88	2900.92	 if you can put just those EPGs into the ESGs.
+2902.3	2903.88	 High level, the answer is,
+2904.02	2905.56	 you should be able to do so.
+2905.76	2908.04	 We need to check the priorities because you know that
+2908.58	2910.92	 preferred group is creating basically a permit,
+2910.92	2914.8	 any with priority I think 17 or something like that.
+2914.88	2916.02	 We need to check the exact priorities.
+2916.32	2920.04	 The individual EPGs have priority seven just like the ESGs.
+2920.26	2924.88	 So, basically, if you match the EPGs from ESGs,
+2925.02	2928.08	 what that is doing is changing the PC tag,
+2928.2	2932.92	 the class ID of the EPG and changing it to the ESG.
+2933.6600000000003	2939.18	 Now, the ESG could also be part of the preferred group actually.
+2939.4	2940.9	 So, one way to do that is, you can do that by using the ESG.
+2940.9	2940.9	
+2940.9	2943.42	 To do it, we need to check, okay?
+2943.56	2944.52	 But it's high level,
+2944.68	2948.16	 the idea would be you could make the ESG part of the preferred group.
+2948.26	2950.08	 You could match the EPG from the ESG,
+2950.18	2953.3	 and then finally you can remove the ESG from the preferred group,
+2953.36	2955.64	 and there could be a way to do this migration, okay?
+2956.1	2959.36	 So, the two things are not incompatible because ESGs
+2959.36	2962.64	 can be actually also part of a preferred group if you want.
+2963.8399999999997	2968.66	 So, the trick is just to think about the exact sequence that minimizes the disruption.
+2969.04	2970.88	 And then operations, when, let's say,
+2970.9	2975.8	 I migrate to ESGs, then I can handle the L3 outs
+2976.54	2979.74	 the same way as I'm doing them with now in the preferred group.
+2979.9	2982.32	 So, they don't, if I don't need to have a contract
+2982.32	2986.74	 between L3 out and EPGs like I don't have now,
+2987.32	2990.32	 can I do the same thing in the L3?
+2990.6	2992.48	 Yeah, so you're asking about L3 out.
+2992.52	2996.7	 So, for ESG to L3 out, it's the same as EPG with L3 out,
+2996.74	2997.9	 meaning you have to have a contract.
+2998.14	3000.44	 Now, if you don't have a contract between the ESG
+3000.44	3000.88	 and the L3 out, you can't do that.
+3000.88	3000.88	
+3000.88	3000.88	
+3000.88	3001.22	 So, if you have a contract between the ESG and the L3 out,
+3001.36	3003.58	 you could make them part of the preferred group,
+3003.64	3004.58	 potentially, if you want.
+3005.04	3005.26	 Mm-hm.
+3006.2	3010.86	 Now, if your question was, can the L3 out be just like,
+3011.52	3014.72	 so if, actually, I think what you're getting to is this one.
+3014.98	3017.62	 You're asking, your real question, I think, is this one.
+3017.7	3020.66	 Your real question is, if I don't use preferred groups, and
+3020.66	3024.0	 if I create multiple ESGs as a replacement to preferred groups,
+3024.06	3026.1	 can I make the L3 out part of ESG?
+3026.2	3027.62	 The answer to that is no.
+3027.82	3028.5	 Okay. Okay.
+3028.54	3029.26	 So, right now, I have a network.
+3029.26	3029.72	 That was your question.
+3029.72	3031.02	 I have a network with one customer,
+3031.08	3033.1	 where everything is covered in the preferred group.
+3033.26	3036.18	 They didn't want to go into the contracts.
+3036.4	3036.74	 Yeah.
+3036.84	3042.42	 So, L3 outs, everything is the same in a preferred group.
+3042.58	3044.14	 Yeah. So, if you do use ESG-
+3044.14	3048.6	 So, the original idea was just create a single ESG.
+3048.72	3048.94	 Yeah.
+3049.0	3050.7	 And place everything in it.
+3050.76	3054.02	 Could it work, or I have to go to the contracts anyhow?
+3055.42	3056.1	 Based-
+3056.1	3056.78	 For L3 out.
+3056.78	3059.3	 Your answer to your question is, you need a contract.
+3059.72	3061.9	 Okay. That's the real answer.
+3062.24	3065.92	 We are also thinking about making the L3 external
+3067.92	3071.5	 matchable as an EPG from the ESG.
+3071.66	3073.28	 But it's just a discussion we're having.
+3073.4	3074.12	 We haven't done that yet.
+3074.22	3077.5	 So, for now, if you do follow the ESG approach,
+3077.82	3081.02	 you still need a contract between the L3 out and ESG.
+3081.26	3084.24	 Yeah. But we're thinking about changing that.
+3084.54	3089.44	 Okay. Okay. In the interest of time,
+3089.72	3091.02	 I'm sorry, there's one more question.
+3091.14	3094.26	 One more question about support of the ESG in
+3094.26	3096.72	 the Nexus Dashboard Insight and Nexus Dashboard.
+3098.94	3102.38	 Okay. Well, your question is about Nexus Dashboard.
+3102.64	3104.36	 So, if you're talking about NDO,
+3105.0	3106.48	 that's being addressed, okay?
+3106.8	3109.06	 So, it's been worked on.
+3110.06	3112.56	 About Nexus Dashboard Insights understanding,
+3112.94	3115.86	 I don't know if somebody else from Cisco in the room wants to
+3115.86	3118.26	 address that question, NDI and ESGs.
+3118.88	3119.36	 Yeah.
+3125.1	3126.96	 It's the same with NDO.
+3127.06	3131.7	 It is being addressed and most likely in the same time frame.
+3132.3	3132.9	 Future.
+3133.06	3136.4	 Future. Now, but it's a concrete future.
+3136.8	3139.44	 It's not just like sci-fi future.
+3139.76	3141.68	 Yes. Okay.
+3145.54	3148.46	 Let me go to the very last topic.
+3148.62	3149.52	 Just to,
+3149.52	3151.08	 to conclude the presentation.
+3151.68	3153.56	 The last topic is first-off security.
+3155.54	3158.44	 I don't know how many of you have used or
+3158.44	3160.62	 looked at first-off security with ACI.
+3161.6	3162.98	 One person, two people?
+3163.12	3165.02	 Okay. Okay. A few people.
+3165.16	3170.64	 Okay. So, first-off security is a feature set.
+3170.74	3173.52	 Of course, it exists in ACI just like in classic switches.
+3174.54	3178.9	 It can address multiple securities, multiple attack scenarios.
+3178.9	3181.26	 This example here is focusing on R poisoning.
+3181.56	3185.06	 So, somebody could potentially compromise,
+3186.48	3188.84	 claim to be another host like in this one,
+3188.94	3192.24	 this host is claiming to be IP1.
+3193.1	3197.12	 So, that traffic directed to host one goes to host two instead of host one.
+3197.3	3201.74	 Or another scenario is that a host could pollute
+3201.74	3206.7	 the R table of another host and receive traffic was destined to the gateway.
+3207.02	3208.8	 So, first-off security addresses,
+3208.8	3212.0	 these scenarios and more of course.
+3214.18	3215.94	 How is it configured in ACI?
+3217.02	3219.18	 It's configured in two places.
+3219.3	3223.14	 The bridge domain where you select the type of feature you want to enable.
+3223.62	3227.92	 Then it's configured in the DPG when you can create trust policies.
+3228.02	3231.46	 So, you can say whether you want to trust the DHCP server there,
+3231.7	3233.72	 whether you want to trust ARP or
+3234.2400000000002	3237.18	 Neighbor Discovering Sun from a specific EPG.
+3237.82	3238.36	 But,
+3238.36	3240.72	 I say like for the scenarios I described before,
+3240.96	3243.66	 probably what you care about the most is just enable
+3245.48	3248.06	 one of these features like IP inspection.
+3249.2400000000002	3250.34	 There's more than that,
+3250.48	3252.06	 but for R poisoning attacks,
+3252.36	3254.42	 IP inspection would be one of
+3254.42	3256.06	 the features that you would care the most probably.
+3256.7400000000002	3260.22	 What's new here compared to what it was before is the fact that in
+3260.22	3265.9	 602 we added support for the integration with VMM.
+3266.06	3267.54	 So, with vSphere and so on.
+3267.54	3269.02	 That wasn't there before.
+3269.24	3273.44	 And so, before you could do first-stop security only for physical host.
+3273.6	3275.04	 Now, starting from 602,
+3275.18	3278.9	 the feature has been extended also to work with virtualized environments.
+3280.18	3284.84	 Okay. So, since this feature is not being talked about for ages,
+3285.6	3288.9	 and I'm talking about it now because we introduced the support for virtual machines.
+3289.66	3291.18	 What is this feature doing?
+3291.36	3296.68	 Is learning the endpoints not anymore by data plane learning when it's enabled,
+3296.68	3301.22	 but by verifying that the endpoints is actually a legitimate one.
+3301.36	3305.6	 And it's building a database of endpoints that are verified.
+3306.2400000000002	3307.6	 So, it's a secure database.
+3308.0	3309.62	 It's maintained by each leaf.
+3309.92	3316.06	 And so, when there's a new device that claims to have the MAC of an existing device,
+3316.3	3321.5	 then ACI is going to verify if the previously discovered device is still there or not.
+3321.7	3324.96	 And if it is, then it will not allow this to be learned.
+3325.32	3325.84	 Okay.
+3326.54	3331.18	 So, that's the details of how this feature is working.
+3331.46	3333.6	 Now, if you have that feature in place,
+3334.76	3338.64	 then the attacks that was described before would not occur.
+3338.88	3339.7	 They will be prevented.
+3341.5	3345.02	 So, this is an actual what first-stop security does.
+3345.3	3348.7	 And again, the novelty here is the fact that it's supported by virtual environments.
+3349.1	3351.76	 Now, it comes with some scale limits,
+3352.38	3356.38	 which is 2,000 endpoints and 1,000 bridge domains.
+3357.64	3362.22	 So, the limits could be not applicable, not useful for everyone.
+3362.34	3366.36	 But I just want you to know that we put some enhancements there.
+3367.54	3373.28	 And it can be used, of course, also in conjunction with endpoint security groups.
+3373.86	3376.74	 So, the question is, how can it be used with endpoint security groups?
+3376.98	3385.46	 Well, you would enable this feature on the bridge domain and the EPG that is used to connect, you know, servers to the fabric.
+3385.46	3388.46	 And it would not be enabled on the ESG per se.
+3388.66	3393.2	 But the ESG portion works in an independent way from this portion.
+3393.32	3396.5	 So, there's the verification that happens at the EPG and bridge domain level.
+3396.64	3399.54	 And then there's traffic filtering, which happens at the ESG level.
+3399.7	3403.16	 So, the two features are completely compatible, and they complement each other.
+3403.6	3404.12	 Okay.
+3406.32	3410.56	 So, that's all I have for this session.
+3413.0	3414.52	 We ended up earlier.
+3414.52	3415.22	 Yeah.
+3417.48	3417.98	 Okay.
+3418.2	3418.38	 Yeah.
+3423.9	3424.4	 Okay.
+3427.66	3429.86	 So, a couple of questions that we got in the Q&A.
+3430.06	3437.78	 One is, any plans to include for endpoint rock control a syslog message and not blocking the endpoint?
+3437.96	3438.88	 So, only informing.
+3439.5	3443.74	 And the second question is, any plans to increase the number of...
+3444.78	3446.18	 Let me see.
+3446.28	3448.14	 The exceptions for Roggenpoint?
+3448.44	3448.88	 Yes.
+3449.0	3458.98	 So, answer to the first question is, we are discussing the first option, which would be like a learning mode, let's say that way, maybe.
+3459.4	3461.74	 It had been brought up multiple times where Roggenpoint...
+3462.32	3468.48	 Could we use Roggenpoint, actually monitor what Roggenpoint would block before actually enabling Roggenpoint?
+3469.04	3470.04	 Nothing committed.
+3470.24	3471.6	 We're still discussing that.
+3472.08	3473.44	 About the second part.
+3473.44	3483.52	 The exact scalability numbers are not yet published for 6.0.3, but we are increasing indeed the support for the exclusion list.
+3485.7400000000002	3487.3	 So, there are two aspects to that.
+3487.42	3489.78	 How many can we configure in the exception list?
+3489.92	3490.6	 That's one thing.
+3490.7	3496.22	 And the other thing is, how many are quote unquote supported?
+3496.42	3503.42	 And what I mean by this is that since we're allowing the configuration globally in this release, in this...
+3503.42	3516.84	 In this 6.0.3 release, then when you explicitly specify a MAC, that MAC could be on 100 bridge domains, which means that, yes, you enter one entry, but in fact, you're configuring the equivalent of hundreds of entries.
+3517.36	3527.96	 So, there's going to be an increase on the number of entries you can enter, but then there's also a number of how many total entries that are a result of this configuration are going to be supported.
+3528.56	3530.98	 And the number, it's a bit preliminary.
+3530.98	3545.48	 I don't want to, you know, all disclaimers apply here, but the number the QA has validated so far is around 6,000, 5,000 total MAC addresses, BDs that are being, that can be excluded.
+3545.8	3548.1	 So, yes, we're planning to increase that, yes.
+3549.34	3549.98	 Thank you.
+3554.1	3554.6	 Okay.
+3554.7	3557.52	 So, if there are no more questions, thank you.
+3558.2	3558.98	 And, yeah.
+3560.12	3560.88	 Finished early.
+3560.96	3560.96	
+3560.98	3560.98	
+3561.26	3562.7	 Thank you.
+3562.7	3563.6	 Thank you.

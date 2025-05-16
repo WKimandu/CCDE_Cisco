@@ -1,0 +1,156 @@
+Cisco Certified Design Expert Exam v3.1
+Both the CCDE Written and the Practical exam focus on High-Level Design (HLD) aspects as well
+as business requirements within the context of enterprise network architectures.
+Both exams share one single unified blueprint, or exam topics. The CCDE Written Exam will
+validate core enterprise network architectures HLD aspects. The CCDE Practical Exam is built to
+be modular and provides you the flexibility to focus on your area of expertise in addition to
+validating core enterprise architecture HLD aspects. The exams are designed with dual-stack in
+mind, so candidates are expected to have solid understanding of both IPv4 and IPv6.
+This flexibility is expressed by multiple technology lists. The core technology list contains all
+core enterprise architecture technologies (all candidates are expected to know these topics),
+and multiple elective technology lists that contain logically grouped technologies, each focusing
+on technologies relevant for the electives that the CCDE Practical offers.
+Exam Exam topics Technologies
+CCDE Written Not applicable
+Unified Exam topics Core technologies
+CCDE Practical + Chosen elective technologies
+exam
+CCDE Written Exam
+The CCDE Written exam (400-007) validates High-Level Design (HLD) aspects as well as business
+requirements within the context of enterprise network architectures. The exam is a two-hour,
+multiple-choice test with 90-110 questions that focuses on core enterprise network
+architecture HLD aspects. The exam serves as a pre-requisite for the CCDE Practical exam and
+provides a way of recertifying your CCIE (as well as lower-level certifications). The exam is
+closed book and no outside reference materials are allowed.
+For more information on what to expect on your CCDE Written Exam, please refer to:
+• The Unified Exam Topics
+• The Core technology list
+To summarize, these are the requirements for CCDE Written.
+Exam topics Technologies
+CCDE Written Unified Exam topics Core technologies
+
+The CCDE Written exam is administered at Pearson VUE test centers.
+CCDE Practical Exam
+The CCDE Practical Exam v3.1 is an 8-hour scenario-based exam that is built to be modular and
+provides you the flexibility to focus on your area of expertise, in addition to validating core
+enterprise architecture technologies. You will have to choose your elective during the CCDE
+Practical exam booking process. This determines the type of scenario you will get as the fourth
+and final module of the exam. The first three modules will always be of the Core type, meaning
+they are focusing on Enterprise technologies and topologies.
+These are the currently offered electives:
+1. Large Scale Networks
+The Large Scale Networks elective focuses on the aspects of designing large-scale
+networks, such as Service Provider networks or large enterprise networks and their
+associated technologies.
+2. On-Prem and Cloud Services
+The On-Prem and Cloud Services elective is centered around design and integration
+of business-critical services from a networking perspective. These services may be
+placed in an on-premises data center, in the cloud, or a hybrid thereof. A deep
+understanding of applications and their requirements, as well as related networking
+technologies is expected for this module.
+3. Workforce Mobility
+The Workforce Mobility elective is focused on the design of solutions that benefit
+users in their daily job and routines, allowing them to roam freely across campuses
+and buildings without losing access to the services they depend on. This requires a
+well-planned and well-designed wireless network to achieve.
+4. AI Infrastructure
+The AI Infrastructure elective works with the various aspects of designing
+infrastructure that enables use of AI/ML applications while also ensuring the
+workloads are manageable and able to operate in a secure fashion. Often the
+applications have very strict requirements on performance and on the services
+offered. This requires specialized technologies and protocols to deliver, and a deep
+understanding of these technologies is required.
+Technologies and concepts relevant to these are grouped together in elective technology lists.
+Each elective has its own corresponding technology list.
+For more information on what to expect on your CCDE Practical exam, please refer to:
+• Unified Exam Topics
+• Core Technology List
+
+• The technology list associated with the elective you intend to select.
+This graphic summarizes the above for the CCDE Practical:
+Exam topics Technologies
+CCDE Practical Unified Exam topics Core + Elective
+exam
+Practical Exam delivery
+The delivery of CCDE Practical exams is administered at Cisco Certification Centers, including
+fixed locations and mobile events- Booking your CCDE Practical Exam is done on the Cisco
+Expert Level Certifications Tracker portal.
+Practical Exam flow
+The CCDE 8-hour practical exam contains four two-hour scenarios. Within these scenarios your
+skills and abilities in high level network design is validated by making you analyze technical as
+well as business requirements, identify relevant solutions to presented challenges, build
+implementation plans, and align Enterprise Architecture high level designs to business
+outcomes.
+Each of the scenarios you encounter during your exam stands on its own; there’s no connection
+between them. When you get to the start of a new scenario, you can essentially reset your
+mind in preparation for the next scenario, as you will not be required to retain information
+from any previous scenario in your exam.
+The first three scenarios focus on enterprise architecture core technologies as listed in the core
+technology list, while the fourth scenario focuses on your elective and the corresponding
+technology list.
+As you work your way through a scenario, you will be provided with an extensive set of
+information, such as background information and topology drawings that will set the stage for
+the scenario you are working on. As the scenario progresses you may be presented with
+additional information that, for instance, impact the existing network or marks a new direction
+mandated by management.
+As the scenario will often place you in the role of a network architect or network consultant, it
+is generally suggested that you assume that role from the perspective of your mindset. Do not
+spend time trying to map the requirements or design options into configuration sections or
+snippets – instead, stay inside the context of the scenario and the question.
+
+Practical Exam scenario details
+You have 8 hours in total to complete four scenarios. You have a maximum of two hours for
+each scenario. If you complete a scenario in less than two hours, you cannot carry over any of
+the unused time to the next scenario.
+During the exam, it is not possible to navigate backwards, so once you provide the answer to a
+question and move on to the next, your answer is final and cannot be changed.
+The point value for the questions will not be shown during the exam. Partial credit might be
+available based upon the question intent.
+The exam is closed book, but access to relevant documentation on cisco.com is provided.
+Practical Exam scoring
+Each scenario has both a minimum score and a pass score. Both minimum and pass scores are
+set on a per-scenario basis, based upon exam difficulty level.
+• The pass score corresponds with expert level competence.
+• The minimum score is the absolute minimum score expected from an expert level
+candidate.
+To pass the exam, candidates need to score higher than or equal to the aggregated pass score
+of all four scenarios and score higher than the minimum score set on each of the scenarios
+individually.
+Each scenario Exam
+Cut score pass score *)
+AND =
+Min score
+Score >= Min score Score >= pass score
+*) Exam pass score = aggregate of cut
+scores of each scenario
+If candidates score less than the overall aggregated pass score of all scenarios OR score less
+than the minimum score set on one or more of the individual scenarios, they will fail the exam.
+
+Upon passing the exam, candidates will not be provided any additional score details.
+Candidates that fail the exam will be given a score report that provides aggregated scoring
+percentages across all scenarios on a per-domain level.
+Summary
+The graphic illustrates key CCDE Practical exam elements.
+Scenario 1 Scenario 2 Scenario 3 Scenario 4
+Exam topics Unified Exam Topics
+Technology Core Core/elective
+List
+Format Scenario-based
+Total Exam 8 hours
+Time
+Time/scenario Max 2 hours Max 2 hours Max 2 hours Max 2 hours
+Backwards No
+navigation
+Point values Not shown
+Certifications and badges
+Badges associated with the CCDE certification program.
+• Passing the CCDE Written awards you a "Cisco Certified Design Expert Specialist" badge.
+• Passing the CCDE Practical exam awards you with a "Cisco Certified Design Expert (CCDE)” badge
+and a "Cisco Certified Design Expert Specialist" badge for the elective you took during your
+practical exam.
+Available elective badges:
+i. Cisco Certified Design Expert Specialist - AI Infrastructure
+ii. Cisco Certified Design Expert Specialist - Large Scale Networks
+iii. Cisco Certified Design Expert Specialist - On-Prem and Cloud Services
+iv. Cisco Certified Design Expert Specialist - Workforce Mobility
+

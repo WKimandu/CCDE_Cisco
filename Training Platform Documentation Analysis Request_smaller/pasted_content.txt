@@ -1,0 +1,36 @@
+Cisco) PS C:\Users\kiman\Documents\GitHub\CCDE_Cisco> 
+(CCDE_Cisco) PS C:\Users\kiman\Documents\GitHub\CCDE_Cisco> Remove-Item README.md -ErrorAction SilentlyContinue
+(CCDE_Cisco) PS C:\Users\kiman\Documents\GitHub\CCDE_Cisco> Remove-Item readMe.md -ErrorAction SilentlyContinue
+(CCDE_Cisco) PS C:\Users\kiman\Documents\GitHub\CCDE_Cisco> git status
+On branch documentation-improvements-phase1
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        deleted:    readMe.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+(CCDE_Cisco) PS C:\Users\kiman\Documents\GitHub\CCDE_Cisco> git apply --whitespace=fix .\documentation_updates.patch
+./documentation_updates.patch:618: trailing whitespace.
+    python scripts/ccde_study_plan.py
+./documentation_updates.patch:636: new blank line at EOF.
++
+error: readMe.md: No such file or directory
+(CCDE_Cisco) PS C:\Users\kiman\Documents\GitHub\CCDE_Cisco> git apply --whitespace=fix documentation_updates.patch  
+documentation_updates.patch:618: trailing whitespace.
+    python scripts/ccde_study_plan.py
+documentation_updates.patch:636: new blank line at EOF.
++
+error: readMe.md: No such file or directory
+(CCDE_Cisco) PS C:\Users\kiman\Documents\GitHub\CCDE_Cisco> ls .\documentation_updates.patch
+
+
+    Directory: C:\Users\kiman\Documents\GitHub\CCDE_Cisco
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----         5/11/2025  12:04 AM          46031 documentation_updates.patch
+
+
+(CCDE_Cisco) PS C:\Users\kiman\Documents\GitHub\CCDE_Cisco> 
+(CCDE_Cisco) PS C:\Users\kiman\Documents\GitHub\CCDE_Cisco> 

@@ -1,0 +1,69 @@
+CCDE Practical Exam v3.1
+Large-Scale Networks Technology List
+Description: The following technologies are associated with the Large-Scale Networks elective of the
+CCDE Practical Exam v3.1. Candidates are expected to have a deep understanding of the listed
+technologies and solutions and be able to integrate them while applying design considerations as
+described in the CCDE Exam Topics. Each of these technologies may appear in any delivery of the exam.
+If applicable for the technology candidates must expect content that is dual-stack by nature.
+Note: The technologies listed here are in addition to the technologies listed in the CCDE Core Technology
+list.
+1.0 Transport Technologies
+1.1 Carrier Ethernet
+1.2 Ring-based (such as SONET/SDH and OTU)
+1.3 Frame relay (migration only)
+1.4 Wireless (including satellite links and microwave links)
+1.5 Optical
+2.0 Layer 2 Control Plane
+2.1 Loop detection protocols and loop-free topology mechanisms
+2.1.a REP
+2.2 Transport mechanisms and their interaction with routing protocols over different link
+types
+3.0 Layer 3 Control Plane
+3.1 Factors affecting convergence
+3.1.a Transport
+3.2 Generic routing and addressing concepts
+3.2.a Large-scale NAT
+3.3 Multicast routing concepts
+3.3.a Multicast delivery/implementation models
+3.3.b mVPN
+4.0 Network Virtualization
+4.1 MPLS
+4.1.a Label distribution (such as LDP, BGP, and RSVP)
+4.1.b IGP integration
+
+4.1.c Congruent and noncongruent topologies
+4.1.d Traffic Engineering (RSVP and TE tunnels)
+4.2 Segment routing
+4.2.a LDP and SR interworking
+4.2.b SRv6/MPLS
+4.2.c Traffic Engineering (SR-TE) (such as TI-LFA, ODN, AS, and Flex-Algo)
+4.3 QoS techniques and strategies
+4.3.a End-user requirements
+4.3.b QoS behavior (such as PHB, queuing techniques, buffer depths, and MPLS QoS
+operations)
+4.4 EVPN
+4.4.a Management plane
+4.4.b Control plane
+4.4.c Data plane (such as VXLAN, MPLS, and PBB)
+4.4.d Segmentation
+4.4.e Policy
+4.4.e.i Security
+4.4.e.ii Topologies
+4.4.e.iii Multiple site strategy
+5.0 Security
+5.1 Infrastructure security
+5.1.a Data plane protection techniques
+5.1.a.i uRPF
+5.1.a.ii RTBH
+5.1.b Control plane security
+5.1.b.i Securing and hardening BGP (such as RPKI, RoA, TTL-based security,
+and peer authentication)
+5.1.b.ii Device hardening (such as CoPP, transit filtering, and antispoofing)
+5.1.b.iii Out-of-band management
+5.2 DoS and DDoS protection mechanisms
+5.2.a BGP FlowSpec
+5.2.b Washing
+6.0 Automation
+6.1 Lifecycle management/closed-loop automation
+6.2 Crosswork network automation
+

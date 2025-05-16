@@ -1,0 +1,1194 @@
+start	end	text
+2.88	6.54	 So, let's talk about automating ACI with Python and the corporate SDK.
+6.78	11.8	 And if you haven't attended a previous webinar by me before or haven't been in one of these
+11.8	12.84	 PIWs, my name is Marcel.
+13.06	16.08	 I'm a software solutions engineer for EMEA Systems Engineering.
+16.24	20.56	 That means that I have the opportunity to work with our large partners and with our
+20.56	27.64	 large customers on anything related to programmability, focusing in the past few years mainly on automating
+27.64	30.46	 and network side of things.
+31.42	35.0	 But today, we're talking about ACI and the corporate SDK.
+35.14	39.56	 And before diving right into the code, right before going into the technical bits and showing
+39.56	43.5	 you how you can connect to the API and doing all of these things, and at the end, we'll
+43.5	46.9	 also see a few interesting use cases that have been built using the API.
+47.28	49.18	 Let's start with why, right?
+49.22	53.92	 Let's start thinking about why we would want to automate something like our APIC, why we
+53.92	56.74	 want to automate processes in that part.
+56.74	63.12	 And like, if you do a survey on this and if you ask people like, hey, what, why do you want to do that?
+63.24	63.38	 Right?
+63.52	65.42	 Some of the things that come up is cost reduction.
+65.7	67.72	 Of course, everyone has OPEX constraints.
+67.86	75.08	 So we might want to be able to reduce the time it takes, reduce the cost associated with certain
+75.08	77.08	 workflows, simplicity, right?
+77.16	83.78	 Like it's a lot simpler to just kick off a script and kick off an automation than having to maybe configure a lot of
+83.78	86.48	 things inside of the APIC.
+86.48	86.72	 Right?
+88.0	90.24	 So consistent configuration is also something, right?
+90.34	98.3	 Like if you're just, you know, giving you a switching example, but if you just have someone SSH to a switch and do
+98.3	104.5	 some things, configure some stuff, you will eventually get to a system where you might have an understanding,
+104.64	109.14	 maybe in a SharePoint page or whatever, what your configuration is or what you believe your configuration is.
+109.22	112.82	 And then you have the is state, which is quite often very disjunct, right?
+112.84	116.72	 Like where people have drifted the configuration away from the actual configuration.
+116.72	116.72	
+116.74	119.12	 So you have to be able to get the information out of the configuration and then you have to figure out how to get it out of the configuration.
+120.74	120.92	 So you have to be able to get the information out of the configuration.
+120.92	121.16	 So you have to be able to get the information out of the configuration.
+122.16	124.14	 Reducing time consuming repetitive tasks, right?
+124.18	135.12	 This is the whole point of automation that we automate the boring stuff so that we can spend more time on the actually interesting stuff like infrastructure, like architecture, these kinds of things.
+135.22	135.36	 Right?
+135.42	138.32	 The stuff that's actually interesting and that actually propels forward.
+138.42	138.56	 Right?
+138.8	141.74	 Finally getting around to building that new service that you wanted to do.
+142.38	143.22	 Scaling, right?
+143.44	145.78	 If you have written a script once, you can do it again.
+146.74	148.36	 And reduce maintenance window.
+148.48	152.36	 So these are like the top reasons that usually get given for automation.
+152.6	157.66	 And these reasons are, I didn't write data center automation on top there, right?
+157.68	168.32	 These are fairly common that you will encounter them in pretty much every automation related stuff from IT automation to automating your factory, right?
+168.54	171.1	 Everything is going to be for that reasons.
+171.44	174.54	 Data centers in particular have one more reason.
+174.68	175.84	 And that reason is.
+179.98000000000002	181.68	 The cloud, right?
+182.20000000000002	192.44	 We care about automation because we have 2 different personas roughly, and there's a few more, but we have different personas acting in our data center, right?
+192.52	198.84	 We have the infrastructure engineers, the people that care about routing the people that care about the security, the people that care about.
+199.58	204.56	 If we're talking about specifically, and these kinds of infrastructure related topics, right?
+204.6	206.72	 Making sure that your infrastructure works and making sure that your infrastructure is working.
+206.72	206.72	
+206.72	206.72	
+206.72	206.72	
+206.72	206.72	
+206.72	206.72	
+206.72	206.72	
+206.72	206.72	
+206.72	206.72	
+206.72	208.58	 That everything runs run smoothly.
+209.48	212.06	 And then you have the people actually using your infrastructure, right?
+212.72	215.5	 Could be software developers could be application teams.
+216.78	218.02	 But you have people that.
+218.8	220.92	 They, they are not that interested in the infrastructure.
+221.16	223.28	 They just want to consume that infrastructure, right?
+223.36	228.06	 And software engineers in particular, they will be talking or they will be caring about deployments, right?
+228.14	230.06	 They will be talking about their time to market.
+230.3	231.68	 They want to optimize that.
+231.76	234.08	 They want to talk about quick access to resources, right?
+234.14	236.0	 They don't want to go through an approval process.
+236.08	236.46	 And wait.
+236.46	238.08	 For a long, long time.
+238.48	246.96	 In order to get some sort of new server for the lab environment set up, or to get some access rules changed so that they can run their run their software.
+247.7	249.72	 So these, these, these two groups.
+250.02	251.38	 Not only have different.
+253.0	255.98	 Perceptions of what infrastructure is right for some of them.
+256.04	261.0	 It is all the interesting technical topics and the it's like their day-to-day job.
+261.08	262.58	 And for others, it's a resource, right?
+262.7	264.82	 They also have different incentives, right?
+264.88	265.78	 The infrastructure engineers.
+265.78	268.9	 Are hard challenged when the infrastructure goes down.
+269.02	269.54	 Right?
+269.66	275.44	 If your data center crashes, it's you at 2 AM in the morning doing work and having to restore all of that.
+275.54	280.04	 While the software developers usually more care about their velocity into the market, right?
+280.14	281.16	 They are getting paid.
+281.22	282.88	 The more features they ship.
+283.0	288.74	 And they are getting the bonus for that great feature that they ship that is winning over the world by storm.
+289.6	295.76	 So they are more inclined to sacrifice stability for improving, for improving the technology.
+295.76	295.86	 And they are more inclined to say, hey, let's do this.
+295.86	301.6	 We are going to change velocity while your infrastructure engineers usually are more inclined to say, hey, calm down.
+301.72	302.42	 Let's let's stop.
+302.52	305.26	 Let's let's really test all of this out before we do any changes.
+306.04	308.36	 And, and this, this like dichotomy, right?
+308.4	311.8	 Like this, this problem here is, is really what's at the heart of this.
+311.92	314.54	 And I already mentioned this, the word, right?
+314.62	318.76	 Like the thing why developers really, really like the cloud is.
+319.50000000000006	321.54	 Not necessarily because they don't like data centers.
+321.68	325.62	 But because the cloud is more convenient for all of these aspects that we just talked about.
+325.72	325.74	 Right?
+325.76	328.14	 The cloud in their perception is cheaper.
+328.26	329.88	 Even if that's sometimes not the case.
+330.26	331.22	 The cloud is quicker.
+331.56	331.56	
+331.7	333.76	 Like spinning up a new instance in the cloud.
+333.86	340.98	 Sometimes it's clicking one button and or issuing one command on, on, on some CLI and you get a full VM spun up.
+341.22	343.92	 And more importantly, they can control the cloud.
+344.06	344.38	 Right?
+344.44	350.72	 They, they, they understand how they can deal with, with the cloud providers and how they can get the resources that they want to have.
+353.7	355.64	 And the, the, the speed of access.
+355.76	357.9	 And the, the, the speed of access that they, they are expecting from, from the cloud.
+359.14	364.44	 Now, if you, if you then think about the infrastructure engineers, hey, how can we get rid of these processes?
+364.62	367.06	 How can we make the DC more, more cloud-like?
+367.14	374.86	 How can we make sure that we can adopt to that, that velocity that a, that a software developer these days is expecting?
+375.1	378.64	 And I mean, there is, there is two different ways out of this, right?
+378.74	382.6	 You could go out and say you, we, we're staffing up, right?
+382.7	385.4	 We're going to have a thousand ACI engineers.
+385.64	385.74	 Right?
+385.74	397.0	 We're going to have a thousand data center engineers that are constantly on call and twiddling their thumbs for 90% of the time waiting for that one ticket to come in from the, from the, from developers.
+397.24	404.58	 And then we have a team of 15 engineers rushing out that change in order to, to make it, make it an almost instant experience.
+405.14	410.74	 The problem is you guys, you ACI experts are really, really rare in the world, in the job market.
+410.86	415.22	 So staffing up to a thousand ACI experts, you probably build a monopole on, on that experience.
+415.22	420.12	 And you're still probably wouldn't be as fast as if you were automating the processes, right?
+420.2	432.54	 Automating certain things that your developers need from you or certain things that your infrastructure consumers need from you in order to be faster in these, in these, in these aspects.
+432.86	435.48	 And that is, that is what we're going to look at today, right?
+435.56	445.2	 Like how you can use tools like corporate, or you can use tools like the, like the API to streamline your processes such that you can accommodate the needs of your customers.
+445.2	445.2	
+445.22	451.12	 And you can also make these, these changing velocities and also make your life maybe a bit easier by, by doing that.
+452.32	466.8	 And as I said already in the end, after the, after the technical stuff, we'll also have a look at three different use cases just to show you what you can do with these, with these tools that you are, that you are seeing with the API and with these, with these different possibilities.
+468.28000000000003	473.52	 So let's quickly summarize three different words that I'm going to be using today.
+473.66	475.2	 I assume that if you're joining this webinar today, you're going to be using the word, the word, the word, the word, the word.
+475.22	475.24	 And I'm not going to give you a good explanation of that.
+475.24	475.24	
+475.24	477.84	 And you know, you have a, a bit of knowledge of ACI.
+477.86	481.34	 So I'm not going to give you any, any like explanation of ACI itself.
+481.48	483.86	 You probably know even a bit more than I do about that.
+483.96	485.56	 So we have the classes, right?
+485.6	486.2	 Like the tenants.
+486.54	491.14	 We have our managed objects that we are performing operations on, like getting details or changing.
+491.36	499.92	 And then we have these distinguished names of the managed objects that you will see in some, in, in some of our, in some of our examples.
+499.92	504.92	 So let's interact with the APIC REST API using Python.
+506.74	510.12	 Let's have a look at how we can do that.
+510.3	513.54	 And at first I know that the presentation is titled
+513.54	516.64	 Cobra SDK, but let's do it the old way
+517.2800000000001	523.38	 without any SDK, without any tools, right?
+524.3000000000001	525.3	 Through it bare bones.
+525.38	529.24	 And then we'll also see why we would want
+529.24	531.2	 to have those tools, right?
+531.42	534.22	 So the first thing I have to do when I'm interacting
+534.22	537.5	 with the APIC, and I'm going to be interacting
+537.5	540.02	 with a always on sandbox here.
+540.26	545.0	 This is the sandbox API, apicdc.cisco.com.
+545.08	547.62	 So you can find that in our definite sandboxes.
+548.32	551.04	 It's an always on shared thing.
+551.24	555.08	 I think it's running the APIC simulator.
+555.54	558.28	 All right, it's not a real APIC, but it's the simulator.
+558.28	560.96	 But you see, we have like all the different stuff,
+561.04	563.7	 like the tenants and all of these different things
+564.3399999999999	570.12	 that we can click around and that we can see here
+570.8	573.6	 in the system, the fabric, networking, admin operations,
+573.86	576.62	 all the things that you know from the ACI.
+578.6999999999999	582.3	 So let's start with the authentication, right?
+582.38	585.58	 We do need to get a way of authenticating ourself
+585.58	586.88	 to the APIC.
+586.92	588.26	 And the way that the APIC is running,
+588.26	588.26	
+588.26	588.26	
+588.26	588.26	
+588.26	588.26	
+588.26	590.68	 the way that this is done here in the ACI API
+591.4	594.04	 is that we need to send a request
+594.04	595.66	 with our username password combination
+597.22	599.74	 to a authentication endpoint.
+600.02	601.64	 And that authentication endpoint
+602.24	603.96	 then will give us a session cookie
+604.5	607.0	 that we need to set on every subsequent,
+608.0600000000001	611.0	 every subsequent request to the actual API
+611.0	611.98	 that we want to do, right?
+612.06	613.86	 Like we log in using username password,
+613.96	616.68	 and then afterwards we use that session cookie that gets set
+617.36	618.24	 for all of our applications.
+618.24	619.62	 So we can see that we have all the subsequent requests.
+620.0	623.88	 Now for the path, for the interaction itself, right?
+623.92	625.58	 We're going to use the requests package,
+626.38	629.56	 which is a nice open source package written in Python
+630.1	631.9	 that allows you to do web requests.
+632.1	633.96	 I think they are the catch line is web requests,
+634.08	634.72	 the human way.
+634.84	638.62	 So they allow you to do web requests in a more convenient,
+638.66	640.92	 more easy way than if you had to have to use things
+640.92	643.14	 like URL lib, things like that.
+643.28	645.86	 So we can, first off import the requests,
+646.5600000000001	647.5	 import that request package.
+647.5	651.46	 And I already said that I will deal with cookies.
+651.76	655.7	 And while we can, when we do our requests with requests,
+655.84	658.78	 we can extract the cookies that we get from something.
+658.9	661.26	 It is much more convenient to use what's called a session.
+661.42	665.14	 So the session will store things like headers
+665.14	667.34	 or also cookies between different requests.
+667.72	669.68	 So that means that we just need to do
+669.68	672.66	 a authentication request once with our session.
+672.82	674.62	 And as long as we use the same session object
+674.62	677.42	 for all of our subsequent requests to the rest API,
+677.5	680.36	 we can, we don't have to worry about that cookie.
+681.4800000000001	684.06	 So let's first define our base URL.
+684.2	687.2	 As I said, this is the definite sandbox.
+687.3	691.18	 So this is sandbox, should copy it over.
+692.7600000000001	694.02	 This is this link.
+695.82	697.42	 Going to strip that away
+697.42	700.46	 when I'm going to already add the API sub path.
+700.66	703.44	 So everything related to the API is under slash API.
+704.2800000000001	707.08	 And then I can build myself,
+707.08	713.2	 my login URL, which is going to be using the format string
+713.2	715.6	 here, which is going to be the base URL.
+715.76	719.04	 And then it is slash AA login.
+720.6000000000001	726.52	 Now, one part about the API from theisc when the the ACI API
+726.52	729.94	 is that you can get all the responses as well
+729.94	731.04	 as you can send your requests
+731.04	732.88	 with two different formats data formats.
+733.04	734.46	 You can either use Jason payloads
+734.46	737.06	 or you can use XML payloads.
+737.06	737.06	
+737.06	740.26	 and how you determine which response you're getting
+740.26	743.38	 or what response or what request format or body format
+743.38	746.08	 the API is expecting from you
+746.08	748.58	 is by using these .json or .xml.
+749.02	750.82	 I'm going to use throughout this example,
+750.88	752.1	 I'm only going to use JSON
+752.1	755.3	 simply because I personally do prefer JSON a lot more.
+755.46	758.18	 But in theory, if you feel more comfortable with XML,
+758.34	759.48	 you could also do this in XML.
+760.68	762.22	 So we have a login URL.
+762.9	765.86	 We now need the payload that we want to send
+765.86	767.3	 to this login URL.
+767.42	769.2	 And then we will need to set up that session
+769.2	770.54	 that I talked about before.
+770.72	772.12	 So let's start with the session.
+772.28	773.82	 I'm just going to call this S.
+773.9	776.62	 You can call this whatever you want, really.
+776.76	778.54	 And this is now just from the request
+778.54	780.08	 creating a new session object.
+780.44	782.4	 And you might've seen like header updates
+782.4	783.26	 in previous stuff.
+783.36	784.88	 We don't need to do that because as I said,
+784.92	786.94	 the authentication works via that cookie
+786.94	790.66	 and that cookie is going to be saved for us anyway.
+791.7199999999999	795.5	 So we also need the, sorry, let me close that.
+795.86	798.26	 Okay, we also need the payload.
+799.12	801.7	 So that payload looks like this
+801.7	804.94	 and you can find the structure of the payloads
+804.94	810.02	 if you're going into the API documentation.
+814.36	819.74	 So you have attributes and then you have the name.
+819.82	820.52	 This is your username.
+820.64	822.42	 In this case, this is admin
+822.42	824.92	 and you have the password property
+824.92	825.84	 or the password attributes.
+825.84	825.84	
+825.84	825.84	
+825.84	825.84	
+825.84	825.86	 So you have the password attribute
+825.86	830.16	 which is the password of the login.
+830.66	832.56	 I'm going to go over and copy this.
+832.64	834.26	 As I said, this is always on sandbox.
+834.38	839.92	 So you can use this if you want to, right?
+840.02	841.4	 Like this cryptic string.
+841.66	843.44	 So this is the payload that we want to send.
+843.7	845.82	 And that means that we can now go ahead
+845.82	849.36	 and say response is equals to session.host.
+849.56	851.14	 We're always posting here
+851.14	853.88	 and we're going to post that to the login URL
+855.0200000000001	855.82	 and we're going to send it to the login URL.
+855.82	858.12	 We want to send a JSON payload, right?
+858.18	859.68	 This is where if you would do XML,
+859.88	861.6	 you could do an XML thing here,
+861.66	864.08	 but we want to use a JSON payload.
+864.52	866.8	 This JSON payload, we're sending JSON.
+868.08	871.02	 So let me print rasp.statuscode
+871.02	872.68	 and also let me,
+874.42	877.24	 yeah, let me print the rasp.statuscode
+877.24	878.32	 and let me print
+884.56	885.48	 my code.
+885.82	888.12	 So auto-completion just a little bit.
+888.28	891.44	 Let me print the rasp.cookies.
+899.18	901.26	 So I'm getting a verification error.
+901.42	906.56	 This is because we're using an unverified certification.
+906.9	908.52	 So I'm just adding a verify false flag.
+908.78	912.06	 And you see that we are getting this 200 here.
+912.2	914.46	 So the request was successful.
+914.72	915.66	 And then we also get,
+915.82	917.98	 here, the cookie jar object,
+918.1	920.38	 which is the name for the cookie container.
+920.6	921.68	 And you see cookie,
+921.86	923.26	 apic cookie equals,
+923.38	925.58	 and then this JSON web token,
+925.86	927.64	 which is our authentication token.
+929.06	929.92	 So with that done,
+930.06	931.6	 we are now authenticated.
+931.76	932.22	 And as I said,
+932.26	934.7	 every request that we're doing using this session
+934.7	936.84	 is now going to be authenticated.
+937.04	938.68	 So let's do another request.
+939.56	940.56	 And in this case,
+940.68	942.58	 we do want to get a self,
+942.6	944.5	 a list of our tenants.
+946.48	949.12	 So I'm going to query slash classes
+949.12	950.52	 because I want to list off all of them.
+950.64	953.36	 And then every tenant dot JSON.
+954.5	958.46	 Again, I'm going to set our verification to false.
+959.34	961.56	 And I'm going to once again,
+961.62	963.38	 do r.statuscode.
+963.72	967.2	 And I'm going to go and say r.json.
+968.82	971.88	 I'm going to print out the JSON response
+971.88	973.1	 that I get from the apic.
+974.94	975.54	 You see,
+975.62	978.5	 we got a very unruly piece of,
+978.5	979.06	 of JSON.
+979.2	981.2	 So let's quickly format that a bit nicer.
+984.36	985.34	 Importing JSON here.
+985.5	988.36	 And then I'm just going to dump out JSON again.
+988.44	990.08	 You could also use something like pretty print.
+990.22	990.72	 If you,
+990.72	992.02	 if you prefer that,
+993.36	993.76	 personally,
+993.78	994.62	 always do it like this.
+996.0	996.8	 And there we go.
+996.98	998.82	 There we have all of our tenant objects,
+999.08	1001.96	 all of our stuff that we wanted to get from the API,
+1002.06	1002.26	 right?
+1002.28	1002.74	 The DN,
+1004.46	1007.3	 all the information that are available via the API
+1007.3	1010.12	 that are also available via the web interface.
+1011.5600000000001	1012.88	 And with that,
+1012.88	1013.36	 with that,
+1013.4	1016.12	 we can also do more advanced workflows.
+1016.24	1017.0	 Like for example,
+1017.6600000000001	1019.64	 specifying a filter,
+1019.76	1020.2	 right?
+1020.3	1023.92	 Like we can create a filters object here.
+1024.1	1025.7	 And the name of that is
+1028.1000000000001	1029.92	 very target filter.
+1031.3600000000001	1032.98	 And we can do something like,
+1033.1	1034.36	 an equality filter.
+1034.62	1035.66	 In this case,
+1035.66	1038.72	 I want to do every tenant.name.
+1039.02	1044.18	 And I want that to be equal to search for a name here
+1044.18	1044.68	 in the tenants.
+1046.08	1048.98	 There's a CSV that was configured by Ansible,
+1049.14	1050.12	 according to the description.
+1051.62	1053.1	 But I can do that here,
+1053.2	1053.36	 right?
+1053.48	1056.2	 Like the tenant name should be equal to CSV.
+1056.58	1062.5	 And now I can pass on this filter as a URL parameter.
+1062.68	1063.08	 And then I can,
+1065.82	1066.4	 like this.
+1066.66	1069.86	 The benefit of passing it as a params,
+1069.88	1074.44	 it's like creating it as a dictionary and passing it on as a param is that
+1074.9599999999998	1075.36	 requests,
+1075.54	1079.14	 the request library will take care of the URL safe and coding and all of
+1079.14	1080.26	 these kinds of things for you,
+1080.34	1083.26	 which especially with a bit more involved stuff,
+1083.4	1083.78	 like you have,
+1083.86	1084.46	 yeah,
+1084.52	1088.66	 you have like brackets and all of these kinds of things in these,
+1088.66	1090.56	 in these filters can be,
+1090.56	1091.22	 can be,
+1091.22	1092.32	 can be more beneficial,
+1093.1	1093.18	 like,
+1093.24	1097.56	 so that I would always recommend you pass filters and URL parameters like this.
+1098.72	1101.7	 So we can rerun this and you can see,
+1101.7	1106.18	 we now have a total count of one and we have only that tenant that we filtered.
+1109.7399999999998	1110.54	 So the,
+1110.58	1111.98	 the ACI API,
+1112.12	1113.1	 as you can see from,
+1113.14	1114.0	 from these few examples,
+1114.1	1116.1	 and we are just querying stuff here is,
+1116.86	1118.98	 is not creating stuff like that.
+1119.04	1119.92	 You will see that in a second.
+1120.94	1122.26	 It is very powerful.
+1122.26	1124.4	 But at the same time,
+1124.72	1126.42	 it is also fairly,
+1129.0	1131.24	 it is also fairly complex,
+1131.5	1131.96	 right?
+1132.12	1132.76	 It's not,
+1133.6	1136.44	 it's not like very easy to do,
+1136.52	1136.7	 right?
+1136.76	1137.06	 Like the,
+1137.08	1137.3	 the,
+1137.3	1137.76	 what,
+1137.9	1139.46	 what kind of payloads you need to specify,
+1139.72	1141.92	 what kind of stuff you need to specify is,
+1141.96	1142.68	 is a bit,
+1143.3799999999999	1144.62	 it's a bit like not,
+1144.62	1144.94	 not,
+1144.94	1145.9	 not intuitive,
+1146.1	1146.68	 I would say.
+1147.54	1148.0	 In,
+1148.12	1148.5	 in it,
+1148.56	1149.52	 it doesn't make sense,
+1149.56	1149.7	 right?
+1149.7	1149.96	 It's,
+1149.96	1150.06	 it's,
+1150.06	1152.78	 it's according to the object model that is within the ACI.
+1153.0	1154.32	 So if you know that object model,
+1154.42	1155.92	 you probably know what,
+1155.92	1157.3	 what kind of properties you need to set,
+1157.42	1158.92	 but still it is,
+1158.92	1159.3	 we are,
+1159.3	1160.04	 we are still dealing with,
+1160.12	1160.3	 you know,
+1160.32	1161.42	 like we see here with the,
+1161.42	1163.96	 with passing and then passing adjacent requests.
+1164.08	1168.7	 And we need to deal with error handling and we need to deal with a lot of stuff that while,
+1169.46	1169.86	 while being,
+1169.9	1172.28	 while being important is not,
+1172.28	1175.72	 is really repetitive and doesn't have anything to do with our ultimate goal,
+1175.84	1178.72	 which was to streamline a process and make our process easier,
+1178.8	1178.94	 right?
+1179.7	1182.62	 So we want to introduce more process in order to strip away other process.
+1184.42	1185.58	 It's not really what you want.
+1185.66	1188.74	 And this is exactly where the Cobra SDK comes into play,
+1188.84	1189.0	 right?
+1189.08	1194.38	 The idea behind the Cobra SDK is that we are now abstracting away the,
+1194.44	1195.82	 the stuff that,
+1195.84	1197.68	 that needs to be done all the time,
+1197.76	1198.54	 like logging in,
+1198.64	1201.0	 making sure that your session cookie is set,
+1201.12	1205.32	 making sure that all of the stuff is properly done and also parsing those,
+1207.12	1208.74	 those responses that you saw,
+1208.8	1208.96	 right?
+1209.7	1210.92	 So that we can actually get the data that we got from our,
+1210.96	1214.3	 from back from our ACI parsing that into a Python object,
+1214.5	1214.8	 right?
+1214.86	1216.54	 So that instead of having to do that,
+1216.62	1217.22	 what we saw,
+1217.26	1218.42	 what we did here with the,
+1218.42	1219.32	 with the,
+1219.32	1220.2	 with the,
+1221.04	1226.38	 we see here instead of getting like an IM data and then getting like a list of,
+1226.4	1230.42	 of Jason stuff and the attributes and all of this kind of stuff and having to,
+1230.44	1232.28	 having to parse it and having to deal with that,
+1232.36	1233.72	 just being able to say,
+1233.84	1234.04	 yeah,
+1234.12	1237.9	 tenant dot name or tenant dot description in a,
+1237.9	1241.52	 in a more Pythonic way than we might be having it.
+1241.58	1243.28	 If we're dealing with raw,
+1244.22	1245.3	 with raw Jason,
+1246.38	1248.8	 with raw Jason responses and does,
+1248.92	1250.28	 if we're running that in,
+1250.28	1250.48	 in,
+1251.5	1252.94	 in Python with,
+1253.0	1256.14	 with dictionaries before I go into the Cobra SDK,
+1256.34	1257.34	 is there any questions?
+1260.16	1262.54	 There's a question that asks,
+1262.96	1267.64	 how about signature based authentication as a documentation recommends for this method?
+1268.24	1268.68	 Yeah,
+1268.84	1269.48	 you can,
+1269.48	1270.46	 you can also do that with,
+1270.52	1270.8	 with,
+1270.8	1271.28	 with Cobra.
+1271.6	1276.36	 I can add a link to how you can do that with the slides for convenience.
+1276.42	1277.02	 In this example,
+1277.22	1278.18	 I did it.
+1278.6	1280.7	 I'm using the username password way,
+1280.78	1282.0	 but you can also do signature based.
+1282.96	1283.6	 And I will.
+1283.72	1284.14	 Fantastic.
+1284.16	1284.46	 Thank you.
+1284.5	1288.34	 There's another question asking who produces and maintains the Cobra SDK.
+1289.48	1292.64	 So this is done by the business unit.
+1292.7	1293.48	 So this is,
+1293.48	1294.24	 you can find it.
+1294.3	1295.62	 It's a library is,
+1295.66	1297.1	 is available there.
+1297.1	1299.04	 The code for the library is available on,
+1299.04	1299.42	 on GitHub.
+1299.58	1303.64	 It's I think it's a GitHub slash data center or Cisco data center,
+1303.72	1304.28	 something like that.
+1304.56	1305.3	 I will,
+1305.4	1307.1	 I'll have to link in the,
+1307.1	1309.02	 in the presentation at the end.
+1309.88	1311.74	 And it is produced there,
+1311.88	1312.66	 but we'll,
+1312.68	1314.54	 we'll talk about how you can install this SDK,
+1314.68	1315.24	 which is not,
+1315.86	1316.3	 not,
+1316.32	1319.66	 not as convenient as with some other libraries in a second,
+1320.1399999999999	1321.36	 but it's the mapping.
+1323.92	1324.36	 Is,
+1324.5	1325.34	 is done using.
+1325.98	1326.42	 Yeah,
+1327.1	1327.36	 it's done by the,
+1327.36	1328.24	 by the BU.
+1328.44	1331.92	 And the idea is we're going a bit into Cobra now already,
+1332.06	1336.14	 but the idea with Cobra is that you have a one-to-one mapping between the
+1336.14	1338.3	 models that are in your,
+1338.3	1341.72	 in your ACI and the models that are available within Cobra.
+1344.98	1345.42	 Fantastic.
+1346.5	1350.72	 And one more question that was in the chat with instead of the Q and A,
+1350.82	1354.86	 that is how do you compare REST API tools like Postman to Cobra SDK?
+1356.22	1356.66	 That's a,
+1356.68	1357.54	 that's an excellent question.
+1358.0400000000002	1358.4	 You,
+1358.48	1359.0	 you saw me,
+1359.06	1359.24	 I,
+1359.24	1360.94	 I popped up my Postman,
+1360.98	1362.1	 like I have it open right here.
+1362.32	1368.08	 The way that I would see this is that I always like to use Postman to test out things,
+1368.22	1368.58	 right.
+1368.64	1368.8	 To,
+1368.9	1370.1	 to explore a bit,
+1370.16	1370.92	 like how do the,
+1371.3000000000002	1372.02	 how do the,
+1372.02	1373.92	 how do the end points look like?
+1373.98	1374.74	 What do I get back?
+1374.96	1375.8	 What do I need to send?
+1375.96	1376.2	 Like,
+1376.22	1376.74	 what are the errors?
+1376.8	1377.9	 Just because for that,
+1378.02	1379.22	 I feel like Postman is really,
+1379.3	1381.28	 really convenient for,
+1381.36	1383.18	 for like proper automation workflows.
+1383.38	1384.5	 I would always go to,
+1384.5	1390.9	 to something like something like Cobra or like writing it as a proper script,
+1391.04	1391.12	 A,
+1391.2	1394.76	 because it's much easier to just run a Python script instead of doing like a,
+1394.76	1395.16	 you know,
+1395.16	1395.94	 a sequence of,
+1395.94	1400.94	 of requests in your Postman collection and B because Cobra has some features like,
+1400.94	1404.46	 like validation and it has some features like checking.
+1404.64	1405.62	 And as I said,
+1405.68	1405.94	 like that,
+1405.94	1411.36	 that mapping of being able to map Jason directly into a Python object that you can then use,
+1411.46	1412.54	 use going forward.
+1413.42	1413.92	 So,
+1414.5	1416.72	 so for exploring Postman is great.
+1417.5	1418.18	 And I,
+1418.2	1418.38	 I,
+1418.42	1419.26	 I have it open,
+1419.34	1419.48	 right?
+1419.88	1421.28	 I use it all the time.
+1421.32	1425.34	 It's one of the few tools that auto start with the start of my computer and pretty much never close.
+1426.3799999999999	1427.18	 But for,
+1427.18	1428.96	 for proper automation for the workflows,
+1429.06	1432.64	 I would always go with something like with something like a Python script.
+1432.72	1432.9	 Now,
+1433.3999999999999	1435.98	 if you want to compare Python to something like Ansible,
+1436.84	1437.24	 that's,
+1437.24	1438.0	 that's personal preference,
+1438.16	1438.44	 really.
+1438.54	1438.76	 That's,
+1438.78	1441.44	 that's about what you are feel more comfortable with using.
+1441.58	1444.36	 And we'll see that in the use case is one of those examples.
+1444.36	1446.28	 It's built using Ansible instead of Python.
+1446.4	1451.46	 And really it's a tool that you are using to interact with the API in a programmatic way.
+1451.6	1453.56	 And if you feel more comfortable with something like Ansible,
+1454.3	1455.06	 go with that.
+1455.12	1456.16	 If you feel more comfortable with Python,
+1456.36	1457.28	 go with Python.
+1458.04	1458.66	 But yeah,
+1458.76	1459.28	 Postman,
+1459.42	1460.78	 I would say for exploring,
+1460.84	1463.18	 for understanding how does the API behave?
+1463.26	1466.52	 How do I do things like trying out stuff like that?
+1468.24	1469.64	 A couple more questions coming in.
+1469.74	1470.8	 One of them is CCDs.
+1470.86	1473.38	 Is Cobra something that you can buy or is it free to use?
+1474.2199999999998	1476.6	 Cobra is available on your APIC.
+1477.06	1479.72	 So we are going to see that in the,
+1479.72	1480.34	 in the next slide.
+1480.42	1481.94	 So in order to install,
+1482.06	1485.78	 you cannot do pip install Cobra or something like that.
+1485.84	1487.7	 You will have to download it from your APIC.
+1489.36	1490.48	 The link is up there,
+1490.54	1490.68	 right?
+1490.74	1494.06	 It's your APIC URL slash download slash underscore Cobra.
+1495.28	1498.28	 I also have the link to the getting started guide at the end in the,
+1498.28	1499.38	 in the useful links section.
+1500.7199999999998	1502.86	 If you would want to play around with it,
+1502.9	1503.36	 you can,
+1503.38	1505.1	 you can probably maybe know that there's the ACI simulator,
+1505.44	1507.42	 which we are also running against here in this,
+1507.42	1509.32	 in this sandbox example.
+1509.68	1513.38	 And the Cobra is Cobra is not part of the ACI simulator,
+1513.62	1518.38	 but I have included a link there for our Cisco definite stuff where for the
+1518.38	1518.88	 learning labs,
+1519.02	1520.66	 they have uploaded a version of the,
+1520.66	1521.2	 of the,
+1521.2	1524.5	 of the wheel files that you can use to install Cobra.
+1524.58	1526.66	 But Cobra itself is included with your APIC.
+1526.66	1527.68	 You don't need to pay for that.
+1528.96	1529.44	 Okay.
+1529.6	1531.48	 And the last one before you can move on,
+1532.8600000000001	1533.9	 comparing Cobra,
+1534.08	1538.32	 Cobra versus the ACI toolkit and versus Terraform,
+1538.52	1538.74	 you know,
+1538.76	1540.98	 which one has more functionality,
+1541.24	1541.64	 which one,
+1541.76	1542.4	 you know,
+1542.4	1543.14	 do you consider best?
+1544.46	1548.8	 Best is the best is always personal from,
+1548.86	1551.64	 from a feature completeness point of view,
+1551.74	1552.66	 as far as I know,
+1552.78	1554.84	 Cobra is more feature completed models,
+1554.94	1557.3	 more of the end points and it models more of the,
+1557.3	1559.74	 more of the ACI models than the ACI toolkit does.
+1560.18	1561.46	 But if you can get your,
+1561.46	1563.08	 your stuff done with the ACI toolkit,
+1563.22	1565.14	 you can also use the ACI toolkit.
+1565.74	1567.36	 Terraform is just another tool,
+1567.44	1567.6	 right?
+1567.68	1567.86	 That's,
+1567.9	1571.24	 that's then the choice of your tooling and also a bit like the choice of
+1571.24	1572.64	 what are you already using,
+1572.72	1572.86	 right?
+1572.96	1573.72	 If you are,
+1573.76	1577.74	 you have an entire network automation stack built in Terraform,
+1578.46	1582.02	 makes sense to use Terraform going forward to do it with your,
+1582.56	1583.46	 to use that,
+1583.56	1583.82	 right?
+1583.9	1585.26	 If you have something with Ansible,
+1585.42	1586.48	 you can use Ansible.
+1586.58	1587.28	 And in fact,
+1587.28	1591.04	 we did a webinar last year on automating with Ansible.
+1591.08	1591.44	 So,
+1592.28	1592.72	 it's,
+1592.72	1594.18	 it's really then personal choice,
+1594.32	1595.1	 but for the,
+1595.1	1596.46	 for the two Python packages,
+1596.56	1597.82	 as far as I know,
+1597.92	1601.54	 the Cobra package is more feature complete than the,
+1601.54	1602.7	 than the ACI toolkit.
+1604.92	1605.56	 Very cool.
+1605.66	1606.04	 Many thanks,
+1606.14	1606.32	 Rochelle.
+1606.94	1607.38	 Okay.
+1607.46	1609.22	 So I already answered it,
+1609.28	1612.02	 or I already covered this slide with the installation of the Cobra file,
+1612.12	1612.54	 right?
+1612.72	1613.4	 You can,
+1613.4	1614.78	 if you want to play around with it,
+1614.82	1616.12	 also using the ACI simulator,
+1616.32	1617.44	 the way that I am doing it now,
+1617.54	1619.14	 you can install it from that,
+1619.9199999999998	1621.44	 from that link that I provided there.
+1621.44	1623.88	 Which is also the link to some learning labs.
+1624.02	1625.56	 If after the session you want to do them,
+1626.52	1627.36	 do like a,
+1627.36	1629.32	 like a step-by-step guided learning lab.
+1630.18	1630.88	 You can,
+1630.88	1631.66	 you can follow that,
+1631.7	1632.34	 follow that link.
+1632.42	1632.8	 And as I said,
+1632.82	1633.68	 I will have that in the,
+1633.68	1635.74	 in the useful links at the end of the presentation.
+1637.2199999999998	1638.02	 So let's,
+1638.02	1642.34	 let's use Cobra and let's re rebuild the workflow that we had here,
+1642.5	1642.82	 right?
+1642.88	1643.36	 Like what we,
+1643.4	1644.2	 what we're seeing here.
+1644.68	1645.7	 So this is,
+1645.7	1647.06	 this was my auto completion,
+1647.52	1650.9	 the workflow that we had here and let's rebuild that in Cobra.
+1651.0	1651.38	 Okay.
+1651.44	1652.26	 So let's,
+1652.26	1652.26	
+1652.26	1652.72	 And so you see,
+1652.88	1655.18	 I have my two Cobra files here.
+1655.28	1657.34	 I've already installed them in my virtual environment.
+1658.86	1661.2	 And now I can go ahead and say,
+1662.72	1663.2	 Cobra.
+1664.72	1665.5	 Yeah, right.
+1665.6	1667.0	 Whatever I'm going to call this,
+1667.02	1667.48	 this script.
+1667.62	1671.98	 And I can go ahead and first off install from Cobra dot.
+1672.8799999999999	1674.84	 MIT dot access.
+1674.96	1675.8	 Or MIT dot access.
+1676.2	1677.36	 Import MO directory.
+1677.74	1680.08	 This is just my modeled objects directory.
+1681.44	1682.28	 This is like my,
+1682.3	1686.62	 my high level object that I'm going to use in order to deal with the,
+1686.62	1687.28	 with the APIC.
+1687.46	1690.76	 And then I also need to import the.
+1695.42	1699.88	 Minimize this import my login session.
+1700.06	1703.32	 But this is where I'm going to be providing the login credentials.
+1705.1599999999999	1709.22	 And I'm going to go ahead and specify my APIC URL,
+1709.3	1711.12	 just to make it.
+1712.0200000000002	1712.38	 Convenient.
+1712.4	1713.14	 In this case,
+1713.28	1714.0	 I don't have to,
+1714.02	1715.06	 like I did with my requests.
+1715.32	1716.04	 I don't have to.
+1716.8600000000001	1717.94	 I don't have to specify.
+1718.48	1722.02	 That I want to want to be on the slash API path,
+1722.1	1722.24	 right?
+1722.26	1723.74	 Cobra understands what,
+1723.8	1725.48	 what our house looked like.
+1725.56	1727.14	 And then I'm going to create a login session.
+1729.24	1730.14	 Login session type.
+1731.38	1732.64	 That's the first off the.
+1735.16	1736.32	 First off the APIC URL,
+1736.4	1737.7	 the user and the password.
+1737.82	1738.7	 And you can also see,
+1738.76	1739.06	 by the way,
+1739.06	1740.76	 the request format here is XML.
+1741.2399999999998	1742.12	 So they,
+1742.2	1743.78	 the Cobra SDK itself uses XML.
+1744.18	1746.66	 We don't really care about that because we are not going to touch a
+1746.66	1749.94	 single line of XML because that has been abstracted for us.
+1750.28	1753.82	 But I can go ahead and pass the username and password,
+1753.96	1754.48	 which again,
+1754.58	1757.12	 use admin user and as password,
+1757.22	1758.72	 I'm going to use the same one.
+1758.78	1760.12	 That was here.
+1762.76	1763.36	 This one.
+1765.48	1766.08	 All right.
+1766.6	1767.94	 And then I can.
+1768.58	1769.04	 I can.
+1769.04	1771.38	 I can create myself the high level object.
+1773.86	1775.96	 And I'm going to have to pass it a login session.
+1776.22	1777.74	 And then I can do a dear dot.
+1778.56	1778.96	 Login.
+1781.16	1784.12	 And I can also do a mod or dot a lockout.
+1784.2	1784.48	 Right?
+1784.56	1787.14	 So what I'm doing right now is I'm logging into the session,
+1787.3	1788.44	 which is in the background.
+1788.54	1789.82	 It's fetching all of these information,
+1790.04	1792.22	 like log and cookie and all of these things.
+1796.76	1797.36	 I'm getting it.
+1797.5	1798.86	 So you see no errors.
+1799.04	1799.06	 I'm just adding something new here.
+1799.06	1799.06	
+1799.06	1799.06	
+1799.06	1799.06	
+1799.06	1799.06	
+1799.06	1799.06	
+1799.06	1799.06	
+1799.06	1799.06	
+1799.06	1799.06	
+1799.06	1799.06	
+1799.06	1800.24	 Except for this warning.
+1800.4	1800.88	 Which is.
+1801.18	1801.64	 We're.
+1802.42	1804.48	 We're skipping the certificate and clarification.
+1804.9	1805.96	 And we can.
+1806.32	1807.96	 Disabled is postponing.
+1808.02	1808.78	 This is a requests.
+1809.0	1809.28	 Warning.
+1809.38	1810.08	 We can disable it.
+1810.52	1810.98	 By.
+1811.36	1813.2	 Following in for requests.
+1813.6	1815.6	 And I'm just adding to see the warning.
+1815.72	1816.78	 It doesn't really do anything.
+1816.96	1817.42	 But.
+1817.7	1817.7	
+1817.7	1824.36	 it gets a bit annoying from time to time.
+1825.2399999999998	1827.42	 URL read out this little,
+1831.3999999999999	1832.52	 I think this is fine.
+1834.42	1835.86	 Should be the correct one, yeah.
+1837.8999999999999	1840.4	 Well, I'm rerunning this now, I'm not getting that warning.
+1840.52	1841.86	 And as I said, it's just a warning
+1842.36	1845.58	 because we are ignoring the verification of the certificate,
+1846.4399999999998	1848.72	 but we can disable this now.
+1848.86	1856.48	 Okay, but now we have our directory, we have it locked in.
+1856.58	1860.54	 So now we can go ahead and get our tenants.
+1860.86	1865.64	 So I can say tenants is equal to modir.
+1865.66	1867.64	 So this is the object that I'm dealing with,
+1867.7	1869.4	 that I'm accessing all the stuff by,
+1869.44	1870.38	 and I can do lookup by,
+1870.56	1872.6	 and I could either do a lookup by a distinguished name,
+1872.72	1875.06	 or in my case, I wanna do a lookup by class.
+1875.58	1878.42	 And the class that I wanna look up is FV tenant.
+1879.94	1882.54	 And then I can just iterate over this, right?
+1882.62	1885.2	 I can say for tenant in tenants,
+1887.4199999999998	1889.56	 print, I'm going to use format strings again,
+1889.74	1892.8	 tenant.dn colon tenant.
+1894.9	1896.26	 Let's do name, right?
+1896.82	1897.64	 Something like that.
+1897.78	1899.78	 And then afterwards we are logging out again.
+1901.94	1904.98	 Can run this, take some time.
+1905.58	1908.86	 Now you see here, I have the response back from the API.
+1909.08	1913.78	 Right, I have here the tenant 392, 393, and 394, for example,
+1913.86	1914.94	 and that's their name.
+1915.28	1918.64	 And that is their UN.
+1918.88	1920.9	 And you can probably already see
+1920.9	1926.6	 like the difference between this and this, right?
+1926.68	1928.62	 This is much more convenient to do, right?
+1928.68	1931.1	 Much more convenient to use, especially because as I said,
+1931.16	1934.94	 I'm dealing here with like Python objects that I can just do,
+1934.94	1938.48	 you would tnt.dn or tenant.dn, tenant.name,
+1938.62	1939.64	 these kinds of things.
+1939.82	1944.0	 So it's, yeah, in that indirect way, a lot more convenient.
+1945.84	1948.86	 Now, what we also saw was the,
+1950.24	1954.34	 what we also saw was the filtering in our previous example,
+1954.46	1955.8	 right, where we did that URL filtering.
+1956.72	1958.62	 And we can also do that here.
+1958.9	1964.08	 And we can do that by going cobra.mit.request import,
+1964.94	1965.96	 and then we can also do that by doing a query.
+1965.96	1966.24	 So in the last query,
+1966.4	1970.66	 I'm always looking at the documentation
+1970.66	1975.24	 because these imports sometimes are hard to remember.
+1975.48	1978.56	 And what I wanna do now is I wanna do a look up on tenants.
+1978.86	1981.74	 So I do have to specify our query.
+1981.86	1984.38	 So I'm calling this tnQuery for tenant query.
+1984.54	1986.42	 And again, you can call this however you want.
+1986.54	1988.14	 And this is a class query.
+1988.36	1991.14	 So the basis is every tenant, right?
+1991.28	1991.9	 So I'm doing it.
+1991.9	1996.56	 I'm gonna do a query on our class, on our tenant class,
+1996.74	1999.36	 and then I can set a prop filter.
+2000.32	2002.4	 So this is the property filter.
+2002.54	2004.74	 That's the same that we had previously, right?
+2004.8	2006.4	 The same one that we saw here.
+2007.12	2013.28	 And that is going to be equals fvtenant.name,
+2014.3	2016.66	 and then csv, for example.
+2016.9	2020.28	 This is one of the names that we have in here, right?
+2020.42	2021.58	 If I guess correctly, yeah.
+2021.58	2022.06	 So I can just set the csv.
+2022.12	2024.32	 That's the one that we already worried for
+2024.32	2026.08	 in the previous example.
+2026.62	2028.72	 And I can just set that here,
+2028.84	2030.9	 the prop filter in that way.
+2032.2199999999998	2035.86	 And now here, instead of doing this look up by class,
+2036.06	2037.66	 which is going to give me all of the classes,
+2037.82	2038.78	 and you can also, by the way,
+2038.8	2041.04	 pass a query filter in that class,
+2041.3	2042.72	 but I wanted to show you the object way.
+2044.48	2049.68	 I can now go ahead and I can do modir.query.
+2049.82	2051.56	 So this is going to accept the object.
+2051.56	2052.34	 I can now add a query object,
+2052.6	2054.68	 which in this case we called tnQuery.
+2056.3799999999997	2060.62	 And we're going to get this response.
+2062.16	2063.68	 So you can run that and you see now,
+2063.76	2066.48	 I only have queried this to this one.
+2066.6	2068.74	 So this is how you can filter your objects
+2068.74	2072.02	 or how you can do filters on your objects.
+2073.02	2075.18	 Again, here as well, in my opinion,
+2075.2	2077.02	 in a much more convenient way than if we do this
+2077.02	2079.4	 in like the pure rest way.
+2081.5	2081.54	 So this is how you can filter your objects.
+2081.54	2081.54	
+2081.54	2081.54	
+2081.54	2082.18	 so to speak.
+2083.98	2087.72	 Now, one thing that I conveniently skipped in the rest API
+2087.72	2090.68	 and the pure rest and the request way of doing this
+2090.68	2093.48	 was the creation of a tenant, for example,
+2093.48	2094.9	 or the creation of any object,
+2095.4	2100.12	 simply because that can be a bit of an unruly thing,
+2100.66	2105.98	 especially with the way that we have to do
+2107.3599999999997	2108.96	 the payloads that we have to send.
+2109.32	2111.52	 And in Cobra, this is much easier because, as I said,
+2111.52	2111.52	
+2111.54	2112.98	 before we have that model, right?
+2113.04	2116.34	 We have these Python models that I'm also using here
+2117.06	2121.12	 to do this tnt.dnlookup or tnt.name, right?
+2121.22	2121.98	 We have that model.
+2122.08	2123.7	 So we have objects that we can deal with
+2123.7	2127.4	 instead of having to deal with payloads as itself.
+2127.6	2130.84	 So let's have a look at Cobra create.py, right?
+2130.96	2134.54	 And I'm just copying the stuff here, the login,
+2134.66	2136.36	 all of this is going to be the same, of course.
+2137.2599999999998	2140.02	 And the meet now happens here.
+2140.84	2144.3	 Also, because we can now have a look at how we deal
+2144.3	2145.7	 with these nested objects, right?
+2145.8	2148.14	 With, for example, an app profile that is,
+2148.14	2151.22	 that is an application profile that is associated
+2151.22	2152.04	 with a new tenant.
+2152.76	2154.32	 And the way we can do this,
+2154.36	2155.94	 or the way that Cobra handles this
+2155.94	2157.8	 is with the aforementioned models,
+2157.9	2159.46	 and we need to import them.
+2159.56	2163.7	 So we can say from Cobra.model.fv,
+2163.86	2167.0	 import tenant and AP.
+2168.6	2169.78	 I also now need,
+2170.02	2173.22	 my uni object,
+2174.5	2175.34	 this one here,
+2176.14	2177.62	 and I'm going to need a,
+2183.8	2184.94	 import config request.
+2185.18	2187.56	 I will talk about each of these as we go along.
+2188.9	2191.82	 Now, this one is just our root object.
+2192.0	2193.82	 And this is the one that we obviously
+2193.82	2195.06	 are creating a tenant under.
+2195.68	2198.52	 So I'm just going to go ahead and say root is,
+2200.24	2201.2	 root, right?
+2201.9	2202.62	 Like this.
+2203.9	2206.66	 And then I can now create a new,
+2208.46	2210.38	 can now create a new tenant.
+2210.66	2212.28	 So I'm going to call this FV tenant.
+2212.62	2214.5	 I'm trying to be consistent with the,
+2214.5	2217.4	 with the stuff that is also in the,
+2217.4	2217.94	 in the slides.
+2218.12	2220.28	 So I have the managed object for the tenant,
+2220.42	2223.1	 and I've imported that model up here,
+2223.16	2223.7	 the tenant.
+2224.36	2225.64	 I want this to be,
+2225.68	2227.7	 the parent to be the root object.
+2228.5	2230.0	 And I want this tenant to be the parent,
+2230.0	2230.0	
+2230.0	2230.0	
+2230.0	2232.3	 to be PAW example.
+2235.28	2237.16	 Let's call it PAW example one.
+2238.56	2241.06	 And I also want an app profile
+2242.56	2246.48	 that I'm going to be now part of my tenant.
+2246.62	2248.22	 So now the parent is the tenant, right?
+2248.62	2251.2	 And the name is going to be app one.
+2252.96	2254.72	 And I can now run this,
+2254.74	2255.96	 I can now run this,
+2255.96	2256.74	 run this code.
+2261.52	2262.4	 create, right?
+2262.48	2263.78	 See, we don't get any errors.
+2263.96	2267.8	 And if I now go here and I'm going to search for PAW,
+2268.2799999999997	2269.78	 no matching objects are found.
+2269.98	2270.62	 Why is that?
+2270.8	2274.5	 Because we have now created locally the objects
+2274.5	2276.8	 and how we want them to look like, right?
+2276.86	2277.76	 We have specified the name,
+2277.84	2281.1	 we have specified the application profile
+2281.1	2282.92	 and all of that below it, right?
+2283.0	2284.7	 We have basically specified the structure,
+2284.82	2287.72	 but we have not yet sent a configuration request, right?
+2287.72	2290.74	 The same way that in the get example here,
+2290.9	2293.3	 we are sending a query,
+2293.52	2295.72	 we can also send a configuration request,
+2295.98	2298.86	 which is then a request to change something within the APIC.
+2299.68	2305.28	 So we can go ahead and say, CFG request is config request.
+2305.62	2307.84	 So this is the last object that I imported here.
+2309.22	2314.14	 Leave that and then say, CFG request.addMO.
+2315.02	2316.76	 In this case, this is going to be
+2316.76	2317.58	 our tenant.
+2317.72	2323.2	 And then I can say, CFG request.commit.
+2324.16	2325.02	 No, sorry.
+2325.3	2329.0	 I can go ahead and say, MOdir.commit.
+2329.18	2332.2	 So this is on our directory object.
+2332.36	2335.52	 I can now say, run this configuration request, right?
+2335.58	2337.56	 Run whatever is part here.
+2337.66	2339.26	 And you see, I'm only passing the tenant.
+2339.38	2341.38	 I'm not passing the application profile
+2341.38	2344.02	 because the application profile is a child of the tenant.
+2344.16	2346.4	 And that way it will be part of our request.
+2346.4	2349.52	 So I can now go ahead.
+2352.5	2354.66	 You can now go ahead and run the script again.
+2358.72	2360.38	 Now we go here again.
+2361.48	2364.68	 You see, PIAW example one has been created.
+2365.34	2369.08	 And if I go into application profiles, there we go, app one.
+2369.22	2372.26	 And of course, this is just a toy example, right?
+2372.64	2375.86	 We would probably want to do a bit more advanced things, but,
+2376.4	2378.66	 you see now you can, with these models and with Cobra,
+2378.8	2381.64	 you can pretty much do all the things
+2382.3	2383.44	 that you want to do right here
+2383.44	2386.5	 and automate this creation workflow, for example.
+2386.6	2388.12	 And of course, in a real world environment,
+2388.2	2390.02	 you would probably add a few more things.
+2390.12	2391.64	 I don't know, add a VRF, add policies,
+2391.78	2395.96	 add whatever you really have here as part of this.
+2398.96	2403.16	 Now we've seen Cobra and we've seen the ideas behind them.
+2403.2	2405.68	 As I said, all the code is also here.
+2407.16	2410.6	 But before continuing with what we can do with this
+2410.6	2412.54	 and look at a few different examples,
+2412.88	2415.36	 a few different use cases that have been built by our SEs,
+2415.94	2417.5	 are there any questions?
+2419.04	2421.96	 There's one interesting question from Andy,
+2422.06	2428.88	 mentioning that a friend uses PI ACI instead of Cobra.
+2430.12	2432.56	 So he would like to know how does it compare?
+2433.6	2435.8	 I don't have never heard of that.
+2435.86	2436.24	 Is that a?
+2436.24	2437.36	 Is that a community project?
+2437.48	2439.02	 Maybe you can share my email address
+2439.02	2441.94	 and I would be really happy to learn more
+2443.72	2444.76	 and see that.
+2444.9	2446.72	 Like if you look, for example,
+2446.76	2448.26	 on code exchange or automation exchange
+2448.26	2449.9	 and you type in ACI,
+2449.96	2451.22	 you will find a lot of people
+2451.22	2452.88	 that have built stuff around ACI
+2452.88	2455.58	 that you can use to get inspiration
+2455.58	2457.02	 or maybe see if there's something
+2457.02	2459.66	 that someone has already built your workflow.
+2461.56	2463.14	 But yeah, but Cobra is the stuff
+2463.14	2464.46	 that we ship with the APIC
+2464.46	2465.98	 and that we have things like learning labs
+2465.98	2468.44	 for and that we have these kinds of things for.
+2470.36	2470.84	 Thank you.
+2471.9599999999996	2474.6	 So let's have a look at some use cases, right?
+2474.68	2476.26	 Let's have a look at what we can do.
+2476.34	2478.22	 And the first one is a use case
+2478.22	2479.24	 built by Stuart Traynor.
+2480.56	2482.56	 He's one of our SEs from Scotland.
+2482.86	2485.56	 And what he had as a business problem
+2485.56	2487.32	 is that there is a lot of different touch points
+2487.32	2489.0	 with applications, right?
+2489.06	2490.78	 You have ACI, you might have Intrasite
+2490.78	2492.92	 and you have maybe your own metrics tools
+2492.92	2495.72	 and you get into that swivel chair
+2495.72	2498.66	 mentality where you have 15 different screens,
+2498.8	2499.78	 which looks cool,
+2499.9	2501.46	 but also can be a bit intimidating,
+2501.82	2504.68	 I would say with 15 different dashboards open
+2504.68	2505.82	 that all show metrics
+2505.82	2507.82	 and you need to cross correlate that metric
+2507.82	2510.46	 about your application being slow
+2510.46	2513.84	 to that metric about congestion in your switches, right?
+2513.94	2516.08	 And do that swivel chair maintenance.
+2516.46	2519.5	 And what he basically built was,
+2519.54	2522.28	 or what he proposes to build is he says,
+2522.36	2523.94	 hey, we can have a simple Python app
+2523.94	2525.32	 that collects data,
+2525.4	2525.7	 not only the data, but also the data
+2525.7	2526.46	 not only from ACI,
+2526.52	2529.6	 but also from ACI, Intrasite, AppDynamics,
+2529.76	2530.9	 whatever you have really,
+2531.98	2534.16	 cloud providers if you're in a hybrid environment,
+2534.56	2535.84	 whatever data you have
+2535.84	2537.86	 and whatever API available data you have,
+2538.28	2540.68	 store all of that in InfluxDB
+2540.68	2543.56	 and then use Grafana to build a custom dashboard
+2543.56	2546.22	 that really shows exactly your metrics, right?
+2546.32	2548.48	 For example, as I said, like congestion
+2548.48	2552.38	 and throughput metrics combined with your app performance,
+2552.6	2553.72	 with your average app performance,
+2553.84	2554.78	 if that's something,
+2554.78	2554.94	 you can actually build a custom dashboard
+2554.94	2554.94	
+2554.94	2556.02	 and that's something you are measuring.
+2556.16	2559.24	 And this of course helps both the infrastructure people
+2559.24	2561.1	 as well as the application stakeholders,
+2561.36	2564.96	 because they can more easily understand the impact
+2564.96	2567.54	 of something on their application,
+2567.86	2569.96	 of something in the infrastructure on their application.
+2570.78	2573.48	 And there's a little demo video as well we can see here.
+2573.56	2579.82	 So this is Stuart building out in Grafana,
+2579.92	2581.08	 building out the interface.
+2581.78	2584.32	 You can see, and he can add all of the different metrics
+2584.32	2587.44	 that he has been parsing from the API, from the ASIC API.
+2589.3	2593.56	 There was one of these gawks was the application request time,
+2593.7	2595.56	 things like that, really whatever he has
+2595.56	2598.44	 and he can then chart them out and build a custom,
+2598.56	2601.28	 fairly quickly build a custom build interface.
+2601.64	2603.68	 And of course, this is all based on the monitoring information
+2603.68	2608.3	 that we are pulling into the InfluxDB from the ACI API,
+2609.66	2611.34	 from the APIC APIs.
+2614.64	2617.44	 Another one that we have is day two operations.
+2617.78	2619.2	 This one is built by Russ Whittier,
+2619.34	2622.86	 who's our probability lead for data center in EMER.
+2624.2200000000003	2628.86	 And what he says is that this was a service provider use case,
+2628.88	2632.16	 a customer that wanted to have visibility into dependencies
+2633.2000000000003	2636.64	 with VLAN pools and within that ACI policy model, right?
+2636.7	2639.04	 He wanted to have like a nice graphical implementation
+2639.04	2643.48	 or nice graphical explorable thing where he can see these,
+2643.48	2645.5	 these codependencies and in the ACI GUI itself,
+2645.74	2647.32	 this can be hard to correlate,
+2647.82	2649.52	 but we can build that custom, right?
+2649.58	2650.96	 We can build that ourself.
+2651.24	2655.26	 So the, this is a GoJS or a Python Flask app
+2655.26	2658.14	 that pulls the API, retrieve all the policy objects
+2658.14	2661.64	 and then visualizes them in like an, in a network graph.
+2661.92	2665.12	 So again, also a bit of a monitoring use case,
+2665.34	2670.7	 but more related to adding,
+2671.68	2675.58	 to adding as existing or adding additional visibility,
+2675.9	2677.78	 not like the Grafana dashboard example.
+2678.96	2682.04	 Leo, are you going to say something?
+2682.98	2684.4	 Yeah, I just wanted to mention,
+2685.12	2688.94	 if there is something that we can use to export it
+2688.94	2690.78	 into Prometheus, you know,
+2690.88	2692.9	 because we are talking about how to make it available
+2693.58	2695.72	 for Grafana, going through Influx TV.
+2696.12	2698.74	 There's something similar that we can use with Prometheus.
+2699.86	2700.68	 You caught me.
+2701.24	2704.1	 Yeah, you can also do that with, I mean,
+2704.74	2706.26	 what you're pushing your data into
+2706.96	2708.26	 depends on what you wanna do, right?
+2708.4	2710.56	 Like you can also push it into in Prometheus
+2710.56	2711.98	 instead of influx DB.
+2712.14	2715.3	 You can also push it in Elastic or something like that
+2715.3	2716.98	 if that's what you're using, absolutely.
+2718.34	2719.22	 Okay, thank you.
+2720.7999999999997	2724.78	 So let's have a look here at the example for the tenant.
+2724.92	2726.44	 And this example, by the way, is available.
+2727.4	2728.82	 This was built by our GVE team.
+2730.7	2733.82	 And together with Russ and the video is,
+2733.92	2735.44	 I'm going to skip a bit through the video
+2735.44	2736.84	 because it's fairly long.
+2736.96	2739.3	 And he shows like all the stuff in the,
+2739.3	2742.32	 you see the VLAN pools in ACI.
+2742.68	2747.54	 And let me skip to, and this is all installed
+2747.54	2749.34	 and all set up.
+2749.36	2750.04	 Yeah, there we go.
+2750.12	2751.68	 Now we're going to the configuration.
+2755.14	2756.72	 We're going here to the visualizer
+2756.72	2759.52	 and you see we're pulling the different pools here
+2759.52	2760.68	 from the API.
+2760.7	2761.18	 So we can see the API already.
+2761.8	2763.54	 And then you can go in here and say,
+2765.3199999999997	2766.74	 this is the pool that he wants.
+2771.44	2773.38	 And now it's fetching the data
+2773.38	2774.64	 and also rendering the graph.
+2774.74	2777.26	 And now you can see here, this is like a scrollable,
+2777.4	2781.26	 a zoomable and a modifiable.
+2781.44	2783.86	 And you can even see like highlights here where, okay,
+2783.88	2786.04	 this is connected to this and the paths are highlighted
+2786.44	2788.12	 in that graph, right?
+2788.18	2790.68	 Like a very, very convenient way
+2790.7	2797.1	 to get like an overview of all of that information
+2797.1	2800.6	 that is not naturally available or natively available.
+2803.12	2806.28	 And then, so we had seen two monitoring use cases,
+2806.42	2808.04	 one being, I would say,
+2808.08	2810.2	 I would call it a classical monitoring use case
+2810.2	2812.8	 and the other one being a bit more in a visualization
+2812.8	2815.06	 and the value at monitoring, right?
+2815.12	2816.62	 The visualization of the graph,
+2817.66	2820.68	 it's not just pouring out metrics, but it's a bit more,
+2820.68	2820.68	
+2820.68	2820.68	
+2820.68	2820.68	
+2820.68	2822.96	 But I also want to show you a automation use case,
+2823.8	2824.9	 again from Ross.
+2825.54	2828.3	 And in this case, this was a UK financial institution
+2828.3	2831.56	 where they had a third party company
+2831.56	2835.06	 that modified their connectivity rules.
+2835.36	2838.96	 So they would have an end user do a connectivity request,
+2839.22	2839.42	 right?
+2839.5	2842.36	 To the ITSM, to ServiceNow, right?
+2842.42	2844.32	 Requesting that the rule would be changed
+2844.32	2848.52	 and that some access would be allowed, then you'd have an approval process.
+2848.68	2850.66	 This is just a security application.
+2850.66	2850.66	
+2850.66	2850.66	
+2850.66	2853.02	 approvals, first and second approver.
+2853.14	2855.52	 And then that provisioning request would be forwarded
+2855.52	2858.08	 to an outsourced provisioning company that would go ahead
+2858.08	2862.88	 and then do the modification here on the two hosts.
+2863.8	2866.38	 Of course, this took quite a long time.
+2866.46	2867.98	 You know, there's a few manual steps,
+2868.12	2871.86	 a few of manual steps that you cannot get around,
+2872.06	2873.5	 like the approval process, right?
+2873.56	2874.6	 That is just policy.
+2874.94	2877.24	 But what they did, what they ended up doing is,
+2877.64	2880.14	 yeah, 12 weeks from the initial request to deployment,
+2880.62	2883.22	 what they ended up doing is they did an automation
+2883.22	2885.96	 with Ansible and Ansible Power.
+2886.18	2888.6	 And as I said, this is just the tool here, right?
+2888.64	2890.18	 You could also do the same workflow
+2890.18	2892.56	 with a script written with Cobra.
+2893.0	2894.62	 Maybe you can do it with ACI Toolkit,
+2894.68	2896.36	 or you could probably do it with Terraform, right?
+2896.48	2899.08	 It's really just a tool that you're trying to use.
+2899.24	2903.04	 So the flow that they ended up doing was
+2903.04	2904.7	 they had ServiceNow do a request,
+2905.12	2907.02	 and then Ansible would,
+2907.24	2908.92	 based on the request in ServiceNow,
+2909.08	2912.88	 be used to still have that approval process, right?
+2913.02	2914.84	 Still waiting for the first and second approval
+2914.84	2915.9	 in ServiceNow.
+2916.08	2919.4	 But then as soon as that approval was kicked off,
+2920.5	2922.74	 Ansible, where the script would go ahead
+2922.74	2924.94	 and create the filters, create the subjects,
+2925.14	2927.4	 create just whatever we wanted
+2927.4	2928.74	 in terms of the change request,
+2928.96	2931.54	 and send that to ACI.
+2931.66	2935.32	 And that way, the time went down from 12 weeks
+2935.32	2936.32	 between requesting,
+2937.24	2939.24	 and having the change applied to,
+2939.34	2941.22	 as soon as the approvals were there, right?
+2941.26	2942.9	 It's like minutes, less than minutes.
+2943.08	2945.84	 And if you think about the beginning of this presentation,
+2946.02	2948.42	 we talked about making the data center more cloud-like,
+2948.54	2950.06	 these are exactly the kind of things
+2950.06	2953.68	 that developers really dislike about sometimes,
+2953.96	2957.36	 about these processes and how you can make them
+2957.36	2959.0	 more convenient, make them faster, right?
+2959.04	2961.76	 Going down from waiting 12 weeks for some sort of change
+2961.76	2963.06	 can be really, really frustrating.
+2964.46	2967.22	 And using this automation, you can make it faster, right?
+2967.22	2968.92	 And make that much more convenient.
+2969.92	2972.88	 I already said there's a few useful links in here,
+2973.06	2975.06	 the learning labs, the SDK files,
+2975.24	2976.6	 the corporate documentation.
+2977.82	2981.04	 And with that, I will share that presentation
+2981.04	2982.82	 and I will add two more useful links
+2982.82	2983.62	 that we just talked about.
+2984.0	2986.88	 And with that, thank you very much for your attention.
+2987.0	2988.88	 If there are any questions, please go ahead.
+2992.96	2994.36	 I think we are good.
+2994.52	2996.42	 No questions pending.
+2997.2999999999997	2998.84	 All right, that's cool.
+2998.96	3002.64	 Then next week, we are going to do the second part
+3002.64	3004.52	 of our data center automation series,
+3004.72	3006.22	 where we're going to talk about intersite
+3006.7999999999997	3008.02	 and intersite automation.
+3009.84	3011.24	 And I hope to see you there.
+3011.34	3012.76	 And if you have any questions in the meantime,
+3013.02	3017.46	 I think Julio has posted my handle in the chat.
+3017.64	3018.9	 Please feel free to shoot me an email.
+3020.6	3022.38	 And yeah, thank you very much for attending.

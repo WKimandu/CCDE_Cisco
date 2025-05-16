@@ -1,0 +1,844 @@
+start	end	text
+1.96	2.38	 .
+7.640000000000001	9.92	 So first of all, thank you for being with me today.
+10.32	11.98	 Indeed, the agenda, as I was saying,
+12.06	14.18	 introduction for you,
+14.28	16.88	 so you can understand a little bit better about this application.
+17.36	20.94	 How to access the APIs, documentation, authentication,
+21.58	22.8	 what are the methods, what are
+22.8	25.36	 the applications that you can use to access these APIs, right?
+25.8	28.76	 A little bit of talk on what are
+28.76	30.54	 the most common use cases,
+30.6	34.28	 the most important use cases as well to interact with APIs.
+34.92	37.3	 And then, it's going to be time for the demo.
+37.64	40.14	 At the end, I'm going just to close the session.
+40.28	43.2	 I think 45 minutes are going to fly pretty fast,
+43.36	45.22	 so I'll get there, be starting.
+47.120000000000005	50.1	 Introduction. So what is Nexus Dashboard Insights?
+50.28	52.12	 First of all, it's an application.
+52.42	55.78	 It's an application that can run on top of our Nexus Dashboard Cluster.
+55.98	57.72	 The Nexus Dashboard Cluster is
+57.72	60.88	 a group of
+60.88	63.4	 different Nexus Dashboard nodes, right, that you can install,
+63.58	65.14	 you can bring them all together.
+65.42	66.94	 They form a Kubernetes cluster,
+67.24	69.92	 even though you don't need to know anything about Kubernetes.
+70.12	72.26	 That is going to be totally transparent for you,
+72.34	73.94	 you bring up this cluster,
+74.1	76.66	 and then you can store additional applications on top of it.
+76.82	77.94	 We have different applications.
+78.3	80.78	 We have applications for orchestrating your networks,
+80.92	82.54	 like NVO, which allows you to
+82.54	85.72	 extend your fabrics into multi-site view, multi-site architecture.
+85.72	88.12	 we have Nexus Dashboard Fabric Controller,
+89.08	92.48	 which is the application we use to manage NXOS fabrics.
+92.72	95.76	 By NXOS fabric, I mean Nexus fabrics without a CI,
+95.96	98.0	 so running the plain NXOS software.
+98.38	100.4	 We have as well Nexus Dashboard Insights,
+100.48	104.06	 which is the tool we define as the day-to-operation tools.
+104.56	106.84	 Day-to-operation tools, just to let you know
+106.84	109.04	 what the focus is this application about,
+109.66	112.36	 start when you have your fabric up and running,
+112.46	114.52	 when you did the initial configuration, right?
+114.52	116.1	 You started deploying applications,
+116.38	118.28	 you started deploying services into your fabric.
+118.46	121.02	 At that moment, it is extremely important
+121.02	123.06	 that those applications, those services,
+123.16	124.58	 never have failures.
+124.9	127.24	 You want them to be always up and running.
+127.46	130.6	 You don't want them to get into any black holes, right?
+130.74	133.88	 Because those applications might be generating revenue
+133.88	135.62	 for your company.
+136.12	139.32	 And this is the moment where day-to-operation starts.
+139.74	141.66	 You want to make sure that any changes you apply
+141.66	143.44	 into your fabric are not going to break it.
+143.56	144.42	 You want to make sure
+144.42	145.82	 that you have everything under control.
+146.02	147.68	 The status, the operational status,
+147.9	150.0	 the resource utilization, these kind of things, right?
+150.36	151.94	 NDI has a lot of tools,
+152.04	153.76	 has a lot of utilities that you can use.
+153.92	156.98	 I like to group them into three different categories.
+157.48	159.44	 I start with the first one, assurance.
+160.54	161.64	 Assurance helps you.
+161.72	163.64	 So assurance, first of all, is a set of features,
+163.72	165.9	 a set of tools that you can use on top of NDI,
+166.06	168.9	 and they help you understand how your fabric is doing.
+169.4	171.64	 Like I was saying before, resource utilization,
+172.58	173.74	 pre-change validation,
+174.42	176.96	 meaning that you can take a configuration file,
+177.22	179.6	 upload it to NDI, and it will tell you,
+179.64	181.52	 okay, this is going to create a problem or no.
+181.62	183.96	 This is going to be working just fine.
+185.20000000000002	186.98	 We have troubleshooting tools.
+187.34	189.74	 You know troubleshooting, you can divide troubleshooting
+189.74	190.94	 into two main categories.
+191.68	194.06	 Reactive troubleshooting, proactive troubleshooting.
+194.4	197.48	 I start with the proactive, which is the preferred one,
+197.6	200.4	 because with proactive, we can read some signals
+200.4	204.04	 from the fabric, we can correlate them, we can match them
+204.04	204.4	 based on the data.
+204.96	207.58	 We can also tell the operator that we have some problems
+207.58	207.58	
+207.58	208.96	 that we have some problems with the application.
+209.02	210.64	 So we can notify the administrator,
+210.92	212.3	 we can notify the operator and say,
+212.4	214.8	 take a look at this, something is about to happen.
+214.88	216.7	 You probably need to take some corrective action
+216.7	218.7	 before your application suffers.
+219.38000000000002	222.26	 Then, obviously, we have reactive troubleshooting.
+222.5	223.94	 So the problem is already there.
+224.14	226.1	 Maybe our applications are affected.
+226.4	228.98	 We want to make sure that we find the problem,
+229.14	231.7	 where it is, what problem we are talking about,
+231.7	234.64	 and as well, we have to make sure that we fix it
+234.64	235.38	 as soon as possible.
+235.66	239.04	 So two keywords here, MTTD, mean time to detect,
+239.3	241.66	 and MTTR, mean time to resolve.
+241.98	244.92	 The lower both of them, the better for our revenues,
+245.04	247.18	 because applications will not suffer that much.
+247.48	251.28	 And finally, we have proactive advisories, still part of NDI.
+251.58	254.6	 So you know that all our software, all our hardware
+254.6	257.0	 get constant notifications about vulnerabilities,
+257.52	261.22	 about field notices, about end of life notices,
+261.22	261.48	 and about field notices.
+261.9	263.74	 You have to keep that under control.
+263.92	265.4	 You want to make sure that you understand
+265.4	268.62	 if any of your devices, any of your software's platforms
+268.62	273.22	 are affected by a vulnerability notice or a field notice, right?
+273.38	274.74	 NDI helps you here.
+275.0	278.26	 It takes, it keeps a list of your devices,
+278.48	280.08	 the inventory, the entire inventory,
+280.34	283.02	 and it matches that information with the field notices,
+283.14	286.52	 with the vulnerability notices that we are pushing from the cloud.
+286.86	289.02	 Every time there is a match, you will get notified.
+291.29999999999995	292.84	 So, an introduction to NDI.
+293.06	293.96	 I will stop now.
+294.12	296.2	 The last thing I want to tell you about this tool,
+296.26	297.94	 which I find it's quite important,
+298.3	301.54	 is the fact that everything is available from a single pane of glass.
+301.8	305.58	 So you log into Nexus Dashboard, you open the Insights application,
+306.35999999999996	308.62	 and you have tens of different features,
+308.68	312.0	 tens of different functionalities at your disposal.
+312.34	314.24	 Everything in the same web UI.
+315.97999999999996	319.68	 So, let's move on into this presentation, right?
+319.76	321.14	 Into our focus.
+321.14	322.8	 So, how to access the APIs?
+323.22	326.28	 The first thing I want to remember you, or I want to tell you,
+326.36	328.8	 is the fact that these APIs are REST APIs.
+329.16	331.98	 So, you probably already know what a REST API is, right?
+332.18	335.38	 You can access it over an HTTPS transport.
+335.82	336.96	 So, they are secure.
+337.28	338.96	 They are secure over the communication
+338.96	341.72	 because all the communications are encrypted.
+342.92	347.86	 You can use them with the default, with the basic HTTP methods.
+348.0	351.12	 We have GET, we have POST, we have DELETE, right?
+351.14	355.22	 So, all these are the basic ones if you want to read some configuration,
+355.62	357.94	 if you want to push configuration, modify configuration,
+358.26	360.0	 or delete the configuration as well.
+360.36	363.44	 One of the things that I have to tell you, which is quite important,
+363.58	365.96	 is the fact that on the Nexus Dashboard cluster,
+366.14	367.6	 you can install multiple applications.
+368.02	372.36	 But you don't have to be scared about doing that when it comes to the APIs,
+372.62	375.72	 because all the applications are going to expose their APIs,
+376.21999999999997	378.08	 and they will do it through Nexus Dashboard.
+378.76	381.12	 So, the API Gateway will always be Nexus Dashboard.
+381.12	386.44	 Your API queries, your authentication will always end up into the Nexus Dashboard.
+386.68	390.5	 And based on the URI, Nexus Dashboard will decide where to route the API.
+390.86	393.52	 So, if it has to go to the orchestrator, NDO,
+394.06	397.62	 it will forward that API code to that specific application.
+398.02	399.98	 NDI is the same, and DFC is the same.
+400.82	402.76	 When you want to push some data,
+402.94	405.58	 when you want to create some configurations for NDI,
+405.68	407.38	 for example, as we are going to see today,
+408.42	410.76	 as we are going to do today into the demo,
+410.9	411.1	 you can do that.
+411.12	413.8	 You have to use JSON payloads, right?
+413.9	416.5	 This is, at the moment, the supported method we have
+416.5	420.62	 to push some payloads, some data to the tool.
+422.0	423.46	 Where can you find documentation?
+424.16	425.86	 Well, primarily, there are two places.
+426.8	429.24	 I already asked you, if you are using NDI,
+429.34	431.44	 you told me no, basically, most of you.
+431.62	434.36	 So, for you, the only option at the moment is going to be
+434.36	437.08	 to log in into the DevNet portal, right,
+437.84	440.88	 on the public Cisco website into the specific DevNet portal.
+441.12	444.68	 And there you can get all the starting guides for developers,
+444.92	446.64	 where we provide you some information
+447.7	450.86	 on the authentication, how to authenticate, right,
+451.04	454.2	 what tools you can use, some use cases, some examples
+454.2	456.02	 on how to actually run the API calls.
+456.22	458.28	 We provide information about the filtering
+458.28	459.52	 and all these kind of things.
+459.74	462.14	 In addition, we provide you, as well, the API reference.
+462.42	465.12	 So you can have the full list about the APIs.
+465.5	467.36	 You can understand what are your different options,
+467.5	468.1	 what you can do.
+468.58	470.76	 The second thing is that,
+471.12	472.88	 over the Nexus Dashboard Insight application,
+473.16	474.48	 if you move to the Help Center,
+474.84	476.94	 you will get to this page here, right,
+477.1	480.54	 which is our Swagger page that we make available for you.
+480.76	483.6	 Over this page, as well, you can get all the information
+483.6	486.38	 about all the different API calls that you have available.
+486.68	488.44	 In addition, you can test them.
+488.7	491.4	 So if you are logged, if you are authenticated
+491.4	493.9	 into Nexus Dashboard, from this page,
+493.94	497.44	 you will be able to see what are the different options
+497.44	498.36	 and, as well, to test.
+498.48	500.0	 So we will tell you what are the parameters
+500.0	503.02	 that you are requested when running some API calls.
+503.18	507.86	 You can input those fields and test and run the APIs, right,
+507.94	509.0	 and see what is the result.
+510.24	512.64	 So how do you authenticate over APIs?
+513.04	514.38	 We have two methods.
+514.84	517.5	 You can use your username and password
+518.06	519.9	 and, as well, the login domain,
+520.0	524.64	 because with Nexus Dashboard, you can configure Nexus Dashboard,
+524.68	527.52	 as well, to authenticate on some external authentication servers
+527.52	529.88	 like TACACS, like LDAP,
+530.0	530.5	 and so on.
+530.56	533.14	 So you have, as well, to pass this login domain.
+534.06	537.56	 Once you do that, once you post your credentials
+537.56	540.66	 to the login API, you will get back a token.
+540.94	543.18	 This token is something that you have to use.
+543.2	544.54	 It's going to be like a normal string,
+544.72	545.92	 like a normal API token.
+546.18	549.62	 And you have to use it over the next API calls
+549.62	552.18	 by inserting it into your cookies.
+552.64	555.58	 When NDI receives the next API calls,
+555.72	558.8	 it takes a look at the cookies, it matches the token
+558.8	559.98	 that it previously sent you,
+560.0	563.02	 and it knows that it's you making that specific API call.
+563.22	566.86	 So it knows your session, it knows what are your permissions,
+567.06	569.06	 because we are able to maintain, as well,
+569.14	571.0	 some role-based access control
+571.0	572.44	 using this kind of authentication.
+573.04	574.48	 What's the bad thing here?
+574.7	579.42	 Well, I personally don't like to save my credentials
+579.42	580.66	 for my scripts, right?
+580.76	583.18	 It's something that is not very secure,
+583.4	587.68	 even though I might be using some specific vaults or so on.
+587.78	589.34	 So there is another way
+590.0	592.4	 to authenticate over these APIs that I want to show you.
+592.66	594.42	 And these are the API keys.
+594.68	596.68	 Personally, I prefer this method.
+597.28	599.7	 So API keys are something that you can create
+599.7	602.56	 from Nexus Dashboard Insights Web UI,
+602.8	606.12	 or even from the APIs if you authenticate the first time
+606.12	607.28	 with username and password.
+607.58	610.52	 The cool thing about the API keys is that you can have
+611.22	613.62	 multiple API keys for a single user.
+613.88	617.98	 So where does it come this nice, at least in my opinion?
+618.2	619.42	 Well, as you can see here,
+619.5	619.98	 I have the API keys.
+620.0	622.24	 I define four different API keys,
+622.42	624.9	 and I'm using each one of them for a different script.
+625.9599999999999	628.42	 Here, what's the benefit of doing this?
+628.64	631.78	 That if one of the scripts gets shared too much,
+631.88	633.98	 and maybe, you know, the API key is contained
+633.98	635.8	 into the source code by mistake
+635.8	638.42	 or is pushed to a repository by mistake,
+638.78	641.38	 I can simply revoke the single API key,
+641.48	643.76	 and that will affect only that specific script.
+643.96	645.56	 All the others will continue to work.
+645.68	647.22	 I don't have to go into the other scripts
+647.22	648.48	 and change the API key.
+648.48	650.44	 So this is a nice thing, you know,
+650.52	652.9	 in terms of security that make your code
+652.9	653.96	 a little bit more flexible.
+654.1	659.46	 And personally, it's the authentication method I prefer.
+660.4200000000001	662.82	 What different interfaces do we have?
+662.94	664.76	 What different applications can you use
+664.76	666.04	 in order to interact?
+666.34	667.88	 Well, all of them, basically,
+667.98	670.14	 when we talk about HTTP REST APIs.
+670.76	674.34	 Here, I added the most common ones.
+674.52	677.38	 I will start from Ansible because we are,
+677.56	678.46	 or we developed,
+678.48	681.38	 and we are maintaining some Ansible modules
+681.38	683.56	 to interact directly with NDI.
+684.32	687.04	 So if you are already using Ansible in your organization,
+687.38	690.32	 you can consider integrating your playbooks
+690.32	695.16	 with some functionalities that are specifically done by NDI.
+695.56	696.9	 Then we have Postman.
+697.08	699.58	 Obviously, you know Postman is the tool you want to use
+699.58	701.86	 when you develop, when you test the APIs.
+702.14	704.82	 Even here, you can download the Postman collection
+704.82	706.68	 directly from the DevNet page.
+706.88	708.44	 So you download the JSON file,
+708.48	710.58	 you import it into Postman,
+710.7	713.32	 and you will have all the API calls available there to play.
+713.9	715.46	 And finally, there is Python.
+715.76	719.68	 You know, Python can interact with any kind of HTTP REST API
+719.68	721.1	 because we have the libraries.
+721.32	724.7	 We have the request library that allows us to make HTTP calls.
+724.86	728.14	 All the demos we are going to do today are indeed using Python.
+728.54	730.52	 I like Python because it helps me,
+730.54	734.1	 or it allows me, to integrate with multiple platforms,
+734.2	736.1	 with multiple modules, multiple applications.
+736.46	738.46	 And today is going to be my goal over the next few days.
+738.48	743.0	 I want to show you how you can call different applications,
+743.22	746.78	 make them work all together with NDI for different use cases.
+748.1800000000001	751.32	 So a little bit about the use cases,
+751.46	754.42	 about the functionalities that we can offer over these APIs.
+755.6400000000001	757.52	 These are the most common ones.
+757.76	760.1	 I think I have three, four slides about this.
+760.28	763.5	 Remember that all the functions that are available in NDI
+763.5	765.86	 are available through the APIs as well.
+766.1	768.46	 Even the web UI uses these APIs.
+768.48	772.32	 You know, for interacting with the back ends.
+772.6	774.8	 So these are the most important ones,
+774.96	776.76	 at least the ones that we think are the most important.
+776.94	779.3	 But in reality, you can do everything from the APIs.
+779.78	781.86	 So let me start with this one, pre-change validation.
+782.28	785.14	 I already introduced you to this a little bit ago.
+786.14	790.42	 This is a functionality that is available at the moment for ACI Fabrics.
+791.3000000000001	793.7	 Imagine that you have your ACI Fabric up and running.
+793.9	795.54	 You want to push some changes.
+796.08	798.46	 You want to make sure that those changes are available
+798.48	800.08	 and that they are not going to affect your fabric,
+800.2	802.44	 are not going to cause any problems, right?
+802.62	803.78	 So how can you do that?
+804.08	807.5	 Well, with NDI, you can push the configuration to NDI first.
+807.98	810.46	 NDI will calculate the operational status
+810.46	812.56	 that your fabric will reach
+812.56	815.06	 if those configurations would have been applied.
+815.44	816.8	 And it will tell you in advance,
+817.02	818.68	 hey, look, you are going to create
+818.68	820.68	 or we are going to trigger new faults here.
+821.08	823.18	 You are going to break your communication
+823.18	824.68	 between the different endpoints.
+825.28	826.42	 So you have to be aware.
+826.42	828.76	 Into this way, you can understand
+828.76	830.44	 if it's safe to push the configuration
+830.44	832.38	 or if it's better to take a look,
+832.52	834.2	 fix whatever needs to be fixed,
+834.34	836.84	 and then try once more the pre-change validation.
+839.06	843.18	 There is one interesting session around pre-change validation.
+843.32	844.86	 It's going to be on Wednesday.
+845.0	847.18	 Then I have the details at the end of my presentation.
+847.78	849.74	 So my colleague Alejandro is going to show you
+849.74	851.68	 how you can integrate a CI-CD pipeline
+851.68	853.92	 with NDI Ansible modules
+854.5799999999999	856.4	 in order to make sure that every time
+856.42	858.32	 you make a change, you are going to push to your fabrics.
+858.52	860.16	 It's going to be first inspected.
+860.24	863.32	 It's going to be first validated by NDI.
+863.56	865.36	 So if you are curious about this,
+865.46	868.12	 if you use Ansible, if you use CI-CD pipelines,
+868.26	869.48	 I would recommend this session,
+869.62	870.9	 which is going to be on Wednesday.
+872.0	874.28	 The next thing are compliance requirements.
+875.06	876.94	 So here, with compliance requirements,
+877.16	879.72	 we can set some baselines about our fabrics.
+879.9	881.94	 We can say to NDI, hey, NDI,
+882.0	884.36	 make sure that this specific configuration
+884.36	886.34	 is following a specific pattern.
+886.42	887.66	 What could be the configuration?
+887.74	888.82	 What could be the pattern?
+889.16	891.22	 Well, we could make sure that some attributes
+891.22	894.84	 in our ACI fabric, for example, are set in a specific way.
+895.74	897.3	 Example, I have a user.
+897.34	897.88	 I have a tenant.
+898.1	900.12	 I want to make sure that all the subnets
+900.12	903.46	 I define within this tenant are not flagged
+903.46	906.32	 to be advertised to external work, right?
+906.38	908.82	 Because that may be a development tenant,
+909.06	909.94	 is a staging tenant.
+910.18	912.1	 I want to make sure that I don't poison
+912.1	914.24	 my external networks with those subnets.
+914.52	916.32	 I can add a rule into NDI.
+916.32	916.4	 I can add a rule into NDI.
+916.4	916.4	
+916.42	918.82	 NDI will check every five minutes,
+918.92	920.54	 every 10 minutes, every 15 minutes,
+920.56	924.14	 depending on the window you set for the assurance analysis.
+924.52	927.36	 And if it finds that some of the subnets
+927.36	929.74	 are actually flagged for be advertised externally,
+930.06	931.16	 it will create an anomaly.
+931.38	933.62	 So it will notify you, and you can go there,
+933.68	936.62	 see what's going on, and take some corrective actions.
+937.0	939.7	 Even here, APIs are interesting or are important
+939.7	942.7	 because sometimes you want to do some changes.
+942.74	944.56	 You want to create some compliance requirements,
+944.88	946.2	 which are highly dynamic.
+946.2	948.26	 And you don't want every time to go there
+948.26	949.88	 and start clicking into the web UI,
+950.1	951.12	 adding your requirements.
+951.38	954.08	 You want to integrate this with some automation.
+954.34	957.5	 This is what I will show you today into our second demo.
+958.96	959.46	 Anomalies.
+959.6	960.82	 Another thing, right?
+961.18	962.84	 NDI, Nexus Dashboard Insights,
+962.94	965.22	 keeps track of everything what is going on
+965.22	965.84	 on your fabrics.
+966.1	968.24	 By anomaly, we consider an event,
+968.36	969.06	 a negative event.
+969.16	971.7	 We consider something bad which is happening on the fabric.
+971.9	974.56	 You want to be notified as soon as possible
+974.56	975.5	 if this is happening.
+975.68	976.18	 But you don't want to be notified
+976.2	977.08	 if this is happening on the fabric.
+977.08	980.26	 So imagine that you are working into a network operation center.
+980.5	981.92	 You might have different tools.
+982.02	983.78	 You might have different applications running.
+984.02	986.94	 You cannot keep all the applications open
+986.94	989.06	 and constantly refresh the pages
+989.06	991.78	 to see which one is incrementing the alerts, right?
+992.14	994.64	 What you can do, you can have a general page,
+994.8	997.16	 a summary page, that takes in input
+997.16	999.14	 all the information from all the applications
+999.14	1001.14	 and provides you just the counter.
+1001.38	1003.86	 For example, over this summary page,
+1004.04	1006.18	 you might want to know only the data
+1006.18	1010.4	 and the number of alerts that is currently reported by NDI.
+1010.76	1012.8	 If everything is zero, that's fine.
+1012.94	1013.92	 You are okay, right?
+1014.1	1018.08	 If you start that some alerts, anomalies are incrementing,
+1018.1	1021.02	 at this point, you want to open NDI Web UI
+1021.02	1023.34	 and see in the details what is going on.
+1023.58	1024.9	 You can do this with APIs.
+1025.24	1027.52	 So you can export the summary of the anomalies.
+1027.64	1029.2	 You can play with the anomalies
+1029.2	1033.08	 because NDI allows you to assign those anomalies to someone.
+1033.3	1035.5	 It allows you to acknowledge the anomalies.
+1035.6	1036.16	 It allows you to know the data.
+1036.18	1036.92	 It allows you to add comments.
+1037.18	1039.18	 All this can be done with APIs as well.
+1039.36	1042.68	 Or you could also think about exporting the anomalies
+1042.68	1043.66	 to some other tools.
+1043.82	1047.22	 Maybe you want to export them to Webex.
+1047.38	1049.24	 You want to export them to Slack.
+1049.46	1051.36	 Whatever tool you are using for messaging.
+1051.6	1054.2	 As long as you have an API that you can integrate somehow,
+1054.44	1055.12	 you can do this.
+1056.96	1059.86	 This is the final example I want to make.
+1059.96	1062.04	 Anyone here is using NDFC?
+1062.38	1063.84	 Nexus Dashboard Fabric Controller?
+1064.94	1065.58	 All right.
+1065.64	1066.16	 So next slide.
+1066.18	1067.18	 So Nexus Dashboard Fabric Controller
+1067.18	1070.46	 allows you to manage NXOS fabrics.
+1070.74	1072.72	 So fabrics made by Nexus switches.
+1072.84	1075.76	 You can have three-tier networks, you know,
+1075.8	1077.8	 with the access, aggregation, and core layer.
+1078.04	1081.86	 We can talk about VXLAN, BGP, VPN fabrics.
+1082.26	1084.52	 We can talk about different kinds of fabrics
+1084.52	1086.7	 that are allowed on NDFC.
+1087.5400000000002	1090.34	 NDI allows you to control those fabrics.
+1090.82	1092.66	 But there is one requirement.
+1093.08	1094.26	 You need NDFC.
+1094.26	1098.6	 So your point might be, okay, I have a Nexus fabric.
+1098.76	1101.34	 I'm running my VXLAN, BGP, VPN fabric.
+1101.52	1103.8	 But I'm using another sort of automation
+1104.36	1105.36	 for configuring the devices.
+1105.64	1108.18	 I don't want to use NDFC, right?
+1108.3	1109.36	 I don't want this.
+1109.68	1115.2	 In that case, your option could be to initiate an instance
+1115.2	1117.82	 of NDFC into fabric discovery mode.
+1118.06	1120.32	 This means that NDFC will be there.
+1120.54	1124.22	 The only thing it's going to do is going to read the inventory.
+1124.24	1124.24	
+1124.24	1126.32	 It's going to get the inventory of your network.
+1126.56	1129.28	 And then it can pass this information to NDI.
+1129.46	1133.18	 Because NDI is not able to discover your network.
+1133.4	1134.94	 It doesn't know how to find the switches.
+1135.22	1138.78	 It doesn't know how to differentiate the different fabrics by default.
+1139.02	1140.04	 It needs some tool.
+1140.5	1144.98	 But if you do this, if you use Nexus dashboard fabric discovery mode,
+1145.24	1146.66	 you end up into a problem.
+1146.94	1149.56	 Because when you use NDI, we have to stream.
+1149.66	1152.6	 The switches need to stream the telemetry to NDI itself
+1152.6	1154.22	 so NDI can understand what's going on.
+1154.24	1155.04	 What's going on in the fabric.
+1155.24	1158.08	 If we don't have a way to configure the switches,
+1158.48	1160.04	 then this is not going to work.
+1160.36	1163.6	 If fabric controller is configured in the controller mode,
+1163.92	1165.62	 it will push the configurations automatically.
+1166.14	1168.74	 But here we are saying that we are using it into fabric discovery.
+1169.04	1171.7	 So it will not be able to push a single line of configuration.
+1172.34	1176.24	 You can use the APIs in this case to get the information
+1176.24	1179.18	 from Nexus dashboard insight, right?
+1179.3	1182.54	 And push this configuration to your switches.
+1182.54	1186.44	 So even in this case, you can keep NDFC just the discovery mode.
+1186.64	1189.42	 It will be just sitting there performing the inventory,
+1190.1599999999999	1192.04	 noticing if you add new switches.
+1192.32	1192.9	 That's it.
+1193.12	1195.76	 All the configurations can be done through the APIs.
+1196.1	1198.86	 And this indeed is going to be our first demo.
+1199.44	1202.98	 So what I want to show you now is this specific use case.
+1203.28	1207.66	 So this is the only demo where I will write some code on the fly, right?
+1207.72	1211.44	 I want to show you just a few lines to explain you how you can interact with APIs.
+1212.08	1212.52	 So this is the only demo where I will write some code on the fly, right? I want to show you just a few lines to explain you how you can interact with APIs.
+1212.52	1212.7	 So this is the only demo where I will write some code on the fly, right? I want to show you just a few lines to explain you how you can interact with APIs.
+1212.7	1215.06	 Our situation is that we have a fabric.
+1215.16	1216.18	 We have a VXLAN fabric.
+1216.72	1219.22	 And we have it into fabric discovery mode.
+1219.4	1223.92	 So we are not able to push configurations directly from NDI to an NDFC to the fabric.
+1224.08	1228.98	 So what we are going to do today, we are going to get the information from NDI via the APIs.
+1229.2	1230.82	 We are going to discover the switches.
+1231.08	1232.94	 We are going to read the configuration.
+1233.2	1236.8	 And then using a different kind of API, using the NX API,
+1237.22	1239.72	 we are going to push this configuration to the switches.
+1240.0	1240.6	 All right.
+1240.6	1243.12	 So let me move here.
+1245.56	1249.84	 The first thing I want to do, I will jump into my switch, right?
+1249.92	1251.16	 I will SSH.
+1252.7	1256.86	 And I'll show you that the telemetry configuration at this time is not pushed there.
+1258.28	1263.6999999999998	 So if I'll do show run telemetry, I will get an error, right?
+1264.34	1266.22	 Because indeed, if I'll take a look at the features,
+1272.9599999999998	1274.8	 sorry, telemetry, telemetry is disabled.
+1275.04	1279.34	 So now, let me move into Visual Studio Code and let's start writing some code for this.
+1279.88	1283.38	 The first thing I want to do, I want to import my variables file.
+1283.68	1284.32	 Why is that?
+1284.82	1287.22	 Into these files, I have my credentials.
+1287.42	1288.68	 I have my API keys.
+1288.88	1291.4	 Obviously, I don't want to show them to you just for security reasons.
+1291.6	1295.56	 So I keep them into this file and I will just recall them when I need them.
+1295.98	1300.98	 The next thing I want to do, I want to import my NDI library that I created
+1300.98	1302.86	 and that is going to be available on GitHub.
+1303.1	1306.1	 I will pass you all the links later on if you want to take a look, if you want to play.
+1306.4	1311.52	 So what we're going to do now, we're going to do from libs, import NDI, right?
+1312.6	1315.66	 And we have the library included now into our code.
+1315.88	1319.38	 Now we want to create a connection to our Nexus Dashboard Insights.
+1319.76	1323.62	 So let's create a new object, Nexus Dashboard Connection.
+1324.3	1325.54	 We are going to use this.
+1325.56	1328.8	 This is the class NDI, which is contained within the NDI file.
+1329.12	1333.94	 And if we start the object, you see that it's going to ask us some parameters,
+1334.6599999999999	1336.9	 like the address, the inside group.
+1337.06	1338.8	 The inside group is an NDI concept.
+1339.08	1343.24	 It is an object that allows us to group different fabrics, different data centers,
+1343.4	1344.68	 within a common view.
+1344.88	1347.6	 So we have to use this into this example.
+1347.94	1352.06	 So the IP address is going to be 1050381.
+1353.06	1357.08	 And the inside group is going to be my data center mill.
+1357.82	1359.18	 Now I have to authenticate.
+1359.4	1360.26	 How can I authenticate?
+1360.46	1362.24	 Like I said before, I like to use API keys.
+1362.46	1366.12	 So I will skip the credentials and I use the API key.
+1366.28	1367.52	 Where is the API key?
+1367.7	1373.02	 Where it's going to be in my variables and specifically, NDFC API key.
+1373.5	1378.42	 So right now, if I run the code, I will have a handle, I will have a connection to NDI.
+1379.34	1381.82	 But our goal is really to get the configuration.
+1381.82	1382.04	 So we're going to use this.
+1382.04	1382.94	 We're going to use the configuration from NDI.
+1383.2	1388.0	 So if we take a look at the call, at the method that is going to allow us to get the configuration,
+1388.62	1392.18	 it's going to be this one here, software telemetry.
+1392.74	1397.24	 If we take a look at what are the required input information we have to pass it,
+1397.36	1398.78	 it's going to be two variables.
+1399.1	1403.6	 It's going to be site name and it's going to be the switch serial number.
+1403.94	1408.06	 So before we actually can get the configuration, we have to acquire those two informations.
+1408.86	1409.52	 Let's start.
+1410.08	1411.74	 We want to check first.
+1412.04	1414.68	 We want to gather all the sites from NDI.
+1415.42	1417.32	 So we are going to make a different call.
+1417.46	1419.2	 This time it's going to be get site groups.
+1420.34	1422.98	 If I open this one, I can pass a filter.
+1423.2	1427.62	 I can pass the inside group name, which I will do so I don't get too much information.
+1428.1	1428.54	 Right?
+1428.66	1430.3	 I'm going to use the same inside group.
+1430.68	1432.32	 So now let's do this.
+1432.42	1434.42	 Let's import as well pprint.
+1434.52	1436.8	 So I can show you what information you get here.
+1438.18	1441.42	 Let's do from pprint.
+1441.56	1442.0	 Import.
+1442.04	1442.94	 Import pprint.
+1443.7600000000002	1447.12	 And let's pretty print the output we get here.
+1450.4	1450.96	 Sites.
+1452.4	1453.18	 All right.
+1461.46	1462.56	 Is it working?
+1466.56	1468.98	 No, it's not working because I used the wrong IP.
+1469.12	1469.58	 That's why.
+1469.68	1471.3	 It's 10.58.30.
+1471.34	1471.78	 Okay.
+1472.04	1472.86	 That's my bad.
+1473.24	1475.44	 So it has all the rights to not work.
+1476.2	1477.08	 Let's do it again.
+1478.46	1479.14	 There we go.
+1479.38	1481.8	 So let me take this up a little bit.
+1481.88	1483.84	 You see we are getting a JSON file back.
+1484.0	1484.3	 All right.
+1484.38	1489.0	 In our case, this is going to contain all the fabrics that are within the inside group.
+1489.18	1490.68	 So you see I have two fabrics.
+1490.76	1492.42	 I have a VixLan fabric here.
+1492.9	1495.04	 And I have a one fabric as well.
+1495.22	1496.36	 So I'm happy with that.
+1496.46	1498.4	 The only thing I want to keep only the names.
+1498.52	1500.22	 I don't care about all the other objects.
+1500.4	1502.0	 So let's make sure that our.
+1502.0	1504.44	 Our variable here will contain all the sites name.
+1505.3400000000001	1508.0	 We can use a list comprehension for this.
+1508.2	1509.82	 So we can do for site.
+1510.66	1512.14	 Let's do site name.
+1516.1	1519.36	 Name right for site in.
+1520.58	1522.1	 And the FC we get.
+1522.16	1524.36	 We call that method again.
+1524.58	1531.06	 But this time we want to make sure that we are going to read the information contained into the first element of the list.
+1531.06	1534.02	 And within the assurance entities key.
+1534.22	1537.22	 So I'm going to use here the zero.
+1537.4	1541.42	 And I'm going to specify the assurance entities.
+1541.88	1544.54	 So let's see now if this is working.
+1546.3200000000002	1547.58	 No, it's not working.
+1547.76	1548.5	 What did I do?
+1549.0800000000002	1549.98	 Oh, sorry.
+1550.7	1554.04	 I put this one into the wrong place.
+1555.6200000000001	1557.52	 So that should be it.
+1559.18	1559.98	 There we go.
+1559.98	1562.4	 We have only the name of the two sites, right?
+1562.96	1563.76	 VXLAN and one.
+1564.16	1565.74	 Now we want to get the nodes.
+1565.94	1571.68	 So we can use a different method which is going to give us all the nodes into those sites.
+1574.4199999999998	1577.16	 And for site in sites.
+1579.12	1582.82	 And the value is going to be a list of nodes.
+1583.06	1586.08	 How can I get the list of nodes within the specific site?
+1586.22	1588.6	 I will use another NDI API method.
+1588.6	1593.42	 So it's going to be NDC getNodesBySite.
+1593.58	1594.0	 Right?
+1594.6	1599.22	 And the site is going to be the one I read from the previous call.
+1599.44	1603.76	 So let's see if this one now is getting me the information I want.
+1604.8	1605.3	 Nodes.
+1610.2	1610.7	 Yes.
+1610.88	1612.58	 So you see we get a lot of data.
+1612.78	1615.62	 For every fabric we get information about the nodes.
+1615.8	1617.34	 This information contains information.
+1617.34	1622.68	 We get statistics about the modules, the name, the management API and so on.
+1622.8	1632.12	 In my case, if you remember from this call, we wanted to get the switch, serial number and the switch site in order to download the configuration.
+1632.6	1634.5	 So let's close this now.
+1634.84	1637.1	 And let's open to for loops.
+1637.3	1639.86	 So we're going to do for site in nodes.
+1640.94	1644.42	 And for node in nodes site.
+1645.42	1650.62	 So let's try a print and see if this is actually working fine as expected.
+1651.06	1658.64	 So let's try to print the site and as well the node name.
+1658.96	1659.2	 Right?
+1660.48	1664.34	 So this should give me a list of...
+1664.34	1666.9	 I have to use the single ones.
+1668.62	1671.78	 This should give me a list of sites and devices.
+1673.32	1674.04	 No.
+1674.04	1674.56	 Not yet.
+1676.5	1677.08	 For...
+1680.46	1681.7	 What's wrong here?
+1685.18	1685.92	 Hold on.
+1688.88	1689.98	 What did I do?
+1692.5600000000002	1693.72	 Let's try...
+1693.72	1695.36	 Sorry, just a second.
+1695.44	1696.64	 I got stuck here.
+1696.94	1698.04	 Let's try like this.
+1698.4	1700.08	 And see what we get.
+1702.2	1703.76	 So we get the node.
+1707.04	1707.74	 All right.
+1708.3	1711.2	 So here I have to add obviously I want to use a list compression.
+1711.52	1715.36	 So it's going to be node for node in.
+1715.68	1717.66	 Because otherwise I will get the full list.
+1717.9	1720.04	 So this is going to work now.
+1720.24	1721.32	 So let's do again.
+1722.22	1723.18	 Node name.
+1727.34	1728.32	 And there we go.
+1728.36	1730.06	 We get the list of sites.
+1730.06	1733.38	 And we have all our devices that are monitored by NDI.
+1733.58	1737.96	 So now instead of doing this, we want to get the configuration commands.
+1738.22	1739.26	 So commands.
+1739.58	1742.82	 We get finally to use that call I showed you before.
+1743.1	1744.48	 So the telemetry.
+1744.54	1747.18	 Software telemetry get config.
+1747.52	1748.92	 I have to pass the site name.
+1749.14	1752.24	 And I have to pass as well the node serial.
+1754.6200000000001	1757.8	 So just to show you, for example, one output.
+1757.8	1760.2	 So you can understand what we get from here.
+1760.74	1762.56	 Let's try to print this.
+1764.5	1765.82	 And see what we get.
+1770.32	1770.8	 Okay.
+1770.86	1778.28	 This is the entire configuration, the entire telemetry configuration that we have to push to the device to make sure that the device will stream the telemetry to NDI.
+1778.56	1779.22	 All right.
+1779.36	1780.66	 So now we have this.
+1780.82	1784.64	 We want to push this configuration using another API directly to the device.
+1784.82	1786.94	 So I will import another library.
+1786.94	1789.14	 Which is going to be my NX API library.
+1790.3600000000001	1794.02	 The first thing I want to do, I want to create a connection to the switch.
+1794.22	1796.78	 So let's call it switch connection.
+1798.06	1798.96	 NX API.
+1799.8	1802.34	 And we're going to use the only available class.
+1802.8	1804.22	 Now, what do we need here?
+1804.34	1808.0	 We need the address which is contained into the node object.
+1809.04	1815.66	 And specifically I want to use the node MGMTP IP.
+1815.66	1817.84	 Which is the management IP of the node.
+1818.3	1820.76	 And then I have to pass as well the node serial.
+1827.6599999999999	1834.22	 So this is going to be the only call, the only command that I need in order to create a connection to my switch.
+1834.48	1837.56	 The next thing I want to do, I want to push the configuration.
+1838.2399999999998	1842.76	 So if I'll show you the push configuration method, it's asking me two things.
+1842.76	1844.26	 It's asking me the commands.
+1844.56	1850.3	 But if you take a look at the command, it wants the command into a specific way.
+1850.6	1854.52	 It wants all the commands to be separated by a space semicolon.
+1855.06	1857.06	 Something that I have to do now.
+1857.36	1863.46	 And then it's going to ask me as well how it should do, what it should do in case there is a problem.
+1863.64	1867.38	 Like if it has to roll back, if it has to continue, or simply stop.
+1867.78	1872.74	 So now the first thing I want to do, I want to make sure that these commands here are going to follow.
+1872.76	1876.2	 That specific request from the API.
+1876.5	1881.2	 So in order to do this, I will join this string.
+1883.06	1883.78	 All right.
+1884.48	1887.94	 And here I will use the split lines.
+1889.0	1893.94	 Because at the moment, the commands I get back from NDI is a multi-line string.
+1894.28	1898.72	 So now what I want to do, I want to join this string using the space semicolon.
+1898.82	1902.38	 But in order to convert it into a list, I have to use the split lines.
+1902.76	1905.12	 So now I'm ready to push these commands.
+1906.68	1907.2	 Right?
+1907.48	1909.34	 And we can close this one.
+1910.7	1915.7	 And we can break here too.
+1915.8	1916.0	 No.
+1917.26	1917.92	 That's it.
+1918.04	1918.92	 Let's break here.
+1920.44	1922.48	 So let's see if we are lucky.
+1923.04	1924.14	 Let's see if it works.
+1925.18	1925.7	 No.
+1928.28	1929.54	 What is it complaining?
+1930.74	1931.6	 Of course.
+1931.6	1933.16	 I forgot the credentials.
+1936.26	1937.34	 This is my bad.
+1937.52	1940.06	 So here I have to pass the credentials, not the serial.
+1941.04	1943.38	 Credentials which are contained into my variables.
+1944.36	1945.98	 And device credential.
+1946.36	1946.64	 Right?
+1947.44	1948.82	 So that should be it.
+1954.84	1956.38	 So now it's thinking a little bit.
+1956.42	1957.34	 It's creating the connectivity.
+1957.46	1960.54	 It's going to generate the configuration once more.
+1960.54	1962.54	 And then it should be pushing it.
+1962.66	1963.7	 So it didn't fail.
+1964.28	1966.12	 Let's see now again.
+1967.62	1969.78	 If we take a look now, the telemetry is enabled.
+1970.16	1973.6	 If we try to run show run telemetry, we get the configuration.
+1974.02	1976.6	 So the configuration was pushed correctly to the switch.
+1977.14	1977.82	 All right.
+1978.24	1981.26	 Let me show you the other two demos we have.
+1982.48	1984.3	 Let's start from this design.
+1984.52	1985.82	 This is an ACI design.
+1986.04	1987.3	 Very easily.
+1987.36	1989.06	 I don't want to get too much into the details.
+1989.06	1990.06	 We have three tenants.
+1990.32	1992.92	 Every tenant has its own VRF.
+1993.02	1997.3	 And we have different bridge domains, different EPGs within these tenants.
+1997.5	1997.92	 All right.
+1998.2	2001.22	 So there is a request coming from InfoSec team.
+2001.42	2007.72	 They want to make sure that all the subnets we configure in ACI are actually part of their IPAM.
+2007.98	2011.58	 So they record all the subnetting information on the IPAM.
+2011.66	2014.1	 And they want to make sure that we are compliant with that.
+2014.3	2015.48	 How can we do this?
+2016.0	2017.04	 That is interesting.
+2017.14	2017.34	 Right?
+2017.34	2018.62	 So we have APIs.
+2018.94	2021.94	 We can actually interact with our IPAM.
+2022.18	2024.8	 We can download the information from it.
+2024.94	2027.38	 We can get the list of the subnets that are approved.
+2027.66	2032.12	 We can use that information to create a compliance requirement in NDI.
+2032.38	2038.9	 And if someone configures a bridge domain with a subnet which is not into IPAM, it's going to be notified.
+2039.22	2040.84	 An anomaly is going to be created.
+2041.28	2044.42	 So let me show you very quickly how this works in NDI.
+2044.86	2046.72	 I'll move to the compliance section.
+2049.2	2053.06	 And if I scroll down a little bit, you see that I have some rules which are not enforced.
+2053.48	2054.5	 We have some red.
+2055.1	2057.36	 One here is reported as violated.
+2057.64	2060.0	 Indeed is one of the IPAM rules.
+2060.94	2062.52	 So what can I do now?
+2062.66	2065.46	 Let's check first what this rule is expecting.
+2068.5	2070.88	 So I'm moving to the compliance requirement rules.
+2071.1	2073.08	 And it's going to be the production.
+2074.0	2074.94	 I'll edit the rule.
+2074.94	2078.64	 And I download the current instructions that I passed to NDI.
+2080.34	2081.86	 So let's format this.
+2082.7	2086.12	 I don't want to go in deep into this.
+2086.2	2090.94	 If you want to take a look at the instruction on how to create these templates, they are into the configuration guidelines.
+2091.34	2097.84	 What is important here is the fact that we are investigating all the subnets contained into this specific tenant.
+2098.04	2102.14	 And what we are expecting are subnets part of this list.
+2102.14	2104.2	 So we have only two lists.
+2104.52	2113.18	 If we go back into NDI now and we take a look more in detail at the alert to understand why it's complaining about that,
+2113.38	2123.98	 we can see down here that NDI found this subnet, 172.23.0.254, which indeed is not contained into this list.
+2124.18	2126.06	 But how was this list generated?
+2126.56	2130.6	 Well, by taking information from our IPAM.
+2130.7	2132.12	 In this case, I'm using NetBeans.
+2132.14	2139.34	 So if I take a look at the tenants I have in NetBox, specifically if I move to the production one and I take a look at the prefixes,
+2139.8	2143.96	 you see that we have only two prefixes, 22.3 and 23.1.
+2144.36	2148.76	 This is why NDI knows about only those two subnets.
+2149.22	2157.94	 So in our case, let's assume that this one is a legitimate subnet and we want to make sure that bridge domains can be configured with it.
+2158.18	2160.16	 We can add it to our IPAM.
+2160.62	2162.06	 We're going to add the new one.
+2162.14	2164.0	 This is going to be the prefix.
+2164.66	2167.04	 I'm going to select the production BRF.
+2167.76	2170.0	 I'm going to select the tenant as well.
+2170.94	2171.38	 Right?
+2171.4	2172.28	 So production tenant.
+2172.52	2174.24	 And finally, my gateway.
+2174.94	2175.96	 I'll save this.
+2176.38	2178.3	 And there we go.
+2178.44	2181.12	 And now this information is in my IPAM.
+2181.2	2183.88	 So imagine that people are constantly adding to your IPAM.
+2184.16	2187.4	 You don't want to go in NDI every time and add these rules manually.
+2187.56	2190.46	 You don't want to go into this template and change the values.
+2190.66	2191.4	 So how do you do?
+2191.52	2191.72	 Well.
+2191.72	2192.98	 We have APIs, right?
+2193.1	2193.92	 It's always the same.
+2194.14	2198.36	 So in this case, I will just run the demo wrapper I have here.
+2198.6	2202.24	 I don't want to show you the code because it's going to take too much time and there is not much left.
+2202.54	2205.34	 I'm going to run the demo for my demo too.
+2205.5	2207.52	 And I will explain to you at a high level what is going to happen.
+2207.88	2211.04	 So we connect to NDI like we did before.
+2211.46	2215.02	 We connect to IPAM via HTTP APIs again.
+2215.22	2217.32	 We collect the information from the IPAM.
+2217.46	2220.32	 And now let me show you one thing into my Visual Studio code.
+2220.32	2223.96	 You see the generated files folder is empty at the moment.
+2224.18	2229.42	 The next thing that my script is going to do is going to create those files, right?
+2229.72	2234.6	 So if I move back to Visual Studio code, you see that the files now have been generated.
+2234.82	2237.94	 So we pull the information from IPAM and we created these templates.
+2238.44	2243.58	 The next thing that we are doing, we are pushing these configurations.
+2243.82	2246.0	 But we are pushing them only if there is a change.
+2246.16	2250.3	 If there are no changes, if NDI is already configured with the right template, we leave it there.
+2250.32	2256.72	 In my case, the only one that was updated was the development, right?
+2257.16	2260.04	 Because I added the prefix into that one.
+2260.28	2262.06	 So I can stop this script.
+2262.2	2268.52	 Obviously, at the next execution of the assurance analysis, NDI will validate this rule.
+2268.66	2271.72	 It will understand that everything is all right and that will get everything green.
+2272.44	2280.3	 The last demo we have today, which is going to be a quick one, it takes, again, this design as an example.
+2280.3	2289.78	 There is one design requirement that we should be able to move some bridge domains, some EPGs from the production tenant to the development tenant.
+2290.2	2292.82	 So, you know, if we do this manually, it's time consuming.
+2293.4	2294.76	 We can generate problems.
+2295.44	2298.12	 So what if we create a script to do that?
+2298.3	2305.54	 Maybe let's assume that some developer, some smart colleague came up with an idea on how to generate a script in order to do this.
+2305.64	2309.14	 But you also want to make sure that the changes are not going to affect your network.
+2309.34	2310.28	 You want to make sure that the changes are not going to affect your network.
+2310.28	2313.12	 You want to make sure that the changes are not going to impact your network.
+2313.44	2313.96	 You want to make sure that the changes are not going to impact your network.
+2313.96	2314.72	 How can you do this?
+2314.9	2319.28	 Well, you can also integrate here, Nexus dashboard insight pre-change validation with your script.
+2319.6	2322.32	 And this is indeed what we are going to do today.
+2322.82	2325.86	 So the script takes a look at the APIC.
+2325.96	2328.14	 It downloads the configuration from the APIC.
+2328.26	2331.38	 It duplicates the configuration over a different tenant.
+2331.6	2336.2	 But before pushing the configuration, it asks NDI to perform a pre-change validation.
+2337.12	2340.26	 So in my case, even now, I will use the demo version.
+2340.28	2342.0	 So in my case, even now, I will use the demo version.
+2342.0	2343.18	 So this time it's going to be demo 3.
+2343.74	2346.08	 What we are doing now, we connect to the APIC.
+2347.1	2349.62	 We get the configuration from the APIC.
+2349.68	2351.22	 We generate the new configuration.
+2351.5	2358.32	 And indeed, we have a new file here, APIC configuration JSON, which is here, just created, right?
+2358.44	2361.62	 And this is simply an ACI configuration, nothing more.
+2362.26	2368.16	 Now what we want to do, instead of pushing this, we want to interact with NDI.
+2368.4	2370.14	 We want to pass to NDI this configuration.
+2370.28	2375.7	 And we want to ask NDI to perform a check and let us know if anything is going to happen.
+2376.0	2377.82	 There is one note I want to make here.
+2378.0	2384.18	 This operation in NDI might take a few minutes, depending by the fabric, depending by the number of switches, the configuration as well.
+2384.34	2386.56	 So here it's probably going to take seven minutes.
+2386.7	2387.82	 I don't want to waste your time.
+2388.0	2390.88	 So what I did, I actually ran this before, right?
+2391.3	2394.7	 Now you see we are at this stage here, submitting PCV job.
+2395.16	2397.8	 Before, this was the point, right?
+2397.96	2399.34	 So we submitted the job.
+2399.34	2402.78	 We let NDI understand what was going on with the configuration.
+2403.24	2406.28	 And the result that NDI returned was the following one.
+2406.52	2412.82	 NDI found out that if we were going to apply those configurations, we will get a new major anomaly,
+2413.04	2417.0	 because we are going to create some unexpected leaking between the VRFs.
+2417.04	2423.32	 And as well, we are not going to be compliant with the rules that we defined so far.
+2423.56	2425.12	 Why are not going to be compliant?
+2425.3	2429.12	 Because remember that the prefix was not added to IPAM as well.
+2429.34	2431.32	 So NDI knows this in advance.
+2432.0400000000004	2432.76	 Okay?

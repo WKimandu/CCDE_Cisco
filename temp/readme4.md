@@ -76,4 +76,4 @@ A `TRANSCRIPTS.md` index file is also created in the output directory, catalogin
 - The direct CLI command uses the "large" model for better accuracy
 - Previously transcribed videos will be skipped if they already have both .txt and .tsv files
 - Transcription can be memory and CPU intensive, especially for longer videos
-- Use the CPU option if you encounter GPU memory issues 
+- Use the CPU option if you encounter GPU memory issues. 

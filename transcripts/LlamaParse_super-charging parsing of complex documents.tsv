@@ -1,0 +1,97 @@
+start	end	text
+1.4799999999999978	13.8	 Hi everybody, I'm Laurie, DevRel at Llama Index, and I'm here today to demonstrate some of the features of Llama Parse, our industry-leading PDF parser and other document type parser.
+15.92	25.76	 Llama Parse is really simple to use. It's an API that's built into Llama Index. So let's look at how you use it in this notebook.
+25.76	33.2	 First, you pip install Llama Index and Llama Parse as two separate packages.
+36.08	44.98	 And now let's get a really complicated PDF that we can look at and see how the features of Llama Parse come into play.
+45.7	52.24	 The one that we've picked for this example is an insurance policy from the IRDIA.
+54.34	55.74	 It's got lots of features.
+55.76	59.86	 It's got lots of clauses and exclusions and coverage that it provides and doesn't provide.
+60.1	73.36	 And it's a really great example of how you can use an LLM to simplify your life by turning this pile of really dense text into a summary of what it actually means for you.
+74.44	77.3	 So what we do in this cell is we download that policy.
+79.82000000000001	85.74	 And then in this cell, we're just initializing the async things that you need to get the policy.
+85.74	89.54	 So we're going to get a notebook to work.
+90.64	94.76	 And in this one, we are just pulling in two API keys.
+94.94	98.24	 We need the OpenAI API key to do parsing.
+98.8	107.36	 And we need our Llama Cloud API key, which you can get at cloud.llamaindex.ai to use Llama Parse.
+110.74000000000001	115.72	 So we're going to use Llama Index.ai.
+115.72	115.72	
+115.72	115.72	
+115.72	119.42	 Sorry, OpenAI's text embedding 3 small model.
+119.56	126.02	 And we're going to be using GPT 3.5 Turbo as our embedding model and our LLM models respectively.
+129.9	133.44	 So let's just look at how you parse things with Llama Parse at all.
+133.64	139.42	 You import Llama Parse and you tell it what result type you want.
+139.52	141.14	 In this case, we want Markdown back.
+141.34	145.34	 And you give it that policy PDF that we just downloaded in the earlier cell.
+147.36	149.04	 It parses that pretty quickly.
+149.18	157.8	 And if you print it out, what you see is Markdown that represents the exact text that was in that PDF document.
+157.98	159.08	 So we haven't changed anything.
+159.32	163.68	 We've just turned it into Markdown, which LLMs find easier to understand.
+167.36	175.7	 One of the things we can do is pass this Markdown into our Markdown.
+175.72	184.26	 Element node parser, which will break it up into a set of text and tables.
+184.9	193.04	 Tables are a big part of what makes complicated documents complicated, especially for LLMs.
+194.42000000000002	200.34	 And by parsing it into tables specifically, we can get better results with our parsing.
+200.42	204.9	 So I'm going to scroll past all the part where the parser was working.
+205.72	215.1	 And the result is you get a bunch of nodes and table objects, which you can then pass into your vector store index as a simple list of objects.
+216.5	222.0	 Then you can create a query engine from that vector store index.
+222.14	223.78	 This is how you always use LLMA index.
+225.64	232.02	 Let's see what happens when we query that basic set of text and tables.
+233.74	234.64	 You get...
+234.64	238.14	 You asked, my trip was delayed and I paid $45.
+238.28	239.32	 How much am I covered for?
+240.84	242.54	 And the result is unhelpful.
+242.62	245.14	 You are covered for the amount mentioned in the certificate of insurance.
+246.84	249.04	 That's not what we wanted.
+249.14	251.18	 We wanted to know exactly how much we're covered for.
+253.26000000000002	261.16	 The problem is that that information about exactly how much you'd be covered for is split across the document in a bunch of different places and the LLM can't find it.
+262.16	264.62	 So one of the really neat things about LLM is that it's not just a set of tables.
+264.62	264.72	 It's a whole set of tables
+264.72	264.72	
+264.72	264.72	
+264.72	264.72	
+264.72	264.72	
+264.72	264.72	
+264.72	264.72	
+264.72	264.72	
+264.72	264.72	
+264.72	269.66	 Now what we can do, and this is what we love about LLM, and what we love about LLM parse is that you can give the parser instructions.
+270.1	280.3	 You can give the parser instructions that say this is the kind of document that I'm reading converted into something that is easier to understand as an LLM.
+280.3	296.26	 So in this case, we give it a bunch of instructions that say, read this document full of policies and coverage and benefits and exclusions and turn it into a list, just a list of things that I'm covered for and things that I'm not covered for.
+297.81999999999994	299.68	 And parse it that way instead.
+302.34	310.54	 So now, having parsed it into two different forms, one is the just a pile of markdown and one is this list of coverages.
+310.78	313.86	 Let's see what sort of responses we get.
+316.66	324.36	 You can see that this is just printing out what the parsed form looks like.
+324.44	329.38	 The original ones is still just a markdown conversion.
+329.68	332.76	 So you can see that this is just printing out the version of the exact text of the document.
+333.24	338.82	 But after the break line, you see what Lama parse has turned the same document into.
+338.94	343.58	 It's turned it into this list of things that you are covered for, things that you are not covered for.
+343.74	348.22	 Very simple set of statements that's easy for an LLM to understand.
+350.1	355.1	 So now we put those things into a query engine.
+357.34000000000003	359.1	 And let's run.
+360.14	367.88	 The same query against our original vanilla query engine and our new query engine using the parsed form.
+369.84	372.06	 Again, my trip was delayed and I paid 45.
+372.16	373.28	 How much am I covered for?
+373.5	376.1	 The vanilla version gives us the same answer as before.
+376.22	377.48	 You were covered in the amount mentioned.
+378.46	385.38	 But the instructions, the one that comes from the list, gives us the exact answer.
+385.42	388.26	 You were covered for the delay amount you paid, which is 45.
+391.06	391.58	 So we're not covered for the delay amount.
+391.58	396.18	 Looking in the document, we noticed that one expense that was not covered is baby food.
+396.82	400.14	 So let's ask the two query engines about baby food.
+401.8	403.08	 I just had a baby.
+403.1	403.9	 Is baby food covered?
+404.38	406.4	 The vanilla version doesn't understand.
+406.58	407.1	 It doesn't know.
+408.0	410.18	 But the parsed version does.
+410.5	415.36	 It says it has noticed the exclusion and said that baby food is not covered under the insurance policy.
+416.3	418.9	 We can run a similar question about gauze.
+419.68	420.68	 This is a very specific thing.
+420.78	424.9	 Do you mention in your insurance policy how is gauze in your operation covered?
+426.12	436.9	 And in this case, the vanilla version says it's covered as part of your surgical procedure.
+437.22	439.44	 It gives this long answer that has all sorts of details.
+441.06	446.7	 Whereas the parsed list version gives you a much simpler answer.
+446.86	449.02	 Procedure charges cover the use of gauze in your operation.
+449.1	449.66	 So you're fine.
+450.81999999999994	467.44	 This is how you can use the power of LamaParse to, in effect, preprocess your complex documents to be simple enough that an LLM can usefully understand them and provide really helpful answers.
+467.8	474.0	 So I hope this gives you some ideas of how you can use parsing instructions in LamaParse for your own applications.
+474.66	475.26	 Cool.
+475.38	476.36	 And I'll see you next time.

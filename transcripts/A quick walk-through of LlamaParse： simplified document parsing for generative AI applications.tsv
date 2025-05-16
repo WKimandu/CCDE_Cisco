@@ -1,0 +1,171 @@
+start	end	text
+1.1799999999999977	9.48	 Hi everybody, I'm Laurie. I'm VP of Developer Relations at Lamaindex and I'm here to talk to you today about LamaParse.
+9.7	17.44	 We're going to be doing a quick and dirty walkthrough of some of LamaParse's enormously great array of features.
+18.699999999999996	27.4	 So let's first talk about how you get into LamaParse, which is you just go to cloud.lamaindex.ai
+28.419999999999998	37.94	 and you log in. There's a parse section and there's a convenient little UI here for you to try out basic parsing.
+39.76	48.74	 You can see that there is a huge list of options. There's language, there's parsing instructions, there's page separators, prefixes, suffixes.
+48.92	54.04	 You can choose specific pages of your document to parse. You can set a bounding box.
+54.46	57.38	 You can skip diagonal text. You can invalidate.
+57.38	57.38	
+57.4	60.1	 You can invalidate your cache or you can avoid caching entirely.
+60.96	65.28	 There's a whole bunch of stuff you can do. We're going to be talking about those later on in this video.
+65.58	69.76	 In the meantime, let's just try dragging and dropping a file.
+70.8	74.36	 In this case, a PDF guide to San Francisco.
+75.34	76.54	 And we'll hit parse.
+83.62	85.44	 It takes a little while to parse.
+85.44	100.56	 But then you get in this version a Markdown set of text giving you Markdown tables, headings, all that kind of stuff showing the contents of the PDF.
+100.76	110.94	 If you don't want Markdown, just turn off the Markdown mode and you'll instead get text, which includes the original columns and all the rest.
+114.32	115.42	 So let's go ahead and start.
+115.44	117.44	 Let's talk about how to use Lama Parse in other ways.
+120.18	123.08	 Programmatically is how you'll be using Lama Parse most of the time.
+123.16	128.54	 This exploration by the UI is mainly for getting started.
+130.78	132.8	 Using it in Python is pretty easy.
+132.96	134.74	 You set a Lama Cloud API key.
+135.34	138.56	 You install Lama Parse along with Lama Index Core.
+142.82	144.66	 And then you bring in Lama Parse.
+144.66	146.52	 And in this case, Simple Directory Reader.
+148.0	149.46	 And you create the parser.
+149.52	152.28	 In this case, we've set the result type to Markdown.
+153.5	157.42	 You tell Simple Directory Reader to use an extractor for PDFs.
+157.78	159.34	 You give it the input files.
+160.4	162.12	 And then you tell it, load data.
+163.86	165.2	 Then you print your documents.
+166.32000000000002	168.3	 And you'll get your parsed file.
+173.18	174.64	 You can also use TextView.
+176.39999999999998	177.68	 TypeScript is much the same.
+177.78	179.16	 You set the same API key.
+179.76	181.3	 You install TypeScript.
+181.36	182.74	 You install Lama Index.
+183.02	186.44	 In this case, Lama Parse is built into Lama Index TS.
+188.3	190.32	 And you import Lama Parse Reader.
+193.06	196.82	 Then you create a function that creates the reader.
+197.46	201.58	 You call reader.loadData with your path.
+202.22	203.8	 And you get your parsed document.
+205.8	208.22	 You can also use it via the API.
+208.88	216.34	 If you don't want to use Python or JavaScript, you can call it directly from the API.
+216.56	217.82	 This is showing some curl calls.
+218.34	222.16	 This is how you'd upload a file to start parsing in the first place.
+223.0	229.56	 So you pass in api.cloud.lamaindex.ai and the API endpoint for parsing.
+232.20000000000002	234.58	 You pass in your API key.
+234.62	234.62	
+234.62	236.34	 You pass in your API key as your authorization bearer.
+236.52	238.42	 And you pass in a path to your file.
+239.38	242.66	 You can use this endpoint to check the status of your parsing job.
+242.82	246.1	 Because parsing can sometimes take a while if it's a very large job.
+246.86	253.78	 And then you can get the results just like you did in the UI and in JavaScript and Python like we just said.
+254.84	258.68	 We have full API documentation of...
+259.28000000000003	259.72	 Whoops.
+260.9	262.12	 I should fix that link.
+262.12	264.8	 We have full API documentation down here.
+270.56000000000006	273.1	 Showing all of our endpoints.
+276.70000000000005	286.72	 So every single one of them is documented with full examples in curl, Python, all of that kind of stuff.
+286.88	290.58	 Your full API for all of Lama Cloud is documented here.
+291.32	293.06	 So now let's look at some examples.
+295.18	304.04	 In this repo at Lama Parse Examples, we have a huge set of examples of how to use Lama Parse.
+304.70000000000005	306.36	 Let's just go through a couple of them.
+310.64000000000004	315.58	 Before we do that, I wanted to mention how many different types of files we support.
+316.88	319.72	 I've only been using PDFs because that's our basic type.
+319.86	320.56	 But we support PDFs.
+320.56	320.56	
+320.56	328.5	 We support all sorts of document types like Word docs, PowerPoints, all sorts of obscure formats that you've never heard of.
+329.1	330.4	 It can parse images.
+330.72	335.68	 And it can parse spreadsheets, Excel spreadsheets and a huge array of other types of spreadsheets.
+335.7	340.94	 So really, Lama Parse can do a whole bunch of parsing of all sorts of document types, not just PDFs.
+344.08000000000004	346.3	 Here's an example of it parsing an Excel file.
+347.06	349.36	 It's exactly the same as parsing any other file.
+349.36	351.84	 We've created our parser with an API key.
+352.24	353.74	 We've told it to give us markdown.
+354.12	356.9	 We've said load data, this time on an Excel file.
+357.14	363.2	 And you can see it's given us a beautiful text table of the data in the spreadsheet.
+365.34000000000003	370.16	 The rest of this is about how to build RAG with those documents, which we're not going to be talking about today.
+375.20000000000005	377.26	 Now let's talk about JSON mode.
+378.08000000000004	379.34	 One of the things that you can do with JSON is you can create a JSON file.
+379.36	390.28	 And what you can do with the API is get JSON back, a JSON document structure representing your parsed document, not just markdown or text.
+392.36	401.3	 In this case, we are setting up JSON mode using Lama Parse.
+404.28	408.8	 And we're using the getJSONResults method to get the raw JSON.
+408.98	409.34	 And we're using the getJSONResults method to get the raw JSON.
+411.3	412.06	 And we're using the getJSONResults method to get the raw JSON.
+412.06	420.8	 What we're doing here is we're going to use the fact that the JSON mode contains more metadata than text or markdown would give you.
+420.82	426.3	 One of the things that the JSON mode gives you is it gives you image objects in the JSON.
+426.52	439.34	 So we have a function here which looks at our JSON extracted and finds all of the images that are referred to in the JSON.
+439.34	439.98	 So we have a function here which looks at our JSON extracted and finds all of the images that are referred to in the JSON.
+440.22	446.82	 And it turns them into image documents, which is Lama Index's way of dealing with multimodal images.
+448.5	455.06	 You can then create a vector store index that contains both your text nodes and your image text nodes.
+457.74	463.8	 And you can do query engines that look up across your images.
+464.0	469.32	 And in this case, what we did was, we went over the image text nodes and we did a query.
+469.32	479.38	 We attached metadata to each image using an LLM to describe what the image was.
+481.0	491.16	 So then we got text nodes that said what the images were, and we used that in the index to look stuff up.
+495.09999999999997	504.0	 The next cool thing that you can do with JSON mode is you can use the LLMAParse JSON node parser,
+504.0	510.14	 which is a built-in from LLMAParse in the Python version.
+511.56	520.88	 What this does is it parses complex documents with things like tables,
+520.88	521.14	 and so on.
+521.16	528.66	 So you can get lots of different types of text and images and stuff like that from the JSON mode into a richer format.
+528.9	538.58	 Specifically, what it does is you get JSON results like you did before.
+540.0	543.1	 You can see this is what the JSON result looks like.
+548.2199999999999	551.14	 And then you can see that the JSON results are now in the LLMAParse.
+552.08	556.72	 You pass that output to the LLMAParse JSON node parser.
+559.88	563.8	 So we get the nodes from the documents and we pass it to the node parser.
+567.44	579.84	 What this does is it allows us to give our set of nodes and recursive nodes.
+579.84	584.06	 So we don't just have the text of the document here.
+584.2	589.58	 We have table objects that we can then give to our recursive retriever.
+589.84	598.68	 So a recursive retriever in LLMAP index allows you to do queries across your entire document that if it returns like a table object,
+598.86	602.92	 instead of just saying, here's the text of the table, it knows that it is a table,
+602.96	608.42	 and it can look into the table and give you specific answers from that table, which is what it is doing here.
+609.62	613.62	 It's asking, what is Uber's short term insurance reserves reported in 2022?
+614.04	615.82	 That answer is living in a table.
+619.0600000000001	627.54	 And our retrieval is able to pull it straight out of the table because of the rich metadata that it has about the tables that it got from JSON mode.
+631.44	637.46	 Another thing that you can do when you have complex tabular data is you can use,
+641.0	646.48	 a recursive retriever using the Markdown element node parser, which is what we're doing here.
+648.62	660.1	 So in this case, what you do is you use LLMAParse with result type equal to Markdown to read some documents.
+660.28	666.36	 And then you feed those documents to the Markdown element node parser.
+667.06	669.52	 So you can see us instantiating the node parser here.
+671.28	676.18	 And then we pass each of these things to the node parser.
+677.98	684.26	 This allows us to create a query engine for each of these documents that is able to provide rich,
+684.28	687.8	 again, rich information about the contents of the document,
+689.3799999999999	695.34	 because we have so much more information from LLMAParse than we would have if we just parsed raw text.
+695.88	696.34	 So that's the first thing that we're going to do.
+698.74	706.2	 Another feature that you might have seen when we were looking in the GUI at the options is multi-language support.
+708.2	719.88	 OCR and parsing over non-English languages is often quite fraught because of different character sets and things like that.
+720.04	723.78	 And that is what this feature is intended to take care of.
+723.78	730.36	 So in this case, you can say LLMAParse with the result type text and the language is French.
+730.84	737.6	 Parsing a French document, you get, you know, accents and things like that that you would not otherwise get
+738.68	741.92	 because LLMAParse knows what language it's working in.
+742.84	747.6	 And the final feature that I want to talk about today is parsing instructions.
+747.88	751.66	 Parsing instructions are an incredibly rich feature.
+752.98	753.58	 Basically,
+753.58	760.9	 parsing instructions allow you to tell LLMAParse what kind of document it's looking at before it parses it.
+761.26	764.56	 So in this case, it's done.
+764.72	767.82	 We've downloaded a manga, a comic book.
+770.3	775.18	 And we're parsing it with, in this example, we're parsing it without parsing instructions.
+776.6	780.94	 And you get really weird results because manga's in, you know,
+780.94	784.04	 it's got these big boxes that have text in balloons for it.
+785.04	788.44	 And it reads right to left instead of left to right.
+791.2	793.94	 So instead, you create some parsing instructions.
+794.24	796.08	 The provided document is a manga, comic book.
+796.26	797.62	 Most pages do not have a title.
+797.68	798.8	 It does not contain tables.
+798.98	800.6	 Try to reconstruct the dialogue.
+802.72	807.86	 And you pass those parsing instructions as a parameter to LLMAParse when you're instantiating it.
+810.1199999999999	812.6	 And suddenly, it knows what it's looking at.
+813.2	818.68	 It tells you, you know, it gives you the dialogue in the right order.
+821.26	824.58	 And it can also do other stuff like it can parse math.
+826.5199999999999	829.64	 This manga happens to be about math.
+830.34	833.44	 So we don't have to go and find another PDF about math.
+835.58	837.84	 But as you can see here, it has a bunch of comments.
+837.84	837.84	
+837.84	840.34	 It says, you know, you can do complex equations with mathematical notation.
+842.9	851.0	 And you can give it the instruction that you should output any math equations in LaTeX Markdown.
+852.5	855.16	 Because our parser knows what LaTeX is.
+857.02	865.26	 And here you get your equations turned into
+868.52	870.6	 into LaTeX instructions here.
+874.1	875.82	 This is without instructions.
+876.14	878.1	 You get, it does its best.
+878.26	885.02	 But it's, you know, it's obviously converting math into text as best that it can.
+887.26	892.18	 But this is full LaTeX that renders out perfectly.
+893.6800000000001	898.98	 This is a rendered version of our LaTeX instructions parsed out of the manga.
+899.14	902.36	 As you can see, it looks almost exactly the same as the original manga.
+902.46	903.94	 It's just not in Comic Sans anymore.
+906.3	909.96	 So that's our top level list of examples of Lama Parse.
+910.56	911.86	 This has been quick and dirty.
+911.98	919.22	 But I hope you can see that Lama Parse has a huge body of features and a whole bunch of stuff that you can do.
+919.5	921.2	 And thanks for your time and attention.
