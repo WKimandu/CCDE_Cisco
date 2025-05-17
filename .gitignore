@@ -33,6 +33,8 @@ Cisco_ACI/
 Cisco_Sales_ACI_AI/
 archives/
 # ccde_study_materials/
+# Don't ignore transcripts directory
+!transcripts/
 
 # Temporary/system files
 whisper_temp_output.txt
@@ -42,6 +44,6 @@ desktop.ini
 Thumbs.db
 
 # Script files
-*.py
-*.bat
-*.ps1
+# *.py
+# *.bat
+# *.ps1
