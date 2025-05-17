@@ -1,0 +1,23 @@
+# Ubuntu Environment Configuration
+REPO_ROOT=/home/kimanduw/CCDE_Cisco
+DATA_PATH=${REPO_ROOT}/data
+STORAGE_PATH=${REPO_ROOT}/storage
+LOG_PATH=${REPO_ROOT}/logs
+
+# Ubuntu-specific paths
+PYTHON_PATH=/home/kimanduw/anaconda3/envs/ccde_env/bin/python
+CONDA_ENV=ccde_env
+
+# Remote server details (Windows)
+# Commands to run for host discovery:
+# Primary: ipconfig | grep "IPv4" | grep "192.168.68" | cut -d ":" -f 2
+# Fallback: ipconfig | grep "IPv4" | grep "192.168.178" | cut -d ":" -f 2
+REMOTE_HOST_PRIMARY="ipconfig | grep 'IPv4' | grep '192.168.68' | cut -d ':' -f 2"
+REMOTE_HOST_FALLBACK="ipconfig | grep 'IPv4' | grep '192.168.178' | cut -d ':' -f 2"
+REMOTE_USERNAME=kiman
+REMOTE_PATH=C:/Users/kiman/Documents/GitHub/CCDE_Cisco
+
+# Sync settings
+ENABLE_AUTO_SYNC=false
+SYNC_ON_COMMIT=false
+SYNC_INTERVAL_MINUTES=30 

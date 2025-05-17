@@ -1,0 +1,44 @@
+#!/bin/bash
+# Pre-commit hook to enforce cross-environment compatibility
+
+# Detect OS
+if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "win32" ]]; then
+    OS="windows"
+else
+    OS="unix"
+fi
+
+echo "Running pre-commit checks for $OS environment..."
+
+# Check for hardcoded Windows paths
+if grep -r "C:\\\\Users\\\\kiman" --include="*.py" --include="*.md" .; then
+    echo "ERROR: Windows-specific absolute paths found. Use relative paths instead."
+    echo "Consider using environment variables from env-windows.txt or env-ubuntu.txt"
+    exit 1
+fi
+
+# Check for hardcoded Unix paths
+if grep -r "/home/kimanduw" --include="*.py" --include="*.md" .; then
+    echo "ERROR: Unix-specific absolute paths found. Use relative paths instead."
+    echo "Consider using environment variables from env-windows.txt or env-ubuntu.txt"
+    exit 1
+fi
+
+# Check for large binary files
+if [[ "$OS" == "unix" ]]; then
+    if git diff --cached --name-only | xargs ls -l 2>/dev/null | awk '{print $5}' | grep -q '[0-9]\{7,\}'; then
+        echo "WARNING: Large files detected. Consider using Git LFS."
+    fi
+else
+    # Windows equivalent would go here
+    echo "Skipping large file check on Windows"
+fi
+
+# Check for mixed line endings
+if git diff --cached --name-only | grep -E '\.(py|md|txt)$' | xargs grep -l $'\r' 2>/dev/null; then
+    echo "WARNING: CRLF line endings found in above files."
+    echo "Consider using .gitattributes to normalize line endings."
+fi
+
+echo "Pre-commit checks completed successfully."
+exit 0 

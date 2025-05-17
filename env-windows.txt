@@ -1,0 +1,19 @@
+# Windows Environment Configuration
+REPO_ROOT=C:/Users/kiman/Documents/GitHub/CCDE_Cisco
+DATA_PATH=${REPO_ROOT}/data
+STORAGE_PATH=${REPO_ROOT}/storage
+LOG_PATH=${REPO_ROOT}/logs
+
+# Windows-specific paths
+PYTHON_PATH=C:/Users/kiman/anaconda3/envs/CCDE_Cisco/python.exe
+CONDA_ENV=CCDE_Cisco
+
+# Remote server details
+REMOTE_HOST=192.168.178.111
+REMOTE_USERNAME=kimanduw
+REMOTE_PATH=/home/kimanduw/CCDE_Cisco
+
+# Sync settings
+ENABLE_AUTO_SYNC=false
+SYNC_ON_COMMIT=false
+SYNC_INTERVAL_MINUTES=30 
