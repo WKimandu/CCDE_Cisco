@@ -1,0 +1,22 @@
+# Core dependencies
+llama-index-core>=0.10.0
+llama-index-embeddings-openai>=0.1.0
+llama-index-llms-openai>=0.1.0
+llama-index-readers-file>=0.1.0
+llama-index-question-gen>=0.1.0
+
+# Vector stores (install as needed)
+llama-index-vector-stores-qdrant>=0.1.0
+llama-index-vector-stores-chroma>=0.1.0
+
+# Document processing
+pypdf>=3.15.0
+pdfminer.six>=20221105
+pytesseract>=0.3.10
+python-docx>=0.8.11
+openpyxl>=3.1.2
+
+# Utilities
+tqdm>=4.65.0
+pydantic>=2.0.0
+python-dotenv>=1.0.0 

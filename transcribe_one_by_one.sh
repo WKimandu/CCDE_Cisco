@@ -1,55 +1,33 @@
 #!/bin/bash
 
-# transcribe_one_by_one.sh - Linux equivalent of transcribe_one_by_one.bat
-# Purpose: Process a directory of video files one by one
+# Bash script to transcribe Cisco Live session videos one by one
+echo -e "\e[32mTranscribing Cisco Live session videos one by one...\e[0m"
 
-# Check if argument is provided
-if [ $# -lt 1 ]; then
-    echo "Usage: $0 <video_directory> [output_directory]"
-    exit 1
-fi
+# Activate the conda environment
+source ~/miniconda3/etc/profile.d/conda.sh
+conda activate CCDE_Cisco
 
-# Get the script directory
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-VIDEO_DIR="$1"
-OUTPUT_DIR="${2:-../../transcripts}"
+# Get all MP4 files in the current directory
+VIDEO_FILES=(*.mp4)
 
-# Ensure output directory exists
+echo -e "\e[36mFound ${#VIDEO_FILES[@]} video files to transcribe\e[0m"
+
+# Output directory
+OUTPUT_DIR="transcripts"
 mkdir -p "$OUTPUT_DIR"
 
-echo "Starting processing of all videos in directory: $VIDEO_DIR"
-echo "Transcripts will be saved to: $OUTPUT_DIR"
-
-# Find all video files in the directory
-VIDEO_FILES=()
-for ext in mp4 mkv avi mov wmv flv webm; do
-    while IFS= read -r file; do
-        VIDEO_FILES+=("$file")
-    done < <(find "$VIDEO_DIR" -type f -name "*.$ext" -print)
-done
-
-# Count total videos
-TOTAL_VIDEOS=${#VIDEO_FILES[@]}
-echo "Found $TOTAL_VIDEOS videos to process"
-
-# Process each video file
-COUNT=0
+# Process each video file one by one
 for video in "${VIDEO_FILES[@]}"; do
-    COUNT=$((COUNT + 1))
-    echo "Processing video $COUNT/$TOTAL_VIDEOS: $video"
+    echo -e "\e[33mStarting transcription of $video...\e[0m"
     
-    # Call the single transcription script
-    bash "$SCRIPT_DIR/transcribe_session.sh" "$video" "$OUTPUT_DIR"
+    # Run the direct_whisper.py script for this video 
+    # Using the large model for better accuracy
+    python direct_whisper.py "$video" --output_dir "$OUTPUT_DIR" --model large
     
-    # Check the result
-    if [ $? -ne 0 ]; then
-        echo "Warning: Transcription failed for $video"
-    else
-        echo "Completed video $COUNT/$TOTAL_VIDEOS"
-    fi
-    
-    echo "---------------------------------------------------"
+    echo -e "\e[32mCompleted transcription of $video\e[0m"
+    echo -e "\e[90m-----------------------------------------------------\e[0m"
 done
 
-echo "Batch transcription process completed!"
-echo "$COUNT out of $TOTAL_VIDEOS videos processed." 
+echo -e "\e[32mAll transcriptions complete! Check the transcripts directory for results.\e[0m"
+echo "Press Enter to exit"
+read 

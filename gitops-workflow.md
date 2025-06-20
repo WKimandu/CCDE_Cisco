@@ -9,7 +9,7 @@ This document defines the GitOps workflow for synchronized development between W
    - Purpose: Main development, UI work, documentation
 
 2. **Ubuntu Server (Secondary Development)**
-   - Location: `/home/kimanduw/CCDE_Cisco` (assumed path)
+   - Location: `/home/kimanduw/Documents/CCDE_Cisco` (corrected path)
    - Purpose: Backend development, integration testing, deployment testing
 
 ## Branch Strategy
